@@ -1,0 +1,15 @@
+body {
+  background-color: #fff;
+  font-size: 14px;
+ }
+
+/*======================css footer=================*/
+#footer {
+  background: #fff;
+  color: #7DC577;
+  font-weight: 700;
+  text-align: center; }
+  #footer p > span {
+    padding-left: 4px; }
+
+/*# sourceMappingURL=style.css.map */
