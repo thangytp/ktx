@@ -1,14 +1,70 @@
 body{
 	background-color: #fff;
 }
+ul{
+	list-style: none;
+}
+.text-center{
+	text-align: center;
+}
+.bold{
+	font-weight: bold;
+}
+.nMT{
+	margin-top: 0;
+}
+.mT20{
+		margin-top: 20px;
+	}
+.text-upper{
+	text-transform: uppercase;
+}
+/*======================css home page==============*/
+#tin-tuc-moi{
+	h3{
+		border-bottom: 1px solid #ccc;
+	}
+}
+ /*=====================css register page==========*/
+ .signup h2{
+ 	text-transform: uppercase;
+ }
+ .form-control-feedback{
+ 	line-height: 34px !important;
+ }
+ .btn-signup{
+ 	background-color: #7DC577;
+ 	border-color: #7DC577;
+ 	color: #fff;
+ }
+ .btn-signup:hover{
+ 	background-color: #fff;
+ 	border-color: #7DC577;
+ 	color: #7DC577;
+ }
+
+/*======================css info page==============*/
+.info-page{
+	.head4{
+		border-bottom: 1px solid #ccc;
+		font-weight: 700;
+		padding-bottom: 2px;
+		text-transform: uppercase;
+		.normal-text{
+			font-size: 14px;
+			font-weight: normal;
+			text-transform: none;
+
+		}
+	}
+	
+}
+
 /*======================css footer=================*/
 #footer{
 	background: #fff;
-	border-top: 1px solid #EEEEEE;
 	color: #7DC577;
-	font-size: 18px;
 	font-weight: 700;
-	padding: 4% 0;
 	text-align: center;
 	p>span{
 		padding-left: 4px;

@@ -26,17 +26,17 @@ class Header extends React.Component {
                       <span className="icon-bar"></span>
                       <span className="icon-bar"></span> 
                     </button>
-                    <a className="navbar-brand" href="#">WebSiteName</a>
+                    <Link className="navbar-brand" to="/">KTX Bách Khoa</Link>
                   </div>
                   <div className="collapse navbar-collapse" id="myNavbar">
                     <ul className="nav navbar-nav">
-                      <li><a href="#">Page 1</a></li>
-                      <li><a href="#">Page 2</a></li> 
-                      <li><a href="#">Page 3</a></li> 
+                      <li><Link to="/dang-ky-luu-tru">Đăng ký lưu trú</Link></li>
+                      <li><Link to="/">Page 2</Link></li> 
+                      <li><Link to="/">Page 3</Link></li> 
                     </ul>
                     <ul className="nav navbar-nav navbar-right">
-                      <li><a href="#"><span className="glyphicon glyphicon-user"></span> Sign Up</a></li>
-                      <li><a href="#"><span className="glyphicon glyphicon-log-in"></span> Login</a></li>
+                      <li><Link to="/signup"><span className="glyphicon glyphicon-user"></span> Đăng ký</Link></li>
+                      <li><a href="#"><span className="glyphicon glyphicon-log-in"></span> Đăng nhập</a></li>
                     </ul>
                   </div>
                 </div>
