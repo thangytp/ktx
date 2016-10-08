@@ -674,17 +674,30 @@ var LogIn = function (_React$Component) {
 		key: 'render',
 		value: function render() {
 			return _react2.default.createElement(
-				_reactGoogleLogin2.default,
-				{
-					clientId: '208638865760-mhh7enejh65sunj1dgg3945kbspg27sm.apps.googleusercontent.com',
-					onSuccess: this.success.bind(this),
-					onFailure: this.error.bind(this),
-					offline: false
-				},
+				'div',
+				{ className: 'container login-page' },
 				_react2.default.createElement(
-					'span',
+					'h2',
 					null,
-					' Login with Google'
+					'Đăng nhập vào hệ thống'
+				),
+				_react2.default.createElement(
+					'div',
+					{ className: 'button-gg' },
+					_react2.default.createElement(
+						_reactGoogleLogin2.default,
+						{
+							clientId: '208638865760-mhh7enejh65sunj1dgg3945kbspg27sm.apps.googleusercontent.com',
+							onSuccess: this.success.bind(this),
+							onFailure: this.error.bind(this),
+							offline: false
+						},
+						_react2.default.createElement(
+							'span',
+							null,
+							' Đăng nhập với Google'
+						)
+					)
 				)
 			);
 		}

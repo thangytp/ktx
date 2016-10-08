@@ -26,14 +26,19 @@ export default class LogIn extends React.Component {
 	};
   	render(){
 	  	return(
-	  		<GoogleLogin
-			    clientId={'208638865760-mhh7enejh65sunj1dgg3945kbspg27sm.apps.googleusercontent.com'}
-			    onSuccess={this.success.bind(this)}
-			    onFailure={this.error.bind(this)}
-			    offline={false}
-			  >
-			    <span> Login with Google</span>
-			  </GoogleLogin>
+	  		<div className="container login-page">
+	  			<h2>Đăng nhập vào hệ thống</h2>
+	  			<div className="button-gg">
+			  		<GoogleLogin
+					    clientId={'208638865760-mhh7enejh65sunj1dgg3945kbspg27sm.apps.googleusercontent.com'}
+					    onSuccess={this.success.bind(this)}
+					    onFailure={this.error.bind(this)}
+					    offline={false}
+					  >
+					    <span> Đăng nhập với Google</span>
+					  </GoogleLogin>
+				</div>
+			</div>
 	  		);
   }
 }
