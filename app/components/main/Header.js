@@ -36,7 +36,7 @@ class Header extends React.Component {
                     </ul>
                     <ul className="nav navbar-nav navbar-right">
                       <li><Link to="/signup"><span className="glyphicon glyphicon-user"></span> Đăng ký</Link></li>
-                      <li><a href="#"><span className="glyphicon glyphicon-log-in"></span> Đăng nhập</a></li>
+                      <li><Link to="/login"><span className="glyphicon glyphicon-log-in"></span> Đăng nhập</Link></li>
                     </ul>
                   </div>
                 </div>
