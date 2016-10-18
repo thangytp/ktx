@@ -1,6 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router';
 import {Modal} from 'react-bootstrap';
+import localStorage from 'localStorage';
 import SignUpAction from '../../../actions/main/user/SignUpAction';
 import SignUpStore from '../../../stores/main/user/SignUpStore';
 
@@ -11,7 +12,13 @@ export default class SignUp extends React.Component {
     this.state = SignUpStore.getState();
     this.onChange = this.onChange.bind(this);
   }
-   componentDidMount() {  
+  componentWillMount() {
+    var userEmail = localStorage.getItem('email');
+    if(userEmail){
+      window.location.href="/";
+    }
+  }
+  componentDidMount() {  
     SignUpStore.listen(this.onChange);
   }
   componentWillUnmount() {
