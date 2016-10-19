@@ -148,7 +148,7 @@ exports.default = Footer;
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+    value: true
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -178,265 +178,592 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var Header = function (_React$Component) {
-  _inherits(Header, _React$Component);
+    _inherits(Header, _React$Component);
 
-  function Header(props) {
-    _classCallCheck(this, Header);
+    function Header(props) {
+        _classCallCheck(this, Header);
 
-    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Header).call(this, props));
+        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Header).call(this, props));
 
-    _this.onChange = _this.onChange.bind(_this);
-    return _this;
-  }
-
-  _createClass(Header, [{
-    key: 'componentDidMount',
-    value: function componentDidMount() {}
-  }, {
-    key: 'onChange',
-    value: function onChange(state) {
-      this.setState(state);
+        _this.onChange = _this.onChange.bind(_this);
+        return _this;
     }
-  }, {
-    key: 'render',
-    value: function render() {
-      var userEmail = _localStorage2.default.getItem('email');
-      var NavbarUser = _react2.default.createElement('ul', null);
-      if (!userEmail) {
-        NavbarUser = _react2.default.createElement(
-          'ul',
-          { className: 'nav navbar-nav navbar-right' },
-          _react2.default.createElement(
-            'li',
-            null,
-            _react2.default.createElement(
-              _reactRouter.Link,
-              { to: '/signup' },
-              _react2.default.createElement('span', { className: 'glyphicon glyphicon-user' }),
-              ' Đăng ký'
-            )
-          ),
-          _react2.default.createElement(
-            'li',
-            null,
-            _react2.default.createElement(
-              _reactRouter.Link,
-              { to: '/login' },
-              _react2.default.createElement('span', { className: 'glyphicon glyphicon-log-in' }),
-              ' Đăng nhập'
-            )
-          )
-        );
-      } else {
-        NavbarUser = _react2.default.createElement(
-          'ul',
-          { className: 'nav navbar-nav navbar-right' },
-          _react2.default.createElement(
-            'li',
-            null,
-            _react2.default.createElement(
-              _reactRouter.Link,
-              { to: '/info-stu' },
-              _react2.default.createElement('img', { className: 'img-responsive img-user', src: _localStorage2.default.getItem('avatar') }),
-              _react2.default.createElement(
-                'span',
-                { className: 'user-email' },
-                userEmail
-              )
-            )
-          ),
-          _react2.default.createElement(
-            'li',
-            null,
-            _react2.default.createElement(
-              'a',
-              { href: '#', type: 'button', name: 'button', onClick: _LogInAction2.default.logout },
-              ' ',
-              _react2.default.createElement('i', { className: 'fa fa-sign-out' }),
-              ' Thoát'
-            )
-          )
-        );
-      }
-      return _react2.default.createElement(
-        'header',
-        null,
-        _react2.default.createElement(
-          'div',
-          { className: 'container-fluid' },
-          _react2.default.createElement(
-            'div',
-            { className: 'row' },
-            _react2.default.createElement(
-              'nav',
-              { className: 'navbar navbar-default' },
-              _react2.default.createElement(
-                'div',
-                { className: 'container-fluid' },
-                _react2.default.createElement(
-                  'div',
-                  { className: 'navbar-header' },
-                  _react2.default.createElement(
-                    'button',
-                    { type: 'button', className: 'navbar-toggle', 'data-toggle': 'collapse', 'data-target': '#myNavbar' },
-                    _react2.default.createElement('span', { className: 'icon-bar' }),
-                    _react2.default.createElement('span', { className: 'icon-bar' }),
-                    _react2.default.createElement('span', { className: 'icon-bar' })
-                  ),
-                  _react2.default.createElement(
-                    _reactRouter.Link,
-                    { className: 'navbar-brand', to: '/' },
-                    'KTX Bách Khoa'
-                  )
-                ),
-                _react2.default.createElement(
-                  'div',
-                  { className: 'collapse navbar-collapse', id: 'myNavbar' },
-                  _react2.default.createElement(
+
+    _createClass(Header, [{
+        key: 'componentDidMount',
+        value: function componentDidMount() {}
+    }, {
+        key: 'onChange',
+        value: function onChange(state) {
+            this.setState(state);
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            var userEmail = _localStorage2.default.getItem('email');
+            var NavbarUser = _react2.default.createElement('ul', null);
+            if (!userEmail) {
+                NavbarUser = _react2.default.createElement(
                     'ul',
-                    { className: 'nav navbar-nav' },
+                    { className: 'nav navbar-nav navbar-right' },
                     _react2.default.createElement(
-                      'li',
-                      { className: 'dropdown' },
-                      _react2.default.createElement(
-                        'a',
-                        { className: 'dropdown-toggle', 'data-toggle': 'dropdown' },
-                        'Giới thiệu',
-                        _react2.default.createElement('span', { className: 'caret' })
-                      ),
-                      _react2.default.createElement(
-                        'ul',
-                        { className: 'dropdown-menu' },
+                        'li',
+                        null,
                         _react2.default.createElement(
-                          'li',
-                          { className: 'dropdown-2' },
-                          _react2.default.createElement(
-                            'a',
-                            { className: 'dropdown-toggle', 'data-toggle': 'dropdown-2' },
-                            'Giới thiệu chung'
-                          ),
-                          _react2.default.createElement(
-                            'ul',
-                            { className: ' dropdown-menu-2 dropdown-menu-2-open' },
-                            _react2.default.createElement(
-                              'li',
-                              null,
-                              _react2.default.createElement(
-                                'a',
-                                { href: '#' },
-                                'Lời giới thiệu'
-                              )
-                            ),
-                            _react2.default.createElement(
-                              'li',
-                              null,
-                              _react2.default.createElement(
-                                'a',
-                                { href: '#' },
-                                'Chức năng nhiệm vụ KTX'
-                              )
-                            ),
-                            _react2.default.createElement(
-                              'li',
-                              null,
-                              _react2.default.createElement(
-                                'a',
-                                { href: '#' },
-                                'Thư từ giám đốc KTX'
-                              )
-                            )
-                          )
-                        ),
-                        _react2.default.createElement(
-                          'li',
-                          { className: 'dropdown-3' },
-                          _react2.default.createElement(
-                            'a',
-                            { className: 'dropdown-toggle', 'data-toggle': 'dropdown-3' },
-                            'Tổ chức nhân sự cán bộ'
-                          ),
-                          _react2.default.createElement(
-                            'ul',
-                            { className: ' dropdown-menu-3 dropdown-menu-2-open' },
-                            _react2.default.createElement(
-                              'li',
-                              null,
-                              _react2.default.createElement(
-                                _reactRouter.Link,
-                                { to: '/gioi-thieu-chung' },
-                                'Sơ đồ tổ chức KTX'
-                              )
-                            ),
-                            _react2.default.createElement(
-                              'li',
-                              null,
-                              _react2.default.createElement(
-                                _reactRouter.Link,
-                                { to: '/gioi-thieu-chung' },
-                                'Ban giám đốc'
-                              )
-                            ),
-                            _react2.default.createElement(
-                              'li',
-                              null,
-                              _react2.default.createElement(
-                                _reactRouter.Link,
-                                { to: '/gioi-thieu-chung' },
-                                'Tổ quản lý sinh viên'
-                              )
-                            ),
-                            _react2.default.createElement(
-                              'li',
-                              null,
-                              _react2.default.createElement(
-                                _reactRouter.Link,
-                                { to: '/gioi-thieu-chung' },
-                                'Tổ Kế toán - Tổng hợp'
-                              )
-                            ),
-                            _react2.default.createElement(
-                              'li',
-                              null,
-                              _react2.default.createElement(
-                                _reactRouter.Link,
-                                { to: '/gioi-thieu-chung' },
-                                'Tổ Kỹ thuật - Sửa chữa'
-                              )
-                            )
-                          )
+                            _reactRouter.Link,
+                            { to: '/signup' },
+                            _react2.default.createElement('span', { className: 'glyphicon glyphicon-user' }),
+                            ' Đăng ký'
                         )
-                      )
                     ),
                     _react2.default.createElement(
-                      'li',
-                      null,
-                      _react2.default.createElement(
-                        _reactRouter.Link,
-                        { to: '/dang-ky-luu-tru' },
-                        'Đăng ký lưu trú'
-                      )
-                    ),
-                    _react2.default.createElement(
-                      'li',
-                      null,
-                      _react2.default.createElement(
-                        _reactRouter.Link,
-                        { to: '/xem-ket-qua-luu-tru' },
-                        'Xem kết quả đăng ký lưu trú'
-                      )
+                        'li',
+                        null,
+                        _react2.default.createElement(
+                            _reactRouter.Link,
+                            { to: '/login' },
+                            _react2.default.createElement('span', { className: 'glyphicon glyphicon-log-in' }),
+                            ' Đăng nhập'
+                        )
                     )
-                  ),
-                  NavbarUser
+                );
+            } else {
+                NavbarUser = _react2.default.createElement(
+                    'ul',
+                    { className: 'nav navbar-nav navbar-right' },
+                    _react2.default.createElement(
+                        'li',
+                        null,
+                        _react2.default.createElement(
+                            _reactRouter.Link,
+                            { to: '/info-stu' },
+                            _react2.default.createElement('img', { className: 'img-responsive img-user', src: _localStorage2.default.getItem('avatar') }),
+                            _react2.default.createElement(
+                                'span',
+                                { className: 'user-email' },
+                                userEmail
+                            )
+                        )
+                    ),
+                    _react2.default.createElement(
+                        'li',
+                        null,
+                        _react2.default.createElement(
+                            'a',
+                            { href: '#', type: 'button', name: 'button', onClick: _LogInAction2.default.logout },
+                            ' ',
+                            _react2.default.createElement('i', { className: 'fa fa-sign-out' }),
+                            ' Thoát'
+                        )
+                    )
+                );
+            }
+            return _react2.default.createElement(
+                'header',
+                null,
+                _react2.default.createElement(
+                    'div',
+                    { className: 'container-fluid' },
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'row' },
+                        _react2.default.createElement(
+                            'nav',
+                            { className: 'navbar navbar-default' },
+                            _react2.default.createElement(
+                                'div',
+                                { className: 'container-fluid' },
+                                _react2.default.createElement(
+                                    'div',
+                                    { className: 'navbar-header' },
+                                    _react2.default.createElement(
+                                        'button',
+                                        { type: 'button', className: 'navbar-toggle', 'data-toggle': 'collapse', 'data-target': '#myNavbar' },
+                                        _react2.default.createElement('span', { className: 'icon-bar' }),
+                                        _react2.default.createElement('span', { className: 'icon-bar' }),
+                                        _react2.default.createElement('span', { className: 'icon-bar' })
+                                    ),
+                                    _react2.default.createElement(
+                                        _reactRouter.Link,
+                                        { className: 'navbar-brand', to: '/' },
+                                        'KTX Bách Khoa'
+                                    )
+                                ),
+                                _react2.default.createElement(
+                                    'div',
+                                    { className: 'collapse navbar-collapse', id: 'myNavbar' },
+                                    _react2.default.createElement(
+                                        'ul',
+                                        { className: 'nav navbar-nav' },
+                                        _react2.default.createElement(
+                                            'li',
+                                            { className: 'dropdown' },
+                                            _react2.default.createElement(
+                                                'a',
+                                                { className: 'dropdown-toggle', 'data-toggle': 'dropdown' },
+                                                'Giới thiệu',
+                                                _react2.default.createElement('span', { className: 'caret' })
+                                            ),
+                                            _react2.default.createElement(
+                                                'ul',
+                                                { className: 'dropdown-menu' },
+                                                _react2.default.createElement(
+                                                    'li',
+                                                    { className: 'dropdown-2' },
+                                                    _react2.default.createElement(
+                                                        'a',
+                                                        { className: 'dropdown-toggle', 'data-toggle': 'dropdown-2' },
+                                                        'Giới thiệu chung'
+                                                    ),
+                                                    _react2.default.createElement(
+                                                        'ul',
+                                                        { className: ' dropdown-menu-2 dropdown-menu-2-open' },
+                                                        _react2.default.createElement(
+                                                            'li',
+                                                            null,
+                                                            _react2.default.createElement(
+                                                                'a',
+                                                                { href: '#' },
+                                                                'Lời giới thiệu'
+                                                            )
+                                                        ),
+                                                        _react2.default.createElement(
+                                                            'li',
+                                                            null,
+                                                            _react2.default.createElement(
+                                                                'a',
+                                                                { href: '#' },
+                                                                'Chức năng nhiệm vụ KTX'
+                                                            )
+                                                        ),
+                                                        _react2.default.createElement(
+                                                            'li',
+                                                            null,
+                                                            _react2.default.createElement(
+                                                                'a',
+                                                                { href: '#' },
+                                                                'Thư từ giám đốc KTX'
+                                                            )
+                                                        )
+                                                    )
+                                                ),
+                                                _react2.default.createElement(
+                                                    'li',
+                                                    { className: 'dropdown-3' },
+                                                    _react2.default.createElement(
+                                                        'a',
+                                                        { className: 'dropdown-toggle', 'data-toggle': 'dropdown-3' },
+                                                        'Tổ chức nhân sự cán bộ'
+                                                    ),
+                                                    _react2.default.createElement(
+                                                        'ul',
+                                                        { className: ' dropdown-menu-3 dropdown-menu-2-open' },
+                                                        _react2.default.createElement(
+                                                            'li',
+                                                            null,
+                                                            _react2.default.createElement(
+                                                                _reactRouter.Link,
+                                                                { to: '/gioi-thieu-chung' },
+                                                                'Sơ đồ tổ chức KTX'
+                                                            )
+                                                        ),
+                                                        _react2.default.createElement(
+                                                            'li',
+                                                            null,
+                                                            _react2.default.createElement(
+                                                                _reactRouter.Link,
+                                                                { to: '/gioi-thieu-chung' },
+                                                                'Ban giám đốc'
+                                                            )
+                                                        ),
+                                                        _react2.default.createElement(
+                                                            'li',
+                                                            null,
+                                                            _react2.default.createElement(
+                                                                _reactRouter.Link,
+                                                                { to: '/gioi-thieu-chung' },
+                                                                'Tổ quản lý sinh viên'
+                                                            )
+                                                        ),
+                                                        _react2.default.createElement(
+                                                            'li',
+                                                            null,
+                                                            _react2.default.createElement(
+                                                                _reactRouter.Link,
+                                                                { to: '/gioi-thieu-chung' },
+                                                                'Tổ Kế toán - Tổng hợp'
+                                                            )
+                                                        ),
+                                                        _react2.default.createElement(
+                                                            'li',
+                                                            null,
+                                                            _react2.default.createElement(
+                                                                _reactRouter.Link,
+                                                                { to: '/gioi-thieu-chung' },
+                                                                'Tổ Kỹ thuật - Sửa chữa'
+                                                            )
+                                                        )
+                                                    )
+                                                ),
+                                                _react2.default.createElement(
+                                                    'li',
+                                                    { className: 'dropdown-2' },
+                                                    _react2.default.createElement(
+                                                        'a',
+                                                        { className: 'dropdown-toggle', 'data-toggle': 'dropdown-2' },
+                                                        'Giới thiệu chung'
+                                                    ),
+                                                    _react2.default.createElement(
+                                                        'ul',
+                                                        { className: ' dropdown-menu-2 dropdown-menu-2-open' },
+                                                        _react2.default.createElement(
+                                                            'li',
+                                                            null,
+                                                            _react2.default.createElement(
+                                                                'a',
+                                                                { href: '#' },
+                                                                'Lời giới thiệu'
+                                                            )
+                                                        ),
+                                                        _react2.default.createElement(
+                                                            'li',
+                                                            null,
+                                                            _react2.default.createElement(
+                                                                'a',
+                                                                { href: '#' },
+                                                                'Chức năng nhiệm vụ KTX'
+                                                            )
+                                                        ),
+                                                        _react2.default.createElement(
+                                                            'li',
+                                                            null,
+                                                            _react2.default.createElement(
+                                                                'a',
+                                                                { href: '#' },
+                                                                'Thư từ giám đốc KTX'
+                                                            )
+                                                        )
+                                                    )
+                                                ),
+                                                _react2.default.createElement(
+                                                    'li',
+                                                    { className: 'dropdown-3' },
+                                                    _react2.default.createElement(
+                                                        'a',
+                                                        { className: 'dropdown-toggle', 'data-toggle': 'dropdown-3' },
+                                                        'Tổ chức nhân sự cán bộ'
+                                                    ),
+                                                    _react2.default.createElement(
+                                                        'ul',
+                                                        { className: ' dropdown-menu-3 dropdown-menu-2-open' },
+                                                        _react2.default.createElement(
+                                                            'li',
+                                                            null,
+                                                            _react2.default.createElement(
+                                                                _reactRouter.Link,
+                                                                { to: '/gioi-thieu-chung' },
+                                                                'Sơ đồ tổ chức KTX'
+                                                            )
+                                                        ),
+                                                        _react2.default.createElement(
+                                                            'li',
+                                                            null,
+                                                            _react2.default.createElement(
+                                                                _reactRouter.Link,
+                                                                { to: '/gioi-thieu-chung' },
+                                                                'Ban giám đốc'
+                                                            )
+                                                        ),
+                                                        _react2.default.createElement(
+                                                            'li',
+                                                            null,
+                                                            _react2.default.createElement(
+                                                                _reactRouter.Link,
+                                                                { to: '/gioi-thieu-chung' },
+                                                                'Tổ quản lý sinh viên'
+                                                            )
+                                                        ),
+                                                        _react2.default.createElement(
+                                                            'li',
+                                                            null,
+                                                            _react2.default.createElement(
+                                                                _reactRouter.Link,
+                                                                { to: '/gioi-thieu-chung' },
+                                                                'Tổ Kế toán - Tổng hợp'
+                                                            )
+                                                        ),
+                                                        _react2.default.createElement(
+                                                            'li',
+                                                            null,
+                                                            _react2.default.createElement(
+                                                                _reactRouter.Link,
+                                                                { to: '/gioi-thieu-chung' },
+                                                                'Tổ Kỹ thuật - Sửa chữa'
+                                                            )
+                                                        )
+                                                    )
+                                                ),
+                                                _react2.default.createElement(
+                                                    'li',
+                                                    null,
+                                                    _react2.default.createElement(
+                                                        _reactRouter.Link,
+                                                        { to: '/gioi-thieu-chung' },
+                                                        'Thành tích đạt được'
+                                                    )
+                                                ),
+                                                _react2.default.createElement(
+                                                    'li',
+                                                    null,
+                                                    _react2.default.createElement(
+                                                        _reactRouter.Link,
+                                                        { to: '/gioi-thieu-chung' },
+                                                        'KTXBK Media Online'
+                                                    )
+                                                ),
+                                                _react2.default.createElement(
+                                                    'li',
+                                                    null,
+                                                    _react2.default.createElement(
+                                                        _reactRouter.Link,
+                                                        { to: '/gioi-thieu-chung' },
+                                                        'Quà tặng âm nhạc KTX'
+                                                    )
+                                                )
+                                            )
+                                        ),
+                                        _react2.default.createElement(
+                                            'li',
+                                            { className: 'dropdown' },
+                                            _react2.default.createElement(
+                                                'a',
+                                                { className: 'dropdown-toggle', 'data-toggle': 'dropdown' },
+                                                'Sinh viên',
+                                                _react2.default.createElement('span', { className: 'caret' })
+                                            ),
+                                            _react2.default.createElement(
+                                                'ul',
+                                                { className: 'dropdown-menu' },
+                                                _react2.default.createElement(
+                                                    'li',
+                                                    { className: 'dropdown-2' },
+                                                    _react2.default.createElement(
+                                                        'a',
+                                                        { className: 'dropdown-toggle', 'data-toggle': 'dropdown-2' },
+                                                        'Hướng dẫn'
+                                                    ),
+                                                    _react2.default.createElement(
+                                                        'ul',
+                                                        { className: ' dropdown-menu-2 dropdown-menu-2-open' },
+                                                        _react2.default.createElement(
+                                                            'li',
+                                                            null,
+                                                            _react2.default.createElement(
+                                                                'a',
+                                                                { href: '#' },
+                                                                'Hướng dẫn đăng ký lưu trú online'
+                                                            )
+                                                        ),
+                                                        _react2.default.createElement(
+                                                            'li',
+                                                            null,
+                                                            _react2.default.createElement(
+                                                                'a',
+                                                                { href: '#' },
+                                                                'Hướng dẫn nộp tiền qua ngân hàng'
+                                                            )
+                                                        ),
+                                                        _react2.default.createElement(
+                                                            'li',
+                                                            null,
+                                                            _react2.default.createElement(
+                                                                'a',
+                                                                { href: '#' },
+                                                                'Hướng dẫn về hồ sơ lưu trú'
+                                                            )
+                                                        ),
+                                                        _react2.default.createElement(
+                                                            'li',
+                                                            null,
+                                                            _react2.default.createElement(
+                                                                'a',
+                                                                { href: '#' },
+                                                                'Hướng dẫn sử dụng mạng điện thoại nội bộ'
+                                                            )
+                                                        ),
+                                                        _react2.default.createElement(
+                                                            'li',
+                                                            null,
+                                                            _react2.default.createElement(
+                                                                'a',
+                                                                { href: '#' },
+                                                                'Tư vấn sử dụng truy cập Internet'
+                                                            )
+                                                        )
+                                                    )
+                                                ),
+                                                _react2.default.createElement(
+                                                    'li',
+                                                    null,
+                                                    _react2.default.createElement(
+                                                        _reactRouter.Link,
+                                                        { to: '/gioi-thieu-chung' },
+                                                        'Mức thu lưu trú phí'
+                                                    )
+                                                ),
+                                                _react2.default.createElement(
+                                                    'li',
+                                                    null,
+                                                    _react2.default.createElement(
+                                                        _reactRouter.Link,
+                                                        { to: '/gioi-thieu-chung' },
+                                                        'Danh mục diện ưu tiên'
+                                                    )
+                                                ),
+                                                _react2.default.createElement(
+                                                    'li',
+                                                    null,
+                                                    _react2.default.createElement(
+                                                        _reactRouter.Link,
+                                                        { to: '/gioi-thieu-chung' },
+                                                        'Thông tin Phòng - Giường'
+                                                    )
+                                                ),
+                                                _react2.default.createElement(
+                                                    'li',
+                                                    null,
+                                                    _react2.default.createElement(
+                                                        _reactRouter.Link,
+                                                        { to: '/gioi-thieu-chung' },
+                                                        'Đăng ký lưu trú online'
+                                                    )
+                                                ),
+                                                _react2.default.createElement(
+                                                    'li',
+                                                    null,
+                                                    _react2.default.createElement(
+                                                        _reactRouter.Link,
+                                                        { to: '/gioi-thieu-chung' },
+                                                        'Xem DSSV đã đăng ký'
+                                                    )
+                                                ),
+                                                _react2.default.createElement(
+                                                    'li',
+                                                    null,
+                                                    _react2.default.createElement(
+                                                        _reactRouter.Link,
+                                                        { to: '/gioi-thieu-chung' },
+                                                        'Thay đổi đăng ký DV tiện ích'
+                                                    )
+                                                ),
+                                                _react2.default.createElement(
+                                                    'li',
+                                                    null,
+                                                    _react2.default.createElement(
+                                                        _reactRouter.Link,
+                                                        { to: '/gioi-thieu-chung' },
+                                                        'Xem DSSV xét duyệt'
+                                                    )
+                                                ),
+                                                _react2.default.createElement(
+                                                    'li',
+                                                    null,
+                                                    _react2.default.createElement(
+                                                        _reactRouter.Link,
+                                                        { to: '/gioi-thieu-chung' },
+                                                        'Xem KQ đóng tiền lưu trú'
+                                                    )
+                                                ),
+                                                _react2.default.createElement(
+                                                    'li',
+                                                    null,
+                                                    _react2.default.createElement(
+                                                        _reactRouter.Link,
+                                                        { to: '/gioi-thieu-chung' },
+                                                        'Tìm kiếm SV đang lưu trú'
+                                                    )
+                                                ),
+                                                _react2.default.createElement(
+                                                    'li',
+                                                    { className: 'dropdown-3' },
+                                                    _react2.default.createElement(
+                                                        'a',
+                                                        { className: 'dropdown-toggle', 'data-toggle': 'dropdown-3' },
+                                                        'Xem điểm Thi đua'
+                                                    ),
+                                                    _react2.default.createElement(
+                                                        'ul',
+                                                        { className: ' dropdown-menu-3 dropdown-menu-2-open' },
+                                                        _react2.default.createElement(
+                                                            'li',
+                                                            null,
+                                                            _react2.default.createElement(
+                                                                _reactRouter.Link,
+                                                                { to: '/gioi-thieu-chung' },
+                                                                'Điểm rèn luyện'
+                                                            )
+                                                        ),
+                                                        _react2.default.createElement(
+                                                            'li',
+                                                            null,
+                                                            _react2.default.createElement(
+                                                                _reactRouter.Link,
+                                                                { to: '/gioi-thieu-chung' },
+                                                                'Điểm vệ sinh'
+                                                            )
+                                                        )
+                                                    )
+                                                ),
+                                                _react2.default.createElement(
+                                                    'li',
+                                                    null,
+                                                    _react2.default.createElement(
+                                                        _reactRouter.Link,
+                                                        { to: '/gioi-thieu-chung' },
+                                                        'Xem chỉ số Điện - Nước'
+                                                    )
+                                                ),
+                                                _react2.default.createElement(
+                                                    'li',
+                                                    null,
+                                                    _react2.default.createElement(
+                                                        _reactRouter.Link,
+                                                        { to: '/gioi-thieu-chung' },
+                                                        'Facebook'
+                                                    )
+                                                )
+                                            )
+                                        ),
+                                        _react2.default.createElement(
+                                            'li',
+                                            null,
+                                            _react2.default.createElement(
+                                                _reactRouter.Link,
+                                                { to: '/dang-ky-luu-tru' },
+                                                'Đăng ký lưu trú'
+                                            )
+                                        ),
+                                        _react2.default.createElement(
+                                            'li',
+                                            null,
+                                            _react2.default.createElement(
+                                                _reactRouter.Link,
+                                                { to: '/xem-ket-qua-luu-tru' },
+                                                'Xem kết quả đăng ký lưu trú'
+                                            )
+                                        )
+                                    ),
+                                    NavbarUser
+                                )
+                            )
+                        )
+                    )
                 )
-              )
-            )
-          )
-        )
-      );
-    }
-  }]);
+            );
+        }
+    }]);
 
-  return Header;
+    return Header;
 }(_react2.default.Component);
 
 exports.default = Header;
