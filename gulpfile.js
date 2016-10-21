@@ -32,10 +32,15 @@ var dependencies = [
  */
 gulp.task('vendor', function() {
   return gulp.src([
-    'bower_components/jquery/dist/jquery.js',
-    'bower_components/bootstrap/dist/js/bootstrap.js',
-    'bower_components/magnific-popup/dist/jquery.magnific-popup.js',
-    'bower_components/toastr/toastr.js'
+    'public/js/jquery-3.1.0.min.js',
+    'public/js/bootstrap.min.js',
+    'public/js/script.js',
+    'public/js/nprogress/nprogress.js',
+    'public/js/bootstrap-progressbar/bootstrap-progressbar.min.js',
+    'public/js/iCheck/icheck.min.js',
+    'public/js/jqvmap/dist/jquery.vmap.js',
+    'public/js/jqvmap/dist/maps/jquery.vmap.world.js',
+    'public/js/bootstrap-daterangepicker/daterangepicker.js'
   ]).pipe(concat('vendor.js'))
     .pipe(gulpif(production, uglify({ mangle: false })))
     .pipe(gulp.dest('public/js'));

@@ -16,8 +16,6 @@ var fs = require('fs');
 
 var multer = require('multer');
 
-var path = require('path');
-
 var async = require('async');
 var request = require('request');
 var xml2js = require('xml2js');

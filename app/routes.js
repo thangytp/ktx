@@ -1,5 +1,9 @@
 import React from 'react';
 import {Route} from 'react-router';
+
+import App from './components/admin/App';
+import HomeMenu from './components/admin/menu/Home';
+
 import Main from './components/main/Main';
 import Home from './components/main/Home';
 import DangKyLuuTru from './components/main/luutru/DangKyLuuTru';
@@ -10,6 +14,16 @@ import InfoPage from './components/main/user/InfoPage';
 
 export default (
   <Route>
+
+        <Route component={App}> 
+            <Route path='/quanly@ktx' component={HomeMenu}/>
+            // <Route path='/dang-ky-luu-tru' component={DangKyLuuTru}/>
+            // <Route path='/xem-ket-qua-luu-tru' component={KetQuaDangKyLuuTru}/>
+            // <Route path='/signup' component={SignUp}/>
+            // <Route path='/login' component={LogIn}/>
+            // <Route path='/info-stu' component={InfoPage}/>
+        </Route>
+
         <Route component={Main}> 
             <Route path='/' component={Home}/>
             <Route path='/dang-ky-luu-tru' component={DangKyLuuTru}/>
