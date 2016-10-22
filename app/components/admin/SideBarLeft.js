@@ -29,7 +29,7 @@ class SideBarLeft extends React.Component {
     let avatar = localStorage.getItem('adminavatar');  
     let style= {"border": "0"} 
     return(
-            <div className="col-sm-3 col-lg-2">
+            <div className="col-sm-3 col-md-2">
               <nav className="navbar navbar-default navbar-fixed-side">
                 <div className="container">
                   <div className="navbar-header">
@@ -39,12 +39,12 @@ class SideBarLeft extends React.Component {
                       <span className="icon-bar"></span>
                       <span className="icon-bar"></span>
                     </button>
-                    <a className="navbar-brand" href="./">BS3 Side Navbar</a>
+                    <a className="navbar-brand" href="./">Chào admin</a>
                   </div>
                   <div className="collapse navbar-collapse">
                     <ul className="nav navbar-nav">
                       <li className="active">
-                        <a href="./">Left (Default Theme)</a>
+                        <a href="./">Quản lý menu</a>
                       </li>
                       <li className="">
                         <a href="inverse.html">Right (Inverse Theme)</a>
@@ -66,10 +66,6 @@ class SideBarLeft extends React.Component {
                       <li><a href="#">Page 4</a></li>
                     </ul>
                     <button className="btn btn-default navbar-btn">Button</button>
-                    <p className="navbar-text">
-                      Made by
-                      <a href="http://www.samrayner.com">Sam Rayner</a>
-                    </p>
                   </div>
                 </div>
               </nav>

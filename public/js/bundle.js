@@ -117,7 +117,7 @@ var App = function (_React$Component) {
           _react2.default.createElement(_SidebarLeft2.default, null),
           _react2.default.createElement(
             'div',
-            { className: 'col-md-9' },
+            { className: 'col-md-10' },
             _react2.default.createElement(_Navbar2.default, null),
             _react2.default.createElement(
               'div',
@@ -177,19 +177,19 @@ var Footer = function (_React$Component) {
     value: function render() {
       return _react2.default.createElement(
         'footer',
-        null,
+        { className: 'admin-footer' },
         _react2.default.createElement(
           'div',
           { className: 'pull-right' },
-          'Ký túc xá Bách Khoa'
+          'Ký túc xá Bách Khoa',
+          _react2.default.createElement(
+            'button',
+            { className: 'admintoTopbutton btn', id: 'admintoTopbutton',
+              onClick: _reactScroll.animateScroll.scrollToTop },
+            _react2.default.createElement('i', { className: 'fa fa-arrow-up', 'aria-hidden': 'true' })
+          )
         ),
-        _react2.default.createElement('div', { className: 'clearfix' }),
-        _react2.default.createElement(
-          'button',
-          { className: 'admintoTopbutton', id: 'admintoTopbutton',
-            onClick: _reactScroll.animateScroll.scrollToTop },
-          _react2.default.createElement('i', { className: 'fa fa-arrow-up', 'aria-hidden': 'true' })
-        )
+        _react2.default.createElement('div', { className: 'clearfix' })
       );
     }
   }]);
@@ -321,11 +321,238 @@ var Navbar = function (_React$Component) {
         { className: 'row' },
         _react2.default.createElement(
           'div',
-          { className: 'col-md-12' },
+          { className: 'col-md-12 nP' },
           _react2.default.createElement(
-            'p',
-            null,
-            'admin'
+            'div',
+            { className: 'nav_menu' },
+            _react2.default.createElement(
+              'nav',
+              null,
+              _react2.default.createElement(
+                'ul',
+                { className: 'nav navbar-nav navbar-right' },
+                _react2.default.createElement(
+                  'li',
+                  { className: '' },
+                  _react2.default.createElement(
+                    'a',
+                    { href: 'javascript:;', className: 'user-profile dropdown-toggle', 'data-toggle': 'dropdown', 'aria-expanded': 'false' },
+                    _react2.default.createElement('img', { src: 'img/user.png', alt: '' }),
+                    'John Doe',
+                    _react2.default.createElement('span', { className: ' fa fa-angle-down' })
+                  ),
+                  _react2.default.createElement(
+                    'ul',
+                    { className: 'dropdown-menu dropdown-usermenu pull-right' },
+                    _react2.default.createElement(
+                      'li',
+                      null,
+                      _react2.default.createElement(
+                        'a',
+                        { href: 'javascript:;' },
+                        ' Profile'
+                      )
+                    ),
+                    _react2.default.createElement(
+                      'li',
+                      null,
+                      _react2.default.createElement(
+                        'a',
+                        { href: 'javascript:;' },
+                        _react2.default.createElement(
+                          'span',
+                          null,
+                          'Settings'
+                        )
+                      )
+                    ),
+                    _react2.default.createElement(
+                      'li',
+                      null,
+                      _react2.default.createElement(
+                        'a',
+                        { href: 'javascript:;' },
+                        'Help'
+                      )
+                    ),
+                    _react2.default.createElement(
+                      'li',
+                      null,
+                      _react2.default.createElement(
+                        'a',
+                        { href: 'login.html' },
+                        _react2.default.createElement('i', { className: 'fa fa-sign-out pull-right' }),
+                        ' Log Out'
+                      )
+                    )
+                  )
+                ),
+                _react2.default.createElement(
+                  'li',
+                  { role: 'presentation', className: 'message-wrap' },
+                  _react2.default.createElement(
+                    'a',
+                    { href: 'javascript:;', className: 'info-number' },
+                    _react2.default.createElement('i', { className: 'fa fa-envelope-o' }),
+                    _react2.default.createElement(
+                      'span',
+                      { className: 'badge bg-green' },
+                      ' 6'
+                    )
+                  ),
+                  _react2.default.createElement(
+                    'ul',
+                    { id: 'menu1', className: 'dropdown-menu list-unstyled msg_list', role: 'menu' },
+                    _react2.default.createElement(
+                      'li',
+                      null,
+                      _react2.default.createElement(
+                        'a',
+                        null,
+                        _react2.default.createElement(
+                          'span',
+                          { className: 'image' },
+                          _react2.default.createElement('img', { src: 'img/user.png', alt: 'Profile Image' })
+                        ),
+                        _react2.default.createElement(
+                          'span',
+                          null,
+                          _react2.default.createElement(
+                            'span',
+                            null,
+                            'John Smith'
+                          ),
+                          _react2.default.createElement(
+                            'span',
+                            { className: 'time' },
+                            '3 mins ago'
+                          )
+                        ),
+                        _react2.default.createElement(
+                          'span',
+                          { className: 'message' },
+                          'Film festivals used to be do-or-die moments for movie makers. They were where...'
+                        )
+                      )
+                    ),
+                    _react2.default.createElement(
+                      'li',
+                      null,
+                      _react2.default.createElement(
+                        'a',
+                        null,
+                        _react2.default.createElement(
+                          'span',
+                          { className: 'image' },
+                          _react2.default.createElement('img', { src: 'img/user.png', alt: 'Profile Image' })
+                        ),
+                        _react2.default.createElement(
+                          'span',
+                          null,
+                          _react2.default.createElement(
+                            'span',
+                            null,
+                            'John Smith'
+                          ),
+                          _react2.default.createElement(
+                            'span',
+                            { className: 'time' },
+                            '3 mins ago'
+                          )
+                        ),
+                        _react2.default.createElement(
+                          'span',
+                          { className: 'message' },
+                          'Film festivals used to be do-or-die moments for movie makers. They were where...'
+                        )
+                      )
+                    ),
+                    _react2.default.createElement(
+                      'li',
+                      null,
+                      _react2.default.createElement(
+                        'a',
+                        null,
+                        _react2.default.createElement(
+                          'span',
+                          { className: 'image' },
+                          _react2.default.createElement('img', { src: 'img/user.png', alt: 'Profile Image' })
+                        ),
+                        _react2.default.createElement(
+                          'span',
+                          null,
+                          _react2.default.createElement(
+                            'span',
+                            null,
+                            'John Smith'
+                          ),
+                          _react2.default.createElement(
+                            'span',
+                            { className: 'time' },
+                            '3 mins ago'
+                          )
+                        ),
+                        _react2.default.createElement(
+                          'span',
+                          { className: 'message' },
+                          'Film festivals used to be do-or-die moments for movie makers. They were where...'
+                        )
+                      )
+                    ),
+                    _react2.default.createElement(
+                      'li',
+                      null,
+                      _react2.default.createElement(
+                        'a',
+                        null,
+                        _react2.default.createElement(
+                          'span',
+                          { className: 'image' },
+                          _react2.default.createElement('img', { src: 'img/user.png', alt: 'Profile Image' })
+                        ),
+                        _react2.default.createElement(
+                          'span',
+                          null,
+                          _react2.default.createElement(
+                            'span',
+                            null,
+                            'John Smith'
+                          ),
+                          _react2.default.createElement(
+                            'span',
+                            { className: 'time' },
+                            '3 mins ago'
+                          )
+                        ),
+                        _react2.default.createElement(
+                          'span',
+                          { className: 'message' },
+                          'Film festivals used to be do-or-die moments for movie makers. They were where...'
+                        )
+                      )
+                    ),
+                    _react2.default.createElement(
+                      'li',
+                      null,
+                      _react2.default.createElement(
+                        'div',
+                        { className: 'text-center' },
+                        _react2.default.createElement(
+                          'a',
+                          null,
+                          _react2.default.createElement(
+                            'strong',
+                            null,
+                            'See All Alerts'
+                          ),
+                          _react2.default.createElement('i', { className: 'fa fa-angle-right' })
+                        )
+                      )
+                    )
+                  )
+                )
+              )
+            )
           )
         )
       );
@@ -401,7 +628,7 @@ var SideBarLeft = function (_React$Component) {
       var style = { "border": "0" };
       return _react2.default.createElement(
         'div',
-        { className: 'col-sm-3 col-lg-2' },
+        { className: 'col-sm-3 col-md-2' },
         _react2.default.createElement(
           'nav',
           { className: 'navbar navbar-default navbar-fixed-side' },
@@ -426,7 +653,7 @@ var SideBarLeft = function (_React$Component) {
               _react2.default.createElement(
                 'a',
                 { className: 'navbar-brand', href: './' },
-                'BS3 Side Navbar'
+                'Chào admin'
               )
             ),
             _react2.default.createElement(
@@ -441,7 +668,7 @@ var SideBarLeft = function (_React$Component) {
                   _react2.default.createElement(
                     'a',
                     { href: './' },
-                    'Left (Default Theme)'
+                    'Quản lý menu'
                   )
                 ),
                 _react2.default.createElement(
@@ -532,16 +759,6 @@ var SideBarLeft = function (_React$Component) {
                 'button',
                 { className: 'btn btn-default navbar-btn' },
                 'Button'
-              ),
-              _react2.default.createElement(
-                'p',
-                { className: 'navbar-text' },
-                'Made by',
-                _react2.default.createElement(
-                  'a',
-                  { href: 'http://www.samrayner.com' },
-                  'Sam Rayner'
-                )
               )
             )
           )
