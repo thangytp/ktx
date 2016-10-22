@@ -7,31 +7,48 @@ class LogInStore {
     this.bindActions(LogInAction);
     this.loginSuccessMess = '';
     this.loginFailMess = '';
-  }  
+  }
+
+  onHandleLogin(data) {
+    $.ajax({
+      url: '/login/' + data.email + '/' + data.password,
+      type: 'GET',
+      success: function(res){
+        if(res) {
+          localStorage.setItem('email', data.email);
+          this.loginSuccessMess='Đăng nhập thành công';
+        	setTimeout(function() {
+            history.go(-1);
+        	}, 500);
+        }
+      }
+    });
+  }
+
   onLogout()
   {
   //   localStorage.removeItem('userid');
   	localStorage.removeItem('email');
-    localStorage.removeItem('avatar');    
+    localStorage.removeItem('avatar');
     this.loginSuccessMess = '';
-    this.loginFailMess = ''; 
+    this.loginFailMess = '';
   // 	this.user ='';
   //   this.password ='';
   //   this.helpBlock='';
     setTimeout(function() {
       window.location.reload();
-    }, 500); 
+    }, 500);
   }
-  onLoginSuccess(respone)
-  {  	
+  onLoginSuccess(response)
+  {
  //  	console.log(data);
     // localStorage.setItem('userid', data._id);
-  	localStorage.setItem('email', respone.profileObj.email);
-    localStorage.setItem('avatar', respone.profileObj.imageUrl);
+    localStorage.setItem('email', response.profileObj.email);
+    localStorage.setItem('avatar', response.profileObj.imageUrl);
     this.loginSuccessMess='Đăng nhập thành công';
   	setTimeout(function() {
       history.go(-1);
-  	}, 500);	
+  	}, 500);
 
   }
   onLoginFail()
@@ -45,14 +62,14 @@ class LogInStore {
   // }
   // onUpdatepassword(event)
   // {
-  // 	this.password = event.target.value;  
+  // 	this.password = event.target.value;
   //   this.helpBlock='';
   // }
   // onSetOpenModal(boolean)
   // {
   //     this.LoginModalisOpen = boolean;
   //     this.user ='';
-  //     this.password ='';   
+  //     this.password ='';
   // }
 }
 

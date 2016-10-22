@@ -44,6 +44,8 @@ mongoose.connection.on('error', function() {
 // var TransitionServer = require('./src-server/admin/transition/TransitionServer');
 //==============================================
 
+var Adminserver = require('./src-server/admin/Adminserver');
+
 var app = express();
 app.set('port', process.env.PORT || 3000);
 app.use(logger('dev'));
@@ -75,6 +77,7 @@ var io = require('socket.io')(server);
 
 // Postserver(app);
 // Userserver(app);
+Adminserver(app);
 
 /*
 Category

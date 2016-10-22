@@ -16,7 +16,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 var LogInAction = function LogInAction() {
   _classCallCheck(this, LogInAction);
 
-  this.generateActions('loginSuccess', 'loginFail', 'logout');
+  this.generateActions('handleLogin', 'loginSuccess', 'loginFail', 'logout');
 };
 
 exports.default = _alt2.default.createActions(LogInAction);
@@ -2535,6 +2535,20 @@ var LogIn = function (_React$Component) {
 			console.log(response);
 		}
 	}, {
+		key: 'handleSubmit',
+		value: function handleSubmit(event) {
+			event.preventDefault();
+
+			var email = this.refs.email.value;
+			var password = this.refs.password.value;
+			var data = {
+				email: email,
+				password: password
+			};
+
+			_LogInAction2.default.handleLogin(data);
+		}
+	}, {
 		key: 'error',
 		value: function error(response) {
 			_LogInAction2.default.loginFail();
@@ -2550,6 +2564,27 @@ var LogIn = function (_React$Component) {
 					'h2',
 					null,
 					'Đăng nhập vào hệ thống'
+				),
+				_react2.default.createElement(
+					'form',
+					{ onSubmit: this.handleSubmit.bind(this) },
+					_react2.default.createElement(
+						'label',
+						null,
+						_react2.default.createElement('input', { ref: 'email', placeholder: 'email', defaultValue: 'joe@example.com' })
+					),
+					_react2.default.createElement(
+						'label',
+						null,
+						_react2.default.createElement('input', { ref: 'password', placeholder: 'password' })
+					),
+					' (hint: password1)',
+					_react2.default.createElement('br', null),
+					_react2.default.createElement(
+						'button',
+						{ type: 'submit' },
+						'login'
+					)
 				),
 				_react2.default.createElement(
 					'div',
@@ -2942,6 +2977,23 @@ var LogInStore = function () {
   }
 
   _createClass(LogInStore, [{
+    key: 'onHandleLogin',
+    value: function onHandleLogin(data) {
+      $.ajax({
+        url: '/login/' + data.email + '/' + data.password,
+        type: 'GET',
+        success: function success(res) {
+          if (res) {
+            _localStorage2.default.setItem('email', data.email);
+            this.loginSuccessMess = 'Đăng nhập thành công';
+            setTimeout(function () {
+              history.go(-1);
+            }, 500);
+          }
+        }
+      });
+    }
+  }, {
     key: 'onLogout',
     value: function onLogout() {
       //   localStorage.removeItem('userid');
@@ -2958,11 +3010,11 @@ var LogInStore = function () {
     }
   }, {
     key: 'onLoginSuccess',
-    value: function onLoginSuccess(respone) {
+    value: function onLoginSuccess(response) {
       //  	console.log(data);
       // localStorage.setItem('userid', data._id);
-      _localStorage2.default.setItem('email', respone.profileObj.email);
-      _localStorage2.default.setItem('avatar', respone.profileObj.imageUrl);
+      _localStorage2.default.setItem('email', response.profileObj.email);
+      _localStorage2.default.setItem('avatar', response.profileObj.imageUrl);
       this.loginSuccessMess = 'Đăng nhập thành công';
       setTimeout(function () {
         history.go(-1);
@@ -2980,14 +3032,14 @@ var LogInStore = function () {
     // }
     // onUpdatepassword(event)
     // {
-    // 	this.password = event.target.value; 
+    // 	this.password = event.target.value;
     //   this.helpBlock='';
     // }
     // onSetOpenModal(boolean)
     // {
     //     this.LoginModalisOpen = boolean;
     //     this.user ='';
-    //     this.password ='';  
+    //     this.password ='';
     // }
 
   }]);
