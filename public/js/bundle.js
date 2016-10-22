@@ -16,7 +16,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 var LogInAction = function LogInAction() {
   _classCallCheck(this, LogInAction);
 
-  this.generateActions('loginSuccess', 'loginFail', 'logout');
+  this.generateActions('handleLogin', 'loginSuccess', 'loginFail', 'logout');
 };
 
 exports.default = _alt2.default.createActions(LogInAction);
@@ -2752,6 +2752,20 @@ var LogIn = function (_React$Component) {
 			console.log(response);
 		}
 	}, {
+		key: 'handleSubmit',
+		value: function handleSubmit(event) {
+			event.preventDefault();
+
+			var email = this.refs.email.value;
+			var password = this.refs.password.value;
+			var data = {
+				email: email,
+				password: password
+			};
+
+			_LogInAction2.default.handleLogin(data);
+		}
+	}, {
 		key: 'error',
 		value: function error(response) {
 			_LogInAction2.default.loginFail();
@@ -2767,6 +2781,27 @@ var LogIn = function (_React$Component) {
 					'h2',
 					null,
 					'Đăng nhập vào hệ thống'
+				),
+				_react2.default.createElement(
+					'form',
+					{ onSubmit: this.handleSubmit.bind(this) },
+					_react2.default.createElement(
+						'label',
+						null,
+						_react2.default.createElement('input', { ref: 'email', placeholder: 'email', defaultValue: 'joe@example.com' })
+					),
+					_react2.default.createElement(
+						'label',
+						null,
+						_react2.default.createElement('input', { ref: 'password', placeholder: 'password' })
+					),
+					' (hint: password1)',
+					_react2.default.createElement('br', null),
+					_react2.default.createElement(
+						'button',
+						{ type: 'submit' },
+						'login'
+					)
 				),
 				_react2.default.createElement(
 					'div',
