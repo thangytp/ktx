@@ -3135,17 +3135,7 @@ exports.default = _react2.default.createElement(
     _react2.default.createElement(
         _reactRouter.Route,
         { component: _App2.default },
-        _react2.default.createElement(_reactRouter.Route, { path: '/quanly@ktx', component: _Home2.default }),
-        '// ',
-        _react2.default.createElement(_reactRouter.Route, { path: '/dang-ky-luu-tru', component: _DangKyLuuTru2.default }),
-        '// ',
-        _react2.default.createElement(_reactRouter.Route, { path: '/xem-ket-qua-luu-tru', component: _KetQuaDangKyLuuTru2.default }),
-        '// ',
-        _react2.default.createElement(_reactRouter.Route, { path: '/signup', component: _SignUp2.default }),
-        '// ',
-        _react2.default.createElement(_reactRouter.Route, { path: '/login', component: _LogIn2.default }),
-        '// ',
-        _react2.default.createElement(_reactRouter.Route, { path: '/info-stu', component: _InfoPage2.default })
+        _react2.default.createElement(_reactRouter.Route, { path: '/quanly@ktx', component: _Home2.default })
     ),
     _react2.default.createElement(
         _reactRouter.Route,
