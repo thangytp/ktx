@@ -19,11 +19,6 @@ export default (
         <Route component={App}>
             <Route path='/admin/login' component={LogInAdmin}/>
             <Route path='/quanly@ktx' component={HomeMenu}/>
-            // <Route path='/dang-ky-luu-tru' component={DangKyLuuTru}/>
-            // <Route path='/xem-ket-qua-luu-tru' component={KetQuaDangKyLuuTru}/>
-            // <Route path='/signup' component={SignUp}/>
-            // <Route path='/login' component={LogIn}/>
-            // <Route path='/info-stu' component={InfoPage}/>
         </Route>
 
         <Route component={Main}>
