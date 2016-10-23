@@ -3,7 +3,6 @@ import alt from '../../../alt';
 class LogInAction {
   constructor() {
     this.generateActions(
-       'handleLogin',
        'loginSuccess',
        'loginFail',
        'logout'

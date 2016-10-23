@@ -1,10 +1,10 @@
 import alt from '../../../alt';
 import localStorage from 'localStorage';
-import LogInAction from '../../../actions/main/user/LogInAction';
+import LogInAdminAction from '../../../actions/admin/login/LogInAdminAction';
 
-class LogInStore {
+class LogInAdminStore {
   constructor() {
-    this.bindActions(LogInAction);
+    this.bindActions(LogInAdminAction);
     this.loginSuccessMess = '';
     this.loginFailMess = '';
   }
@@ -12,8 +12,7 @@ class LogInStore {
   onLogout()
   {
   //   localStorage.removeItem('userid');
-  	localStorage.removeItem('email');
-    localStorage.removeItem('avatar');
+  	localStorage.removeItem('adminEmail');
     this.loginSuccessMess = '';
     this.loginFailMess = '';
   // 	this.user ='';
@@ -25,19 +24,15 @@ class LogInStore {
   }
   onLoginSuccess(response)
   {
- //  	console.log(data);
-    // localStorage.setItem('userid', data._id);
-    localStorage.setItem('email', response.profileObj.email);
-    localStorage.setItem('avatar', response.profileObj.imageUrl);
-    this.loginSuccessMess='Đăng nhập thành công';
-  	setTimeout(function() {
-      history.go(-1);
-  	}, 500);
-
+  	console.log(response);
+    localStorage.setItem('adminEmail', response.email);
+    this.loginSuccessMess = 'Dang Nhap Thanh Cong';
+    window.location.reload();
   }
-  onLoginFail()
+  onLoginFail(message)
    {
    		this.loginFailMess=message;
+      window.location.reload();
    }
   // onUpdateuser(event)
   // {
@@ -57,4 +52,4 @@ class LogInStore {
   // }
 }
 
-export default alt.createStore(LogInStore);
+export default alt.createStore(LogInAdminStore);

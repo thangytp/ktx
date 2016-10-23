@@ -2,7 +2,7 @@ import React from 'react';
 import {Link} from 'react-router';
 // import NavbarStore from '../../stores/NavbarStore';
 // import NavbarActions from '../../actions/NavbarActions';
-// import AdminloginActions from '../../actions/admin/login/AdminloginActions';
+import LogInAdminAction from '../../actions/admin/login/LogInAdminAction';
 import {Modal} from 'react-bootstrap';
 import localStorage from 'localStorage';
 import {
@@ -18,7 +18,7 @@ class Navbar extends React.Component {
   }
   componentDidMount() {
     // NavbarStore.listen(this.onChange);
-   
+
     // let socket = io.connect();
 
     // socket.on('onlineUsers', (data) => {
@@ -67,17 +67,18 @@ class Navbar extends React.Component {
     console.log("abcde");
   }
   render() {
-    // let style={'text-align':'center'};    
-    let adminname =localStorage.getItem('adminusername');
+    // let style={'text-align':'center'};
+    let adminname =localStorage.getItem('adminEmail');
     if (adminname)
     {
       adminname = adminname.toString();
     }
-    let avatar = localStorage.getItem('adminavatar');  
+    let avatar = localStorage.getItem('adminavatar');
     return (
           <div className="row">
             <div className="col-md-12">
               <p>admin</p>
+              <a href="#" type="button" name="button" onClick ={LogInAdminAction.logout}> <i className="fa fa-sign-out" /> Thoát</a>
             </div>
           </div>
 

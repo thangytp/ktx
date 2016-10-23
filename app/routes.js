@@ -10,12 +10,14 @@ import DangKyLuuTru from './components/main/luutru/DangKyLuuTru';
 import KetQuaDangKyLuuTru from './components/main/luutru/KetQuaDangKyLuuTru';
 import SignUp from './components/main/user/SignUp';
 import LogIn from './components/main/user/LogIn';
+import LogInAdmin from './components/admin/LogIn';
 import InfoPage from './components/main/user/InfoPage';
 
 export default (
   <Route>
 
-        <Route component={App}> 
+        <Route component={App}>
+            <Route path='/admin/login' component={LogInAdmin}/>
             <Route path='/quanly@ktx' component={HomeMenu}/>
             // <Route path='/dang-ky-luu-tru' component={DangKyLuuTru}/>
             // <Route path='/xem-ket-qua-luu-tru' component={KetQuaDangKyLuuTru}/>
@@ -24,7 +26,7 @@ export default (
             // <Route path='/info-stu' component={InfoPage}/>
         </Route>
 
-        <Route component={Main}> 
+        <Route component={Main}>
             <Route path='/' component={Home}/>
             <Route path='/dang-ky-luu-tru' component={DangKyLuuTru}/>
             <Route path='/xem-ket-qua-luu-tru' component={KetQuaDangKyLuuTru}/>
