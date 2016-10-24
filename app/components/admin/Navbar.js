@@ -82,7 +82,7 @@ class Navbar extends React.Component {
                   <ul className="nav navbar-nav navbar-right">
                     <li className="">
                       <a href="javascript:;" className="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                        <img src="img/user.png" alt=""/>John Doe
+                        <img src="/img/user.png" alt=""/>John Doe
                         <span className=" fa fa-angle-down"></span>
                       </a>
                       <ul className="dropdown-menu dropdown-usermenu pull-right">

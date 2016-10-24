@@ -21,8 +21,7 @@ class Header extends React.Component {
     if(!userEmail){
       NavbarUser = (
         <ul className="nav navbar-nav navbar-right">
-          <li><Link to="/signup"><span className="glyphicon glyphicon-user"></span> Đăng ký</Link></li>
-          <li><Link to="/login"><span className="glyphicon glyphicon-log-in"></span> Đăng nhập</Link></li>
+          <li><Link to="/login"><i className="fa fa-sign-in" aria-hidden="true"></i> Đăng nhập</Link></li>
         </ul>
       )
     }

@@ -46,6 +46,9 @@ class SideBarLeft extends React.Component {
                       <li className="active">
                         <a href="./">Quản lý menu</a>
                       </li>
+                      <li>
+                        <Link to="/quanly@ktx/them-menu-item">Thêm menu item</Link>
+                      </li>
                       <li className="">
                         <a href="inverse.html">Right (Inverse Theme)</a>
                       </li>
