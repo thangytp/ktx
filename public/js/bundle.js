@@ -3404,7 +3404,7 @@ _reactDom2.default.render(_react2.default.createElement(
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+        value: true
 });
 
 var _react = require('react');
@@ -3460,24 +3460,24 @@ var _InfoPage2 = _interopRequireDefault(_InfoPage);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = _react2.default.createElement(
-    _reactRouter.Route,
-    null,
-    _react2.default.createElement(
         _reactRouter.Route,
-        { component: _App2.default },
+        null,
+        _react2.default.createElement(
+                _reactRouter.Route,
+                { component: _App2.default },
+                _react2.default.createElement(_reactRouter.Route, { path: '/quanly@ktx', component: _Home2.default }),
+                _react2.default.createElement(_reactRouter.Route, { path: '/quanly@ktx/them-menu-item', component: _AddItemMenu2.default })
+        ),
         _react2.default.createElement(_reactRouter.Route, { path: '/admin/login', component: _LogIn4.default }),
-        _react2.default.createElement(_reactRouter.Route, { path: '/quanly@ktx', component: _Home2.default }),
-        _react2.default.createElement(_reactRouter.Route, { path: '/quanly@ktx/them-menu-item', component: _AddItemMenu2.default })
-    ),
-    _react2.default.createElement(
-        _reactRouter.Route,
-        { component: _Main2.default },
-        _react2.default.createElement(_reactRouter.Route, { path: '/', component: _Home4.default }),
-        _react2.default.createElement(_reactRouter.Route, { path: '/dang-ky-luu-tru', component: _DangKyLuuTru2.default }),
-        _react2.default.createElement(_reactRouter.Route, { path: '/xem-ket-qua-luu-tru', component: _KetQuaDangKyLuuTru2.default }),
-        _react2.default.createElement(_reactRouter.Route, { path: '/login', component: _LogIn2.default }),
-        _react2.default.createElement(_reactRouter.Route, { path: '/info-stu', component: _InfoPage2.default })
-    )
+        _react2.default.createElement(
+                _reactRouter.Route,
+                { component: _Main2.default },
+                _react2.default.createElement(_reactRouter.Route, { path: '/', component: _Home4.default }),
+                _react2.default.createElement(_reactRouter.Route, { path: '/dang-ky-luu-tru', component: _DangKyLuuTru2.default }),
+                _react2.default.createElement(_reactRouter.Route, { path: '/xem-ket-qua-luu-tru', component: _KetQuaDangKyLuuTru2.default }),
+                _react2.default.createElement(_reactRouter.Route, { path: '/login', component: _LogIn2.default }),
+                _react2.default.createElement(_reactRouter.Route, { path: '/info-stu', component: _InfoPage2.default })
+        )
 );
 
 },{"./components/admin/App":5,"./components/admin/LogIn":7,"./components/admin/menu/AddItemMenu":10,"./components/admin/menu/Home":11,"./components/main/Home":14,"./components/main/Main":15,"./components/main/luutru/DangKyLuuTru":16,"./components/main/luutru/KetQuaDangKyLuuTru":17,"./components/main/user/InfoPage":18,"./components/main/user/LogIn":19,"./components/main/user/SignUp":20,"react":"react","react-router":"react-router"}],23:[function(require,module,exports){

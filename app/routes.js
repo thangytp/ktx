@@ -18,10 +18,11 @@ export default (
   <Route>
 
         <Route component={App}>
-            <Route path='/admin/login' component={LogInAdmin}/>
             <Route path='/quanly@ktx' component={HomeMenu}/>
             <Route path='/quanly@ktx/them-menu-item' component={AddItemMenu}/>
         </Route>
+
+        <Route path='/admin/login' component={LogInAdmin}/>
 
         <Route component={Main}>
             <Route path='/' component={Home}/>
