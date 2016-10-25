@@ -1,13 +1,17 @@
 import React from 'react';
+import AddItemMenuAction from '../../../actions/admin/menu/AddItemMenuAction';
+import AddItemMenuStore from '../../../stores/admin/menu/AddItemMenuStore';
 
 class AddItemMenu extends React.Component {
 
 	constructor(props)
 	{
 		super(props);
+		this.state = AddItemMenuStore.getState();
 		this.onChange = this.onChange.bind(this);
 	}
 	componentDidMount() {
+		AddItemMenuStore.listen(this.onChange);
 		CKEDITOR.replace( 'ckedit', {
 		allowedContent : true,
 		pasteFromWordRemoveFontStyles : false,
@@ -16,14 +20,28 @@ class AddItemMenu extends React.Component {
 	}
 
 	componentWillUnmount() {
-	
+		AddItemMenuStore.unlisten(this.onChange);
 	}
 
 	onChange(state) {
 		this.setState(state);  
 	}
 
+	addImageItem(event){
+		var num = $('.image-wrap').children().length;
+		console.log(num);
+		var htmlItem='<div class="form-group image-item" id="image-item-'+ (num+1) +'"> ' 
+					    + '<label class="control-label col-sm-2" for="">Tiêu đề ảnh:</label>'
+					    + '<div class="col-sm-10"> '
+				      	+ '	<input type="text" class="form-control" id="image-item-text" placeholder="VD: Giới thiệu"/>'
+				    	+ '</div>'
+					+ '</div>';
+		console.log(htmlItem);
+		$('.image-wrap').append(htmlItem);
+	}
+
   	render() {  
+  		let styleContentRight = {'display' : this.state.styleContentRight};
     return (
     	<div className="row">
             <div className="col-md-12">
@@ -31,7 +49,7 @@ class AddItemMenu extends React.Component {
 				  	<div className="panel-heading">Thêm menu item</div>
 				</div>
 
-				<form className="form-horizontal">
+				<form className="form-horizontal" enctype="multipart/form-data">
 				  	<div className="form-group">
 					    <label className="control-label col-sm-2" for="name-item">Tên menu item:</label>
 					    <div className="col-sm-10">
@@ -56,14 +74,10 @@ class AddItemMenu extends React.Component {
 				    	</div>
 					</div>
 					<div className="form-group">
-					    <label className="control-label col-sm-2" for="">Đường dẫn tới trang:</label>
+					    <label className="control-label col-sm-2" for="">Dạng giao diện:</label>
 					    <div className="col-sm-10"> 
-				      		<div className="radio">
-							  <label><input type="radio" name="dang-layout" value="1"/>Giao diện 1 cột</label>
-							</div>
-							<div className="radio">
-							  <label><input type="radio" name="dang-layout" value="2"/>Giao diện 2 cột</label>
-							</div>
+							  <label className="radio-inline"><input type="radio" name="dang-layout" value="1" onClick={AddItemMenuAction.hideContentRight}/>Giao diện 1 cột</label>
+							  <label className="radio-inline"><input type="radio" name="dang-layout" value="2" onClick={AddItemMenuAction.showContentRight}/>Giao diện 2 cột</label>
 				    	</div>
 					</div>
 
@@ -74,6 +88,20 @@ class AddItemMenu extends React.Component {
                       		<span className='help-block'></span>
                     	</div>
                   	</div>
+
+                  	<div className="panel panel-default" style={{'display':this.state.styleContentRight}}>
+					  	<div className="panel-heading">Nội dung cột bên phải</div>
+					  	<div className="panel-body">
+					  		<div className="form-group col-sm-10 col-sm-offset-2">
+					  			<button type="button" className="btn btn-default" onClick={this.addImageItem.bind(this)}>Thêm hình ảnh</button>
+							  	<button type="button" className="btn btn-primary">Thêm video</button>
+							  	<button type="button" className="btn btn-success">Success</button>
+					  		</div>
+					  		<div className="col-sm-12 image-wrap form-horizontal">
+					  			<input type="hidden" value="image"/>
+					  		</div>
+					  	</div>
+					</div>
 					
 				  	<div className="form-group"> 
 				    	<div className="col-sm-offset-2 col-sm-10">
