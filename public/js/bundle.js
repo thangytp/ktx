@@ -284,7 +284,6 @@ var LogInAdmin = function (_React$Component) {
     var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(LogInAdmin).call(this, props));
 
     _this.state = _LogInAdminStore2.default.getState();
-    console.log(_this.state);
     _this.onChange = _this.onChange.bind(_this);
     return _this;
   }
@@ -293,7 +292,6 @@ var LogInAdmin = function (_React$Component) {
     key: 'componentDidMount',
     value: function componentDidMount() {
       _LogInAdminStore2.default.listen(this.onChange);
-      console.log(localStorage);
       if (localStorage.getItem('adminEmail')) {
         this.context.router.push('/quanly@ktx');
       }
@@ -393,6 +391,14 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouter = require('react-router');
 
+var _LogInAdminAction = require('../../actions/admin/login/LogInAdminAction');
+
+var _LogInAdminAction2 = _interopRequireDefault(_LogInAdminAction);
+
+var _LogInAdminStore = require('../../stores/admin/login/LogInAdminStore');
+
+var _LogInAdminStore2 = _interopRequireDefault(_LogInAdminStore);
+
 var _reactBootstrap = require('react-bootstrap');
 
 var _localStorage = require('localStorage');
@@ -421,10 +427,9 @@ var Navbar = function (_React$Component) {
   function Navbar(props) {
     _classCallCheck(this, Navbar);
 
-    // this.state = NavbarStore.getState();
-
     var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Navbar).call(this, props));
 
+    _this.state = _LogInAdminStore2.default.getState();
     _this.onChange = _this.onChange.bind(_this);
     return _this;
   }
@@ -432,64 +437,25 @@ var Navbar = function (_React$Component) {
   _createClass(Navbar, [{
     key: 'componentDidMount',
     value: function componentDidMount() {
-      // NavbarStore.listen(this.onChange);
-
-      // let socket = io.connect();
-
-      // socket.on('onlineUsers', (data) => {
-      //   NavbarActions.updateOnlineUsers(data);
-      // });
-
-      // socket.on('addtransition', ({username,bookname}) => {
-      //   this.refs.toast.success(username+ ' đăng ký '+bookname, 'Đăng ký mượn sách', {
-      //       closeButton: true,
-      //   });
-      // });
-
-      // $(document).ajaxStart(() => {
-      //   NavbarActions.updateAjaxAnimation('fadeIn');
-      // });
-
-      // $(document).ajaxComplete(() => {
-      //   setTimeout(() => {
-      //     NavbarActions.updateAjaxAnimation('fadeOut');
-      //   }, 750);
-      // });
+      _LogInAdminStore2.default.listen(this.onChange);
+      if (!_localStorage2.default.getItem('adminEmail')) {
+        this.context.router.push('/admin/login');
+      }
     }
   }, {
     key: 'componentWillUnmount',
     value: function componentWillUnmount() {
-      // NavbarStore.unlisten(this.onChange);
+      _LogInAdminStore2.default.unlisten(this.onChange);
     }
   }, {
     key: 'onChange',
     value: function onChange(state) {
       this.setState(state);
     }
-
-    // handleSubmit(event) {
-    //   event.preventDefault();
-
-    //   let searchQuery = this.state.searchQuery.trim();
-
-    //   if (searchQuery) {
-    //     NavbarActions.findCharacter({
-    //       searchQuery: searchQuery,
-    //       searchForm: this.refs.searchForm,
-    //       history: this.props.history
-    //     });
-    //   }
-    // }
-
-  }, {
-    key: 'test',
-    value: function test(e) {
-      console.log("abcde");
-    }
   }, {
     key: 'render',
     value: function render() {
-      // let style={'text-align':'center'};   
+      // let style={'text-align':'center'};
       var adminname = _localStorage2.default.getItem('adminusername');
       if (adminname) {
         adminname = adminname.toString();
@@ -559,7 +525,7 @@ var Navbar = function (_React$Component) {
                       null,
                       _react2.default.createElement(
                         'a',
-                        { href: 'login.html' },
+                        { href: '#', onClick: _LogInAdminAction2.default.logout },
                         _react2.default.createElement('i', { className: 'fa fa-sign-out pull-right' }),
                         ' Log Out'
                       )
@@ -741,9 +707,12 @@ var Navbar = function (_React$Component) {
   return Navbar;
 }(_react2.default.Component);
 
+Navbar.contextTypes = {
+  router: _react2.default.PropTypes.object.isRequired
+};
 exports.default = Navbar;
 
-},{"localStorage":94,"react":"react","react-bootstrap":244,"react-router":"react-router","react-toastr":297}],9:[function(require,module,exports){
+},{"../../actions/admin/login/LogInAdminAction":1,"../../stores/admin/login/LogInAdminStore":23,"localStorage":94,"react":"react","react-bootstrap":244,"react-router":"react-router","react-toastr":297}],9:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -3549,15 +3518,14 @@ var LogInAdminStore = function () {
     key: 'onLogout',
     value: function onLogout() {
       //   localStorage.removeItem('userid');
+      console.log('aaaaa');
       _localStorage2.default.removeItem('adminEmail');
       this.loginSuccessMess = '';
       this.loginFailMess = '';
       // 	this.user ='';
       //   this.password ='';
       //   this.helpBlock='';
-      setTimeout(function () {
-        window.location.reload();
-      }, 500);
+      window.location.reload();
     }
   }, {
     key: 'onLoginSuccess',
