@@ -3,6 +3,9 @@ import {Link} from 'react-router';
 // import NavbarStore from '../../stores/NavbarStore';
 // import NavbarActions from '../../actions/NavbarActions';
 // import AdminloginActions from '../../actions/admin/login/AdminloginActions';
+import LogInAdminAction from '../../actions/admin/login/LogInAdminAction';
+import LogInAdminStore from '../../stores/admin/login/LogInAdminStore';
+
 import {Modal} from 'react-bootstrap';
 import localStorage from 'localStorage';
 import {
@@ -11,69 +14,36 @@ import {
 } from 'react-toastr';
 const ToastMessageFactory = React.createFactory(ToastMessage.animation);
 class Navbar extends React.Component {
-  constructor(props) {
+  constructor(props)
+  {
     super(props);
-    // this.state = NavbarStore.getState();
+    this.state = LogInAdminStore.getState();
     this.onChange = this.onChange.bind(this);
   }
   componentDidMount() {
-    // NavbarStore.listen(this.onChange);
-   
-    // let socket = io.connect();
-
-    // socket.on('onlineUsers', (data) => {
-    //   NavbarActions.updateOnlineUsers(data);
-    // });
-
-    // socket.on('addtransition', ({username,bookname}) => {
-    //   this.refs.toast.success(username+ ' đăng ký '+bookname, 'Đăng ký mượn sách', {
-    //       closeButton: true,
-    //   });
-    // });
-
-
-    // $(document).ajaxStart(() => {
-    //   NavbarActions.updateAjaxAnimation('fadeIn');
-    // });
-
-    // $(document).ajaxComplete(() => {
-    //   setTimeout(() => {
-    //     NavbarActions.updateAjaxAnimation('fadeOut');
-    //   }, 750);
-    // });
+    LogInAdminStore.listen(this.onChange);
+    if (!localStorage.getItem('adminEmail'))
+    {
+      this.context.router.push('/admin/login');
+    }
   }
-   componentWillUnmount() {
-    // NavbarStore.unlisten(this.onChange);
+
+  componentWillUnmount() {
+    LogInAdminStore.unlisten(this.onChange);
   }
 
   onChange(state) {
     this.setState(state);
   }
 
-  // handleSubmit(event) {
-  //   event.preventDefault();
-
-  //   let searchQuery = this.state.searchQuery.trim();
-
-  //   if (searchQuery) {
-  //     NavbarActions.findCharacter({
-  //       searchQuery: searchQuery,
-  //       searchForm: this.refs.searchForm,
-  //       history: this.props.history
-  //     });
-  //   }
-  // }
-  test(e) {
-    console.log("abcde");
-  }
   render() {
-    // let style={'text-align':'center'};    
+    // let style={'text-align':'center'};
     let adminname =localStorage.getItem('adminusername');
     if (adminname)
     {
       adminname = adminname.toString();
     }
-    let avatar = localStorage.getItem('adminavatar');  
+    let avatar = localStorage.getItem('adminavatar');
     return (
           <div className="row">
             <div className="col-md-12 nP">
@@ -93,7 +63,7 @@ class Navbar extends React.Component {
                           </a>
                         </li>
                         <li><a href="javascript:;">Help</a></li>
-                        <li><a href="login.html"><i className="fa fa-sign-out pull-right"></i> Log Out</a></li>
+                        <li><a href="#" onClick={LogInAdminAction.logout}><i className="fa fa-sign-out pull-right"></i> Log Out</a></li>
                       </ul>
                     </li>
 
@@ -170,5 +140,7 @@ class Navbar extends React.Component {
       );
   }
 }
-
+Navbar.contextTypes = {
+  router: React.PropTypes.object.isRequired
+};
 export default Navbar;

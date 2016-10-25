@@ -12,15 +12,14 @@ class LogInAdminStore {
   onLogout()
   {
   //   localStorage.removeItem('userid');
+  console.log('aaaaa');
   	localStorage.removeItem('adminEmail');
     this.loginSuccessMess = '';
     this.loginFailMess = '';
   // 	this.user ='';
   //   this.password ='';
   //   this.helpBlock='';
-    setTimeout(function() {
-      window.location.reload();
-    }, 500);
+    window.location.reload();
   }
   onLoginSuccess(response)
   {

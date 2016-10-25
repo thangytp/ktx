@@ -8,12 +8,10 @@ class LogInAdmin extends React.Component {
 	{
 		super(props);
 		this.state = LogInAdminStore.getState();
-    console.log(this.state);
 		this.onChange = this.onChange.bind(this);
 	}
   componentDidMount() {
     LogInAdminStore.listen(this.onChange);
-    console.log(localStorage);
     if (localStorage.getItem('adminEmail'))
     {
       this.context.router.push('/quanly@ktx');
@@ -39,7 +37,7 @@ class LogInAdmin extends React.Component {
 		};
 
 		LogInAdminAction.handleLogin(data);
-	};
+	}
 	render(){
   	return(
   		<div className="container login-page">
