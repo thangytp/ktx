@@ -14,12 +14,24 @@ import LogIn from './components/main/user/LogIn';
 import LogInAdmin from './components/admin/LogIn';
 import InfoPage from './components/main/user/InfoPage';
 
+import localStorage from 'localStorage';
+
+
+function requireAuth(nextState, replace) {
+  if (!localStorage.getItem('adminEmail')) {
+    replace({
+      pathname: '/admin/login',
+      state: { nextPathname: nextState.location.pathname }
+    })
+  }
+}
+
 export default (
   <Route>
 
         <Route component={App}>
-            <Route path='/quanly@ktx' component={HomeMenu}/>
-            <Route path='/quanly@ktx/them-menu-item' component={AddItemMenu}/>
+            <Route path='/quanly@ktx' component={HomeMenu} onEnter={requireAuth}/>
+            <Route path='/quanly@ktx/them-menu-item' component={AddItemMenu} onEnter={requireAuth}/>
         </Route>
 
         <Route path='/admin/login' component={LogInAdmin}/>

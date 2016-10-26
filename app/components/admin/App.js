@@ -6,26 +6,26 @@ import localStorage from 'localStorage';
 class App extends React.Component {
   constructor(props)
   {
-    super(props);   
+    super(props);
     this.onChange = this.onChange.bind(this);
   }
-   componentDidMount() {    
+   componentDidMount() {
    	 //  if (!localStorage.getItem('adminusername'))
     	// {
      //  	this.context.router.push('/admin/login');
      //  } 	 
   }
-  componentWillUnmount() {   
+  componentWillUnmount() {
   }
   onChange(state) {
     this.setState(state);
-  } 
-  render() { 
-  
-    return (    
+  }
+  render() {
+
+    return (
       <div className="container-fluid">
           <div className="row">
-  	      	  
+
   	      	  <SidebarLeft />
               <div className="col-md-10">
                 <Navbar />
