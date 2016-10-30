@@ -22,10 +22,11 @@ class Navbar extends React.Component {
   }
   componentDidMount() {
     LogInAdminStore.listen(this.onChange);
+    console.log(localStorage.getItem('adminEmail'));
   }
 
   componentDidUpdate() {
-    if(!this.state.isLogin) {
+    if(this.state.logout) {
       this.context.router.push('/');
     }
   }

@@ -7,22 +7,22 @@ class LogInAdminStore {
     this.bindActions(LogInAdminAction);
     this.loginSuccessMess = '';
     this.loginFailMess = '';
-    this.isLogin = false;
+    this.logout = false;
   }
 
   onLogout()
   {
   	localStorage.removeItem('adminEmail');
-    this.isLogin = false;
+    this.logout = true;
   }
 
   onLoginSuccess(response)
   {
     localStorage.setItem('adminEmail', response.email);
-    this.isLogin = true;
     this.loginSuccessMess = 'Dang Nhap Thanh Cong';
+    window.location.reload();
   }
-  
+
   onLoginFail(message)
    {
    		this.loginFailMess=message;

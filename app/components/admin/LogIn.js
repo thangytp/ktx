@@ -12,13 +12,17 @@ class LogInAdmin extends React.Component {
 	}
   componentDidMount() {
     LogInAdminStore.listen(this.onChange);
+		if (localStorage.getItem('adminEmail'))
+    {
+      this.context.router.push('/quanly@ktx');
+    }
   }
 
-	componentDidUpdate() {
-		if(this.state.isLogin) {
-			this.context.router.push('/quanly@ktx');
-		}
-	}
+	// componentDidUpdate() {
+	// 	if(this.state.isLogin) {
+	// 		this.context.router.push('/quanly@ktx');
+	// 	}
+	// }
 
   componentWillUnmount() {
     LogInAdminStore.unlisten(this.onChange);
