@@ -30,6 +30,16 @@ class ManageUserAction {
     })
   }
 
+  deleteUser(payload) {
+    $.ajax({
+      url: '/deletestudent/' + payload,
+      type: 'DELETE',
+    })
+    .done((data) => {
+      this.actions.deleteUserSuccess();
+    })
+  }
+
 }
 
 export default alt.createActions(ManageUserAction);

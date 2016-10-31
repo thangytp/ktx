@@ -36,5 +36,13 @@ module.exports = function(app) {
     });
   })
 
+  // Delete Student
+
+  app.delete('/deletestudent/:stuId', function(req, res){
+    Student.remove({_id: req.params.stuId}, function(err) {
+      if (err) throw err;
+      res.send(true);
+    });
+  })
 
 }

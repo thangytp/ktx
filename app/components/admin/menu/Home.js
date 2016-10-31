@@ -70,6 +70,10 @@ class Home extends React.Component {
     ManageUserStore.unlisten(this.onChange);
   }
 
+  handleDelStudent(userId) {
+    ManageUserAction.deleteUser(userId);
+  }
+
   onChange(state) {
     this.setState(state);
   }
@@ -84,10 +88,10 @@ class Home extends React.Component {
            <td>{user.name}</td>
            <td>{user.code}</td>
            <td><button className="btn btn-primary">Edit</button></td>
-           <td><button className="btn btn-danger" >Delete</button></td>
+           <td><button className="btn btn-danger" onClick={this.handleDelStudent.bind(this, user._id)}>Delete</button></td>
           </tr>
         )
-    });
+    }, this);
 
     let lgClose = () => this.setState({ lgShow: false });
 

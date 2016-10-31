@@ -8,11 +8,15 @@ class ManageUserStore {
   }
 
   onAddUserSuccess() {
-      ManageUserAction.getUsers();
+    ManageUserAction.getUsers();
   }
 
   onGetUsersSuccess(response) {
-      this.users = response;
+    this.users = response;
+  }
+
+  onDeleteUserSuccess() {
+    ManageUserAction.getUsers();
   }
   // onUpdateuser(event)
   // {
