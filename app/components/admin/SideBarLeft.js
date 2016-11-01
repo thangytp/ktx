@@ -50,7 +50,7 @@ class SideBarLeft extends React.Component {
                         <Link to="/quanly@ktx/them-menu-item">Thêm menu item</Link>
                       </li>
                       <li className="">
-                        <a href="inverse.html">Right (Inverse Theme)</a>
+                        <Link to="/quanly@ktx/quan-ly-hinh-anh">Quản lý hình ảnh</Link>
                       </li>
                       <li className="dropdown"><a className="dropdown-toggle" data-toggle="dropdown" href="#">Dropdown <b className="caret"></b></a><ul className="dropdown-menu"><li><a href="#">Sub-page 1</a></li>
                       <li><a href="#">Sub-page 2</a></li>

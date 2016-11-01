@@ -21,11 +21,11 @@ class Navbar extends React.Component {
     this.onChange = this.onChange.bind(this);
   }
   componentDidMount() {
-    LogInAdminStore.listen(this.onChange);
-    if (!localStorage.getItem('adminEmail'))
-    {
-      this.context.router.push('/admin/login');
-    }
+    // LogInAdminStore.listen(this.onChange);
+    // if (!localStorage.getItem('adminEmail'))
+    // {
+    //   this.context.router.push('/admin/login');
+    // }
   }
 
   componentWillUnmount() {
@@ -57,12 +57,6 @@ class Navbar extends React.Component {
                       </a>
                       <ul className="dropdown-menu dropdown-usermenu pull-right">
                         <li><a href="javascript:;"> Profile</a></li>
-                        <li>
-                          <a href="javascript:;">
-                            <span>Settings</span>
-                          </a>
-                        </li>
-                        <li><a href="javascript:;">Help</a></li>
                         <li><a href="#" onClick={LogInAdminAction.logout}><i className="fa fa-sign-out pull-right"></i> Log Out</a></li>
                       </ul>
                     </li>
@@ -75,7 +69,7 @@ class Navbar extends React.Component {
                       <ul id="menu1" className="dropdown-menu list-unstyled msg_list" role="menu">
                         <li>
                           <a>
-                            <span className="image"><img src="img/user.png" alt="Profile Image"/></span>
+                            <span className="image"><img src="/img/user.png" alt="Profile Image"/></span>
                             <span>
                               <span>John Smith</span>
                               <span className="time">3 mins ago</span>
@@ -87,7 +81,7 @@ class Navbar extends React.Component {
                         </li>
                         <li>
                           <a>
-                            <span className="image"><img src="img/user.png" alt="Profile Image"/></span>
+                            <span className="image"><img src="/img/user.png" alt="Profile Image"/></span>
                             <span>
                               <span>John Smith</span>
                               <span className="time">3 mins ago</span>
@@ -99,7 +93,7 @@ class Navbar extends React.Component {
                         </li>
                         <li>
                           <a>
-                            <span className="image"><img src="img/user.png" alt="Profile Image"/></span>
+                            <span className="image"><img src="/img/user.png" alt="Profile Image"/></span>
                             <span>
                               <span>John Smith</span>
                               <span className="time">3 mins ago</span>
@@ -111,7 +105,7 @@ class Navbar extends React.Component {
                         </li>
                         <li>
                           <a>
-                            <span className="image"><img src="img/user.png" alt="Profile Image"/></span>
+                            <span className="image"><img src="/img/user.png" alt="Profile Image"/></span>
                             <span>
                               <span>John Smith</span>
                               <span className="time">3 mins ago</span>
