@@ -3,11 +3,11 @@ import {Modal, Button} from 'react-bootstrap';
 import ManageUserAction from '../../../actions/admin/manage-user/ManageUserAction';
 import ManageUserStore from '../../../stores/admin/manage-user/ManageUserStore';
 
-const MyLargeModal = React.createClass({
+const AddUserModal = React.createClass({
 
   handleAddUser(e) {
 
-    e.preventDefault();
+    e.preventDefault()
     const data = {
         email: this.refs.email.value,
         password: this.refs.password.value,
@@ -33,14 +33,64 @@ const MyLargeModal = React.createClass({
               <input type="password" className="form-control" ref="password" placeholder="Password" />
             </div>
             <div className="form-group">
-              <label for="exampleInputPassword1">Password</label>
-              <input type="number" className="form-control" ref="code" placeholder="Password" />
+              <label for="exampleInputPassword1">Code</label>
+              <input type="number" className="form-control" ref="code" placeholder="Code" />
             </div>
             <div className="form-group">
               <label for="Avatar">Avatar</label>
               <input type="file" ref="avatar" />
             </div>
             <button className="btn btn-success btn-large" type="submit">Add Student</button>
+          </form>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button onClick={this.props.onHide}>Close</Button>
+        </Modal.Footer>
+      </Modal>
+    );
+  }
+});
+
+const EditUserModal = React.createClass({
+
+  handleEditUser(e) {
+
+    e.preventDefault()
+    const data = {
+        email: this.refs.email.value,
+        password: this.refs.password.value,
+        code: this.refs.code.value,
+        id: this.props._id
+    };
+    console.log(data);
+    ManageUserAction.editUser(data);
+  },
+
+  render() {
+    return (
+      <Modal {...this.props} bsSize="large" aria-labelledby="contained-modal-title-lg">
+        <Modal.Header closeButton>
+          <Modal.Title id="contained-modal-title-lg">Modal heading</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <form onSubmit={this.handleEditUser.bind(this, event)}>
+            <div className="form-group">
+              <label for="exampleInputEmail1">Email address</label>
+              <input type="email" className="form-control" ref="email" placeholder={this.props.email} />
+            </div>
+            <div className="form-group">
+              <label for="exampleInputPassword1">Password</label>
+              <input type="password" className="form-control" ref="password" placeholder="Password" />
+            </div>
+            <div className="form-group">
+              <label for="exampleInputPassword1">Code</label>
+              <input type="number" className="form-control" ref="code" placeholder={this.props.code} />
+            </div>
+            <div className="form-group">
+              <label for="Avatar">Avatar</label>
+              <input type="file" ref="avatar" />
+            </div>
+            <button className="btn btn-success btn-large" type="submit">Edit Student</button>
           </form>
         </Modal.Body>
         <Modal.Footer>
@@ -58,7 +108,9 @@ class Home extends React.Component {
 		super(props);
 		this.state = ManageUserStore.getState();
 		this.onChange = this.onChange.bind(this);
-    this.state.lgShow = false;
+    this.state.addModalShow = false;
+    this.state.editModalShow = false;
+
   }
 
   componentDidMount() {
@@ -74,6 +126,11 @@ class Home extends React.Component {
     ManageUserAction.deleteUser(userId);
   }
 
+  handleGetStudent(userId) {
+    this.setState({ editModalShow: true });
+    ManageUserAction.getUser(userId);
+  }
+
   onChange(state) {
     this.setState(state);
   }
@@ -87,14 +144,16 @@ class Home extends React.Component {
            <td>{user.email}</td>
            <td>{user.name}</td>
            <td>{user.code}</td>
-           <td><button className="btn btn-primary">Edit</button></td>
+           <td><button className="btn btn-primary" onClick={this.handleGetStudent.bind(this, user._id)}>Edit</button></td>
            <td><button className="btn btn-danger" onClick={this.handleDelStudent.bind(this, user._id)}>Delete</button></td>
           </tr>
         )
     }, this);
 
-    let lgClose = () => this.setState({ lgShow: false });
+    let addModalClose = () => this.setState({ addModalShow: false });
+    let editModalClose = () => this.setState({ editModalShow: false });
 
+    const props = this.state.user;
 
     return (
       <div>
@@ -115,10 +174,11 @@ class Home extends React.Component {
              </tbody>
           </table>
         </div>
-        <Button bsStyle="primary" onClick={()=>this.setState({ lgShow: true })}>
+        <Button bsStyle="primary" onClick={()=>this.setState({ addModalShow: true })}>
           Add Student
         </Button>
-        <MyLargeModal show={this.state.lgShow} onHide={lgClose} />
+        <AddUserModal {...props} show={this.state.addModalShow} onHide={addModalClose} />
+        <EditUserModal {...props} show={this.state.editModalShow} onHide={editModalClose} />
       </div>
     );
   }

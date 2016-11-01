@@ -4,8 +4,10 @@ class ManageUserAction {
   constructor() {
     this.generateActions(
        'getUsersSuccess',
+       'getUserSuccess',
        'addUserSuccess',
-       'deleteUserSuccess'
+       'deleteUserSuccess',
+       'editUserSuccess'
     );
   }
 
@@ -19,6 +21,16 @@ class ManageUserAction {
     })
   }
 
+  getUser(payload) {
+    $.ajax({
+      url: '/getstudent/' + payload,
+      type: 'GET'
+    })
+    .done((data) => {
+      this.actions.getUserSuccess(data);
+    })
+  }
+
   addUser(payload) {
     $.ajax({
       url: '/addstudent',
@@ -27,6 +39,17 @@ class ManageUserAction {
     })
     .done((data) => {
       this.actions.addUserSuccess();
+    })
+  }
+
+  editUser(payload) {
+    $.ajax({
+      url: '/editstudent/' + payload.id,
+      type: 'PUT',
+      data: {email : payload.email, password : payload.password, code : payload.code}
+    })
+    .done((data) => {
+      this.actions.editUserSuccess();
     })
   }
 

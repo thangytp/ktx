@@ -14,6 +14,24 @@ module.exports = function(app) {
     });
   });
 
+  // Get Students
+
+  app.get('/getstudent', function(req, res){
+    Student.find(function(err, students){
+      if(err) throw err;
+      res.json(students);
+    });
+  })
+
+  // Get Student
+
+  app.get('/getstudent/:stuId', function(req, res){
+    Student.findOne({_id: req.params.stuId},function(err, student){
+      if(err) throw err;
+      res.json(student);
+    });
+  })
+
   // Add Student
 
   app.post('/addstudent', function(req, res){
@@ -27,12 +45,12 @@ module.exports = function(app) {
     });
   })
 
-  // Get Student
+  // Update Student
 
-  app.get('/getstudent', function(req, res){
-    Student.find(function(err, students){
-      if(err) throw err;
-      res.json(students);
+  app.put('/editstudent/:stuId', function(req, res){
+    Student.findByIdAndUpdate(req.params.stuId, req.body , { new: true }, function (err, student) {
+      if (err) throw err;
+      res.send(student);
     });
   })
 

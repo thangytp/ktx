@@ -15,7 +15,15 @@ class ManageUserStore {
     this.users = response;
   }
 
+  onGetUserSuccess(response) {
+    this.user = response;
+  }
+
   onDeleteUserSuccess() {
+    ManageUserAction.getUsers();
+  }
+
+  onEditUserSuccess() {
     ManageUserAction.getUsers();
   }
   // onUpdateuser(event)
