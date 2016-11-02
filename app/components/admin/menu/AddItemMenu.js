@@ -1,6 +1,8 @@
 import React from 'react';
+import ReactDom from 'react-dom';
 import AddItemMenuAction from '../../../actions/admin/menu/AddItemMenuAction';
 import AddItemMenuStore from '../../../stores/admin/menu/AddItemMenuStore';
+import AddImgItem from '../../../shared/AddImgItem';
 
 class AddItemMenu extends React.Component {
 
@@ -27,6 +29,10 @@ class AddItemMenu extends React.Component {
 		this.setState(state);  
 	}
 
+	renderImgComponent(){
+		return <ImgUpload actions ={AddItemMenuAction} />;
+	}
+
 	addImageItem(event){
 		var num = $('.image-wrap').children().length;
 		console.log(num);
@@ -35,13 +41,76 @@ class AddItemMenu extends React.Component {
 					    + '<div class="col-sm-10"> '
 				      	+ '	<input type="text" class="form-control" id="image-item-text" placeholder="VD: Giới thiệu"/>'
 				    	+ '</div>'
-					+ '</div>';
+					+ '</div>'
+					+'<div class="form-group has-success">'
+	                   	+'<label class="control-label">Chọn ảnh đại diện</label>'
+	                   	+'<div class ="clear-both"></div>'
+	                    +'<div class="avatar-photo">'
+	                      	+this.renderImgComponent.bind(this)
+	                      	+'<div class="avatar-edit">'
+	                      		+'<i class="fa fa-camera"></i>'
+	                      	+'</div>'
+	                      	+'<img src ='+this.state.imagePreviewUrl+' height ="200px" width="200px" alt = "avatar"/>'
+	                    +'</div>'
+	                    +'<div>'
+	                     	+'<button type="button" class = "btn btn-success" onClick = '+upload()+' ><i class="fa fa-check"></i></button>'
+	                     	+'<button type="button" class = "btn btn-danger" onClick = {this.detele.bind(this)} ><i class="fa fa-times"></i></button>'
+	                    	+'<span class="help-block">'+this.state.helpBlockUpload+'</span>'
+	                   	+'</div>'
+                  	+'</div>'
+                   	+'<div class ="clear-both"></div>';
 		console.log(htmlItem);
 		$('.image-wrap').append(htmlItem);
+	}
+	addVideoItem(event){
+		var num = $('.video-wrap').children().length;
+		var htmlItem='<div class="form-group video-item" id="video-item-'+ (num+1) +'"> ' 
+					    + '<label class="control-label col-sm-2" for="">Tiêu đề video:</label>'
+					    + '<div class="col-sm-10"> '
+				      	+ '	<input type="text" class="form-control" id="video-item-text" placeholder="VD: Giới thiệu"/>'
+				    	+ '</div>'
+				    	+ '<label class="control-label col-sm-2" for="">Link video:</label>'
+				    	 + '<div class="col-sm-10"> '
+				      	+ '	<input type="text" class="form-control" id="video-item-link" placeholder="VD: https://youtube.com/watch?v=ktxbachkhoa"/>'
+				    	+ '</div>'
+					+ '</div>';
+		$('.video-wrap').append(htmlItem);
+	}
+
+	upload(event)
+  	{
+      	var imgfile = this.state.fileAvatar;
+      	var imgURL = this.state.imagePreviewUrl;
+        AddItemMenuAction.handleUpload();
+        AddItemMenuAction.uploadImage(imgfile);
+        console.log(this.state.imageUrl);
+  	}
+   	detele(event)
+  	{
+        console.log(this.state.imageUrl);
+  	}
+
+  	handleFile(e){
+	    var reader = new FileReader();
+	    var file = e.target.files[0];   
+	    if (!file) return;
+	    reader.onload = function(img) {
+	      ReactDom.findDOMNode(this.refs.in).value = '';
+	      AddItemMenuAction.updateImagepreview(img.target.result);   
+	      AddItemMenuAction.updateImagefile(file);      
+	    }.bind(this);
+	    reader.readAsDataURL(file);
 	}
 
   	render() {  
   		let styleContentRight = {'display' : this.state.styleContentRight};
+  		let numberOfImageItem = this.state.numberOfImageItem;
+
+  		let listImageItem = [];
+  		for (var i = 0; i < numberOfImageItem; i++) {
+		  listImageItem.push(<AddImgItem actions ={AddItemMenuAction} state={this.state} key={i}/>);
+		}
+
     return (
     	<div className="row">
             <div className="col-md-12">
@@ -53,7 +122,7 @@ class AddItemMenu extends React.Component {
 				  	<div className="form-group">
 					    <label className="control-label col-sm-2" for="name-item">Tên menu item:</label>
 					    <div className="col-sm-10">
-				      		<input type="text" className="form-control" id="name-item" placeholder="Nhập tên menu item"/>
+				      		<input type="text" className="form-control" id="name-item" placeholder="Nhập tên menu item" onChange={AddItemMenuAction.addImg}/>
 				    	</div>
 				  	</div>
 				  	<div className="form-group">
@@ -92,13 +161,16 @@ class AddItemMenu extends React.Component {
                   	<div className="panel panel-default" style={{'display':this.state.styleContentRight}}>
 					  	<div className="panel-heading">Nội dung cột bên phải</div>
 					  	<div className="panel-body">
-					  		<div className="form-group col-sm-10 col-sm-offset-2">
-					  			<button type="button" className="btn btn-default" onClick={this.addImageItem.bind(this)}>Thêm hình ảnh</button>
-							  	<button type="button" className="btn btn-primary">Thêm video</button>
-							  	<button type="button" className="btn btn-success">Success</button>
+					  		<div className=" col-sm-10 col-sm-offset-2 form-group">
+					  			<button type="button" className="btn btn-default" onClick={AddItemMenuAction.addImg}>Thêm hình ảnh</button>
+							  	<button type="button" className="btn btn-primary" onClick={this.addVideoItem.bind(this)}>Thêm video</button>
 					  		</div>
 					  		<div className="col-sm-12 image-wrap form-horizontal">
 					  			<input type="hidden" value="image"/>
+					  			{listImageItem}
+					  		</div>
+					  		<div className="col-sm-12 video-wrap form-horizontal">
+					  			<input type="hidden" value="video"/>
 					  		</div>
 					  	</div>
 					</div>

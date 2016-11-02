@@ -4,6 +4,13 @@ import {Route} from 'react-router';
 import App from './components/admin/App';
 import HomeMenu from './components/admin/menu/Home';
 import AddItemMenu from './components/admin/menu/AddItemMenu';
+import React from 'react';
+import {Route} from 'react-router';
+
+import App from './components/admin/App';
+import HomeMenu from './components/admin/menu/Home';
+import AddItemMenu from './components/admin/menu/AddItemMenu';
+import Images from './components/admin/image/Images';
 
 import Main from './components/main/Main';
 import Home from './components/main/Home';
@@ -32,6 +39,7 @@ export default (
         <Route component={App}>
             <Route path='/quanly@ktx' component={HomeMenu} onEnter={requireAuth} />
             <Route path='/quanly@ktx/them-menu-item' component={AddItemMenu} onEnter={requireAuth}/>
+            <Route path='/quanly@ktx/quan-ly-hinh-anh' component={Images}/>
         </Route>
 
         <Route path='/admin/login' component={LogInAdmin}/>

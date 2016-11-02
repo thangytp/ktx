@@ -24,6 +24,7 @@ var mongoose = require('mongoose');
 
 // var Transition = require('./models/Transition');
 // var User = require('./models/User');
+var image = require('./models/Image');
 
 var config = require('./config');
 
@@ -42,6 +43,7 @@ mongoose.connection.on('error', function() {
 // var Userserver = require('./src-server/admin/user/Userserver');
 // var BookServer = require('./src-server/admin/book/BookServer');
 // var TransitionServer = require('./src-server/admin/transition/TransitionServer');
+var ImageServer = require('./src-server/image/ImageServer');
 //==============================================
 
 var Adminserver = require('./src-server/admin/Adminserver');
@@ -68,6 +70,14 @@ app.post('/api/imageupload', upload.single('file'), function (req, res, next) {
   // req.body will hold the text fields, if there were any
   // c
   res.send({link:"/uploads/"+req.file.filename});
+  if(req.file.filename){
+    var link = "/uploads/"+req.file.filename;
+    var imgRes = new image({link:link});
+    imgRes.save(function(err){
+      if(err) return next(err);
+    });
+
+  }
 
 
 });
@@ -77,6 +87,7 @@ var io = require('socket.io')(server);
 
 // Postserver(app);
 // Userserver(app);
+ImageServer(app);
 Adminserver(app);
 
 /*
