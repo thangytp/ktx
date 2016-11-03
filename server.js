@@ -16,6 +16,9 @@ var fs = require('fs');
 
 var multer = require('multer');
 
+var xlstojson = require("xls-to-json-lc");
+var xlsxtojson = require("xlsx-to-json-lc");
+
 var async = require('async');
 var request = require('request');
 var xml2js = require('xml2js');
@@ -56,12 +59,31 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 /**UPLOAD**/
 
-var storage = multer.diskStorage({
-  destination: __dirname + '/public/uploads/',
-  filename: function (req, file, cb) {
-    cb(null, path.basename(file.originalname, path.extname(file.originalname)) + Date.now() + path.extname(file.originalname));
-  }
+// var storage = multer.diskStorage({
+//   destination: __dirname + '/public/uploads/',
+//   filename: function (req, file, cb) {
+//     cb(null, path.basename(file.originalname, path.extname(file.originalname)) + Date.now() + path.extname(file.originalname));
+//   }
+// });
+var storage = multer.diskStorage({ //multers disk storage settings
+    destination: function (req, file, cb) {
+        cb(null, './public/uploads/')
+    },
+    filename: function (req, file, cb) {
+        var datetimestamp = Date.now();
+        cb(null, file.fieldname + '-' + datetimestamp + '.' + file.originalname.split('.')[file.originalname.split('.').length -1])
+    }
 });
+
+var importStudent = multer({ //multer settings
+    storage: storage,
+    fileFilter : function(req, file, callback) { //file filter
+        if (['xls', 'xlsx'].indexOf(file.originalname.split('.')[file.originalname.split('.').length-1]) === -1) {
+            return callback(new Error('Wrong extension type'));
+        }
+        callback(null, true);
+    }
+}).single('file');
 
 // var upload = multer(options);
 var upload = multer({ storage: storage });
@@ -76,10 +98,7 @@ app.post('/api/imageupload', upload.single('file'), function (req, res, next) {
     imgRes.save(function(err){
       if(err) return next(err);
     });
-
   }
-
-
 });
 
 var server = require('http').createServer(app);
@@ -88,7 +107,7 @@ var io = require('socket.io')(server);
 // Postserver(app);
 // Userserver(app);
 ImageServer(app);
-Adminserver(app);
+Adminserver(app, importStudent);
 
 /*
 Category

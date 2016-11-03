@@ -28,7 +28,8 @@
     "react-copy-to-clipboard": "^4.2.3",
     "react-dom": "^0.14.7",
     "react-dropzone-component": "^1.2.0",
-    "react-google-login": "^2.5.4",
+    "react-file-input": "^0.2.5",
+    "react-google-login": "^2.5.7",
     "react-rating": "^0.4.0",
     "react-router": "^2.4.1",
     "react-select": "^1.0.0-beta9",
@@ -39,6 +40,8 @@
     "socket.io": "^1.4.5",
     "swig": "^1.4.2",
     "underscore": "^1.8.3",
+    "xls-to-json-lc": "^0.3.3",
+    "xlsx-to-json-lc": "^0.2.5",
     "xml2js": "^0.4.16"
   },
   "devDependencies": {

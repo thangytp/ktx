@@ -3,6 +3,7 @@ import alt from '../../../alt';
 class ManageUserAction {
   constructor() {
     this.generateActions(
+       'importUserSuccess',
        'getUsersSuccess',
        'getUserSuccess',
        'addUserSuccess',
@@ -35,10 +36,23 @@ class ManageUserAction {
     $.ajax({
       url: '/addstudent',
       type: 'POST',
-      data: {email : payload.email, password : payload.password, code : payload.code}
+      data: {email : payload.email, mssv : payload.mssv}
     })
     .done((data) => {
       this.actions.addUserSuccess();
+    })
+  }
+
+  importUser(payload) {
+    $.ajax({
+        url: '/upload',
+        data: payload,
+        processData: false,
+        contentType: false,
+        type: 'POST'
+    })
+    .done((data) => {
+      this.actions.importUserSuccess();
     })
   }
 
@@ -46,7 +60,7 @@ class ManageUserAction {
     $.ajax({
       url: '/editstudent/' + payload.id,
       type: 'PUT',
-      data: {email : payload.email, password : payload.password, code : payload.code}
+      data: {email : payload.email, mssv : payload.mssv}
     })
     .done((data) => {
       this.actions.editUserSuccess();

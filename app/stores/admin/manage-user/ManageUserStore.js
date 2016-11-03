@@ -26,6 +26,10 @@ class ManageUserStore {
   onEditUserSuccess() {
     ManageUserAction.getUsers();
   }
+
+  onImportUserSuccess() {
+    ManageUserAction.getUsers();
+  }
   // onUpdateuser(event)
   // {
   // 	this.user = event.target.value;
