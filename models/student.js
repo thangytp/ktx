@@ -1,25 +1,42 @@
 var mongoose = require('mongoose');
 
 
-var studentSchema = new mongoose.Schema({ 
- email: {
-    type: String,
-    required: true,
-    unique: true   
-  },
-  password: {
-    type: String,
-    required: true
-  },
-  name:{
-  	first:String,
-  	last:String
-  },
-  code: Number,
-  type:{
-  	type:Number,
-  	default:3
-  },
-  avatar: String  
+var studentSchema = new mongoose.Schema({
+  fk_doan_the: String,
+  ma_ktx: String,
+  hoc_ky_nop_hs: String,
+  nam_hoc_nop_hs: String,
+  nam_hoc: String,
+  hoc_ky: String,
+  ma_sinh_vien: String,
+  ho_lot: String,
+  ten: String,
+  ten_dan_toc: String,
+  fk_dien_uu_tien: String,
+  uu_tien_khac: String,
+  so_cmnd: String,
+  ma_giuong: String,
+  ten_phong: String,
+  ten_giuong: String,
+  nam_vao_truong: String,
+  phai: String,
+  ngay_vao_ktx: String,
+  ngay_ra_ktx: String,
+  ghi_chu: String,
+  ngay_lam_thu_tuc: String,
+  dk_hoc_ky_moi: String,
+  dk_hoc_ky_he: String,
+  tang: String,
+  ngay: String,
+  thang: String,
+  ly_do_ra: String,
+  'ngay sinh': String,
+  dia_chi_gia_dinh: String,
+  ten_tinh_tp: String,
+  dtqt: String,
+  bk: String,
+  dien_thoai: String,
+  email: String,
+  ten_doan_the: String
 });
-module.exports = mongoose.model('Student', userSchema);
+module.exports = mongoose.model('Student', studentSchema);

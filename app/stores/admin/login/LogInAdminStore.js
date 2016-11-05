@@ -7,27 +7,22 @@ class LogInAdminStore {
     this.bindActions(LogInAdminAction);
     this.loginSuccessMess = '';
     this.loginFailMess = '';
+    this.logout = false;
   }
 
   onLogout()
   {
-  //   localStorage.removeItem('userid');
-  console.log('aaaaa');
   	localStorage.removeItem('adminEmail');
-    this.loginSuccessMess = '';
-    this.loginFailMess = '';
-  // 	this.user ='';
-  //   this.password ='';
-  //   this.helpBlock='';
-    window.location.reload();
+    this.logout = true;
   }
+
   onLoginSuccess(response)
   {
-  	console.log(response);
     localStorage.setItem('adminEmail', response.email);
     this.loginSuccessMess = 'Dang Nhap Thanh Cong';
     window.location.reload();
   }
+
   onLoginFail(message)
    {
    		this.loginFailMess=message;
