@@ -3,28 +3,7 @@ import ReactDom from 'react-dom';
 
 
 export default class AddImgItem extends React.Component {
-   handleFile(e){
-    var reader = new FileReader();
-    var file = e.target.files[0];   
-    if (!file) return;
-    reader.onload = function(img) {
-      console.log(img.target.result);
-      ReactDom.findDOMNode(this.refs.in).value = '';
-      this.props.actions.updateImagepreview(img.target.result);   
-      this.props.actions.updateImagefile(file);      
-    }.bind(this);
-    reader.readAsDataURL(file);
-    console.log(file);
-
-  }
-  upload(event)
-    {
-        var imgfile = this.props.state.fileAvatar;
-        var imgURL = this.props.state.imagePreviewUrl;
-        this.props.actions.handleUpload();
-        this.props.actions.uploadImage(imgfile);
-        console.log(this.props.state.imageUrl);
-    }
+  
   render(){
     return (
         <div>

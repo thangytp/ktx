@@ -6,6 +6,7 @@ class AddItemMenuStore {
     this.bindActions(AddItemMenuAction);
     this.styleContentRight = 'none';
     this.numberOfImageItem = 0;
+    this.numberOfVideoItem = 0;
     this.fileAvatar ={};
     this.imagePreviewUrl='/uploads/LogoBK.png';
     this.imageUrl='/uploads/LogoBK.png';
@@ -34,6 +35,9 @@ class AddItemMenuStore {
 
   onAddImg(){
     this.numberOfImageItem +=1;
+  }
+  onAddVideo(){
+    this.numberOfVideoItem +=1;
   }
   onUploadSuccess(link)
   {

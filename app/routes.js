@@ -2,7 +2,7 @@ import React from 'react';
 import {Route} from 'react-router';
 
 import App from './components/admin/App';
-import HomeMenu from './components/admin/menu/Home';
+import HomeMenu from './components/admin/menu/HomeMenu';
 import AddItemMenu from './components/admin/menu/AddItemMenu';
 import Images from './components/admin/image/Images';
 

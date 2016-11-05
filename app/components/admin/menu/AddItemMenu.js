@@ -3,6 +3,7 @@ import ReactDom from 'react-dom';
 import AddItemMenuAction from '../../../actions/admin/menu/AddItemMenuAction';
 import AddItemMenuStore from '../../../stores/admin/menu/AddItemMenuStore';
 import AddImgItem from '../../../shared/AddImgItem';
+import AddVideoItem from '../../../shared/AddVideoItem';
 
 class AddItemMenu extends React.Component {
 
@@ -105,10 +106,15 @@ class AddItemMenu extends React.Component {
   	render() {  
   		let styleContentRight = {'display' : this.state.styleContentRight};
   		let numberOfImageItem = this.state.numberOfImageItem;
+  		let numberOfVideoItem = this.state.numberOfVideoItem;
 
   		let listImageItem = [];
   		for (var i = 0; i < numberOfImageItem; i++) {
 		  listImageItem.push(<AddImgItem actions ={AddItemMenuAction} state={this.state} key={i}/>);
+		}
+		let listVideoItem = [];
+  		for (var i = 0; i < numberOfVideoItem; i++) {
+		  listVideoItem.push(<AddVideoItem actions ={AddItemMenuAction} state={this.state} key={i}/>);
 		}
 
     return (
@@ -163,7 +169,7 @@ class AddItemMenu extends React.Component {
 					  	<div className="panel-body">
 					  		<div className=" col-sm-10 col-sm-offset-2 form-group">
 					  			<button type="button" className="btn btn-default" onClick={AddItemMenuAction.addImg}>Thêm hình ảnh</button>
-							  	<button type="button" className="btn btn-primary" onClick={this.addVideoItem.bind(this)}>Thêm video</button>
+							  	<button type="button" className="btn btn-primary" onClick={AddItemMenuAction.addVideo}>Thêm video</button>
 					  		</div>
 					  		<div className="col-sm-12 image-wrap form-horizontal">
 					  			<input type="hidden" value="image"/>
@@ -171,6 +177,7 @@ class AddItemMenu extends React.Component {
 					  		</div>
 					  		<div className="col-sm-12 video-wrap form-horizontal">
 					  			<input type="hidden" value="video"/>
+					  			{listVideoItem}
 					  		</div>
 					  	</div>
 					</div>

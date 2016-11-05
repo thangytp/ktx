@@ -10,7 +10,8 @@ class AddItemMenuAction {
       	'uploadFail',
     	'updateImagepreview',
 		'updateImagefile',
-		'addImg'
+		'addImg',
+		'addVideo'
     
     );
   }
