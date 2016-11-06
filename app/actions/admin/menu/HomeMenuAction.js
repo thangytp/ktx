@@ -18,11 +18,26 @@ class HomeMenuAction {
         'addItemMenuSuccess',
         'addItemMenuFail',
 
+        'deleteChaSuccess',
+        'deleteChaFail',
+
+        'moveUpOrderSuccess',
+        'moveUpOrderFail',
+
+        'moveDownOrderSuccess',
+        'moveDownOrderFail',
+
        	'updateItemMenuName',
         'updateParent',
 
         'openModal',
         'closeModal',
+
+        'openModalDelete',
+        'closeModalDelete',
+
+        'existTitle',
+        'noneExistTitle',
 
         'invalidName'
     
@@ -31,6 +46,9 @@ class HomeMenuAction {
 
   openMD(id){
     this.actions.openModal(id);
+  }
+  openMoDDeleteCha(id){
+    this.actions.openModalDelete(id);
   }
 
   getListCha(){
@@ -91,6 +109,66 @@ class HomeMenuAction {
     })
     .fail((jqXhr) => {
         this.actions.addItemMenuFail(jqXhr.responseJSON);
+    });
+  }
+
+  deleteCha(id)
+  {
+    $.ajax({
+      type: 'POST',
+      url: '/api/deletemenuitemcha',
+      data: { id: id}
+    })
+      .done((data) => {
+        this.actions.deleteChaSuccess(data.message);
+      })
+      .fail((jqXhr) => {
+        this.actions.deleteChaFail(jqXhr.responseJSON.message);
+      });
+  }
+
+  moveUpOrder(id, type){
+    $.ajax({
+      type: 'PUT',
+      url: '/api/moveuporder',
+      data: { id: id, type: type}
+    })
+      .done((data) => {
+        this.actions.moveUpOrderSuccess(data.message);
+      })
+      .fail((jqXhr) => {
+        this.actions.moveUpOrderFail(jqXhr.responseJSON.message);
+      });
+  }
+  moveDownOrder(id, type){
+    $.ajax({
+      type: 'PUT',
+      url: '/api/movedownorder',
+      data: { id: id, type: type}
+    })
+      .done((data) => {
+        this.actions.moveDownOrderSuccess(data.message);
+      })
+      .fail((jqXhr) => {
+        this.actions.moveDownOrderFail(jqXhr.responseJSON.message);
+      });
+  }
+
+  checkNameMenu(name, parent)
+  {
+     $.ajax({
+      type:'POST',
+      url:'/api/checknamemenu',
+      data:{
+        title: name, _parentId: parent
+          }
+    })
+    .done((data) => {
+      this.actions.existTitle(data.message);
+    })
+    .fail((jqXhr) =>{      
+     // console.log(jqXhr.responseText.message);
+      this.actions.noneExistTitle();
     });
   }
 

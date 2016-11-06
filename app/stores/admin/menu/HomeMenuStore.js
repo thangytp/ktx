@@ -15,13 +15,29 @@ class HomeMenuStore {
 
     this.modalIsOpen=false;
 
+    // state cho viec xoa va cap nhat order
+    this.cha= 'cha';
+    this.con= 'con';
+    this.chau ='chau';
+
+    this.idDeleteCha = '';
+    this.modalIsOpenDelete = false;
+
+    this.validateTitle = '';
+    this.classValidate = '';
     this.helpBlock ='';
+
+    // state disable button khong cho them khi ten danh muc da ton tai
+    this.disabledButton = '';
 
     this.idtest = 111;
   }
 
   onUpdateItemMenuName(event){
+    this.validateTitle = '';
+    this.classValidate = '';
     this.itemMenuName = event.target.value;
+    HomeMenuAction.checkNameMenu(this.itemMenuName, this.parent);
   }
 
   onUpdateParent(event){
@@ -39,6 +55,16 @@ class HomeMenuStore {
   }
   onAddItemMenuFail(mess){
     console.log(mess);
+  }
+
+  onDeleteChaSuccess(mes){
+    HomeMenuAction.getListCha();
+    HomeMenuAction.getListChild();
+    HomeMenuAction.getListSubChild();
+    this.modalIsOpenDelete = false;
+  }
+  onDeleteChaFail(jqXhr){
+    console.log("khong xoa dc danh sach cha");
   }
   
 
@@ -75,11 +101,61 @@ class HomeMenuStore {
   }
   onCloseModal()
   {
+      this.itemMenuName='';
+      this.validateTitle = '';
+      this.classValidate = '';
+      this.helpBlock ='';
+
+      // state disable button khong cho them khi ten danh muc da ton tai
+      this.disabledButton = '';
       this.modalIsOpen=false;
   }
 
+  onOpenModalDelete(id){
+    this.idDeleteCha = id;
+    this.modalIsOpenDelete = true;
+  }
+  onCloseModalDelete(){
+      this.modalIsOpenDelete = false;
+  }
+
+  onMoveUpOrderSuccess(data){
+    HomeMenuAction.getListCha();
+    HomeMenuAction.getListChild();
+    HomeMenuAction.getListSubChild();
+  }
+  moveUpOrderFail(jqXhr){
+    console.log("khong get dc danh sach con");
+  }
+  moveDownOrderSuccess(data){
+    HomeMenuAction.getListCha();
+    HomeMenuAction.getListChild();
+    HomeMenuAction.getListSubChild();
+  }
+  moveDownOrderFail(jqXhr){
+    console.log("khong get dc danh sach con");
+  }
+
+  onExistTitle(message){
+    if(message=='Tên danh mục có thể sử dụng'){
+      this.disabledButton = '';
+      this.classValidate = 'has-success';
+    }
+    else{
+      this.disabledButton = 'disabled';
+      this.classValidate = 'has-error';
+    }
+    this.validateTitle = message;
+  }
+  onNoneExistTitle(){
+    this.disabledButton = '';
+    this.validateTitle = 'Tên danh mục hợp lệ';
+    this.classValidate = 'has-success';
+  }
+
   onInvalidName(){
-    this.helpBlock = 'Vui lòng nhập tên hợp lệ';
+    this.classValidate = 'has-error';
+    this.validateTitle = 'Vui lòng nhập tên hợp lệ';
   }
   
 }

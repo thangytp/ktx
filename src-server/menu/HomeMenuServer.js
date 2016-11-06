@@ -9,8 +9,9 @@ function HomeMenuServer(app){
 		try{
 		    MenuCha
 		    .find()
+		    .sort({order:1})
 		    .exec(function(err, listCha){
-		      if(err) next(err);
+		      if(err) return next(err);
 
 
 		      res.send(listCha);
@@ -23,10 +24,10 @@ function HomeMenuServer(app){
 		try{
 		    MenuChild
 		    .find()
-		    .sort({_parentId:1})
+		    .sort({_parentId:1, order:1})
 		    .populate('_parentId')
 		    .exec(function(err, listChild){
-		      if(err) next(err);
+		      if(err) return next(err);
 		      
 
 		      res.send(listChild);
@@ -39,10 +40,10 @@ function HomeMenuServer(app){
 		try{
 		    MenuSubChild
 		    .find()
-		    .sort({_parentId:1})
+		    .sort({_parentId:1, order:1})
 		    .populate('_parentId')
 		    .exec(function(err, listSubChild){
-		      if(err) next(err);
+		      if(err) return next(err);
 		      
 
 		      res.send(listSubChild);
@@ -58,7 +59,7 @@ function HomeMenuServer(app){
 		    MenuChild
 		    .find({_parentId: id})
 		    .exec(function(err, listCon){
-		      if(err || !listCon) next(err);
+		      if(err || !listCon) return next(err);
 		      console.log(listCon);
 		      res.send(listCon);
 		    })
@@ -76,10 +77,11 @@ function HomeMenuServer(app){
 		var count = 0;
 
 		if(_parentId == 0){
-			MenuCha.find({ _parentId:_parentId }, function(err, menuRes) {
-				if(err) next(err);
-				if(!menuRes) count = 0;
-				else count = menuRes.length;
+			MenuCha.find({ _parentId:_parentId }).sort({order:-1}).exec(function(err, menuRes) {
+				if(err) return next(err);
+				if(!menuRes[0]) count = 0;
+				else count = menuRes[0].order;
+				console.log(menuRes);
 				try{ 
 			       	var menuItem = new MenuCha({           
 				        title: title,
@@ -98,14 +100,14 @@ function HomeMenuServer(app){
 		}
 		else{
 			MenuCha.findOne({ _id: _parentId }, function(err2, menuRes) {
-				if(err2) next(err2);
+				if(err2) return next(err2);
 				// truong hop tim thay => item nay co cha thuoc bang menucha => luu item nay vao bang child 
 				if(menuRes){
 					slug = menuRes.slug + '/' + slug;
-					MenuChild.find({ _parentId: _parentId }, function(err3, menuChildRes) {
-						if(err3) next(err3);
-						if(!menuChildRes) count = 0;
-						else count = menuChildRes.length;
+					MenuChild.find({ _parentId: _parentId }).sort({order:-1}).limit(1).exec(function(err3, menuChildRes) {
+						if(err3) return next(err3);
+						if(!menuChildRes[0]) count = 0;
+						else count = menuChildRes[0].order;
 						var menuItem = new MenuChild({           
 					        title: title,
 					        slug: slug,
@@ -122,12 +124,12 @@ function HomeMenuServer(app){
 				else{
 					
 					MenuChild.findOne({ _id: _parentId}, function(err7, menuChildRes){
-						if(err7) next(err7);
+						if(err7) return next(err7);
 						slug = menuChildRes.slug + '/' + slug;
-						MenuSubChild.find({ _parentId: _parentId }, function(err5, menuSubChildRes) {
-							if(err5) next(err5);
-							if(!menuSubChildRes) count = 0;
-							else count = menuSubChildRes.length;
+						MenuSubChild.find({ _parentId: _parentId }).sort({order:-1}).limit(1).exec(function(err5, menuSubChildRes) {
+							if(err5) return next(err5);
+							if(!menuSubChildRes[0]) count = 0;
+							else count = menuSubChildRes[0].order;
 							var menuItem = new MenuSubChild({           
 						        title: title,
 						        slug: slug,
@@ -144,6 +146,253 @@ function HomeMenuServer(app){
 			});
 
 		}
+	});
+
+	// delete menu item
+	app.post('/api/deletemenuitemcha', function(req, res, next) {
+	  	var id = req.body.id;
+	  	MenuCha.findOne({_id: id}, function(err, chaRes){
+	  		if(err) return next(err);
+	  		if(chaRes){
+	  			MenuChild.find({_parentId: chaRes._id}, function(err1, childRes){
+	  				if(err1) return next(err1);
+	  				var _arrChild = [];
+	  				childRes.forEach(function(child){
+	  					_arrChild.push(child._id);
+	  				});
+	  				MenuSubChild.remove({_parentId: {$in: _arrChild}}, function(err, re){
+	  					console.log(re.result);
+	  					if(re){
+	  						MenuChild.remove({_parentId: chaRes._id}, function(err, re){
+			  					console.log(re.result);
+			  					if(re){
+			  						chaRes.remove();
+			  						res.send({message: "delete thanh cong"});
+			  					}
+			  				});
+	  					}
+	  				});
+
+	  			});
+	  		}
+	  		else{
+	  			MenuChild.findOne({_id: id}, function(err, childRes){
+	  				if(err) return next(err);
+	  				if(childRes){
+	  					MenuSubChild.remove({_parentId: childRes._id}, function(err, re){
+		  					console.log(re.result);
+		  					childRes.remove();
+		  					res.send({message: "delete thanh cong"});
+		  				});
+	  				}
+	  				else{
+	  					MenuSubChild.findOne({_id: id}, function(err, subchildRes){
+	  						if(err) return next(err);
+	  						if(subchildRes){
+	  							subchildRes.remove(function(err, re){
+	  								console.log(re.result);
+	  								res.send({message: "delete thanh cong"});
+	  							});
+	  						}
+	  					});
+	  				}
+	  			});
+	  		}
+	  	});	  	
+	});
+
+	app.put('/api/moveuporder', function(req, res, next){
+		var id = req.body.id;
+		var type = req.body.type;
+
+		if(type == 'cha'){
+			MenuCha.findOne({_id: id}, function(err, chaRes){
+				if(err) return next(err);
+				if(chaRes){
+					MenuCha.findOne({order: chaRes.order-1}, function(err1, chaUpRes){
+						if(err1) return next(err1);
+						if(chaUpRes){
+							chaUpRes.update({ $set: {order: chaRes.order} }, function(err, re){
+								console.log(re);
+								chaRes.update({ $set: {order: chaRes.order - 1} }, function(err, re){
+									res.send({message: 'moveup thanh cong'});
+								});
+							});
+						}
+						else{
+							chaRes.update({ $set: {order: chaRes.order - 1} }, function(err, re){
+									res.send({message: 'moveup thanh cong'});
+								});
+						}
+					});
+				}
+			});
+		}
+		else if(type=="con"){
+			MenuChild.findOne({_id: id}, function(err, childRes){
+				if(err) return next(err);
+				if(childRes){
+					MenuChild.findOne({ $and: [{ _parentId: childRes._parentId, order: childRes.order-1} ]}, function(err1, childUpRes){
+						if(err1) return next(err1);
+						if(childUpRes){
+							childUpRes.update({ $set: {order: childRes.order} }, function(err, re){
+								console.log(re);
+								childRes.update({ $set: {order: childRes.order - 1} }, function(err, re){
+									res.send({message: 'moveup thanh cong'});
+								});
+							});
+						}
+						else{
+							childRes.update({ $set: {order: childRes.order - 1} }, function(err, re){
+									res.send({message: 'moveup thanh cong'});
+								});
+						}
+					});
+				}
+			});
+		}
+		else if(type=='chau'){
+			MenuSubChild.findOne({_id: id}, function(err, subchildRes){
+				if(err) return next(err);
+				if(subchildRes){
+					MenuSubChild.findOne({ $and: [{ _parentId: subchildRes._parentId, order: subchildRes.order-1} ]}, function(err1, subchildUpRes){
+						if(err1) return next(err1);
+						if(subchildUpRes){
+							subchildUpRes.update({ $set: {order: subchildRes.order} }, function(err, re){
+								console.log(re);
+								subchildRes.update({ $set: {order: subchildRes.order - 1} }, function(err, re){
+									res.send({message: 'moveup thanh cong'});
+								});
+							});
+						}
+						else{
+							subchildRes.update({ $set: {order: subchildRes.order - 1} }, function(err, re){
+									res.send({message: 'moveup thanh cong'});
+								});
+						}
+					});
+				}
+			});
+		}
+	});
+
+	app.put('/api/movedownorder', function(req, res, next){
+		var id = req.body.id;
+		var type = req.body.type;
+
+		if(type == 'cha'){
+			MenuCha.findOne({_id: id}, function(err, chaRes){
+				if(err) return next(err);
+				if(chaRes){
+					MenuCha.findOne({order: chaRes.order+1}, function(err1, chaUpRes){
+						if(err1) return next(err1);
+						if(chaUpRes){
+							chaUpRes.update({ $set: {order: chaRes.order} }, function(err, re){
+								console.log(re);
+								chaRes.update({ $set: {order: chaRes.order + 1} }, function(err, re){
+									res.send({message: 'moveup thanh cong'});
+								});
+							});
+						}
+						else{
+							chaRes.update({ $set: {order: chaRes.order + 1} }, function(err, re){
+									res.send({message: 'moveup thanh cong'});
+								});
+						}
+					});
+				}
+			});
+		}
+		else if(type=="con"){
+			MenuChild.findOne({_id: id}, function(err, childRes){
+				if(err) return next(err);
+				if(childRes){
+					MenuChild.findOne({ $and: [{ _parentId: childRes._parentId, order: childRes.order+1} ]}, function(err1, childUpRes){
+						if(err1) return next(err1);
+						if(childUpRes){
+							childUpRes.update({ $set: {order: childRes.order} }, function(err, re){
+								console.log(re);
+								childRes.update({ $set: {order: childRes.order + 1} }, function(err, re){
+									res.send({message: 'moveup thanh cong'});
+								});
+							});
+						}
+						else{
+							childRes.update({ $set: {order: childRes.order + 1} }, function(err, re){
+									res.send({message: 'moveup thanh cong'});
+								});
+						}
+					});
+				}
+			});
+		}
+		else if(type=='chau'){
+			MenuSubChild.findOne({_id: id}, function(err, subchildRes){
+				if(err) return next(err);
+				if(subchildRes){
+					MenuSubChild.findOne({ $and: [{ _parentId: subchildRes._parentId, order: subchildRes.order+1} ]}, function(err1, subchildUpRes){
+						if(err1) return next(err1);
+						if(subchildUpRes){
+							subchildUpRes.update({ $set: {order: subchildRes.order} }, function(err, re){
+								console.log(re);
+								subchildRes.update({ $set: {order: subchildRes.order + 1} }, function(err, re){
+									res.send({message: 'moveup thanh cong'});
+								});
+							});
+						}
+						else{
+							subchildRes.update({ $set: {order: subchildRes.order + 1} }, function(err, re){
+									res.send({message: 'moveup thanh cong'});
+								});
+						}
+					});
+				}
+			});
+		}
+	});
+
+	app.post('/api/checknamemenu', function(req, res, next) {
+	  	var title = req.body.title; 
+	  	var _parentId = req.body._parentId;
+	  
+	  	if(_parentId == 0){
+		  	MenuCha.findOne({title: title}, function(err, chaRes){
+		  		if(err) return next(err);
+		  		if(!chaRes){
+		  			return res.send({message: 'Tên danh mục có thể sử dụng'});
+		  		}
+		  		res.send({message: 'Tên danh mục đã tồn tại'});
+		  	});
+	  	}
+	  	else{
+	  		MenuCha.findOne({_id: _parentId}, function(err, chaRes){
+	  			if(err) return next(err);
+	  			if(chaRes){
+	  				MenuChild.findOne({title: title}, function(err1, childRes){
+	  					if(err1) return next(err1);
+	  					if(!childRes){
+	  						return res.send({message: 'Tên danh mục có thể sử dụng'});
+	  					}
+	  					res.send({message: 'Tên danh mục đã tồn tại'});
+	  				});
+	  			}
+	  			else{
+	  				MenuChild.findOne({_id: _parentId}, function(err, childRes){
+	  					if(err) return next(err);
+	  					if(childRes){
+	  						MenuSubChild.findOne({title: title}, function(err1, subchildRes){
+	  							if(err1) return next(err1);
+	  							if(!subchildRes){
+	  								return res.send({message: 'Tên danh mục có thể sử dụng'});
+	  							}
+	  							res.send({message: 'Tên danh mục đã tồn tại'});
+	  						});
+	  					}
+	  				});
+	  			}
+	  		});
+	  	}
+
 	});
 
 }
