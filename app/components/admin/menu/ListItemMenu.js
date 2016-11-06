@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDom from 'react-dom';
 import {Modal} from 'react-bootstrap';
+import InlineEdit from 'react-edit-inline';
 
 import HomeMenuAction from '../../../actions/admin/menu/HomeMenuAction';
 import HomeMenuStore from '../../../stores/admin/menu/HomeMenuStore';
@@ -32,6 +33,31 @@ class ListItemMenu extends React.Component {
 		HomeMenuAction.openMD(idParent);
 	}
 
+	openMoDDeleteCha(id){
+		HomeMenuAction.openMoDDeleteCha(id);
+	}
+
+	moveUpOrder(id, type){
+		if(id){
+			HomeMenuAction.moveUpOrder(id, type);
+		}
+	}
+	moveDownOrder(id, type){
+		if(id){
+			HomeMenuAction.moveDownOrder(id, type);
+		}
+	}
+
+	addAlert () {  
+        this.refs.container.success(
+          "",
+          "Sao chép liên kết thành công!", {
+          timeOut: 5000,
+          extendedTimeOut: 800,
+          closeButton: true
+        });
+      }
+
 	render() {  
 		// var listCha = [];
 		// for (var i = 0; i < this.state.listCha.length; i++) {
@@ -50,8 +76,8 @@ class ListItemMenu extends React.Component {
 				          <td>
 				          	<button className="btn btn-success" onClick ={this.openMoD.bind(this, cha._id)}>Thêm</button>
 				          	
-				          	<button className="btn btn-danger" ><i className="fa fa-long-arrow-down" aria-hidden="true"></i></button>
-				          	<button className="btn btn-danger" ><i className="fa fa-trash" aria-hidden="true"></i></button>
+				          	<button className="btn btn-danger" onClick={this.moveDownOrder.bind(this, cha._id, this.state.cha)}><i className="fa fa-long-arrow-down" aria-hidden="true"></i></button>
+				          	<button className="btn btn-danger" onClick ={this.openMoDDeleteCha.bind(this, cha._id)}><i className="fa fa-trash" aria-hidden="true"></i></button>
 				          </td>
 				        </tr>		  				
 		  			);
@@ -66,9 +92,9 @@ class ListItemMenu extends React.Component {
 				          <td>
 				          	<button className="btn btn-success" onClick ={this.openMoD.bind(this, cha._id)}>Thêm</button>
 				          	
-				          	<button className="btn btn-danger" ><i className="fa fa-long-arrow-up" aria-hidden="true"></i></button>
-				          	<button className="btn btn-danger" ><i className="fa fa-long-arrow-down" aria-hidden="true"></i></button>
-				          	<button className="btn btn-danger" ><i className="fa fa-trash" aria-hidden="true"></i></button>
+				          	<button className="btn btn-danger" onClick={this.moveUpOrder.bind(this, cha._id, this.state.cha)}><i className="fa fa-long-arrow-up" aria-hidden="true"></i></button>
+				          	<button className="btn btn-danger" onClick={this.moveDownOrder.bind(this, cha._id, this.state.cha)}><i className="fa fa-long-arrow-down" aria-hidden="true"></i></button>
+				          	<button className="btn btn-danger" onClick ={this.openMoDDeleteCha.bind(this, cha._id)}><i className="fa fa-trash" aria-hidden="true"></i></button>
 				          </td>
 				        </tr>
 		  				// <li key={index+1}>
@@ -91,8 +117,8 @@ class ListItemMenu extends React.Component {
 				          <td>
 				          	<button className="btn btn-success" onClick ={this.openMoD.bind(this, child._id)}>Thêm</button>
 				          	
-				          	<button className="btn btn-danger" ><i className="fa fa-long-arrow-down" aria-hidden="true"></i></button>
-				          	<button className="btn btn-danger" ><i className="fa fa-trash" aria-hidden="true"></i></button>
+				          	<button className="btn btn-danger" onClick={this.moveDownOrder.bind(this, child._id, this.state.con)}><i className="fa fa-long-arrow-down" aria-hidden="true"></i></button>
+				          	<button className="btn btn-danger" onClick ={this.openMoDDeleteCha.bind(this, child._id)}><i className="fa fa-trash" aria-hidden="true"></i></button>
 				          </td>
 				        </tr>
 		  				
@@ -109,9 +135,9 @@ class ListItemMenu extends React.Component {
 				          <td>
 				          	<button className="btn btn-success" onClick ={this.openMoD.bind(this, child._id)}>Thêm</button>
 				          	
-				          	<button className="btn btn-danger" ><i className="fa fa-long-arrow-up" aria-hidden="true"></i></button>
-				          	<button className="btn btn-danger" ><i className="fa fa-long-arrow-down" aria-hidden="true"></i></button>
-				          	<button className="btn btn-danger" ><i className="fa fa-trash" aria-hidden="true"></i></button>
+				          	<button className="btn btn-danger" onClick={this.moveUpOrder.bind(this, child._id, this.state.con)}><i className="fa fa-long-arrow-up" aria-hidden="true"></i></button>
+				          	<button className="btn btn-danger" onClick={this.moveDownOrder.bind(this, child._id, this.state.con)}><i className="fa fa-long-arrow-down" aria-hidden="true"></i></button>
+				          	<button className="btn btn-danger" onClick ={this.openMoDDeleteCha.bind(this, child._id)}><i className="fa fa-trash" aria-hidden="true"></i></button>
 				          </td>
 				        </tr>
 		  				
@@ -127,11 +153,13 @@ class ListItemMenu extends React.Component {
 				          <td>{subchild.title}</td>
 				          <td>{subchild._parentId.title}</td>
 				          <td>{subchild.order}</td>
-				          <td>{subchild._postId}</td>
+				          <td>{subchild._postId}
+				          		<button className="btn btn-info" ><i className="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+				          </td>
 				          <td>
 				          	
-				          	<button className="btn btn-danger" ><i className="fa fa-long-arrow-down" aria-hidden="true"></i></button>
-				          	<button className="btn btn-danger" ><i className="fa fa-trash" aria-hidden="true"></i></button>
+				          	<button className="btn btn-danger" onClick={this.moveDownOrder.bind(this, subchild._id, this.state.chau)}><i className="fa fa-long-arrow-down" aria-hidden="true"></i></button>
+				          	<button className="btn btn-danger" onClick ={this.openMoDDeleteCha.bind(this, subchild._id)}><i className="fa fa-trash" aria-hidden="true"></i></button>
 				          </td>
 				        </tr>
 		  				
@@ -147,9 +175,9 @@ class ListItemMenu extends React.Component {
 				          <td>{subchild._postId}</td>
 				          <td>
 				          	
-				          	<button className="btn btn-danger" ><i className="fa fa-long-arrow-up" aria-hidden="true"></i></button>
-				          	<button className="btn btn-danger" ><i className="fa fa-long-arrow-down" aria-hidden="true"></i></button>
-				          	<button className="btn btn-danger" ><i className="fa fa-trash" aria-hidden="true"></i></button>
+				          	<button className="btn btn-danger" onClick={this.moveUpOrder.bind(this, subchild._id, this.state.chau)}><i className="fa fa-long-arrow-up" aria-hidden="true"></i></button>
+				          	<button className="btn btn-danger" onClick={this.moveDownOrder.bind(this, subchild._id, this.state.chau)}><i className="fa fa-long-arrow-down" aria-hidden="true"></i></button>
+				          	<button className="btn btn-danger" onClick ={this.openMoDDeleteCha.bind(this, subchild._id)}><i className="fa fa-trash" aria-hidden="true"></i></button>
 				          </td>
 				        </tr>
 		  				
@@ -170,7 +198,7 @@ class ListItemMenu extends React.Component {
 		                      <th>Tên</th>
 		                      <th>Thứ tự sắp xếp</th>      
 		                      <th>Bài viết</th> 
-		                      <th colspan="4">Hành động</th>                                   
+		                      <th colSpan="4">Hành động</th>                                   
 		                    </tr>
 	                  	</thead>
 	                  	<tbody> 
@@ -191,7 +219,7 @@ class ListItemMenu extends React.Component {
 	                      		<th>Danh mục cha</th>  
 	                      		<th>Thứ tự sắp xếp</th>      
 	                      		<th>Bài viết</th> 
-	                    	    <th colspan="4">Hành động</th>                            
+	                    	    <th colSpan="4">Hành động</th>                            
 	                    	</tr>
 	                  	</thead>
 	                  	<tbody>                       
@@ -214,7 +242,7 @@ class ListItemMenu extends React.Component {
 	                      <th>Danh mục cha</th>  
 	                      <th>Thứ tự sắp xếp</th>      
 	                      <th>Bài viết</th> 
-	                      <th colspan="4">Hành động</th>
+	                      <th colSpan="4">Hành động</th>
 	                    </tr>
 	                  </thead>
 	                  <tbody>                       

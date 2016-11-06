@@ -87,6 +87,15 @@ class HomeMenu extends React.Component {
 		HomeMenuAction.openMD(idParent);
 	}
 
+	// xoa danh muc va tat ca con cua no
+	deleteMenuItem(event){
+		event.preventDefault();
+		var idDeleteCha = this.state.idDeleteCha;
+		if(idDeleteCha){
+			HomeMenuAction.deleteCha(idDeleteCha);
+		}
+	}
+
   render() {  
   	// let listCha = this.state.listCha.map((cha, index) => {
   	// 	return(
@@ -123,7 +132,7 @@ class HomeMenu extends React.Component {
     // 		</div>*/}
 
     		<div className="col-md-12">
-    			<button type="submit" className="btn btn-default" onClick ={this.openMoD.bind(this, this.state.parent)}>Thêm danh mục cấp 1</button>
+    			<button type="submit" style={{'margin-bottom':'20px'}} className="btn btn-default" onClick ={this.openMoD.bind(this, this.state.parent)}>Thêm danh mục cấp 1</button>
     		</div>
 
     		{/*hien thi danh sach menu item*/}
@@ -136,11 +145,12 @@ class HomeMenu extends React.Component {
 	                </Modal.Title>
               	</Modal.Header>
               	<Modal.Body>
-              	<div>
-              		<label>Tên danh mục</label>
-              		<input type="text" className="form-control" id="item-menu-name" ref='NameItemMenu' value={this.state.itemMenuName} 
-					    	onChange={HomeMenuAction.updateItemMenuName} autoFocus onKeyPress={this.test.bind(this)}/>
-              	</div>
+	              	<div>
+	              		<label>Tên danh mục</label>
+	              		<input type="text" className="form-control" id="item-menu-name" ref='NameItemMenu' value={this.state.itemMenuName} 
+						    	onChange={HomeMenuAction.updateItemMenuName} autoFocus onKeyPress={this.test.bind(this)}/>
+	              	</div>
+	              	<div className={this.state.classValidate}><span className="control-label">{this.state.validateTitle}</span></div>
               	</Modal.Body>      
               	<Modal.Footer>
                   	<button
@@ -148,7 +158,27 @@ class HomeMenu extends React.Component {
                     	onClick={HomeMenuAction.closeModal}><i className="fa fa-times"> Hủy bỏ</i> </button>          
                   	<button
                       	className="btn btn-success"
-                    	onClick={this.themMenuItem.bind(this)}><i className="fa fa-check"> Thêm</i> </button>          
+                    	onClick={this.themMenuItem.bind(this)} disabled={this.state.disabledButton}><i className="fa fa-check"> Thêm</i> </button>          
+              	</Modal.Footer>
+            </Modal>
+
+        	{/* modal xoa item va con cua no */}
+        	<Modal show={this.state.modalIsOpenDelete} onHide ={HomeMenuAction.closeModalDelete}>
+              	<Modal.Header>
+	                <Modal.Title>
+	                	Xóa
+	                </Modal.Title>
+              	</Modal.Header>
+              	<Modal.Body>
+              		<p>Bạn có chắc muốn xóa danh mục này? Nếu đồng ý thì tất cả danh mục con của nó(nếu có) cũng sẽ bị xóa.</p>
+              	</Modal.Body>      
+              	<Modal.Footer>
+                  	<button
+                      	className="btn btn-warning"
+                    	onClick={HomeMenuAction.closeModalDelete}><i className="fa fa-times"> Hủy bỏ</i> </button>          
+                  	<button
+                      	className="btn btn-success"
+                    	onClick={this.deleteMenuItem.bind(this)}><i className="fa fa-check"> Xóa</i> </button>          
               	</Modal.Footer>
             </Modal>
 

@@ -33,8 +33,8 @@ class ListImage extends React.Component {
         this.refs.container.success(
           "",
           "Sao chép liên kết thành công!", {
-          timeOut: 30000,
-          extendedTimeOut: 10000,
+          timeOut: 5000,
+          extendedTimeOut: 800,
           closeButton: true
         });
       }

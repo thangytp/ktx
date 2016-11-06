@@ -30,12 +30,11 @@ function requireAuth(nextState, replace) {
 
 export default (
   <Route>
-
         <Route component={App}>
-            <Route path='/quanly@ktx' component={HomeMenu} onEnter={requireAuth} />
-            <Route path='/quanly@ktx/them-menu-item' component={AddItemMenu} onEnter={requireAuth}/>
-            <Route path='/quanly@ktx/quan-ly-hinh-anh' component={Images} onEnter={requireAuth}/>
-            <Route path='/quanly@ktx/quan-ly-sinh-vien' component={ManageStudent} onEnter={requireAuth}/>
+            <Route path='/quanly@ktx' component={HomeMenu} />
+            <Route path='/quanly@ktx/them-menu-item' component={AddItemMenu} />
+            <Route path='/quanly@ktx/quan-ly-hinh-anh' component={Images} />
+            <Route path='/quanly@ktx/quan-ly-sinh-vien' component={ManageStudent} />
         </Route>
 
         <Route path='/admin/login' component={LogInAdmin}/>
