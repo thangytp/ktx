@@ -78,7 +78,7 @@ class Navbar extends React.Component {
                       <ul id="menu1" className="dropdown-menu list-unstyled msg_list" role="menu">
                         <li>
                           <a>
-                            <span className="image"><img src="img/user.png" alt="Profile Image"/></span>
+                            <span className="image"><img src="/img/user.png" alt="Profile Image"/></span>
                             <span>
                               <span>John Smith</span>
                               <span className="time">3 mins ago</span>
@@ -90,7 +90,7 @@ class Navbar extends React.Component {
                         </li>
                         <li>
                           <a>
-                            <span className="image"><img src="img/user.png" alt="Profile Image"/></span>
+                            <span className="image"><img src="/img/user.png" alt="Profile Image"/></span>
                             <span>
                               <span>John Smith</span>
                               <span className="time">3 mins ago</span>
@@ -102,7 +102,7 @@ class Navbar extends React.Component {
                         </li>
                         <li>
                           <a>
-                            <span className="image"><img src="img/user.png" alt="Profile Image"/></span>
+                            <span className="image"><img src="/img/user.png" alt="Profile Image"/></span>
                             <span>
                               <span>John Smith</span>
                               <span className="time">3 mins ago</span>
@@ -114,7 +114,7 @@ class Navbar extends React.Component {
                         </li>
                         <li>
                           <a>
-                            <span className="image"><img src="img/user.png" alt="Profile Image"/></span>
+                            <span className="image"><img src="/img/user.png" alt="Profile Image"/></span>
                             <span>
                               <span>John Smith</span>
                               <span className="time">3 mins ago</span>

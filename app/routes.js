@@ -5,6 +5,7 @@ import App from './components/admin/App';
 import HomeMenu from './components/admin/menu/HomeMenu';
 import ManageStudent from './components/admin/manage-user/ManageStudent';
 import AddItemMenu from './components/admin/menu/AddItemMenu';
+import AddPage from './components/admin/page/AddPage';
 import Images from './components/admin/image/Images';
 
 import Main from './components/main/Main';
@@ -32,7 +33,7 @@ export default (
   <Route>
         <Route component={App}>
             <Route path='/quanly@ktx' component={HomeMenu} />
-            <Route path='/quanly@ktx/them-menu-item' component={AddItemMenu} />
+            <Route path='/quanly@ktx/them-page' component={AddPage} />
             <Route path='/quanly@ktx/quan-ly-hinh-anh' component={Images} />
             <Route path='/quanly@ktx/quan-ly-sinh-vien' component={ManageStudent} />
         </Route>

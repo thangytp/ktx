@@ -47,7 +47,7 @@ class SideBarLeft extends React.Component {
                         <Link to="/quanly@ktx">Quản lý menu</Link>
                       </li>
                       <li>
-                        <Link to="/quanly@ktx/them-menu-item">Thêm menu item</Link>
+                        <Link to="/quanly@ktx/them-page">Thêm trang</Link>
                       </li>
                       <li className="">
                         <Link to="/quanly@ktx/quan-ly-hinh-anh">Quản lý hình ảnh</Link>

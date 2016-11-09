@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDom from 'react-dom';
+import CopyToClipboard from 'react-copy-to-clipboard';
 import ListImageAction from '../../../actions/admin/image/ListImageAction';
 import ListImageStore from '../../../stores/admin/image/ListImageStore';
 
