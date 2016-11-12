@@ -7,6 +7,8 @@ import AddPageStore from '../../../stores/admin/page/AddPageStore';
 import AddImgItem from '../../../shared/AddImgItem';
 import AddVideoItem from '../../../shared/AddVideoItem';
 
+import ListPage from './ListPage';
+
 class AddPage extends React.Component {
 
 	constructor(props)
@@ -34,64 +36,80 @@ class AddPage extends React.Component {
 		console.log(state);
 	}
 
-	
-
-	addImageItem(event){
-		var num = $('.image-wrap').children().length;
-		console.log(num);
-		var htmlItem='<div class="form-group image-item" id="image-item-'+ (num+1) +'"> ' 
-					    + '<label class="control-label col-sm-2" for="">Tiêu đề ảnh:</label>'
-					    + '<div class="col-sm-10"> '
-				      	+ '	<input type="text" class="form-control" id="image-item-text" placeholder="VD: Giới thiệu"/>'
-				    	+ '</div>'
-					+ '</div>'
-					+'<div class="form-group has-success">'
-	                   	+'<label class="control-label">Chọn ảnh đại diện</label>'
-	                   	+'<div class ="clear-both"></div>'
-	                    +'<div class="avatar-photo">'
-	                      	+this.renderImgComponent.bind(this)
-	                      	+'<div class="avatar-edit">'
-	                      		+'<i class="fa fa-camera"></i>'
-	                      	+'</div>'
-	                      	+'<img src ='+this.state.imagePreviewUrl+' height ="200px" width="200px" alt = "avatar"/>'
-	                    +'</div>'
-	                    +'<div>'
-	                     	+'<button type="button" class = "btn btn-success" onClick = '+upload()+' ><i class="fa fa-check"></i></button>'
-	                     	+'<button type="button" class = "btn btn-danger" onClick = {this.detele.bind(this)} ><i class="fa fa-times"></i></button>'
-	                    	+'<span class="help-block">'+this.state.helpBlockUpload+'</span>'
-	                   	+'</div>'
-                  	+'</div>'
-                   	+'<div class ="clear-both"></div>';
-		console.log(htmlItem);
-		$('.image-wrap').append(htmlItem);
-	}
-	addVideoItem(event){
-		var num = $('.video-wrap').children().length;
-		var htmlItem='<div class="form-group video-item" id="video-item-'+ (num+1) +'"> ' 
-					    + '<label class="control-label col-sm-2" for="">Tiêu đề video:</label>'
-					    + '<div class="col-sm-10"> '
-				      	+ '	<input type="text" class="form-control" id="video-item-text" placeholder="VD: Giới thiệu"/>'
-				    	+ '</div>'
-				    	+ '<label class="control-label col-sm-2" for="">Link video:</label>'
-				    	 + '<div class="col-sm-10"> '
-				      	+ '	<input type="text" class="form-control" id="video-item-link" placeholder="VD: https://youtube.com/watch?v=ktxbachkhoa"/>'
-				    	+ '</div>'
-					+ '</div>';
-		$('.video-wrap').append(htmlItem);
-	}	
-
 	// them page
 	handleSubmitPage(event){
 		event.preventDefault();
 		for ( var instance in CKEDITOR.instances )
         	CKEDITOR.instances[instance].updateElement();
+
+        var numberOfImageItem = this.state.numberOfImageItem;
+        var numberOfVideoItem = this.state.numberOfVideoItem;
+
 		var id = this.state.idPage;
 		var title = this.state.titlePage;
 		var contentLeft = ReactDom.findDOMNode(this.refs.ContentPageField).value;
+		console.log(contentLeft);
 		var layoutType = this.state.layoutType;
+		var cotphaiHome = null;
+		var imgRight = [];
+		var videoRight = [];
 		if(layoutType==1){
-			
+			cotphaiHome = null;
+			imgRight = [];
+			videoRight = [];
 		}
+		else{
+			cotphaiHome = this.state.cotphaiHome;
+			if(cotphaiHome==1){
+				imgRight = [];
+				videoRight = [];
+			}
+			else{
+				imgRight = this.state.arrImg;
+				videoRight = this.state.arrVideo;
+			}
+		}
+
+		if(!title){
+			AddPageAction.invalidTitle();
+			this.refs.TitlePageField.focus();
+		}
+		if(!contentLeft){
+			AddPageAction.invalidContent();
+			this.refs.ContentPageField.focus();
+		}
+		if(layoutType==2 && cotphaiHome==0){
+			if(imgRight.length == 0 || videoRight.length ==0){
+				AddPageAction.invalidContentRight();
+			}
+			else{
+				for(var i=0; i<imgRight.length; i++){
+					if(!imgRight[i].link){
+						AddPageAction.invalidImgLink();
+					}
+				}
+				for(var i=0; i<videoRight.length; i++){
+					if(!videoRight[i].link){
+						AddPageAction.invalidVideoLink();
+					}
+				}
+			}
+		}
+
+		// goi ham add page
+		if(title && contentLeft){
+			if(id==''){
+				AddPageAction.addPage({title: title, contentLeft: contentLeft, layoutType: layoutType, 
+					cotphaiHome: cotphaiHome, imgRight: imgRight, videoRight: videoRight, 
+					numberOfImageItem: numberOfImageItem, numberOfVideoItem: numberOfVideoItem});
+			}
+			else{
+				AddPageAction.updatePage({id: id, title: title, contentLeft: contentLeft, layoutType: layoutType, 
+					cotphaiHome: cotphaiHome, imgRight: imgRight, videoRight: videoRight, 
+					numberOfImageItem: numberOfImageItem, numberOfVideoItem: numberOfVideoItem});
+			}
+		}
+
 	}
 
 
@@ -115,13 +133,15 @@ class AddPage extends React.Component {
     			<div className="panel panel-default">
 				  	<div className="panel-heading">Thêm trang</div>
 				</div>
+				<div className="row"><span className='help-block'>{this.state.helpBlockAddPage}</span></div>
 
 				<form className="form-horizontal" encType="multipart/form-data" onSubmit={this.handleSubmitPage.bind(this)}>
 				  	<div className="form-group">
 					    <label className="control-label col-sm-2" htmlFor="name-item">Tên trang:</label>
 					    <div className="col-sm-10">
 				      		<input type="text" className="form-control" id="name-item" placeholder="Nhập tên trang" 
-				      			value={this.state.title} onChange={AddPageAction.updateTitlePage}/>
+				      			ref="TitlePageField" value={this.state.titlePage} onChange={AddPageAction.updateTitlePage}/>
+				      		<span className='help-block'>{this.state.helpBlockTitle}</span>
 				    	</div>
 				  	</div>
 				  	
@@ -137,7 +157,7 @@ class AddPage extends React.Component {
                     	<label className='col-sm-2 control-label'>Nội dung:</label>
                       	<div  className ='col-sm-10'>
                       		<textarea id ='ckedit' value ="" ref ='ContentPageField' value={this.state.contentPage} ></textarea>
-                      		<span className='help-block'></span>
+                      		<span className='help-block'>{this.state.helpBlockContent}</span>
                     	</div>
                   	</div>
 
@@ -156,10 +176,13 @@ class AddPage extends React.Component {
 						  			<button type="button" className="btn btn-default" onClick={AddPageAction.addImg}>Thêm hình ảnh</button>
 								  	<button type="button" className="btn btn-primary" onClick={AddPageAction.addVideo}>Thêm video</button>
 						  		</div>
+						  		<div><span className='help-block'>{this.state.helpBlockContentRight}</span></div>
+						  		<div><span className='help-block'>{this.state.helpBlockImage}</span></div>
 						  		<div className="col-sm-12 image-wrap form-horizontal">
 						  			<input type="hidden" value="image"/>
 						  			{listImageItem}
 						  		</div>
+						  		<div><span className='help-block'>{this.state.helpBlockVideo}</span></div>
 						  		<div className="col-sm-12 video-wrap form-horizontal">
 						  			<input type="hidden" value="video"/>
 						  			{listVideoItem}
@@ -197,6 +220,7 @@ class AddPage extends React.Component {
               	</Modal.Footer>
             </Modal>
 
+            <ListPage/>
         </div>
     );
   }

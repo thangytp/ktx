@@ -26,7 +26,24 @@ class AddPageAction {
         'cotphaiHome',
 
         'addPageSuccess',
-        'addPageFail'
+        'addPageFail',
+        'updatePageSuccess',
+        'updatePageFail',
+
+        'invalidTitle',
+        'invalidContent',
+        'invalidContentRight',
+        'invalidImgLink',
+        'invalidVideoLink',
+
+        'getListPageSuccess',
+        'getListPageFail',
+
+        'getPageSuccess',
+        'getPageFail',
+
+        'deletePageSucess',
+        'deletePageFail'
     
     );
   }
@@ -51,13 +68,16 @@ class AddPageAction {
 
   // add page
   addPage(payload){
+    // console.log(payload);
       $.ajax({
         url: '/api/addpage',
         type: 'POST',
-        data: {id: payload.id, title: payload.title, layoutType: payload.layoutType, content: payload.content},
+        data: {title: payload.title, layoutType: payload.layoutType, content: payload.contentLeft, 
+          cotphaiHome: payload.cotphaiHome, imgRight: payload.imgRight, videoRight: payload.videoRight,
+          numberOfImageItem: payload.numberOfImageItem, numberOfVideoItem: payload.numberOfVideoItem},
       })
       .done((data) =>{
-        this.actions.addPageSuccess(data.message);
+        this.actions.addPageSuccess(data);
         console.log("success");
       })
       .fail((jqXhr) =>{
@@ -67,24 +87,64 @@ class AddPageAction {
       
   }
 
-  uploadImage(imgfile)
-  {
-    var fd = new FormData();
-    fd.append( 'file', imgfile);
+  // update page
+  updatePage(payload){
+      $.ajax({
+        url: '/api/updatepage',
+        type: 'PUT',
+        data: {id: payload.id, title: payload.title, layoutType: payload.layoutType, content: payload.contentLeft, 
+          cotphaiHome: payload.cotphaiHome, imgRight: payload.imgRight, videoRight: payload.videoRight, 
+          numberOfImageItem: payload.numberOfImageItem, numberOfVideoItem: payload.numberOfVideoItem},
+      })
+      .done((data) =>{
+        this.actions.updatePageSuccess(data.message);
+        console.log("success");
+      })
+      .fail((jqXhr) =>{
+        this.actions.updatePageFail(jqXhr.responseJSON.message);
+        console.log("error");
+      });
+      
+  }
+
+  //get list page
+  getListPage(){
     $.ajax({
-        url: '/api/imageupload',
-        data: fd,
-        processData: false,
-        contentType: false,
-        type: 'POST'
+      type: 'GET', 
+      url: '/api/getListPage'})
+      .done((data) => {
+        this.actions.getListPageSuccess(data);
+      })
+      .fail((jqXhr) => {
+        this.actions.getListPageFail(jqXhr.responseJSON);
+      });
+  }
+
+  //get page by id
+  getPage(id){
+    $.ajax({
+    url: '/api/getpage/'+id})
+    .done((data) => {
+      this.actions.getPageSuccess(data.data);
+    })
+    .fail((jqXhr) => {
+      this.actions.getPageFail(jqXhr.responseJSON.message);
+    });
+  }
+
+  // delete page
+  deletePage(id){
+    $.ajax({
+      type: 'DELETE',
+      url: '/api/deletepage',
+      data: {id: id}
     })
     .done((data) => {
-      this.actions.uploadSuccess(data.link);
-
-    })
-    .fail((jqXhr) =>{
-      this.actions.uploadFail(jqXhr.responseJSON.message);
-    });
+        this.actions.deletePageSucess(data);
+      })
+      .fail((jqXhr) => {
+        this.actions.deletePageFail(jqXhr.responseJSON.message);
+      });
   }
 
 }
