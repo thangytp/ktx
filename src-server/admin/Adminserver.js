@@ -23,7 +23,6 @@ module.exports = function(app, importStudent) {
       var exceltojson;
 
       importStudent(req,res,function(err){
-        console.log(req.file);
           if(err){
                res.json({error_code:1,err_desc:err});
                return;
@@ -111,6 +110,25 @@ module.exports = function(app, importStudent) {
     });
   })
 
+  // Get Students By Hoc Vu
+
+  app.get('/getstudenthocvu', function(req, res){
+    Student.find({tamdung_hocvu : true}, function(err, students){
+      if(err) throw err;
+      res.json(students);
+    });
+  })
+
+  //Get Students By Diem Ren Luyen
+
+  app.get('/getstudent/diem/:stuDiem', function(req, res){
+    console.log(req.params.stuDiem);
+    Student.find({diem_ren_luyen : {$gt: req.params.stuDiem}}, function(err, students){
+      if(err) throw err;
+      res.json(students);
+    });
+  })
+
   // Get Student
 
   app.get('/getstudent/:stuId', function(req, res){
@@ -140,6 +158,102 @@ module.exports = function(app, importStudent) {
       res.send(student);
     });
   })
+
+  // Update Xy Ky Hoc Vu
+
+  app.post('/upload/xulyhocvu', function(req, res) {
+      var exceltojson;
+
+      importStudent(req,res,function(err){
+          if(err){
+               res.json({error_code:1,err_desc:err});
+               return;
+          }
+          /** Multer gives us file info in req.file object */
+          if(!req.file){
+              res.json({error_code:1,err_desc:"No file passed"});
+              return;
+          }
+          /** Check the extension of the incoming file and
+           *  use the appropriate module
+           */
+          if(req.file.originalname.split('.')[req.file.originalname.split('.').length-1] === 'xlsx'){
+              exceltojson = xlsxtojson;
+          } else {
+              exceltojson = xlstojson;
+          }
+          // console.log(req.file.path);
+          try {
+              exceltojson({
+                  input: req.file.path,
+                  output: null, //since we don't need output.json
+                  // sheet: "Sheet1",
+                  lowerCaseHeaders:true
+              }, function(err,result){
+                  if(err) {
+                      return res.json({error_code:1,err_desc:err, data: null});
+                  }
+                  for(var i=0; i<result.length; i++){
+                    Student.findOneAndUpdate({ma_sinh_vien : result[i].ma_sinh_vien}, {tamdung_hocvu : true} , { new: true }, function (err, student) {
+                      if (err) throw err;
+                    });
+                  }
+                  res.send(true);
+              });
+          } catch (e){
+              res.json({error_code:1,err_desc:"Corupted excel file"});
+          }
+      })
+
+  });
+
+  //Update Diem Ren Luyen
+
+  app.post('/upload/diemrenluyen', function(req, res) {
+      var exceltojson;
+
+      importStudent(req,res,function(err){
+          if(err){
+               res.json({error_code:1,err_desc:err});
+               return;
+          }
+          /** Multer gives us file info in req.file object */
+          if(!req.file){
+              res.json({error_code:1,err_desc:"No file passed"});
+              return;
+          }
+          /** Check the extension of the incoming file and
+           *  use the appropriate module
+           */
+          if(req.file.originalname.split('.')[req.file.originalname.split('.').length-1] === 'xlsx'){
+              exceltojson = xlsxtojson;
+          } else {
+              exceltojson = xlstojson;
+          }
+          // console.log(req.file.path);
+          try {
+              exceltojson({
+                  input: req.file.path,
+                  output: null, //since we don't need output.json
+                  // sheet: "Sheet1",
+                  lowerCaseHeaders:true
+              }, function(err,result){
+                  if(err) {
+                      return res.json({error_code:1,err_desc:err, data: null});
+                  }
+                  for(var i=0; i<result.length; i++){
+                    Student.findOneAndUpdate({ma_sinh_vien : result[i].ma_sinh_vien}, {diem_ren_luyen : result[i].diem_ren_luyen} , { new: true }, function (err, student) {
+                      if (err) throw err;
+                    });
+                  }
+                  res.send(true);
+              });
+          } catch (e){
+              res.json({error_code:1,err_desc:"Corupted excel file"});
+          }
+      })
+
+  });
 
   // Delete Student
 
