@@ -4,6 +4,8 @@ import {Route} from 'react-router';
 import App from './components/admin/App';
 import HomeMenu from './components/admin/menu/Home';
 import ManageStudent from './components/admin/manage-user/ManageStudent';
+import XetDuyetMoi from './components/admin/manage-user/XetDuyetMoi';
+
 import AddItemMenu from './components/admin/menu/AddItemMenu';
 import Images from './components/admin/image/Images';
 
@@ -35,7 +37,8 @@ export default (
             <Route path='/quanly@ktx' component={HomeMenu} onEnter={requireAuth} />
             <Route path='/quanly@ktx/them-menu-item' component={AddItemMenu} onEnter={requireAuth}/>
             <Route path='/quanly@ktx/quan-ly-hinh-anh' component={Images} onEnter={requireAuth}/>
-            <Route path='/quanly@ktx/quan-ly-sinh-vien' component={ManageStudent} onEnter={requireAuth}/>
+            <Route path='/quanly@ktx/quan-ly-sinh-vien' component={ManageStudent} onEnter={requireAuth} />
+            <Route path="/quanly@ktx/xet-duyet-luu-tru-moi" component={XetDuyetMoi}/>
         </Route>
 
         <Route path='/admin/login' component={LogInAdmin}/>
