@@ -48,6 +48,7 @@ mongoose.connection.on('error', function() {
 // var TransitionServer = require('./src-server/admin/transition/TransitionServer');
 var ImageServer = require('./src-server/image/ImageServer');
 var HomeMenuServer = require('./src-server/menu/HomeMenuServer');
+var PageServer = require('./src-server/page/PageServer');
 //==============================================
 
 var Adminserver = require('./src-server/admin/Adminserver');
@@ -110,6 +111,7 @@ var io = require('socket.io')(server);
 // Adminserver(app);
 ImageServer(app);
 HomeMenuServer(app);
+PageServer(app);
 Adminserver(app, importStudent);
 
 /*
