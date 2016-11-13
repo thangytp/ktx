@@ -7,10 +7,11 @@ class ManageUuTienStore {
   constructor() {
     this.bindActions(ManageUuTienAction);
     this.khuvuc = [];
+    this.tinh = [];
   }
 
   onGetKhuvucSuccess(response) {
-    this.chitieu = response;
+    this.khuvuc = response;
   }
 
   onAddKhuvucSuccess() {
@@ -19,6 +20,18 @@ class ManageUuTienStore {
 
   onDelKhuvucSuccess() {
     ManageUuTienAction.getKhuvuc();
+  }
+
+  onGetTinhSuccess(response) {
+    this.tinh = response;
+  }
+
+  onAddTinhSuccess() {
+    ManageUuTienAction.getTinh();
+  }
+
+  onDelTinhSuccess() {
+    ManageUuTienAction.getTinh();
   }
 
 }

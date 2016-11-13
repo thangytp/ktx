@@ -3,6 +3,8 @@ var Admin = require('../../models/admin');
 var Student = require('../../models/student');
 var Chitieu = require('../../models/chitieu');
 var Khuvuc = require('../../models/khuvuc');
+var Tinh = require('../../models/tinh');
+
 
 
 var xlstojson = require("xls-to-json-lc");
@@ -324,9 +326,9 @@ module.exports = function(app, importStudent) {
     // Get Khu Vuc
 
     app.get('/getkhuvuc', function(req, res){
-      Uutien.find(function(err, uutien){
+      Khuvuc.find(function(err, khuvuc){
         if(err) throw err;
-        res.json(uutien.khuvuc);
+        res.json(khuvuc);
       });
     })
 
@@ -344,13 +346,43 @@ module.exports = function(app, importStudent) {
         });
       })
 
-      // Delete Student
+      // Delete Khuvuc
 
-      app.delete('/deletechitieu/:chitieuId', function(req, res){
-        Chitieu.remove({_id: req.params.chitieuId}, function(err) {
+      app.delete('/deletekhuvuc/:khuvucId', function(req, res){
+        Khuvuc.remove({_id: req.params.khuvucId}, function(err) {
           if (err) throw err;
           res.send(true);
         });
       })
 
+      // Get Tinh
+
+      app.get('/gettinh', function(req, res){
+        Tinh.find(function(err, tinh){
+          if(err) throw err;
+          res.json(tinh);
+        });
+      })
+
+      // Add Tinh
+
+        app.post('/addtinh', function(req, res){
+          var nTinh = new Tinh();
+          nTinh.ten =  req.body.tinh;
+          nTinh.diem =  req.body.diemtinh;
+          nTinh.ma =  req.body.matinh;
+          nTinh.save(function(err){
+            if(err) throw err;
+            res.send(true);
+          });
+        })
+
+        // Delete Tinh
+
+        app.delete('/deletetinh/:tinhId', function(req, res){
+          Tinh.remove({_id: req.params.tinhId}, function(err) {
+            if (err) throw err;
+            res.send(true);
+          });
+        })
 }
