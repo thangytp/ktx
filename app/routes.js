@@ -5,6 +5,8 @@ import App from './components/admin/App';
 import HomeMenu from './components/admin/menu/HomeMenu';
 import ManageStudent from './components/admin/manage-user/ManageStudent';
 import XetDuyetMoi from './components/admin/manage-user/XetDuyetMoi';
+import ChiTieu from './components/admin/manage-chitieu/ChiTieu';
+import UuTien from './components/admin/manage-uutien/UuTien';
 
 import AddItemMenu from './components/admin/menu/AddItemMenu';
 import AddPage from './components/admin/page/AddPage';
@@ -39,6 +41,9 @@ export default (
             <Route path='/quanly@ktx/quan-ly-hinh-anh' component={Images} onEnter={requireAuth}/>
             <Route path='/quanly@ktx/quan-ly-sinh-vien' component={ManageStudent} onEnter={requireAuth} />
             <Route path="/quanly@ktx/xet-duyet-luu-tru-moi" component={XetDuyetMoi}/>
+            <Route path="/quanly@ktx/chi-tieu" component={ChiTieu}/>
+            <Route path="/quanly@ktx/uu-tien" component={UuTien}/>
+
         </Route>
 
         <Route path='/admin/login' component={LogInAdmin}/>

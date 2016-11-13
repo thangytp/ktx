@@ -49,6 +49,7 @@ class XetDuyetMoi extends Component {
 		super(props);
 		this.state = ManageUserStore.getState();
 		this.onChange = this.onChange.bind(this);
+    this.state.tabActive = 1;
   }
 
   componentDidMount() {
@@ -57,6 +58,10 @@ class XetDuyetMoi extends Component {
 
   componentWillUnmount() {
     ManageUserStore.unlisten(this.onChange);
+  }
+
+  changeTabActive(pos) {
+    this.setState({tabActive : pos});
   }
 
   onChange(state) {
@@ -83,7 +88,7 @@ class XetDuyetMoi extends Component {
     });
 
     return (
-      <Tabs defaultActiveKey={1} id="luutrumoi">
+      <Tabs defaultActiveKey={this.state.tabActive} id="luutrumoi">
         <Tab eventKey={1} title="Bước 1">
           <h1>Vui lòng import file tạm dừng học vụ của phòng đào tạo</h1>
           <HocVu/>
@@ -108,6 +113,7 @@ class XetDuyetMoi extends Component {
                </tbody>
             </table>
           </div>
+          <button className="btn btn-large btn-success" disabled={this.state.deactiveStep2} onClick={this.changeTabActive.bind(this, 2)}>Bước 2</button>
         </Tab>
         <Tab eventKey={2} disabled={this.state.deactiveStep2} title="Bước 2">
         <h1>Vui lòng import file điểm rèn luyện của phòng đào tạo</h1>

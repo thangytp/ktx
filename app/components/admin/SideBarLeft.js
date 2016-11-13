@@ -54,9 +54,15 @@ class SideBarLeft extends React.Component {
                       </li>
                       <li className="dropdown"><a className="dropdown-toggle" data-toggle="dropdown" href="#"><Link to="/quanly@ktx/quan-ly-sinh-vien">Quản lý sinh viên</Link>
                       <b className="caret"></b></a><ul className="dropdown-menu"><li><Link to="/quanly@ktx/xet-duyet-luu-tru-moi">Xét Duyệt Lưu Trú Mới</Link>
-</li>
+                      </li>
                       <li><a href="#">Sub-page 2</a></li>
                       </ul></li>
+                      <li className="">
+                        <Link to="/quanly@ktx/chi-tieu">Chỉ Tiêu</Link>
+                      </li>
+                      <li className="">
+                        <Link to="/quanly@ktx/uu-tien">Uư Tiên</Link>
+                      </li>
                       <li className="dropdown"><a className="dropdown-toggle" data-toggle="dropdown" href="#">Dropdown <b className="caret"></b></a><ul className="dropdown-menu"><li><a href="#">Sub-page 1</a></li>
                       <li><a href="#">Sub-page 2</a></li>
                       <li className="divider"></li>

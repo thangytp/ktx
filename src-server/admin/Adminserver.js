@@ -1,6 +1,10 @@
 var mongoose = require('mongoose');
 var Admin = require('../../models/admin');
 var Student = require('../../models/student');
+var Chitieu = require('../../models/chitieu');
+var Khuvuc = require('../../models/khuvuc');
+
+
 var xlstojson = require("xls-to-json-lc");
 var xlsxtojson = require("xlsx-to-json-lc");
 
@@ -263,5 +267,90 @@ module.exports = function(app, importStudent) {
       res.send(true);
     });
   })
+
+  // Get Chi Tieu
+
+  app.get('/getchitieu', function(req, res){
+    Chitieu.find(function(err, chitieu){
+      if(err) throw err;
+      res.json(chitieu);
+    });
+  })
+
+  // Add Chi Tieu
+
+    app.post('/addchitieu', function(req, res){
+      var nChitieu = new Chitieu();
+      nChitieu.nam = req.body.nam;
+      nChitieu.nam1 = {
+        soluong: req.body.nam1,
+        diemcoban: req.body.diemcb1
+      }
+      nChitieu.nam2 = {
+        soluong: req.body.nam1,
+        diemcoban: req.body.diemcb2
+      }
+      nChitieu.nam3 = {
+        soluong: req.body.nam1,
+        diemcoban: req.body.diemcb3
+      }
+      nChitieu.nam4 = {
+        soluong: req.body.nam1,
+        diemcoban: req.body.diemcb4
+      }
+      nChitieu.nam5 = {
+        soluong: req.body.nam1,
+        diemcoban: req.body.diemcb5
+      }
+      nChitieu.nam6 = {
+        soluong: req.body.nam1,
+        diemcoban: req.body.diemcb6
+      }
+      nChitieu.save(function(err){
+        if(err) throw err;
+        res.send(true);
+      });
+    })
+
+    // Delete Student
+
+    app.delete('/deletechitieu/:chitieuId', function(req, res){
+      Chitieu.remove({_id: req.params.chitieuId}, function(err) {
+        if (err) throw err;
+        res.send(true);
+      });
+    })
+
+    // Get Khu Vuc
+
+    app.get('/getkhuvuc', function(req, res){
+      Uutien.find(function(err, uutien){
+        if(err) throw err;
+        res.json(uutien.khuvuc);
+      });
+    })
+
+    // Add Khu Vuc
+
+      app.post('/addkhuvuc', function(req, res){
+        console.log(req.body);
+        var nKhuvuc = new Khuvuc();
+        nKhuvuc.ten =  req.body.khuvuc;
+        nKhuvuc.diem =  req.body.diemkhuvuc;
+        nKhuvuc.ma =  req.body.makhuvuc;
+        nKhuvuc.save(function(err){
+          if(err) throw err;
+          res.send(true);
+        });
+      })
+
+      // Delete Student
+
+      app.delete('/deletechitieu/:chitieuId', function(req, res){
+        Chitieu.remove({_id: req.params.chitieuId}, function(err) {
+          if (err) throw err;
+          res.send(true);
+        });
+      })
 
 }
