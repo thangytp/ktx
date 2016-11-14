@@ -8,6 +8,9 @@ class ManageUuTienStore {
     this.bindActions(ManageUuTienAction);
     this.khuvuc = [];
     this.tinh = [];
+    this.doituong = [];
+    this.hocluc = [];
+    this.hoancanh = [];
   }
 
   onGetKhuvucSuccess(response) {
@@ -32,6 +35,42 @@ class ManageUuTienStore {
 
   onDelTinhSuccess() {
     ManageUuTienAction.getTinh();
+  }
+
+  onGetDoituongSuccess(response) {
+    this.doituong = response;
+  }
+
+  onAddDoituongSuccess() {
+    ManageUuTienAction.getDoituong();
+  }
+
+  onDelDoituongSuccess() {
+    ManageUuTienAction.getDoituong();
+  }
+
+  onGetHoclucSuccess(response) {
+    this.hocluc = response;
+  }
+
+  onAddHoclucSuccess() {
+    ManageUuTienAction.getHocluc();
+  }
+
+  onDelHoclucSuccess() {
+    ManageUuTienAction.getHocluc();
+  }
+
+  onGetHoancanhSuccess(response) {
+    this.hoancanh = response;
+  }
+
+  onAddHoancanhSuccess() {
+    ManageUuTienAction.getHoancanh();
+  }
+
+  onDelTinhSuccess() {
+    ManageUuTienAction.getHoancanh();
   }
 
 }

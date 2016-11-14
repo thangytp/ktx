@@ -8,8 +8,16 @@ class ManageUuTienAction {
       'delKhuvucSuccess',
       'getTinhSuccess',
       'addTinhSuccess',
-      'delTinhSuccess'
-
+      'delTinhSuccess',
+      'getDoituongSuccess',
+      'addDoituongSuccess',
+      'delDoituongSuccess',
+      'getHoclucSuccess',
+      'addHoclucSuccess',
+      'delHoclucSuccess',
+      'getHoancanhSuccess',
+      'addHoancanhSuccess',
+      'delHoancanhSuccess'
     );
   }
   getKhuvuc() {
@@ -75,7 +83,102 @@ class ManageUuTienAction {
     .done((data) => {
       this.actions.addTinhSuccess();
     })
+  }
 
+  getDoituong() {
+    $.ajax({
+      url: '/getdoituong',
+      type: 'GET'
+    })
+    .done((data) => {
+      this.actions.getDoituongSuccess(data);
+    })
+  }
+
+  delDoituong(payload) {
+    console.log(payload);
+    $.ajax({
+      url: '/deletedoituong/' + payload,
+      type: 'DELETE'
+    })
+    .done((data) => {
+      this.actions.delDoituongSuccess();
+    })
+  }
+
+  addDoituong(payload) {
+    $.ajax({
+      url: '/adddoituong',
+      type: 'POST',
+      data: payload
+    })
+    .done((data) => {
+      this.actions.addDoituongSuccess();
+    })
+  }
+
+  getHocluc() {
+    $.ajax({
+      url: '/gethocluc',
+      type: 'GET'
+    })
+    .done((data) => {
+      this.actions.getHoclucSuccess(data);
+    })
+  }
+
+  delHocluc(payload) {
+    console.log(payload);
+    $.ajax({
+      url: '/deletehocluc/' + payload,
+      type: 'DELETE'
+    })
+    .done((data) => {
+      this.actions.delHoclucSuccess();
+    })
+  }
+
+  addHocluc(payload) {
+    $.ajax({
+      url: '/addhocluc',
+      type: 'POST',
+      data: payload
+    })
+    .done((data) => {
+      this.actions.addHoclucSuccess();
+    })
+  }
+
+  getHoancanh() {
+    $.ajax({
+      url: '/gethoancanh',
+      type: 'GET'
+    })
+    .done((data) => {
+      this.actions.getHoancanhSuccess(data);
+    })
+  }
+
+  delHoancanh(payload) {
+    console.log(payload);
+    $.ajax({
+      url: '/deletehoancanh/' + payload,
+      type: 'DELETE'
+    })
+    .done((data) => {
+      this.actions.delHoancanhSuccess();
+    })
+  }
+
+  addHoancanh(payload) {
+    $.ajax({
+      url: '/addhoancanh',
+      type: 'POST',
+      data: payload
+    })
+    .done((data) => {
+      this.actions.addHoancanhSuccess();
+    })
   }
 
 }

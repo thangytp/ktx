@@ -4,6 +4,10 @@ var Student = require('../../models/student');
 var Chitieu = require('../../models/chitieu');
 var Khuvuc = require('../../models/khuvuc');
 var Tinh = require('../../models/tinh');
+var Doituong = require('../../models/doituong');
+var Hocluc = require('../../models/hocluc');
+var Hoancanh = require('../../models/hoancanh');
+
 
 
 
@@ -334,55 +338,149 @@ module.exports = function(app, importStudent) {
 
     // Add Khu Vuc
 
-      app.post('/addkhuvuc', function(req, res){
-        console.log(req.body);
-        var nKhuvuc = new Khuvuc();
-        nKhuvuc.ten =  req.body.khuvuc;
-        nKhuvuc.diem =  req.body.diemkhuvuc;
-        nKhuvuc.ma =  req.body.makhuvuc;
-        nKhuvuc.save(function(err){
-          if(err) throw err;
-          res.send(true);
-        });
-      })
+    app.post('/addkhuvuc', function(req, res){
+      console.log(req.body);
+      var nKhuvuc = new Khuvuc();
+      nKhuvuc.ten =  req.body.khuvuc;
+      nKhuvuc.diem =  req.body.diemkhuvuc;
+      nKhuvuc.ma =  req.body.makhuvuc;
+      nKhuvuc.save(function(err){
+        if(err) throw err;
+        res.send(true);
+      });
+    })
 
-      // Delete Khuvuc
+    // Delete Khuvuc
 
-      app.delete('/deletekhuvuc/:khuvucId', function(req, res){
-        Khuvuc.remove({_id: req.params.khuvucId}, function(err) {
-          if (err) throw err;
-          res.send(true);
-        });
-      })
+    app.delete('/deletekhuvuc/:khuvucId', function(req, res){
+      Khuvuc.remove({_id: req.params.khuvucId}, function(err) {
+        if (err) throw err;
+        res.send(true);
+      });
+    })
 
-      // Get Tinh
+    // Get Tinh
 
-      app.get('/gettinh', function(req, res){
-        Tinh.find(function(err, tinh){
-          if(err) throw err;
-          res.json(tinh);
-        });
-      })
+    app.get('/gettinh', function(req, res){
+      Tinh.find(function(err, tinh){
+        if(err) throw err;
+        res.json(tinh);
+      });
+    })
 
-      // Add Tinh
+    // Add Tinh
 
-        app.post('/addtinh', function(req, res){
-          var nTinh = new Tinh();
-          nTinh.ten =  req.body.tinh;
-          nTinh.diem =  req.body.diemtinh;
-          nTinh.ma =  req.body.matinh;
-          nTinh.save(function(err){
-            if(err) throw err;
-            res.send(true);
-          });
-        })
+    app.post('/addtinh', function(req, res){
+      var nTinh = new Tinh();
+      nTinh.ten =  req.body.tinh;
+      nTinh.diem =  req.body.diemtinh;
+      nTinh.ma =  req.body.matinh;
+      nTinh.save(function(err){
+        if(err) throw err;
+        res.send(true);
+      });
+    })
 
-        // Delete Tinh
+    // Delete Tinh
 
-        app.delete('/deletetinh/:tinhId', function(req, res){
-          Tinh.remove({_id: req.params.tinhId}, function(err) {
-            if (err) throw err;
-            res.send(true);
-          });
-        })
+    app.delete('/deletetinh/:tinhId', function(req, res){
+      Tinh.remove({_id: req.params.tinhId}, function(err) {
+        if (err) throw err;
+        res.send(true);
+      });
+    })
+
+    // Get Doi Tuong
+
+    app.get('/getdoituong', function(req, res){
+      Doituong.find(function(err, doituong){
+        if(err) throw err;
+        res.json(doituong);
+      });
+    })
+
+    // Add Doi Tuong
+
+    app.post('/adddoituong', function(req, res){
+      var nDoituong = new Doituong();
+      nDoituong.ten =  req.body.doituong;
+      nDoituong.diem =  req.body.diemdoituong;
+      nDoituong.ma =  req.body.madoituong;
+      nDoituong.save(function(err){
+        if(err) throw err;
+        res.send(true);
+      });
+    })
+
+    // Delete Doi Tuong
+
+    app.delete('/deletedoituong/:doituongId', function(req, res){
+      Doituong.remove({_id: req.params.doituongId}, function(err) {
+        if (err) throw err;
+        res.send(true);
+      });
+    })
+
+    // Get Hoc Luc
+
+    app.get('/gethocluc', function(req, res){
+      Hocluc.find(function(err, hocluc){
+        if(err) throw err;
+        res.json(hocluc);
+      });
+    })
+
+    // Add Hoc Luc
+
+    app.post('/addhocluc', function(req, res){
+      var nHocluc = new Hocluc();
+      nHocluc.ten =  req.body.hocluc;
+      nHocluc.diem =  req.body.diemhocluc;
+      nHocluc.ma =  req.body.mahocluc;
+      nHocluc.save(function(err){
+        if(err) throw err;
+        res.send(true);
+      });
+    })
+
+    // Delete Hoc Luc
+
+    app.delete('/deletehocluc/:hoclucId', function(req, res){
+      Hocluc.remove({_id: req.params.hoclucId}, function(err) {
+        if (err) throw err;
+        res.send(true);
+      });
+    })
+
+    // Get Hoan Canh
+
+    app.get('/gethoancanh', function(req, res){
+      Hoancanh.find(function(err, hoancanh){
+        if(err) throw err;
+        res.json(hoancanh);
+      });
+    })
+
+    // Add Hoan Canh
+
+    app.post('/addhoancanh', function(req, res){
+      var nHoancanh = new Hoancanh();
+      nHoancanh.ten =  req.body.hoancanh;
+      nHoancanh.diem =  req.body.diemhoancanh;
+      nHoancanh.ma =  req.body.mahoancanh;
+      nHoancanh.save(function(err){
+        if(err) throw err;
+        res.send(true);
+      });
+    })
+
+    // Delete Hoan Canh
+
+    app.delete('/deletehoancanh/:hoancanhId', function(req, res){
+      Hoancanh.remove({_id: req.params.hoancanhId}, function(err) {
+        if (err) throw err;
+        res.send(true);
+      });
+    })
+
 }
