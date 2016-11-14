@@ -24,15 +24,22 @@ class Footer extends React.Component {
 
     return (
       <footer id="footer">
-        <div className="container">
-          <hr/>
-        </div>
-        <div className="container-fluid">
-            <div className="row">
-                <div className="col-md-12 col-xs-12">
-                  <p>© Ký túc xá Bách Khoa</p>
-                  <p><i className="fa fa-map-marker" aria-hidden="true"></i> <span>497 Hoà Hảo, phường 7, Quận 10, Tp.HCM</span></p>
-                  <p><i className="fa fa-phone-square" aria-hidden="true"></i> <span>08 39573946</span></p>
+        <div className="cs-copyright">
+            <div className="container">
+                <div className="row">
+                    <div className="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                        <div className="copyright-text">
+                            <p>© Ký túc xá Bách Khoa.</p>
+                        </div>
+                    </div>
+                    <div className="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                        <div className="cs-social-media">
+                          <ul>
+                              <li><a href="https://www.facebook.com/ktxbk.vn" target='_blank'><i className="fa fa-facebook" aria-hidden="true"></i></a></li>
+                                
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
