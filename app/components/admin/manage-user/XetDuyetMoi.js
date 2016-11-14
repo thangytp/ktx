@@ -41,6 +41,25 @@ var DiemRenLuyen = React.createClass({
     }
 });
 
+var DiemXetDuyet = React.createClass({
+    uploadFile: function (e) {
+        var fd = new FormData();
+        fd.append('file', this.refs.file.getDOMNode().files[0]);
+        ManageUserAction.updateDiemXetDuyet(fd);
+        e.preventDefault()
+    },
+    render: function() {
+        return (
+            <div>
+               <form ref="uploadForm" className="uploader" encType="multipart/form-data" >
+                   <input ref="file" type="file" name="file" className="upload-file"/>
+                   <input type="button" ref="button" value="Upload" onClick={this.uploadFile.bind(this)} />
+               </form>
+            </div>
+        );
+    }
+});
+
 
 
 class XetDuyetMoi extends Component {
@@ -113,7 +132,6 @@ class XetDuyetMoi extends Component {
                </tbody>
             </table>
           </div>
-          <button className="btn btn-large btn-success" disabled={this.state.deactiveStep2} onClick={this.changeTabActive.bind(this, 2)}>Bước 2</button>
         </Tab>
         <Tab eventKey={2} disabled={this.state.deactiveStep2} title="Bước 2">
         <h1>Vui lòng import file điểm rèn luyện của phòng đào tạo</h1>
@@ -140,7 +158,31 @@ class XetDuyetMoi extends Component {
           </table>
         </div>
         </Tab>
-        <Tab eventKey={3} disabled={this.state.deactiveStep3} title="Buoc 3">Tab 3 content</Tab>
+        <Tab eventKey={3} disabled={this.state.deactiveStep3} title="Buoc 3">
+        <h1>Vui lòng import file điểm thành phần xét duyệt của phòng đào tạo</h1>
+        <DiemXetDuyet/>
+        <div className="table-responsive">
+          <table className="table">
+            <thead>
+             <tr>
+               <th>#</th>
+               <th>Họ Tên</th>
+               <th>Email</th>
+               <th>MSSV</th>
+               <th>Mã KTX</th>
+               <th>Mã Giường</th>
+               <th>Tên Giường</th>
+               <th>Tên Phòng</th>
+               <th>CMND</th>
+               <th>SDT</th>
+               </tr>
+             </thead>
+             <tbody>
+              {listUsers}
+             </tbody>
+          </table>
+        </div>
+        </Tab>
       </Tabs>
     );
   }

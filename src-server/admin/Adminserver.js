@@ -139,6 +139,18 @@ module.exports = function(app, importStudent) {
     });
   })
 
+  app.get('/getstudent/diemxetduyet', function(req, res){
+    Student
+    .find()
+    .sort('-diem_ren_luyen')
+    .limit(80)
+    .exec(function(err, students){
+      if(err) throw err;
+      res.json(students);
+    });
+
+  })
+
   // Get Student
 
   app.get('/getstudent/:stuId', function(req, res){
@@ -264,6 +276,55 @@ module.exports = function(app, importStudent) {
       })
 
   });
+
+  //Update Diem Ren Luyen
+
+  app.post('/upload/diemxetduyet', function(req, res) {
+      var exceltojson;
+
+      importStudent(req,res,function(err){
+          if(err){
+               res.json({error_code:1,err_desc:err});
+               return;
+          }
+          /** Multer gives us file info in req.file object */
+          if(!req.file){
+              res.json({error_code:1,err_desc:"No file passed"});
+              return;
+          }
+          /** Check the extension of the incoming file and
+           *  use the appropriate module
+           */
+          if(req.file.originalname.split('.')[req.file.originalname.split('.').length-1] === 'xlsx'){
+              exceltojson = xlsxtojson;
+          } else {
+              exceltojson = xlstojson;
+          }
+          // console.log(req.file.path);
+          try {
+              exceltojson({
+                  input: req.file.path,
+                  output: null, //since we don't need output.json
+                  // sheet: "Sheet1",
+                  lowerCaseHeaders:true
+              }, function(err,result){
+                  if(err) {
+                      return res.json({error_code:1,err_desc:err, data: null});
+                  }
+                  for(var i=0; i<result.length; i++){
+                    Student.findOneAndUpdate({ma_sinh_vien : result[i].ma_sinh_vien}, {diem_xet_duyet : parseInt(result[i].diem_co_ban) + parseInt(result[i].diem_khuyen_khich) + parseInt(result[i].diem_uu_tien)} , { new: true }, function (err, student) {
+                      if (err) throw err;
+                    });
+                  }
+                  res.send(true);
+              });
+          } catch (e){
+              res.json({error_code:1,err_desc:"Corupted excel file"});
+          }
+      })
+
+  });
+
 
   // Delete Student
 

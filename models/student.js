@@ -40,6 +40,7 @@ var studentSchema = new mongoose.Schema({
   ten_doan_the: String,
   tamdung_hocvu:    {type: 'Boolean', default: false},
   diem_ren_luyen: Number,
+  diem_xet_duyet: Number,
   khu_vuc: String,
   doi_tuong: String,
   loai_sinh_vien: String,

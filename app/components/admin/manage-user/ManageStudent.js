@@ -23,24 +23,6 @@ var FormUpload = React.createClass({
     }
 });
 
-var FormUpload1 = React.createClass({
-    uploadFile: function (e) {
-        var fd = new FormData();
-        fd.append('file', this.refs.file.getDOMNode().files[0]);
-        ManageUserAction.updateHocVu(fd);
-        e.preventDefault()
-    },
-    render: function() {
-        return (
-            <div>
-               <form ref="uploadForm" className="uploader" encType="multipart/form-data" >
-                   <input ref="file" type="file" name="file" className="upload-file"/>
-                   <input type="button" ref="button" value="Upload" onClick={this.uploadFile.bind(this)} />
-               </form>
-            </div>
-        );
-    }
-});
 
 const AddUserModal = React.createClass({
 
@@ -192,7 +174,6 @@ class ManageStudent extends React.Component {
 
     return (
       <div>
-        <Link to='/quanly@ktx/quan-ly-sinh-vien/xetduyetluutrumoi'>Xét duyệt lưu trú đối với sinh viên mới</Link>
         <div className="table-responsive">
           <table className="table">
             <thead>
@@ -222,6 +203,7 @@ class ManageStudent extends React.Component {
         </Button>
         <AddUserModal {...props} show={this.state.addModalShow} onHide={addModalClose} />
         <EditUserModal {...props} show={this.state.editModalShow} onHide={editModalClose} />
+        <FormUpload />
       </div>
     );
   }

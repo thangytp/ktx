@@ -56,6 +56,12 @@ class ManageUserStore {
     localStorage.setItem('deactiveStep3', false);
     this.deactiveStep3 = false;
   }
+
+  onUpdateDiemXetDuyetSuccess() {
+    ManageUserAction.getUsersByDiemXetDuyet();
+    localStorage.setItem('deactiveStep3', false);
+    this.deactiveStep3 = false;
+  }
   // onUpdateuser(event)
   // {
   // 	this.user = event.target.value;

@@ -10,7 +10,8 @@ class ManageUserAction {
        'deleteUserSuccess',
        'editUserSuccess',
        'updateHocVuSuccess',
-       'updateDiemRenLuyenSuccess'
+       'updateDiemRenLuyenSuccess',
+       'updateDiemXetDuyetSuccess'
     );
   }
 
@@ -37,6 +38,16 @@ class ManageUserAction {
   getUsersByDiemRenLuyen(payload) {
     $.ajax({
       url: '/getstudent/diem/' + payload,
+      type: 'GET'
+    })
+    .done((data) => {
+      this.actions.getUsersSuccess(data);
+    })
+  }
+
+  getUsersByDiemXetDuyet(payload) {
+    $.ajax({
+      url: '/getstudent/diemxetduyet',
       type: 'GET'
     })
     .done((data) => {
@@ -101,6 +112,19 @@ class ManageUserAction {
     })
     .done((data) => {
       this.actions.updateDiemRenLuyenSuccess();
+    })
+  }
+
+  updateDiemXetDuyet(payload) {
+    $.ajax({
+        url: '/upload/diemxetduyet',
+        data: payload,
+        processData: false,
+        contentType: false,
+        type: 'POST'
+    })
+    .done((data) => {
+      this.actions.updateDiemXetDuyetSuccess();
     })
   }
 
