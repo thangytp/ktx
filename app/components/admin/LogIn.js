@@ -50,9 +50,9 @@ class LogInAdmin extends React.Component {
   		<div className="container login-page">
   			<h2>Đăng nhập vào hệ thống</h2>
 				<form onSubmit={this.handleSubmit.bind(this)}>
-          <label><input ref="email" placeholder="email" defaultValue="joe@example.com" /></label>
-          <label><input ref="password" placeholder="password" /></label> (hint: password1)<br />
-          <button type="submit">login</button>
+          <label><input ref="email" type="text" placeholder="Email" className="form-control" /></label><br />
+          <label><input ref="password" type="password" placeholder="Password" className="form-control" /></label><br />
+          <button type="submit" className="btn btn-large btn-primary">Login</button>
         </form>
 			<span className="succ-login">{this.state.loginSuccessMess}</span>
 			<span className="err-login">{this.state.loginFailMess}</span>

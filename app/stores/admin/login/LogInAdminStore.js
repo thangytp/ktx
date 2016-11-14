@@ -12,7 +12,7 @@ class LogInAdminStore {
 
   onLogout()
   {
-  	localStorage.removeItem('adminEmail');
+    localStorage.clear();
     this.logout = true;
   }
 

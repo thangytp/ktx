@@ -1,10 +1,24 @@
 import alt from '../../../alt';
 import ManageUserAction from '../../../actions/admin/manage-user/ManageUserAction';
+import localStorage from 'localStorage';
+
 
 class ManageUserStore {
   constructor() {
     this.bindActions(ManageUserAction);
     this.users = [];
+    if(localStorage.getItem('deactiveStep2')) {
+      this.deactiveStep2 = false;
+    } else {
+      this.deactiveStep2 = true;
+    }
+
+    if(localStorage.getItem('deactiveStep2')) {
+      this.deactiveStep3 = false;
+    } else {
+      this.deactiveStep3 = true;
+    }
+
   }
 
   onAddUserSuccess() {
@@ -29,6 +43,24 @@ class ManageUserStore {
 
   onImportUserSuccess() {
     ManageUserAction.getUsers();
+  }
+
+  onUpdateHocVuSuccess() {
+    ManageUserAction.getUsersByHocVu();
+    localStorage.setItem('deactiveStep2', false);
+    this.deactiveStep2 = false;
+  }
+
+  onUpdateDiemRenLuyenSuccess() {
+    ManageUserAction.getUsersByDiemRenLuyen(75);
+    localStorage.setItem('deactiveStep3', false);
+    this.deactiveStep3 = false;
+  }
+
+  onUpdateDiemXetDuyetSuccess() {
+    ManageUserAction.getUsersByDiemXetDuyet();
+    localStorage.setItem('deactiveStep3', false);
+    this.deactiveStep3 = false;
   }
   // onUpdateuser(event)
   // {

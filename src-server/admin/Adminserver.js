@@ -1,6 +1,16 @@
 var mongoose = require('mongoose');
 var Admin = require('../../models/admin');
 var Student = require('../../models/student');
+var Chitieu = require('../../models/chitieu');
+var Khuvuc = require('../../models/khuvuc');
+var Tinh = require('../../models/tinh');
+var Doituong = require('../../models/doituong');
+var Hocluc = require('../../models/hocluc');
+var Hoancanh = require('../../models/hoancanh');
+
+
+
+
 var xlstojson = require("xls-to-json-lc");
 var xlsxtojson = require("xlsx-to-json-lc");
 
@@ -23,7 +33,6 @@ module.exports = function(app, importStudent) {
       var exceltojson;
 
       importStudent(req,res,function(err){
-        console.log(req.file);
           if(err){
                res.json({error_code:1,err_desc:err});
                return;
@@ -111,6 +120,37 @@ module.exports = function(app, importStudent) {
     });
   })
 
+  // Get Students By Hoc Vu
+
+  app.get('/getstudenthocvu', function(req, res){
+    Student.find({tamdung_hocvu : true}, function(err, students){
+      if(err) throw err;
+      res.json(students);
+    });
+  })
+
+  //Get Students By Diem Ren Luyen
+
+  app.get('/getstudent/diem/:stuDiem', function(req, res){
+    console.log(req.params.stuDiem);
+    Student.find({diem_ren_luyen : {$gt: req.params.stuDiem}}, function(err, students){
+      if(err) throw err;
+      res.json(students);
+    });
+  })
+
+  app.get('/getstudent/diemxetduyet', function(req, res){
+    Student
+    .find()
+    .sort('-diem_ren_luyen')
+    .limit(80)
+    .exec(function(err, students){
+      if(err) throw err;
+      res.json(students);
+    });
+
+  })
+
   // Get Student
 
   app.get('/getstudent/:stuId', function(req, res){
@@ -141,6 +181,151 @@ module.exports = function(app, importStudent) {
     });
   })
 
+  // Update Xy Ky Hoc Vu
+
+  app.post('/upload/xulyhocvu', function(req, res) {
+      var exceltojson;
+
+      importStudent(req,res,function(err){
+          if(err){
+               res.json({error_code:1,err_desc:err});
+               return;
+          }
+          /** Multer gives us file info in req.file object */
+          if(!req.file){
+              res.json({error_code:1,err_desc:"No file passed"});
+              return;
+          }
+          /** Check the extension of the incoming file and
+           *  use the appropriate module
+           */
+          if(req.file.originalname.split('.')[req.file.originalname.split('.').length-1] === 'xlsx'){
+              exceltojson = xlsxtojson;
+          } else {
+              exceltojson = xlstojson;
+          }
+          // console.log(req.file.path);
+          try {
+              exceltojson({
+                  input: req.file.path,
+                  output: null, //since we don't need output.json
+                  // sheet: "Sheet1",
+                  lowerCaseHeaders:true
+              }, function(err,result){
+                  if(err) {
+                      return res.json({error_code:1,err_desc:err, data: null});
+                  }
+                  for(var i=0; i<result.length; i++){
+                    Student.findOneAndUpdate({ma_sinh_vien : result[i].ma_sinh_vien}, {tamdung_hocvu : true} , { new: true }, function (err, student) {
+                      if (err) throw err;
+                    });
+                  }
+                  res.send(true);
+              });
+          } catch (e){
+              res.json({error_code:1,err_desc:"Corupted excel file"});
+          }
+      })
+
+  });
+
+  //Update Diem Ren Luyen
+
+  app.post('/upload/diemrenluyen', function(req, res) {
+      var exceltojson;
+
+      importStudent(req,res,function(err){
+          if(err){
+               res.json({error_code:1,err_desc:err});
+               return;
+          }
+          /** Multer gives us file info in req.file object */
+          if(!req.file){
+              res.json({error_code:1,err_desc:"No file passed"});
+              return;
+          }
+          /** Check the extension of the incoming file and
+           *  use the appropriate module
+           */
+          if(req.file.originalname.split('.')[req.file.originalname.split('.').length-1] === 'xlsx'){
+              exceltojson = xlsxtojson;
+          } else {
+              exceltojson = xlstojson;
+          }
+          // console.log(req.file.path);
+          try {
+              exceltojson({
+                  input: req.file.path,
+                  output: null, //since we don't need output.json
+                  // sheet: "Sheet1",
+                  lowerCaseHeaders:true
+              }, function(err,result){
+                  if(err) {
+                      return res.json({error_code:1,err_desc:err, data: null});
+                  }
+                  for(var i=0; i<result.length; i++){
+                    Student.findOneAndUpdate({ma_sinh_vien : result[i].ma_sinh_vien}, {diem_ren_luyen : result[i].diem_ren_luyen} , { new: true }, function (err, student) {
+                      if (err) throw err;
+                    });
+                  }
+                  res.send(true);
+              });
+          } catch (e){
+              res.json({error_code:1,err_desc:"Corupted excel file"});
+          }
+      })
+
+  });
+
+  //Update Diem Ren Luyen
+
+  app.post('/upload/diemxetduyet', function(req, res) {
+      var exceltojson;
+
+      importStudent(req,res,function(err){
+          if(err){
+               res.json({error_code:1,err_desc:err});
+               return;
+          }
+          /** Multer gives us file info in req.file object */
+          if(!req.file){
+              res.json({error_code:1,err_desc:"No file passed"});
+              return;
+          }
+          /** Check the extension of the incoming file and
+           *  use the appropriate module
+           */
+          if(req.file.originalname.split('.')[req.file.originalname.split('.').length-1] === 'xlsx'){
+              exceltojson = xlsxtojson;
+          } else {
+              exceltojson = xlstojson;
+          }
+          // console.log(req.file.path);
+          try {
+              exceltojson({
+                  input: req.file.path,
+                  output: null, //since we don't need output.json
+                  // sheet: "Sheet1",
+                  lowerCaseHeaders:true
+              }, function(err,result){
+                  if(err) {
+                      return res.json({error_code:1,err_desc:err, data: null});
+                  }
+                  for(var i=0; i<result.length; i++){
+                    Student.findOneAndUpdate({ma_sinh_vien : result[i].ma_sinh_vien}, {diem_xet_duyet : parseInt(result[i].diem_co_ban) + parseInt(result[i].diem_khuyen_khich) + parseInt(result[i].diem_uu_tien)} , { new: true }, function (err, student) {
+                      if (err) throw err;
+                    });
+                  }
+                  res.send(true);
+              });
+          } catch (e){
+              res.json({error_code:1,err_desc:"Corupted excel file"});
+          }
+      })
+
+  });
+
+
   // Delete Student
 
   app.delete('/deletestudent/:stuId', function(req, res){
@@ -149,5 +334,214 @@ module.exports = function(app, importStudent) {
       res.send(true);
     });
   })
+
+  // Get Chi Tieu
+
+  app.get('/getchitieu', function(req, res){
+    Chitieu.find(function(err, chitieu){
+      if(err) throw err;
+      res.json(chitieu);
+    });
+  })
+
+  // Add Chi Tieu
+
+    app.post('/addchitieu', function(req, res){
+      var nChitieu = new Chitieu();
+      nChitieu.nam = req.body.nam;
+      nChitieu.nam1 = {
+        soluong: req.body.nam1,
+        diemcoban: req.body.diemcb1
+      }
+      nChitieu.nam2 = {
+        soluong: req.body.nam1,
+        diemcoban: req.body.diemcb2
+      }
+      nChitieu.nam3 = {
+        soluong: req.body.nam1,
+        diemcoban: req.body.diemcb3
+      }
+      nChitieu.nam4 = {
+        soluong: req.body.nam1,
+        diemcoban: req.body.diemcb4
+      }
+      nChitieu.nam5 = {
+        soluong: req.body.nam1,
+        diemcoban: req.body.diemcb5
+      }
+      nChitieu.nam6 = {
+        soluong: req.body.nam1,
+        diemcoban: req.body.diemcb6
+      }
+      nChitieu.save(function(err){
+        if(err) throw err;
+        res.send(true);
+      });
+    })
+
+    // Delete Student
+
+    app.delete('/deletechitieu/:chitieuId', function(req, res){
+      Chitieu.remove({_id: req.params.chitieuId}, function(err) {
+        if (err) throw err;
+        res.send(true);
+      });
+    })
+
+    // Get Khu Vuc
+
+    app.get('/getkhuvuc', function(req, res){
+      Khuvuc.find(function(err, khuvuc){
+        if(err) throw err;
+        res.json(khuvuc);
+      });
+    })
+
+    // Add Khu Vuc
+
+    app.post('/addkhuvuc', function(req, res){
+      console.log(req.body);
+      var nKhuvuc = new Khuvuc();
+      nKhuvuc.ten =  req.body.khuvuc;
+      nKhuvuc.diem =  req.body.diemkhuvuc;
+      nKhuvuc.ma =  req.body.makhuvuc;
+      nKhuvuc.save(function(err){
+        if(err) throw err;
+        res.send(true);
+      });
+    })
+
+    // Delete Khuvuc
+
+    app.delete('/deletekhuvuc/:khuvucId', function(req, res){
+      Khuvuc.remove({_id: req.params.khuvucId}, function(err) {
+        if (err) throw err;
+        res.send(true);
+      });
+    })
+
+    // Get Tinh
+
+    app.get('/gettinh', function(req, res){
+      Tinh.find(function(err, tinh){
+        if(err) throw err;
+        res.json(tinh);
+      });
+    })
+
+    // Add Tinh
+
+    app.post('/addtinh', function(req, res){
+      var nTinh = new Tinh();
+      nTinh.ten =  req.body.tinh;
+      nTinh.diem =  req.body.diemtinh;
+      nTinh.ma =  req.body.matinh;
+      nTinh.save(function(err){
+        if(err) throw err;
+        res.send(true);
+      });
+    })
+
+    // Delete Tinh
+
+    app.delete('/deletetinh/:tinhId', function(req, res){
+      Tinh.remove({_id: req.params.tinhId}, function(err) {
+        if (err) throw err;
+        res.send(true);
+      });
+    })
+
+    // Get Doi Tuong
+
+    app.get('/getdoituong', function(req, res){
+      Doituong.find(function(err, doituong){
+        if(err) throw err;
+        res.json(doituong);
+      });
+    })
+
+    // Add Doi Tuong
+
+    app.post('/adddoituong', function(req, res){
+      var nDoituong = new Doituong();
+      nDoituong.ten =  req.body.doituong;
+      nDoituong.diem =  req.body.diemdoituong;
+      nDoituong.ma =  req.body.madoituong;
+      nDoituong.save(function(err){
+        if(err) throw err;
+        res.send(true);
+      });
+    })
+
+    // Delete Doi Tuong
+
+    app.delete('/deletedoituong/:doituongId', function(req, res){
+      Doituong.remove({_id: req.params.doituongId}, function(err) {
+        if (err) throw err;
+        res.send(true);
+      });
+    })
+
+    // Get Hoc Luc
+
+    app.get('/gethocluc', function(req, res){
+      Hocluc.find(function(err, hocluc){
+        if(err) throw err;
+        res.json(hocluc);
+      });
+    })
+
+    // Add Hoc Luc
+
+    app.post('/addhocluc', function(req, res){
+      var nHocluc = new Hocluc();
+      nHocluc.ten =  req.body.hocluc;
+      nHocluc.diem =  req.body.diemhocluc;
+      nHocluc.ma =  req.body.mahocluc;
+      nHocluc.save(function(err){
+        if(err) throw err;
+        res.send(true);
+      });
+    })
+
+    // Delete Hoc Luc
+
+    app.delete('/deletehocluc/:hoclucId', function(req, res){
+      Hocluc.remove({_id: req.params.hoclucId}, function(err) {
+        if (err) throw err;
+        res.send(true);
+      });
+    })
+
+    // Get Hoan Canh
+
+    app.get('/gethoancanh', function(req, res){
+      Hoancanh.find(function(err, hoancanh){
+        if(err) throw err;
+        res.json(hoancanh);
+      });
+    })
+
+    // Add Hoan Canh
+
+    app.post('/addhoancanh', function(req, res){
+      var nHoancanh = new Hoancanh();
+      nHoancanh.ten =  req.body.hoancanh;
+      nHoancanh.diem =  req.body.diemhoancanh;
+      nHoancanh.ma =  req.body.mahoancanh;
+      nHoancanh.save(function(err){
+        if(err) throw err;
+        res.send(true);
+      });
+    })
+
+    // Delete Hoan Canh
+
+    app.delete('/deletehoancanh/:hoancanhId', function(req, res){
+      Hoancanh.remove({_id: req.params.hoancanhId}, function(err) {
+        if (err) throw err;
+        res.send(true);
+      });
+    })
 
 }

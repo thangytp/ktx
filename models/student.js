@@ -30,13 +30,20 @@ var studentSchema = new mongoose.Schema({
   ngay: String,
   thang: String,
   ly_do_ra: String,
-  'ngay sinh': String,
+  ngay_sinh: String,
   dia_chi_gia_dinh: String,
   ten_tinh_tp: String,
   dtqt: String,
   bk: String,
   dien_thoai: String,
   email: String,
-  ten_doan_the: String
+  ten_doan_the: String,
+  tamdung_hocvu:    {type: 'Boolean', default: false},
+  diem_ren_luyen: Number,
+  diem_xet_duyet: Number,
+  khu_vuc: String,
+  doi_tuong: String,
+  loai_sinh_vien: String,
+  hoan_canh: String
 });
 module.exports = mongoose.model('Student', studentSchema);
