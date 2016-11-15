@@ -3,6 +3,8 @@ import {Link} from 'react-router'
 import {Modal, Button} from 'react-bootstrap';
 import ManageUserAction from '../../../actions/admin/manage-user/ManageUserAction';
 import ManageUserStore from '../../../stores/admin/manage-user/ManageUserStore';
+import ManageUuTienAction from '../../../actions/admin/manage-uutien/ManageUuTienAction';
+import ManageUuTienStore from '../../../stores/admin/manage-uutien/ManageUuTienStore';
 
 var FormUpload = React.createClass({
     uploadFile: function (e) {
@@ -74,28 +76,124 @@ const EditUserModal = React.createClass({
     e.preventDefault()
     const data = {
         email: this.refs.email.value,
-        mssv: this.refs.code.value,
-        id: this.props._id
+        id: this.props.user._id,
+        khuvuc: this.state.khuvuc,
+        tinh: this.state.tinh,
+        doituong: this.state.doituong,
+        hocluc: this.state.hocluc,
+        hoancanh: this.state.hoancanh
     };
     console.log(data);
     ManageUserAction.editUser(data);
   },
 
+  handleChangeKhuvuc(e) {
+    this.setState({khuvuc : e.target.value});
+  },
+
+  handleChangeTinh(e) {
+    this.setState({tinh : e.target.value});
+  },
+
+  handleChangeDoituong(e) {
+    this.setState({doituong : e.target.value});
+  },
+
+  handleChangeHocluc(e) {
+    this.setState({hocluc : e.target.value});
+  },
+
+  handleChangeHoancanh(e) {
+    this.setState({hoancanh : e.target.value});
+  },
+
   render() {
+
+    let listKhuvuc = this.props.khuvuc.map(function(khuvuc, index){
+      return(
+				<option value={khuvuc._id} key={index}>
+					{khuvuc.ten}
+				</option>
+			);
+    });
+    let listTinh = this.props.tinh.map(function(tinh, index){
+      return(
+				<option value={tinh._id} key={index}>
+					{tinh.ten}
+				</option>
+			);
+    });
+    let listDoituong = this.props.doituong.map(function(doituong, index){
+      return(
+				<option value={doituong._id} key={index}>
+					{doituong.ten}
+				</option>
+			);
+    });
+    let listHocluc = this.props.hocluc.map(function(hocluc, index){
+      return(
+				<option value={hocluc._id} key={index}>
+					{hocluc.ten}
+				</option>
+			);
+    });
+    let listHoancanh = this.props.hoancanh.map(function(hoancanh, index){
+      return(
+				<option value={hoancanh._id} key={index}>
+					{hoancanh.ten}
+				</option>
+			);
+    });
+
     return (
       <Modal {...this.props} bsSize="large" aria-labelledby="contained-modal-title-lg">
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-lg">Modal heading</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <form onSubmit={this.handleEditUser.bind(this, event)}>
+          <form onSubmit={this.handleEditUser.bind(this)}>
             <div className="form-group">
               <label for="exampleInputEmail1">Email address</label>
-              <input type="email" className="form-control" ref="email" placeholder={this.props.email} />
+              <input type="email" className="form-control" ref="email" placeholder={this.props.user.email} />
             </div>
             <div className="form-group">
               <label for="exampleInputPassword1">Code</label>
               <input type="number" className="form-control" ref="code" placeholder={this.props.code} />
+            </div>
+            <div className="form-group">
+              <label for="exampleInputPassword1">Khu Vực</label>
+              <select className="form-control" onChange={this.handleChangeKhuvuc.bind(this)}>
+                  <option value='0'>--Chọn--</option>
+                  {listKhuvuc}
+              </select>
+            </div>
+            <div className="form-group">
+              <label for="exampleInputPassword1">Tỉnh</label>
+              <select className="form-control" onChange={this.handleChangeTinh.bind(this)}>
+                  <option value='0'>--Chọn--</option>
+                  {listTinh}
+              </select>
+            </div>
+            <div className="form-group">
+              <label for="exampleInputPassword1">Đối Tượng</label>
+              <select className="form-control" onChange={this.handleChangeDoituong.bind(this)}>
+                  <option value='0'>--Chọn--</option>
+                  {listDoituong}
+              </select>
+            </div>
+            <div className="form-group">
+              <label for="exampleInputPassword1">Học Lực</label>
+              <select className="form-control" onChange={this.handleChangeHocluc.bind(this)}>
+                  <option value='0'>--Chọn--</option>
+                  {listHocluc}
+              </select>
+            </div>
+            <div className="form-group">
+              <label for="exampleInputPassword1">Hoàn Cảnh Gia Đình</label>
+              <select className="form-control" onChange={this.handleChangeHoancanh.bind(this)}>
+                  <option value='0'>--Chọn--</option>
+                  {listHoancanh}
+              </select>
             </div>
             <div className="form-group">
               <label for="Avatar">Avatar</label>
@@ -117,16 +215,27 @@ class ManageStudent extends React.Component {
   constructor(props)
 	{
 		super(props);
-		this.state = ManageUserStore.getState();
+		this.state = {state1 : ManageUserStore.getState(), state2 : ManageUuTienStore.getState(), khuvuc : '', tinh: '', doituong: '', hocluc: '', hoancanh: ''};
+    // this.state = {};
 		this.onChange = this.onChange.bind(this);
     this.state.addModalShow = false;
     this.state.editModalShow = false;
 
   }
 
+  componentWillMount() {
+
+  }
+
   componentDidMount() {
     ManageUserStore.listen(this.onChange);
     ManageUserAction.getUsers();
+    ManageUuTienAction.getKhuvuc();
+    ManageUuTienAction.getTinh();
+    ManageUuTienAction.getDoituong();
+    ManageUuTienAction.getHocluc();
+    ManageUuTienAction.getHoancanh();
+
   }
 
   componentWillUnmount() {
@@ -143,12 +252,12 @@ class ManageStudent extends React.Component {
   }
 
   onChange(state) {
-    this.setState(state);
+    this.setState({state1 : ManageUserStore.getState(), state2 : ManageUuTienStore.getState()});
   }
 
   render() {
 
-    let listUsers = this.state.users.map(function(user, index){
+    let listUsers = this.state.state1.users.map(function(user, index){
         return (
           <tr>
            <th scope="row">{index + 1}</th>
@@ -170,7 +279,7 @@ class ManageStudent extends React.Component {
     let addModalClose = () => this.setState({ addModalShow: false });
     let editModalClose = () => this.setState({ editModalShow: false });
 
-    const props = this.state.user;
+    const props = {user : this.state.state1.user, khuvuc : this.state.state2.khuvuc, doituong : this.state.state2.doituong, tinh : this.state.state2.tinh, hocluc : this.state.state2.hocluc, hoancanh : this.state.state2.hoancanh};
 
     return (
       <div>
@@ -201,7 +310,7 @@ class ManageStudent extends React.Component {
         <Button bsStyle="primary" onClick={()=>this.setState({ addModalShow: true })}>
           Add Student
         </Button>
-        <AddUserModal {...props} show={this.state.addModalShow} onHide={addModalClose} />
+        <AddUserModal show={this.state.addModalShow} onHide={addModalClose} />
         <EditUserModal {...props} show={this.state.editModalShow} onHide={editModalClose} />
         <FormUpload />
       </div>
