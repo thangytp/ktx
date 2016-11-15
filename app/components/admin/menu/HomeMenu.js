@@ -8,6 +8,8 @@ import HomeMenuStore from '../../../stores/admin/menu/HomeMenuStore';
 import ListItemMenu from './ListItemMenu';
 import GetChild from '../../../shared/GetChild';
 
+import SubItem from './SubItem';
+
 class HomeMenu extends React.Component {
 
 	constructor(props)
@@ -18,7 +20,8 @@ class HomeMenu extends React.Component {
 	}
 	componentDidMount() {
 		HomeMenuStore.listen(this.onChange);
-		HomeMenuAction.getListCha();
+		HomeMenuAction.testGetListCha();
+		// HomeMenuAction.getAllMenu();
 	}
 
 	componentWillUnmount() {
@@ -106,9 +109,22 @@ class HomeMenu extends React.Component {
   				
   	// 		);
   	// });
+	let menu = this.state.testListCha.map((cha, index)=> {
+		return(
+				<li key={index}>
+					{cha.title}
+					<SubItem listCon = {cha.child} num={index}/>
+				</li>
+			);
+	});
 
     return (
     	<div className="row">
+    		<div className="col-md-12">
+    			<ul>
+    				
+    			</ul>
+    		</div>
     {/*//         <div className="col-md-12">
     // 			<h2>Quản lý menu</h2>
     // 			<form className="form-inline" onSubmit={this.themMenuItem.bind(this)}>
@@ -132,7 +148,7 @@ class HomeMenu extends React.Component {
     // 		</div>*/}
 
     		<div className="col-md-12">
-    			<button type="submit" style={{'margin-bottom':'20px'}} className="btn btn-default" onClick ={this.openMoD.bind(this, this.state.parent)}>Thêm danh mục cấp 1</button>
+    			<button type="submit" style={{'marginBottom':'20px'}} className="btn btn-default" onClick ={this.openMoD.bind(this, this.state.parent)}>Thêm danh mục cấp 1</button>
     		</div>
 
     		{/*hien thi danh sach menu item*/}
