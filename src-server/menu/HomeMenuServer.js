@@ -128,6 +128,7 @@ function HomeMenuServer(app){
 		    .find()
 		    .sort({_parentId:1, order:1})
 		    .populate('_parentId')
+		    .populate('_postId')
 		    .exec(function(err, listChild){
 		      if(err) return next(err);
 		      
@@ -144,6 +145,7 @@ function HomeMenuServer(app){
 		    .find()
 		    .sort({_parentId:1, order:1})
 		    .populate('_parentId')
+		    .populate('_postId')
 		    .exec(function(err, listSubChild){
 		      if(err) return next(err);
 		      
@@ -482,6 +484,49 @@ function HomeMenuServer(app){
 	  		});
 	  	}
 
+	});
+
+	app.put('/api/editlinktopage', function(req, res, next){
+		var idItemEditLinkToPage = req.body.idItemEditLinkToPage;
+		var idPage = req.body.idPage;
+		var typeEditPageLink = req.body.typeEditPageLink;
+
+		if(typeEditPageLink == 'cha'){
+			MenuCha.findOne({_id: idItemEditLinkToPage}, function(err, chaRes){
+				if(err) return next(err);
+				if(chaRes){
+					
+					chaRes.update({ $set: {_postId: idPage} }, function(err, re){
+							res.send({message: 'edit thanh cong'});
+						});
+					
+				}
+			});
+		}
+		else if(typeEditPageLink=="con"){
+			MenuChild.findOne({_id: idItemEditLinkToPage}, function(err, childRes){
+				if(err) return next(err);
+				if(childRes){
+					
+					childRes.update({ $set: {_postId: idPage} }, function(err, re){
+							res.send({message: 'edit thanh cong'});
+						});
+					
+				}
+			});
+		}
+		else if(typeEditPageLink=='chau'){
+			MenuSubChild.findOne({_id: idItemEditLinkToPage}, function(err, subchildRes){
+				if(err) return next(err);
+				if(subchildRes){
+					
+					subchildRes.update({ $set: {_postId: idPage} }, function(err, re){
+							res.send({message: 'edit thanh cong'});
+						});
+					
+				}
+			});
+		}
 	});
 
 }

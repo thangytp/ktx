@@ -28,6 +28,13 @@ class HomeMenuStore {
     this.idDeleteCha = '';
     this.modalIsOpenDelete = false;
 
+    this.idEditLinkToPage = '';
+    this.modalIsOpenEditLinkPage = false;
+    this.pagelink = 0;
+    this.typeEditPageLink = '';
+    this.validatePageLink = '';
+    this.classValidatePageLink = '';
+
     this.validateTitle = '';
     this.classValidate = '';
     this.helpBlock ='';
@@ -173,6 +180,44 @@ class HomeMenuStore {
   moveDownOrderFail(jqXhr){
     console.log("khong get dc danh sach con");
   }
+
+  onOpenMoDEditLinkToPage(payload){
+    this.modalIsOpenEditLinkPage = true;
+    this.idEditLinkToPage = payload.id;
+    this.typeEditPageLink = payload.type;
+    this.pagelink = payload.pageId;
+    console.log(this.typeEditPageLink);
+    this.classValidatePageLink = '';
+    this.validatePageLink = '';
+  }
+  onCloseModalEditLinkPage(){
+    this.modalIsOpenEditLinkPage = false;
+    this.pagelink = 0;
+    this.classValidatePageLink = '';
+    this.validatePageLink = '';
+  }
+
+  onUpdateLinkToPage(event){
+    this.pagelink = event.target.value;
+    this.classValidatePageLink = '';
+    this.validatePageLink = '';
+    console.log(this.pagelink);
+  }
+  onInvalidPageLink(){
+    this.classValidatePageLink = 'has-error';
+    this.validatePageLink = 'Vui lòng chọn trang';
+  }
+  onEditLinkToPageSuccess(data){
+    this.modalIsOpenEditLinkPage = false;
+    HomeMenuAction.getListCha();
+    HomeMenuAction.getListChild();
+    HomeMenuAction.getListSubChild();
+    console.log(data);
+  }
+  onEditLinkToPageFail(){
+    console.log('edit fail');
+  }
+
 
   onExistTitle(message){
     if(message=='Tên danh mục có thể sử dụng'){

@@ -49,6 +49,7 @@ mongoose.connection.on('error', function() {
 var ImageServer = require('./src-server/image/ImageServer');
 var HomeMenuServer = require('./src-server/menu/HomeMenuServer');
 var PageServer = require('./src-server/page/PageServer');
+var LuuTruServer = require('./src-server/luutru/LuuTruServer');
 //==============================================
 
 var Adminserver = require('./src-server/admin/Adminserver');
@@ -112,6 +113,7 @@ var io = require('socket.io')(server);
 ImageServer(app);
 HomeMenuServer(app);
 PageServer(app);
+LuuTruServer(app);
 Adminserver(app, importStudent);
 
 /*
