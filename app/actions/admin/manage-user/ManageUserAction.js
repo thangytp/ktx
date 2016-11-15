@@ -45,10 +45,10 @@ class ManageUserAction {
     })
   }
 
-  getUsersByDiemXetDuyet(soluong, nam) {
+  getUsersByDiemXetDuyet(payload) {
+    console.log(payload);
     $.ajax({
-      url: '/getstudent/diemxetduyet',
-      data: {soluong : soluong, nam : nam},
+      url: '/getstudent/diemxetduyet/' + payload.soluong + '/' + payload.nam,
       type: 'GET'
     })
     .done((data) => {
@@ -117,7 +117,6 @@ class ManageUserAction {
   }
 
   updateXetDuyet(payload) {
-    console.log(payload);
     $.ajax({
         url: '/diemxetduyet',
         data: {soluong : payload.soluong, diemcb : payload.diemcb, nam : payload.nam},

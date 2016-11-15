@@ -59,7 +59,7 @@ class ManageUserStore {
   }
 
   updateXetDuyetSuccess(payload) {
-    ManageUserAction.getUsersByDiemXetDuyet(payload.soluong, payload.nam);
+    ManageUserAction.getUsersByDiemXetDuyet(payload);
     localStorage.setItem('deactiveStep3', false);
     this.deactiveStep3 = false;
   }
