@@ -5,28 +5,37 @@ import {Modal} from 'react-bootstrap';
 import HomeMenuAction from '../../../actions/admin/menu/HomeMenuAction';
 import HomeMenuStore from '../../../stores/admin/menu/HomeMenuStore';
 
+import AddPageAction from '../../../actions/admin/page/AddPageAction';
+import AddPageStore from '../../../stores/admin/page/AddPageStore';
+
 import ListItemMenu from './ListItemMenu';
 import GetChild from '../../../shared/GetChild';
+
+import SubItem from './SubItem';
 
 class HomeMenu extends React.Component {
 
 	constructor(props)
 	{
 		super(props);
-		this.state = HomeMenuStore.getState();
+		this.state = {state1: HomeMenuStore.getState(), state2: AddPageStore.getState()};
 		this.onChange = this.onChange.bind(this);
 	}
 	componentDidMount() {
 		HomeMenuStore.listen(this.onChange);
-		HomeMenuAction.getListCha();
+		AddPageStore.listen(this.onChange);
+		HomeMenuAction.testGetListCha();
+		AddPageAction.getListPage();
+		// HomeMenuAction.getAllMenu();
 	}
 
 	componentWillUnmount() {
 		HomeMenuStore.unlisten(this.onChange);
+		AddPageStore.unlisten(this.onChange);
 	}
 
 	onChange(state) {
-		this.setState(state);  
+		this.setState({state1: HomeMenuStore.getState(), state2: AddPageStore.getState()});  
 	}
 
 	ChangeToSlug(title)
@@ -62,11 +71,11 @@ class HomeMenu extends React.Component {
 
 	themMenuItem(event){
 		event.preventDefault();
-		var title = this.state.itemMenuName.trim();
+		var title = this.state.state1.itemMenuName.trim();
 		
 		var slug = this.ChangeToSlug(title);
 		console.log(slug);
-		var parent = this.state.parent;
+		var parent = this.state.state1.parent;
 		
 		if(!title){
 			HomeMenuAction.invalidName();
@@ -90,9 +99,22 @@ class HomeMenu extends React.Component {
 	// xoa danh muc va tat ca con cua no
 	deleteMenuItem(event){
 		event.preventDefault();
-		var idDeleteCha = this.state.idDeleteCha;
+		var idDeleteCha = this.state.state1.idDeleteCha;
 		if(idDeleteCha){
 			HomeMenuAction.deleteCha(idDeleteCha);
+		}
+	}
+	editLinkToPage(event){
+		event.preventDefault();
+		var idItemEditLinkToPage = this.state.state1.idEditLinkToPage;
+		var idPage = this.state.state1.pagelink;
+		var typeEditPageLink = this.state.state1.typeEditPageLink;
+		if(idPage==0){
+			HomeMenuAction.invalidPageLink();
+			this.refs.PageLinkField.focus();
+		}
+		if(idPage != 0){
+			HomeMenuAction.editLinkToPage({idItemEditLinkToPage: idItemEditLinkToPage, idPage: idPage, typeEditPageLink: typeEditPageLink});
 		}
 	}
 
@@ -106,9 +128,40 @@ class HomeMenu extends React.Component {
   				
   	// 		);
   	// });
+	
+	let listPage = this.state.state2.listPage.map((page, index) =>{
+		if(this.state.state1.pagelink == page._id){	
+			return(
+					<option value={page._id} key={index} selected>
+						{page.title}
+					</option>
+				);
+		}
+		else{
+			return(
+					<option value={page._id} key={index}>
+						{page.title}
+					</option>
+				);
+		}
+	});
+
+	let menu = this.state.state1.testListCha.map((cha, index)=> {
+		return(
+				<li key={index}>
+					{cha.title}
+					<SubItem listCon = {cha.child} num={index}/>
+				</li>
+			);
+	});
 
     return (
     	<div className="row">
+    		<div className="col-md-12">
+    			<ul>
+    				
+    			</ul>
+    		</div>
     {/*//         <div className="col-md-12">
     // 			<h2>Quản lý menu</h2>
     // 			<form className="form-inline" onSubmit={this.themMenuItem.bind(this)}>
@@ -132,13 +185,13 @@ class HomeMenu extends React.Component {
     // 		</div>*/}
 
     		<div className="col-md-12">
-    			<button type="submit" style={{'margin-bottom':'20px'}} className="btn btn-default" onClick ={this.openMoD.bind(this, this.state.parent)}>Thêm danh mục cấp 1</button>
+    			<button type="submit" style={{'marginBottom':'20px'}} className="btn btn-default" onClick ={this.openMoD.bind(this, this.state.state1.parent)}>Thêm danh mục cấp 1</button>
     		</div>
 
     		{/*hien thi danh sach menu item*/}
     		<ListItemMenu/>
 
-    		<Modal show={this.state.modalIsOpen} onHide ={HomeMenuAction.closeModal}>
+    		<Modal show={this.state.state1.modalIsOpen} onHide ={HomeMenuAction.closeModal}>
               	<Modal.Header>
 	                <Modal.Title>
 	                	Thêm danh mục
@@ -147,10 +200,10 @@ class HomeMenu extends React.Component {
               	<Modal.Body>
 	              	<div>
 	              		<label>Tên danh mục</label>
-	              		<input type="text" className="form-control" id="item-menu-name" ref='NameItemMenu' value={this.state.itemMenuName} 
+	              		<input type="text" className="form-control" id="item-menu-name" ref='NameItemMenu' value={this.state.state1.itemMenuName} 
 						    	onChange={HomeMenuAction.updateItemMenuName} autoFocus onKeyPress={this.test.bind(this)}/>
 	              	</div>
-	              	<div className={this.state.classValidate}><span className="control-label">{this.state.validateTitle}</span></div>
+	              	<div className={this.state.state1.classValidate}><span className="control-label">{this.state.state1.validateTitle}</span></div>
               	</Modal.Body>      
               	<Modal.Footer>
                   	<button
@@ -158,12 +211,12 @@ class HomeMenu extends React.Component {
                     	onClick={HomeMenuAction.closeModal}><i className="fa fa-times"> Hủy bỏ</i> </button>          
                   	<button
                       	className="btn btn-success"
-                    	onClick={this.themMenuItem.bind(this)} disabled={this.state.disabledButton}><i className="fa fa-check"> Thêm</i> </button>          
+                    	onClick={this.themMenuItem.bind(this)} disabled={this.state.state1.disabledButton}><i className="fa fa-check"> Thêm</i> </button>          
               	</Modal.Footer>
             </Modal>
 
         	{/* modal xoa item va con cua no */}
-        	<Modal show={this.state.modalIsOpenDelete} onHide ={HomeMenuAction.closeModalDelete}>
+        	<Modal show={this.state.state1.modalIsOpenDelete} onHide ={HomeMenuAction.closeModalDelete}>
               	<Modal.Header>
 	                <Modal.Title>
 	                	Xóa
@@ -179,6 +232,33 @@ class HomeMenu extends React.Component {
                   	<button
                       	className="btn btn-success"
                     	onClick={this.deleteMenuItem.bind(this)}><i className="fa fa-check"> Xóa</i> </button>          
+              	</Modal.Footer>
+            </Modal>
+
+            <Modal show={this.state.state1.modalIsOpenEditLinkPage} onHide ={HomeMenuAction.closeModalEditLinkPage}>
+              	<Modal.Header>
+	                <Modal.Title>
+	                	Chọn trang
+	                </Modal.Title>
+              	</Modal.Header>
+              	<Modal.Body>
+	              	<div>
+	              		<select className="form-control" id="sel-parent" value={this.state.state1.pagelink} 
+					    	onChange={HomeMenuAction.updateLinkToPage} ref='PageLinkField'>
+							    <option value='0'>--Chọn--</option>
+							    {listPage}
+					  	</select>
+	              		
+	              	</div>
+	              	<div className={this.state.state1.classValidatePageLink}><span className="control-label">{this.state.state1.validatePageLink}</span></div>
+              	</Modal.Body>      
+              	<Modal.Footer>
+                  	<button
+                      	className="btn btn-warning"
+                    	onClick={HomeMenuAction.closeModalEditLinkPage}><i className="fa fa-times"> Hủy bỏ</i> </button>          
+                  	<button
+                      	className="btn btn-success"
+                    	onClick={this.editLinkToPage.bind(this)} ><i className="fa fa-check"> Thêm</i> </button>          
               	</Modal.Footer>
             </Modal>
 

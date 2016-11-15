@@ -8,8 +8,13 @@ class HomeMenuStore {
     this.itemMenuName='';
     this.parent = 0;
 
-    this.listCha = [];
+    //================code test menu========//
+    this.testListCha = [];
     this.listCon = [];
+    //========end==============//
+
+    this.listCha = [];
+    
     this.listChild = [];
     this.listSubChild = [];
 
@@ -22,6 +27,13 @@ class HomeMenuStore {
 
     this.idDeleteCha = '';
     this.modalIsOpenDelete = false;
+
+    this.idEditLinkToPage = '';
+    this.modalIsOpenEditLinkPage = false;
+    this.pagelink = 0;
+    this.typeEditPageLink = '';
+    this.validatePageLink = '';
+    this.classValidatePageLink = '';
 
     this.validateTitle = '';
     this.classValidate = '';
@@ -67,20 +79,53 @@ class HomeMenuStore {
     console.log("khong xoa dc danh sach cha");
   }
   
+  // =================code test menu===================//
+
+  onTestGetListChaSuccess(data){
+    this.testListCha=data;
+    for(var i=0; i< this.testListCha.length; i++){
+        HomeMenuAction.getListCon({idCha: this.testListCha[i]._id, num: i});
+    }
+    console.log(data);
+  }
+  onTestGetListChaFail(jqXhr){
+    console.log("khong get dc danh sach cha");
+  }
+
+  onTestGetListConSuccess(payload){
+    this.testListCha[payload.num].child = payload.data;
+
+    if(payload.data.length != 0){
+        for(var i=0; i< payload.data.length; i++){
+            HomeMenuAction.getListChau({ idChau: payload.data[i]._id, numCha: payload.num, numCon: i })  
+        }
+    }
+    // console.log(this.testListCha);
+  }
+  onTestGetListConFail(jqXhr){
+    console.log("khong get dc danh sach con");
+  }
+
+  //handle get chau success
+  onTestGetListChauSuccess(payload){
+      this.testListCha[payload.numCha].child[payload.numCon].subChild = payload.data;
+      console.log(this.testListCha);
+  }
+  onTestGetListChauFail(jqXhr){
+    console.log("khong get dc danh sach con");
+  }
+
+  //=====================end=================//
 
   onGetListChaSuccess(data){
     this.listCha=data;
+    console.log(data);
   }
   onGetListChaFail(jqXhr){
     console.log("khong get dc danh sach cha");
   }
 
-  onGetListConSuccess(data){
-    this.listCon = data;
-  }
-  onGetListConFail(jqXhr){
-    console.log("khong get dc danh sach con");
-  }
+  
   onGetListChildSuccess(data){
     this.listChild = data;
   }
@@ -136,6 +181,44 @@ class HomeMenuStore {
     console.log("khong get dc danh sach con");
   }
 
+  onOpenMoDEditLinkToPage(payload){
+    this.modalIsOpenEditLinkPage = true;
+    this.idEditLinkToPage = payload.id;
+    this.typeEditPageLink = payload.type;
+    this.pagelink = payload.pageId;
+    console.log(this.typeEditPageLink);
+    this.classValidatePageLink = '';
+    this.validatePageLink = '';
+  }
+  onCloseModalEditLinkPage(){
+    this.modalIsOpenEditLinkPage = false;
+    this.pagelink = 0;
+    this.classValidatePageLink = '';
+    this.validatePageLink = '';
+  }
+
+  onUpdateLinkToPage(event){
+    this.pagelink = event.target.value;
+    this.classValidatePageLink = '';
+    this.validatePageLink = '';
+    console.log(this.pagelink);
+  }
+  onInvalidPageLink(){
+    this.classValidatePageLink = 'has-error';
+    this.validatePageLink = 'Vui lòng chọn trang';
+  }
+  onEditLinkToPageSuccess(data){
+    this.modalIsOpenEditLinkPage = false;
+    HomeMenuAction.getListCha();
+    HomeMenuAction.getListChild();
+    HomeMenuAction.getListSubChild();
+    console.log(data);
+  }
+  onEditLinkToPageFail(){
+    console.log('edit fail');
+  }
+
+
   onExistTitle(message){
     if(message=='Tên danh mục có thể sử dụng'){
       this.disabledButton = '';
@@ -156,6 +239,15 @@ class HomeMenuStore {
   onInvalidName(){
     this.classValidate = 'has-error';
     this.validateTitle = 'Vui lòng nhập tên hợp lệ';
+  }
+
+
+  // get all menu
+  onGetAllMenuSuccess(data){
+    console.log(data);
+  }
+  onGetAllMenuFail(jqXhr){
+    console.log("khong get dc");
   }
   
 }

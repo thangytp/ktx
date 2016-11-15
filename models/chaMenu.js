@@ -5,6 +5,7 @@ var chaSchema = new mongoose.Schema({
  	slug: String,
  	order: Number,
  	_parentId: Number,
- 	_postId: {type: mongoose.Schema.Types.ObjectId, ref: 'Post'}
+ 	_postId: {type: mongoose.Schema.Types.ObjectId, ref: 'page'},
+ 	child: Array
 });
 module.exports = mongoose.model('MenuCha', chaSchema);

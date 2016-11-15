@@ -5,6 +5,7 @@ var conSchema = new mongoose.Schema({
  	title: String,
  	slug: String,
  	order: Number,
- 	_postId: {type: mongoose.Schema.Types.ObjectId, ref: 'Post'}
+ 	_postId: {type: mongoose.Schema.Types.ObjectId, ref: 'page'},
+ 	subChild: Array
 });
 module.exports = mongoose.model('MenuChild', conSchema);

@@ -5,6 +5,108 @@ var MenuSubChild = require('../../models/chauMenu');
 
 function HomeMenuServer(app){
 
+	// app.get('/api/getallmenu', function(req, res, next){
+	// 	try{
+			
+	// 		MenuCha
+	// 		.find(function(err, listCha){
+	// 		    if(err) return next(err);
+
+	// 		    if(!listCha || listCha.length==0){
+	// 		      	return res.status(404).send({ message: 'Không tìm thấy danh muc menu.' });
+	// 		    }
+			    
+	// 		    for(var i=0; i<listCha.length; i++){
+	// 		    	listCha[i].child = [];
+	// 		    	// console.log(listCha[i].child);
+	// 		    	var _arrChild = [];
+			
+	// 		    	MenuChild
+	// 		    	.find({ _parentId: listCha[i]._id }, function(err, listChild){
+	// 			      	if(err) return next(err);
+	// 			      	console.log(i);
+	// 			      	if(listChild.length != 0){
+	// 			      		for(var j=0; j<listChild.length; j++){
+	// 			      			var _arrSubChild = [];
+	// 			      			MenuSubChild
+	// 						    .find({ _parentId: listChild[j]._id }, function(err, listSubChild){
+	// 						      if(err) return next(err);
+	// 						      _arrSubChild = listSubChild;
+	// 						      // res.send(listSubChild);
+	// 						      // return listSubChild;
+	// 						      // arrSubChild.push(listSubChild);
+	// 						    }).sort({_parentId:1, order:1});
+	// 						    listChild[j].subChild.push(_arrSubChild);
+	// 						      console.log(_arrSubChild);
+							      
+
+	// 			      		}
+	// 			      		_arrChild = listChild;
+	// 			      	}
+				      	
+				      	
+	// 			      	//res.send(listChild);
+	// 			    }).sort({_parentId:1, order:1});
+	// 			    listCha[i].child.push(_arrChild);
+	// 		    }
+	// 		    console.log(listCha);
+	// 	      	res.send(listCha);
+	// 	    }).sort({order:1});
+	// 	}catch(e){
+	// 	    res.status(e).send({ message: 'Error when get list cha item'});
+	// 	}
+	// });
+
+	// ====== code test menu ==============//
+	app.get('/api/testgetcha', function(req, res, next){
+		try{
+		    MenuCha
+		    .find()
+		    .sort({order:1})
+		    .exec(function(err, listCha){
+		      if(err) return next(err);
+
+
+		      res.send(listCha);
+		    })
+		} catch(e){
+		    res.status(e).send({ message: 'Error when get list cha item'});
+		}
+	});
+	app.get('/api/getcon/:id', function(req, res, next){
+		var id = req.params.id;
+		try{
+		    MenuChild
+		    .find({_parentId: id})
+		    .sort({order:1})
+		    .exec(function(err, listCon){
+		      if(err || !listCon) return next(err);
+		      console.log(listCon);
+		      res.send(listCon);
+		    })
+		} catch(e){
+		    res.status(e).send({ message: 'Error when get list con item'});
+		}
+	});
+
+	app.get('/api/getchau/:id', function(req, res, next){
+		var id = req.params.id;
+		try{
+		    MenuSubChild
+		    .find({_parentId: id})
+		    .sort({order:1})
+		    .exec(function(err, listChau){
+		      if(err || !listChau) return next(err);
+		      res.send(listChau);
+		    })
+		} catch(e){
+		    res.status(e).send({ message: 'Error when get list chau item'});
+		}
+	});
+
+	//============= end ===============//
+
+
 	app.get('/api/getcha', function(req, res, next){
 		try{
 		    MenuCha
@@ -26,6 +128,7 @@ function HomeMenuServer(app){
 		    .find()
 		    .sort({_parentId:1, order:1})
 		    .populate('_parentId')
+		    .populate('_postId')
 		    .exec(function(err, listChild){
 		      if(err) return next(err);
 		      
@@ -42,6 +145,7 @@ function HomeMenuServer(app){
 		    .find()
 		    .sort({_parentId:1, order:1})
 		    .populate('_parentId')
+		    .populate('_postId')
 		    .exec(function(err, listSubChild){
 		      if(err) return next(err);
 		      
@@ -53,20 +157,7 @@ function HomeMenuServer(app){
 		}
 	});
 
-	app.get('/api/getcon/:id', function(req, res, next){
-		var id = req.params.id;
-		try{
-		    MenuChild
-		    .find({_parentId: id})
-		    .exec(function(err, listCon){
-		      if(err || !listCon) return next(err);
-		      console.log(listCon);
-		      res.send(listCon);
-		    })
-		} catch(e){
-		    res.status(e).send({ message: 'Error when get list con item'});
-		}
-	});
+	
 
 	//add menu item
 	app.post('/api/additemmenu', function(req, res, next){
@@ -393,6 +484,49 @@ function HomeMenuServer(app){
 	  		});
 	  	}
 
+	});
+
+	app.put('/api/editlinktopage', function(req, res, next){
+		var idItemEditLinkToPage = req.body.idItemEditLinkToPage;
+		var idPage = req.body.idPage;
+		var typeEditPageLink = req.body.typeEditPageLink;
+
+		if(typeEditPageLink == 'cha'){
+			MenuCha.findOne({_id: idItemEditLinkToPage}, function(err, chaRes){
+				if(err) return next(err);
+				if(chaRes){
+					
+					chaRes.update({ $set: {_postId: idPage} }, function(err, re){
+							res.send({message: 'edit thanh cong'});
+						});
+					
+				}
+			});
+		}
+		else if(typeEditPageLink=="con"){
+			MenuChild.findOne({_id: idItemEditLinkToPage}, function(err, childRes){
+				if(err) return next(err);
+				if(childRes){
+					
+					childRes.update({ $set: {_postId: idPage} }, function(err, re){
+							res.send({message: 'edit thanh cong'});
+						});
+					
+				}
+			});
+		}
+		else if(typeEditPageLink=='chau'){
+			MenuSubChild.findOne({_id: idItemEditLinkToPage}, function(err, subchildRes){
+				if(err) return next(err);
+				if(subchildRes){
+					
+					subchildRes.update({ $set: {_postId: idPage} }, function(err, re){
+							res.send({message: 'edit thanh cong'});
+						});
+					
+				}
+			});
+		}
 	});
 
 }

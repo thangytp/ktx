@@ -6,8 +6,8 @@ class HomeMenuAction {
        	'getListChaSuccess',
         'getListChaFail',
 
-        'getListConSuccess',
-        'getListConFail',
+        'testGetListConSuccess',
+        'testGetListConFail',
 
         'getListChildSuccess',
         'getListChildFail',
@@ -39,8 +39,26 @@ class HomeMenuAction {
         'existTitle',
         'noneExistTitle',
 
-        'invalidName'
-    
+        'invalidName',
+
+        'getAllMenuSuccess',
+        'getAllMenuFail',
+
+
+        'testGetListChaSuccess',
+        'testGetListChaFail',
+
+        'testGetListChauSuccess',
+        'testGetListChauFail',
+
+        'openMoDEditLinkToPage',
+        'updateLinkToPage',
+        'closeModalEditLinkPage',
+        'invalidPageLink',
+
+        'editLinkToPageSuccess',
+        'editLinkToPageFail'
+      
     );
   }
 
@@ -50,6 +68,46 @@ class HomeMenuAction {
   openMoDDeleteCha(id){
     this.actions.openModalDelete(id);
   }
+  openMoDEditLinkToPage(payload){
+    this.actions.openMoDEditLinkToPage({id: payload.id, type: payload.type, pageId: payload.pageId});
+  }
+
+  //=============== code test menu ==============//
+  testGetListCha(){
+    $.ajax({
+      type: 'GET', 
+      url: '/api/testgetcha'})
+      .done((data) => {
+        this.actions.testGetListChaSuccess(data);
+      })
+      .fail((jqXhr) => {
+        this.actions.testGetListChaFail(jqXhr.responseJSON);
+      });
+  }
+  //get danh sach con (table con)
+  getListCon(payload){
+    $.ajax({
+      type: 'GET', 
+      url: '/api/getcon/'+ payload.idCha})
+      .done((data) => {
+        this.actions.testGetListConSuccess({data: data, num: payload.num});
+      })
+      .fail((jqXhr) => {
+        this.actions.testGetListConFail(jqXhr.responseJSON);
+      });
+  }
+  getListChau(payload){
+    $.ajax({
+      type: 'GET', 
+      url: '/api/getchau/'+ payload.idChau})
+      .done((data) => {
+        this.actions.testGetListChauSuccess({data: data, numCha: payload.numCha, numCon: payload.numCon});
+      })
+      .fail((jqXhr) => {
+        this.actions.testGetListChauFail(jqXhr.responseJSON);
+      });
+  }
+  //============= end ===============//
 
   getListCha(){
     $.ajax({
@@ -85,18 +143,7 @@ class HomeMenuAction {
       });
   }
 
-  //get danh sach con (table con)
-  getListCon(idCha){
-    $.ajax({
-      type: 'GET', 
-      url: '/api/getcon/'+ idCha})
-      .done((data) => {
-        this.actions.getListConSuccess(data);
-      })
-      .fail((jqXhr) => {
-        this.actions.getListConFail(jqXhr.responseJSON);
-      });
-  }
+  
 
   addItemMenu(payload) {
     $.ajax({
@@ -170,6 +217,34 @@ class HomeMenuAction {
      // console.log(jqXhr.responseText.message);
       this.actions.noneExistTitle();
     });
+  }
+
+  // get list all menu
+  getAllMenu(){
+      $.ajax({
+        type: 'GET', 
+        url: '/api/getallmenu'})
+      .done((data) => {
+        this.actions.getAllMenuSuccess(data);
+      })
+      .fail((jqXhr) => {
+        this.actions.getAllMenuFail(jqXhr.responseJSON);
+      });
+  }
+
+  // edit link to page
+  editLinkToPage(payload){
+      $.ajax({
+      type: 'PUT',
+      url: '/api/editlinktopage',
+      data: { idItemEditLinkToPage: payload.idItemEditLinkToPage, idPage: payload.idPage, typeEditPageLink: payload.typeEditPageLink}
+      })
+      .done((data) => {
+        this.actions.editLinkToPageSuccess(data.message);
+      })
+      .fail((jqXhr) => {
+        this.actions.editLinkToPageFail(jqXhr.responseJSON.message);
+      });
   }
 
 }
