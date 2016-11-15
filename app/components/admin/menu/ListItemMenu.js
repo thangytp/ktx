@@ -48,6 +48,12 @@ class ListItemMenu extends React.Component {
 		}
 	}
 
+	openMoDEditLinkToPage(id, type, pageId){
+		if(id){
+			HomeMenuAction.openMoDEditLinkToPage({id: id, type: type, pageId: pageId});
+		}
+	}
+
 	addAlert () {  
         this.refs.container.success(
           "",
@@ -72,7 +78,7 @@ class ListItemMenu extends React.Component {
 				          <td>{index+1}</td>
 				          <td>{cha.title}</td>
 				          <td>{cha.order}</td>
-				          <td>{cha._postId}</td>
+				     
 				          <td>
 				          	<button className="btn btn-success" onClick ={this.openMoD.bind(this, cha._id)}>Thêm</button>
 				          	
@@ -88,7 +94,7 @@ class ListItemMenu extends React.Component {
 				          <td>{index+1}</td>
 				          <td>{cha.title}</td>
 				          <td>{cha.order}</td>
-				          <td>{cha._postId}</td>
+				          
 				          <td>
 				          	<button className="btn btn-success" onClick ={this.openMoD.bind(this, cha._id)}>Thêm</button>
 				          	
@@ -106,6 +112,8 @@ class ListItemMenu extends React.Component {
 		  	}
 	  	});
 		let listChild = this.state.listChild.map((child, index) => {
+			var pageTitle = child._postId? child._postId.title : '';
+			var idPage = child._postId? child._postId._id : 0;
 			if(child.order == 1){
 		  		return(
 		  				<tr key ={index}>
@@ -113,7 +121,9 @@ class ListItemMenu extends React.Component {
 				          <td>{child.title}</td>
 				          <td>{child._parentId.title}</td>
 				          <td>{child.order}</td>
-				          <td>{child._postId}</td>
+				          <td>{pageTitle}
+				          		<button className="btn btn-info" onClick={this.openMoDEditLinkToPage.bind(this, child._id, this.state.con, idPage)}><i className="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+				          </td>
 				          <td>
 				          	<button className="btn btn-success" onClick ={this.openMoD.bind(this, child._id)}>Thêm</button>
 				          	
@@ -131,7 +141,9 @@ class ListItemMenu extends React.Component {
 				          <td>{child.title}</td>
 				          <td>{child._parentId.title}</td>
 				          <td>{child.order}</td>
-				          <td>{child._postId}</td>
+				          <td>{pageTitle}
+				          		<button className="btn btn-info" onClick={this.openMoDEditLinkToPage.bind(this, child._id, this.state.con, idPage)}><i className="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+				          </td>
 				          <td>
 				          	<button className="btn btn-success" onClick ={this.openMoD.bind(this, child._id)}>Thêm</button>
 				          	
@@ -146,6 +158,8 @@ class ListItemMenu extends React.Component {
 	  	});
 
 		let listSubChild = this.state.listSubChild.map((subchild, index) => {
+			var pageTitle = subchild._postId? subchild._postId.title : '';
+			var idPage = subchild._postId? subchild._postId._id : 0;
 			if(subchild.order == 1){
 		  		return(
 		  				<tr key ={index}>
@@ -153,8 +167,8 @@ class ListItemMenu extends React.Component {
 				          <td>{subchild.title}</td>
 				          <td>{subchild._parentId.title}</td>
 				          <td>{subchild.order}</td>
-				          <td>{subchild._postId}
-				          		<button className="btn btn-info" ><i className="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+				          <td>{pageTitle}
+				          		<button className="btn btn-info" onClick={this.openMoDEditLinkToPage.bind(this, subchild._id, this.state.chau, idPage)}><i className="fa fa-pencil-square-o" aria-hidden="true"></i></button>
 				          </td>
 				          <td>
 				          	
@@ -172,7 +186,9 @@ class ListItemMenu extends React.Component {
 				          <td>{subchild.title}</td>
 				          <td>{subchild._parentId.title}</td>
 				          <td>{subchild.order}</td>
-				          <td>{subchild._postId}</td>
+				          <td>{pageTitle}
+				          		<button className="btn btn-info" onClick={this.openMoDEditLinkToPage.bind(this, subchild._id, this.state.chau, idPage)}><i className="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+				          </td>
 				          <td>
 				          	
 				          	<button className="btn btn-danger" onClick={this.moveUpOrder.bind(this, subchild._id, this.state.chau)}><i className="fa fa-long-arrow-up" aria-hidden="true"></i></button>
@@ -197,7 +213,7 @@ class ListItemMenu extends React.Component {
 		                      <th>#</th>
 		                      <th>Tên</th>
 		                      <th>Thứ tự sắp xếp</th>      
-		                      <th>Bài viết</th> 
+		                      
 		                      <th colSpan="4">Hành động</th>                                   
 		                    </tr>
 	                  	</thead>

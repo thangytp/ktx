@@ -49,7 +49,15 @@ class HomeMenuAction {
         'testGetListChaFail',
 
         'testGetListChauSuccess',
-        'testGetListChauFail'
+        'testGetListChauFail',
+
+        'openMoDEditLinkToPage',
+        'updateLinkToPage',
+        'closeModalEditLinkPage',
+        'invalidPageLink',
+
+        'editLinkToPageSuccess',
+        'editLinkToPageFail'
       
     );
   }
@@ -59,6 +67,9 @@ class HomeMenuAction {
   }
   openMoDDeleteCha(id){
     this.actions.openModalDelete(id);
+  }
+  openMoDEditLinkToPage(payload){
+    this.actions.openMoDEditLinkToPage({id: payload.id, type: payload.type, pageId: payload.pageId});
   }
 
   //=============== code test menu ==============//
@@ -218,6 +229,21 @@ class HomeMenuAction {
       })
       .fail((jqXhr) => {
         this.actions.getAllMenuFail(jqXhr.responseJSON);
+      });
+  }
+
+  // edit link to page
+  editLinkToPage(payload){
+      $.ajax({
+      type: 'PUT',
+      url: '/api/editlinktopage',
+      data: { idItemEditLinkToPage: payload.idItemEditLinkToPage, idPage: payload.idPage, typeEditPageLink: payload.typeEditPageLink}
+      })
+      .done((data) => {
+        this.actions.editLinkToPageSuccess(data.message);
+      })
+      .fail((jqXhr) => {
+        this.actions.editLinkToPageFail(jqXhr.responseJSON.message);
       });
   }
 

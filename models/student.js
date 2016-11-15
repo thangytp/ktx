@@ -41,9 +41,10 @@ var studentSchema = new mongoose.Schema({
   tamdung_hocvu:    {type: 'Boolean', default: false},
   diem_ren_luyen: Number,
   diem_xet_duyet: Number,
-  khu_vuc: String,
-  doi_tuong: String,
-  loai_sinh_vien: String,
-  hoan_canh: String
+  _khu_vuc_id: {type: mongoose.Schema.Types.ObjectId, ref: 'Khuvuc'},
+  _doi_tuong_id: {type: mongoose.Schema.Types.ObjectId, ref: 'Doituong'},
+  _hoc_luc_id: {type: mongoose.Schema.Types.ObjectId, ref: 'Hocluc'},
+  _hoan_canh_id: {type: mongoose.Schema.Types.ObjectId, ref: 'Hoancanh'},
+  _tinh_id: {type: mongoose.Schema.Types.ObjectId, ref: 'Tinh'}
 });
 module.exports = mongoose.model('Student', studentSchema);
