@@ -138,20 +138,22 @@ module.exports = function(app, importStudent) {
     });
   })
 
-  app.get('/getstudent/diemxetduyet', function(req, res){
+  app.get('/getstudent/diemxetduyet/:soluong/:nam', function(req, res){
     var cYear = new Date().getFullYear(),
         cMonth = new Date().getMonth() + 1,
         fYear;
     if(cMonth > 10) {
-      fYear = cYear - req.body.nam + 1;
+      fYear = cYear - req.params.nam + 1;
     } else {
-      fYear = cYear - req.body.nam;
+      fYear = cYear - req.params.nam;
     }
+    console.log(fYear);
     Student
-    .find({tamdung_hocvu : false, diem_ren_luyen : {$gt: 75}, diem_xet_duyet : { $ne:null }, nam_hoc_nop_hs : fYear})
+    .find({tamdung_hocvu : false, diem_ren_luyen : {$gt: 75}, diem_xet_duyet : { $ne:null }, nam_vao_truong : fYear})
     .sort('-diem_ren_luyen')
-    .limit(req.body.soluong)
+    .limit(req.params.soluong)
     .exec(function(err, students){
+      console.log(students);
       if(err) throw err;
       res.json(students);
     });
@@ -297,7 +299,7 @@ module.exports = function(app, importStudent) {
     } else {
       fYear = cYear - req.body.nam;
     }
-    Student.find({tamdung_hocvu : false, diem_ren_luyen : {$gt: 75}, nam_hoc_nop_hs : fYear})
+    Student.find({tamdung_hocvu : false, diem_ren_luyen : {$gt: 75}, nam_vao_truong : fYear})
     .populate('_khu_vuc_id')
     .populate('_tinh_id')
     .populate('_doi_tuong_id')
@@ -307,7 +309,7 @@ module.exports = function(app, importStudent) {
       if(err) throw err;
       students.forEach(function(student){
         if(student._khu_vuc_id !== undefined && student._tinh_id !== undefined && student._doi_tuong_id !== undefined && student._hoc_luc_id !== undefined && student._hoan_canh_id !== undefined ) {
-          student.update({$set : {diem_xet_duyet : student._khu_vuc_id.diem + student._tinh_id.diem + student._doi_tuong_id.diem + student._hoc_luc_id.diem + student._hoan_canh_id.diem + req.body.diemcb}}, function(err, res){
+          student.update({$set : {diem_xet_duyet : student._khu_vuc_id.diem + student._tinh_id.diem + student._doi_tuong_id.diem + student._hoc_luc_id.diem + student._hoan_canh_id.diem + parseInt(req.body.diemcb)}}, function(err, res){
             if (err) throw err;
           });
         }
