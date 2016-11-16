@@ -54,6 +54,7 @@ class XetDuyetMoi extends Component {
 
   componentDidMount() {
     ManageUserStore.listen(this.onChange);
+    ManageUserAction.getUsers();
     ManageChiTieuStore.listen(this.onChange);
     ManageChiTieuAction.getChitieu();
   }
@@ -77,6 +78,7 @@ class XetDuyetMoi extends Component {
   }
 
   render() {
+
     let listUsers = this.state.state1.users.map(function(user, index){
         return (
           <tr>
@@ -89,13 +91,104 @@ class XetDuyetMoi extends Component {
           </tr>
         )
     });
+
+    let listUsersEHocvu = this.state.state1.usersehv.map(function(user, index){
+        return (
+          <tr>
+           <th scope="row">{index + 1}</th>
+           <td>{user.ho_lot}' '{user.ten}</td>
+           <td>{user.email}</td>
+           <td>{user.ma_sinh_vien}</td>
+           <td>{user.so_cmnd}</td>
+           <td>{user.dien_thoai}</td>
+          </tr>
+        )
+    });
+
+    let listUsersHocvu = this.state.state1.usershv.map(function(user, index){
+        return (
+          <tr>
+           <th scope="row">{index + 1}</th>
+           <td>{user.ho_lot}' '{user.ten}</td>
+           <td>{user.email}</td>
+           <td>{user.ma_sinh_vien}</td>
+           <td>{user.so_cmnd}</td>
+           <td>{user.dien_thoai}</td>
+          </tr>
+        )
+    });
+
+    let listUsersEDiemrenluyen = this.state.state1.usersedrl.map(function(user, index){
+        return (
+          <tr>
+           <th scope="row">{index + 1}</th>
+           <td>{user.ho_lot}' '{user.ten}</td>
+           <td>{user.email}</td>
+           <td>{user.ma_sinh_vien}</td>
+           <td>{user.so_cmnd}</td>
+           <td>{user.dien_thoai}</td>
+          </tr>
+        )
+    });
+    let listUsersDiemrenluyen = this.state.state1.usersdrl.map(function(user, index){
+        return (
+          <tr>
+           <th scope="row">{index + 1}</th>
+           <td>{user.ho_lot}' '{user.ten}</td>
+           <td>{user.email}</td>
+           <td>{user.ma_sinh_vien}</td>
+           <td>{user.so_cmnd}</td>
+           <td>{user.dien_thoai}</td>
+          </tr>
+        )
+    });
+
+    let listUsersDiemxetduyet = this.state.state1.usersdxd.map(function(user, index){
+        return (
+          <tr>
+           <th scope="row">{index + 1}</th>
+           <td>{user.ho_lot}' '{user.ten}</td>
+           <td>{user.email}</td>
+           <td>{user.ma_sinh_vien}</td>
+           <td>{user.so_cmnd}</td>
+           <td>{user.dien_thoai}</td>
+          </tr>
+        )
+    });
+
+    let listUsersHvLoai = this.state.state1.usershvloai.map(function(user, index){
+        return (
+          <tr>
+           <th scope="row">{index + 1}</th>
+           <td>{user.ho_lot}' '{user.ten}</td>
+           <td>{user.email}</td>
+           <td>{user.ma_sinh_vien}</td>
+           <td>{user.so_cmnd}</td>
+           <td>{user.dien_thoai}</td>
+          </tr>
+        )
+    });
+
+    let listUsersDrlLoai = this.state.state1.usersdrlloai.map(function(user, index){
+        return (
+          <tr>
+           <th scope="row">{index + 1}</th>
+           <td>{user.ho_lot}' '{user.ten}</td>
+           <td>{user.email}</td>
+           <td>{user.ma_sinh_vien}</td>
+           <td>{user.so_cmnd}</td>
+           <td>{user.dien_thoai}</td>
+          </tr>
+        )
+    });
+
     let contentTab3;
 
     if(this.state.state2.chitieu[0] === undefined) {
         contentTab3 = null
     } else {
       contentTab3 = (
-        <ul>
+        <ul className="listBtn-xd">
           <li>
             <button className="btn btn-large btn-success" onClick={this.handleXetDuyet.bind(this, this.state.state2.chitieu[0].nam1.soluong, this.state.state2.chitieu[0].nam1.diemcoban, 1)}>Năm 1</button>
           </li>
@@ -117,12 +210,37 @@ class XetDuyetMoi extends Component {
         </ul>
       )
     }
-
-    return (
-      <Tabs defaultActiveKey={this.state.state1.tabActive} id="luutrumoi">
-        <Tab eventKey={1} title="Bước 1">
+    let contentHocvu;
+    if(this.state.state1.activeHocvu === false) {
+      contentHocvu = (
+        <div className="uploadLuutru">
           <h1>Vui lòng import file tạm dừng học vụ của phòng đào tạo</h1>
           <HocVu/>
+        </div>
+      );
+    } else {
+      contentHocvu = (
+        <Tabs defaultActiveKey={1} id="xulyhocvu">
+          <Tab eventKey={1} title="Danh sách sinh viên">
+            <div className="table-responsive">
+              <table className="table">
+                <thead>
+                 <tr>
+                   <th>#</th>
+                   <th>Họ Tên</th>
+                   <th>Email</th>
+                   <th>MSSV</th>
+                   <th>CMND</th>
+                   <th>SDT</th>
+                   </tr>
+                 </thead>
+                 <tbody>
+                  {listUsers}
+                 </tbody>
+              </table>
+            </div>
+          </Tab>
+          <Tab eventKey={2} title="Danh sách sinh viên tạm dừng học vụ">
           <div className="table-responsive">
             <table className="table">
               <thead>
@@ -136,53 +254,181 @@ class XetDuyetMoi extends Component {
                  </tr>
                </thead>
                <tbody>
-                {listUsers}
+                {listUsersEHocvu}
                </tbody>
             </table>
           </div>
+          </Tab>
+          <Tab eventKey={3} title="Danh sách sinh viên đạt tiêu chuẩn">
+          <div className="table-responsive">
+            <table className="table">
+              <thead>
+               <tr>
+                 <th>#</th>
+                 <th>Họ Tên</th>
+                 <th>Email</th>
+                 <th>MSSV</th>
+                 <th>CMND</th>
+                 <th>SDT</th>
+                 </tr>
+               </thead>
+               <tbody>
+                {listUsersHocvu}
+               </tbody>
+            </table>
+          </div>
+          </Tab>
+          <Tab eventKey={4} title="Danh sách sinh viên bị loại">
+          <div className="table-responsive">
+            <table className="table">
+              <thead>
+               <tr>
+                 <th>#</th>
+                 <th>Họ Tên</th>
+                 <th>Email</th>
+                 <th>MSSV</th>
+                 <th>CMND</th>
+                 <th>SDT</th>
+                 </tr>
+               </thead>
+               <tbody>
+                {listUsersHvLoai}
+               </tbody>
+            </table>
+          </div>
+          </Tab>
+        </Tabs>
+      )
+    }
+
+    let contentDiemrenluyen;
+    if(this.state.state1.activeDiemrenluyen === false) {
+      contentDiemrenluyen = (
+        <div className="uploadLuutru">
+          <h1>Vui lòng import file điểm rèn luyện của phòng đào tạo</h1>
+          <DiemRenLuyen/>
+        </div>
+      );
+    } else {
+      contentDiemrenluyen = (
+        <Tabs defaultActiveKey={1} id="xulydiemrenluyen">
+          <Tab eventKey={1} title="Danh sách sinh viên">
+            <div className="table-responsive">
+              <table className="table">
+                <thead>
+                 <tr>
+                   <th>#</th>
+                   <th>Họ Tên</th>
+                   <th>Email</th>
+                   <th>MSSV</th>
+                   <th>CMND</th>
+                   <th>SDT</th>
+                   </tr>
+                 </thead>
+                 <tbody>
+                  {listUsersHocvu}
+                 </tbody>
+              </table>
+            </div>
+          </Tab>
+          <Tab eventKey={2} title="Danh sách sinh viên không đủ điểm rèn luyện">
+          <div className="table-responsive">
+            <table className="table">
+              <thead>
+               <tr>
+                 <th>#</th>
+                 <th>Họ Tên</th>
+                 <th>Email</th>
+                 <th>MSSV</th>
+                 <th>CMND</th>
+                 <th>SDT</th>
+                 </tr>
+               </thead>
+               <tbody>
+                {listUsersEDiemrenluyen}
+               </tbody>
+            </table>
+          </div>
+          </Tab>
+          <Tab eventKey={3} title="Danh sách sinh viên đạt tiêu chuẩn">
+          <div className="table-responsive">
+            <table className="table">
+              <thead>
+               <tr>
+                 <th>#</th>
+                 <th>Họ Tên</th>
+                 <th>Email</th>
+                 <th>MSSV</th>
+                 <th>CMND</th>
+                 <th>SDT</th>
+                 </tr>
+               </thead>
+               <tbody>
+                {listUsersDiemrenluyen}
+               </tbody>
+            </table>
+          </div>
+          </Tab>
+          <Tab eventKey={4} title="Danh sách sinh viên bị loại">
+          <div className="table-responsive">
+            <table className="table">
+              <thead>
+               <tr>
+                 <th>#</th>
+                 <th>Họ Tên</th>
+                 <th>Email</th>
+                 <th>MSSV</th>
+                 <th>CMND</th>
+                 <th>SDT</th>
+                 </tr>
+               </thead>
+               <tbody>
+                {listUsersDrlLoai}
+               </tbody>
+            </table>
+          </div>
+          </Tab>
+        </Tabs>
+      )
+    }
+
+    let contentDiemxetduyet;
+    if(this.state.state1.activeDiemxetduyet === false) {
+      contentDiemxetduyet = null;
+    } else {
+      contentDiemxetduyet = (
+        <div className="table-responsive">
+          <table className="table">
+            <thead>
+             <tr>
+               <th>#</th>
+               <th>Họ Tên</th>
+               <th>Email</th>
+               <th>MSSV</th>
+               <th>CMND</th>
+               <th>SDT</th>
+               </tr>
+             </thead>
+             <tbody>
+              {listUsersDiemxetduyet}
+             </tbody>
+          </table>
+        </div>
+      )
+    }
+
+    return (
+      <Tabs defaultActiveKey={this.state.state1.tabActive} id="luutrumoi">
+        <Tab eventKey={1} title="Bước 1">
+          {contentHocvu}
         </Tab>
         <Tab eventKey={2} disabled={this.state.state1.deactiveStep2} title="Bước 2">
-        <h1>Vui lòng import file điểm rèn luyện của phòng đào tạo</h1>
-        <DiemRenLuyen/>
-        <div className="table-responsive">
-          <table className="table">
-            <thead>
-             <tr>
-               <th>#</th>
-               <th>Họ Tên</th>
-               <th>Email</th>
-               <th>MSSV</th>
-               <th>CMND</th>
-               <th>SDT</th>
-               </tr>
-             </thead>
-             <tbody>
-              {listUsers}
-             </tbody>
-          </table>
-        </div>
+          {contentDiemrenluyen}
         </Tab>
         <Tab eventKey={3} disabled={this.state.state1.deactiveStep3} title="Buoc 3">
-
         <h1>Tiến Hành Xét Duyệt</h1>
-        {contentTab3}
-        <div className="table-responsive">
-          <table className="table">
-            <thead>
-             <tr>
-               <th>#</th>
-               <th>Họ Tên</th>
-               <th>Email</th>
-               <th>MSSV</th>
-               <th>CMND</th>
-               <th>SDT</th>
-               </tr>
-             </thead>
-             <tbody>
-              {listUsers}
-             </tbody>
-          </table>
-        </div>
+          {contentTab3}
+          {contentDiemxetduyet}
         </Tab>
       </Tabs>
     );

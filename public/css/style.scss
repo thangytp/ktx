@@ -336,7 +336,7 @@ ul.msg_list li a .message {
   border-radius: 0px !important;
 }
 .main-header{
- 
+
 }
 .main-navigation{
     background-color: #fff;
@@ -369,6 +369,11 @@ ul.msg_list li a .message {
 li {
     line-height: 28px;
     list-style: disc inside none;
+}
+.listBtn-xd {
+  li {
+    display: inline-block;
+  }
 }
 .main-navigation a, .main-navigation ul a {
     display: block;
@@ -497,7 +502,7 @@ a {
     margin-top: -6px;
     border-top-left-radius: 0;
     z-index: 1000;
-    
+
     float: left;
     min-width: 160px;
     padding: 5px 0;
@@ -520,9 +525,9 @@ a {
 	margin-right: 5px;
 	margin-top: -3px;
 	width: 30px;
-} 
+}
 .user-email{
-	
+
 }
 /*======================css home page==============*/
 #tin-tuc-moi{
@@ -583,7 +588,7 @@ a {
 
 		}
 	}
-	
+
 }
 
 /*======================css footer=================*/
