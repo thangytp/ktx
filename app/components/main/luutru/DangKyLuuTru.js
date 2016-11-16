@@ -76,7 +76,7 @@ export default class SignUp extends React.Component {
     }
 
     else {
-        DangKyLuuTruAction.dangKyLuuTru({ userEmail: userEmail, userName: userName,  svkhuvuc: svkhuvuc, svtinh: svtinh,
+        DangKyLuuTruAction.dangKyLuuTru({ userEmail: userEmail, userName: userName, namvaotruong: namvaotruong, svkhuvuc: svkhuvuc, svtinh: svtinh, 
             svdoituong: svdoituong, svhocluc: svhocluc, svhoancanh: svhoancanh, svloaiphong: svloaiphong});
     }
     event.preventDefault();
