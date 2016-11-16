@@ -147,7 +147,6 @@ module.exports = function(app, importStudent) {
     } else {
       fYear = cYear - req.params.nam;
     }
-    console.log(fYear);
     Student
     .find({tamdung_hocvu : false, diem_ren_luyen : {$gt: 75}, diem_xet_duyet : { $ne:null }, nam_vao_truong : fYear})
     .sort('-diem_ren_luyen')
@@ -231,7 +230,7 @@ module.exports = function(app, importStudent) {
                       if (err) throw err;
                     });
                   }
-                  res.send(true);
+                  res.send(result);
               });
           } catch (e){
               res.json({error_code:1,err_desc:"Corupted excel file"});
@@ -279,7 +278,7 @@ module.exports = function(app, importStudent) {
                       if (err) throw err;
                     });
                   }
-                  res.send(true);
+                  res.send(result);
               });
           } catch (e){
               res.json({error_code:1,err_desc:"Corupted excel file"});
