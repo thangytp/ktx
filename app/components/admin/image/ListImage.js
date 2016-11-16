@@ -48,7 +48,7 @@ class ListImage extends React.Component {
                         <div className="panel panel-default">
                             <div className="panel-body"><img src={image.link} className="img-responsive img-manage"/></div>
                             <div className="panel-footer">
-                                <input value={image.link} className="form-control"/>
+                                {/*<input value={image.link} className="form-control"/>*/}
                                 <CopyToClipboard text={image.link}
                                   onCopy={() => this.setState({copied: true})}>
                                   <button className="btn btn-success" onClick={this.addAlert.bind(this)}><i className="fa fa-clipboard" aria-hidden="true"></i></button>
