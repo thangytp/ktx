@@ -265,9 +265,9 @@ class ManageStudent extends React.Component {
            <td>{user.email}</td>
            <td>{user.ma_sinh_vien}</td>
            <td>{user.ma_ktx}</td>
-           <td>{user.ma_giuong}</td>
-           <td>{user.ten_giuong}</td>
-           <td>{user.ten_phong}</td>
+           {/*// <td>{user.ma_giuong}</td>
+           // <td>{user.ten_giuong}</td>
+           // <td>{user.ten_phong}</td>*/}
            <td>{user.so_cmnd}</td>
            <td>{user.dien_thoai}</td>
            <td><button className="btn btn-primary" onClick={this.handleGetStudent.bind(this, user._id)}>Edit</button></td>
@@ -292,9 +292,9 @@ class ManageStudent extends React.Component {
                <th>Email</th>
                <th>MSSV</th>
                <th>Mã KTX</th>
-               <th>Mã Giường</th>
+               {/*<th>Mã Giường</th>
                <th>Tên Giường</th>
-               <th>Tên Phòng</th>
+               <th>Tên Phòng</th>*/}
                <th>CMND</th>
                <th>SDT</th>
                <th></th>

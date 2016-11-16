@@ -39,6 +39,11 @@ class HomeMenuStore {
     this.classValidate = '';
     this.helpBlock ='';
 
+    // page search
+    this.listPageSearch = [];
+    this.displayListPage = 'none';
+    this.disableButtonAddPage = 'disabled';
+
     // state disable button khong cho them khi ten danh muc da ton tai
     this.disabledButton = '';
 
@@ -119,7 +124,6 @@ class HomeMenuStore {
 
   onGetListChaSuccess(data){
     this.listCha=data;
-    console.log(data);
   }
   onGetListChaFail(jqXhr){
     console.log("khong get dc danh sach cha");
@@ -165,17 +169,19 @@ class HomeMenuStore {
   }
 
   onMoveUpOrderSuccess(data){
-    HomeMenuAction.getListCha();
-    HomeMenuAction.getListChild();
-    HomeMenuAction.getListSubChild();
+    HomeMenuAction.testGetListCha();
+    // HomeMenuAction.getListCha();
+    // HomeMenuAction.getListChild();
+    // HomeMenuAction.getListSubChild();
   }
   moveUpOrderFail(jqXhr){
     console.log("khong get dc danh sach con");
   }
   moveDownOrderSuccess(data){
-    HomeMenuAction.getListCha();
-    HomeMenuAction.getListChild();
-    HomeMenuAction.getListSubChild();
+    HomeMenuAction.testGetListCha();
+    // HomeMenuAction.getListCha();
+    // HomeMenuAction.getListChild();
+    // HomeMenuAction.getListSubChild();
   }
   moveDownOrderFail(jqXhr){
     console.log("khong get dc danh sach con");
@@ -197,12 +203,7 @@ class HomeMenuStore {
     this.validatePageLink = '';
   }
 
-  onUpdateLinkToPage(event){
-    this.pagelink = event.target.value;
-    this.classValidatePageLink = '';
-    this.validatePageLink = '';
-    console.log(this.pagelink);
-  }
+
   onInvalidPageLink(){
     this.classValidatePageLink = 'has-error';
     this.validatePageLink = 'Vui lòng chọn trang';
@@ -248,6 +249,22 @@ class HomeMenuStore {
   }
   onGetAllMenuFail(jqXhr){
     console.log("khong get dc");
+  }
+
+  onUpdateLinkToPage(event){
+    this.pagelink = event.target.value;
+    HomeMenuAction.searchPage(this.pagelink);
+    this.classValidatePageLink = '';
+    this.validatePageLink = '';
+    if(this.pagelink===''){
+      this.displayListPage = 'none';
+    }
+  }
+
+  onSearchPageSuccess(data){
+    this.listPageSearch = data;
+    this.displayListPage = 'block';
+    console.log(data);
   }
   
 }

@@ -78,6 +78,7 @@ function HomeMenuServer(app){
 		try{
 		    MenuChild
 		    .find({_parentId: id})
+		    .populate('_postId')
 		    .sort({order:1})
 		    .exec(function(err, listCon){
 		      if(err || !listCon) return next(err);
@@ -94,6 +95,7 @@ function HomeMenuServer(app){
 		try{
 		    MenuSubChild
 		    .find({_parentId: id})
+		    .populate('_postId')
 		    .sort({order:1})
 		    .exec(function(err, listChau){
 		      if(err || !listChau) return next(err);

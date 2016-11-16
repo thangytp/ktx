@@ -6,6 +6,7 @@ class DangKyLuuTruAction {
     		'dangKyLuuTruSuccess',
     		'dangKyLuuTruFail',
 
+            'updateNamVaoTruong',
     		'updateKhuVuc',
     		'updateTinh',
     		'updateDoiTuong',
@@ -13,6 +14,7 @@ class DangKyLuuTruAction {
     		'updateHoanCanh',
     		'updateLoaiPhong',
 
+            'invalidNam',
     		'invalidKhuVuc',
     		'invalidTinh',
     		'invalidDoiTuong',
@@ -26,7 +28,7 @@ class DangKyLuuTruAction {
 		$.ajax({
 	      	type: 'POST',
 	      	url: '/api/dangkyluutru',
-	      	data: { userEmail: payload.userEmail,  svkhuvuc: payload.svkhuvuc, svtinh: payload.svtinh, 
+	      	data: { userEmail: payload.userEmail, userName: payload.userName, svkhuvuc: payload.svkhuvuc, svtinh: payload.svtinh, 
             svdoituong: payload.svdoituong, svhocluc: payload.svhocluc, svhoancanh: payload.svhoancanh, svloaiphong: payload.svloaiphong }
 	    })
 	    .done((data) => {

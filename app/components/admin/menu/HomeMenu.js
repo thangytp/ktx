@@ -12,6 +12,7 @@ import ListItemMenu from './ListItemMenu';
 import GetChild from '../../../shared/GetChild';
 
 import SubItem from './SubItem';
+import SubItemAdmin from './SubItemAdmin';
 
 class HomeMenu extends React.Component {
 
@@ -118,6 +119,34 @@ class HomeMenu extends React.Component {
 		}
 	}
 
+	// =================== new add here ================= //
+	openMoD(idParent){
+		HomeMenuAction.openMD(idParent);
+	}
+
+	openMoDDeleteCha(id){
+		HomeMenuAction.openMoDDeleteCha(id);
+	}
+
+	moveUpOrder(id, type){
+		if(id){
+			HomeMenuAction.moveUpOrder(id, type);
+		}
+	}
+	moveDownOrder(id, type){
+
+		if(id){
+			HomeMenuAction.moveDownOrder(id, type);
+		}
+	}
+
+	openMoDEditLinkToPage(id, type, pageId){
+		if(id){
+			HomeMenuAction.openMoDEditLinkToPage({id: id, type: type, pageId: pageId});
+		}
+	}
+	// =================== end new add ===================//
+
   render() {  
   	// let listCha = this.state.listCha.map((cha, index) => {
   	// 	return(
@@ -128,11 +157,16 @@ class HomeMenu extends React.Component {
   				
   	// 		);
   	// });
-	
+	let listPageSearch = this.state.state1.listPageSearch.map((page, index) =>{
+		return (
+				<div key={index}>{page.title}</div>
+			);
+	});
+
 	let listPage = this.state.state2.listPage.map((page, index) =>{
 		if(this.state.state1.pagelink == page._id){	
 			return(
-					<option value={page._id} key={index} selected>
+					<option value={page._id} key={index} defaultValue>
 						{page.title}
 					</option>
 				);
@@ -147,19 +181,53 @@ class HomeMenu extends React.Component {
 	});
 
 	let menu = this.state.state1.testListCha.map((cha, index)=> {
-		return(
-				<li key={index}>
-					{cha.title}
-					<SubItem listCon = {cha.child} num={index}/>
-				</li>
-			);
+		if(cha.order < 1){
+			return(
+					<li key={index} >
+						<span className='cha-item'>{cha.title}{' '}
+							<span className='list-button'>
+								{/*<button className="btn btn-success" onClick ={this.openMoD.bind(this, cha._id)}><i className="fa fa-plus" aria-hidden="true"></i></button>*/}
+								<i className="fa fa-plus-square font20" aria-hidden="true" onClick ={this.openMoD.bind(this, cha._id)} style={{'color':'#449D44'}}></i>
+							    {' '}      	
+							    <i className="fa fa-arrow-circle-o-down font20" aria-hidden="true" onClick={this.moveDownOrder.bind(this, cha._id, this.state.state1.cha)} style={{'color':'#ff9933'}}></i>
+							    {' '}
+							    <i className="fa fa-trash font20" aria-hidden="true" onClick ={this.openMoDDeleteCha.bind(this, cha._id)} style={{'color':'#D9534F'}}></i>
+							</span>
+						</span>
+						<div className='expander'></div>
+						<SubItemAdmin listCon = {cha.child} num={index}/>
+					</li>
+				);
+		}
+		else{
+			return(
+					<li key={index} >
+						<span className='cha-item'>{cha.title} {' '}
+							<span className='list-button'>
+								<i className="fa fa-plus-square font20" aria-hidden="true" onClick ={this.openMoD.bind(this, cha._id)} style={{'color':'#449D44'}}></i>
+								{' '}
+							    <i className="fa fa-arrow-circle-o-up font20" aria-hidden="true" onClick={this.moveUpOrder.bind(this, cha._id, this.state.state1.cha)} style={{'color':'#ffcc00'}}></i>      	
+							    {' '}
+							    <i className="fa fa-arrow-circle-o-down font20" aria-hidden="true" onClick={this.moveDownOrder.bind(this, cha._id, this.state.state1.cha)} style={{'color':'#ff9933'}}></i>
+							    {' '}
+							    <i className="fa fa-trash font20" aria-hidden="true" onClick ={this.openMoDDeleteCha.bind(this, cha._id)} style={{'color':'#D9534F'}}></i>
+							</span>
+						</span>
+						<div className='expander'></div>
+						<SubItemAdmin listCon = {cha.child} num={index}/>
+					</li>
+				);
+		}
 	});
 
     return (
     	<div className="row">
     		<div className="col-md-12">
-    			<ul>
-    				
+    			{/*<button type="submit" style={{'marginBottom':'0px', 'marginLeft':'20px'}} className="btn btn-success" onClick ={this.openMoD.bind(this, this.state.state1.parent)}><i className="fa fa-plus-square" aria-hidden="true"></i></button>*/}
+    			<i className="fa fa-plus-square font20" aria-hidden="true" onClick ={this.openMoD.bind(this, this.state.state1.parent)} style={{'marginBottom':'0px', 'marginLeft':'31px', 'color':'#449D44', 'cursor': 'pointer'}}></i>
+    			
+    			<ul className='admin-list-menu tree'>
+    				{menu}
     			</ul>
     		</div>
     {/*//         <div className="col-md-12">
@@ -184,12 +252,10 @@ class HomeMenu extends React.Component {
 				// </form>
     // 		</div>*/}
 
-    		<div className="col-md-12">
-    			<button type="submit" style={{'marginBottom':'20px'}} className="btn btn-default" onClick ={this.openMoD.bind(this, this.state.state1.parent)}>Thêm danh mục cấp 1</button>
-    		</div>
+    		
 
     		{/*hien thi danh sach menu item*/}
-    		<ListItemMenu/>
+    		{/*<ListItemMenu/>*/}
 
     		<Modal show={this.state.state1.modalIsOpen} onHide ={HomeMenuAction.closeModal}>
               	<Modal.Header>
@@ -243,12 +309,18 @@ class HomeMenu extends React.Component {
               	</Modal.Header>
               	<Modal.Body>
 	              	<div>
-	              		<select className="form-control" id="sel-parent" value={this.state.state1.pagelink} 
+	              		{/*<select className="form-control" id="sel-parent" value={this.state.state1.pagelink} 
 					    	onChange={HomeMenuAction.updateLinkToPage} ref='PageLinkField'>
 							    <option value='0'>--Chọn--</option>
 							    {listPage}
-					  	</select>
-	              		
+					  	</select>*/}
+					  	<input type="text" className="form-control" ref='NamePage' value={this.state.state1.pagelink} 
+						    	onChange={HomeMenuAction.updateLinkToPage} autoFocus onKeyPress={this.test.bind(this)}/>
+	              		<div className="live-search" style={{'display':this.state.state1.displayListPage}}>
+
+	              			{listPageSearch}
+
+	              		</div>
 	              	</div>
 	              	<div className={this.state.state1.classValidatePageLink}><span className="control-label">{this.state.state1.validatePageLink}</span></div>
               	</Modal.Body>      
@@ -258,7 +330,7 @@ class HomeMenu extends React.Component {
                     	onClick={HomeMenuAction.closeModalEditLinkPage}><i className="fa fa-times"> Hủy bỏ</i> </button>          
                   	<button
                       	className="btn btn-success"
-                    	onClick={this.editLinkToPage.bind(this)} ><i className="fa fa-check"> Thêm</i> </button>          
+                    	onClick={this.editLinkToPage.bind(this)} disabled={this.state.state1.disableButtonAddPage}><i className="fa fa-check"> Thêm</i> </button>          
               	</Modal.Footer>
             </Modal>
 

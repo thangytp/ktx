@@ -97,5 +97,19 @@ function PageServer(app){
 		});
 	});
 
+	// get list page by name
+	app.get('/api/searchpage/:name', function(req, res, next){
+		var name = req.params.name;
+		console.log(name);
+		page.find({title: { $regex: new RegExp(name, "i") } })
+		.exec(function(err, pages){
+			if(err) return next(err);
+			if (!pages) {
+		      	return res.status(404).send({ message: 'Không tìm thấy trang.' });
+		    }
+		    res.send(pages);
+		});
+	});
+
 }
 module.exports = PageServer;
