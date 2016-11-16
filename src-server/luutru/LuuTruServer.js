@@ -17,7 +17,7 @@ function LuuTruServer(app){
 	    	var newStu = new student({
 	    		email: userEmail,
 	    		ten: userName,
-	    		ma_sinh_vien: mssv
+	    		ma_sinh_vien: mssv,
 	    		nam_vao_truong: namvaotruong,
 	    		_khu_vuc_id: svkhuvuc,
 	    		_tinh_id: svtinh,
