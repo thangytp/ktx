@@ -6,6 +6,9 @@ class ManageUserAction {
        'importUserSuccess',
        'getUsersSuccess',
        'getUserSuccess',
+       'getUsersByDiemXetDuyetSuccess',
+       'getUsersByDiemRenLuyenSuccess',
+       'getUsersByHocVuSuccess',
        'addUserSuccess',
        'deleteUserSuccess',
        'editUserSuccess',
@@ -31,7 +34,7 @@ class ManageUserAction {
       type: 'GET'
     })
     .done((data) => {
-      this.actions.getUsersSuccess(data);
+      this.actions.getUsersByHocVuSuccess(data);
     })
   }
 
@@ -41,7 +44,7 @@ class ManageUserAction {
       type: 'GET'
     })
     .done((data) => {
-      this.actions.getUsersSuccess(data);
+      this.actions.getUsersByDiemRenLuyenSuccess(data);
     })
   }
 
@@ -52,7 +55,7 @@ class ManageUserAction {
       type: 'GET'
     })
     .done((data) => {
-      this.actions.getUsersSuccess(data);
+      this.actions.getUsersByDiemXetDuyetSuccess(data);
     })
   }
 
@@ -99,7 +102,7 @@ class ManageUserAction {
         type: 'POST'
     })
     .done((data) => {
-      this.actions.updateHocVuSuccess();
+      this.actions.updateHocVuSuccess(data);
     })
   }
 
@@ -112,7 +115,7 @@ class ManageUserAction {
         type: 'POST'
     })
     .done((data) => {
-      this.actions.updateDiemRenLuyenSuccess();
+      this.actions.updateDiemRenLuyenSuccess(data);
     })
   }
 
