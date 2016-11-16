@@ -4,6 +4,7 @@ function LuuTruServer(app){
 	app.post('/api/dangkyluutru', function(req, res, next){
 		var userEmail = req.body.userEmail;
 		var userName = req.body.userName;
+		var namvaotruong = req.body.namvaotruong;
 	    var svkhuvuc = req.body.svkhuvuc;
 	    var svtinh = req.body.svtinh;
 	    var svdoituong = req.body.svdoituong;
@@ -15,6 +16,7 @@ function LuuTruServer(app){
 	    	var newStu = new student({
 	    		email: userEmail,
 	    		ten: userName,
+	    		nam_vao_truong: namvaotruong,
 	    		_khu_vuc_id: svkhuvuc,
 	    		_tinh_id: svtinh,
 	    		_doi_tuong_id: svdoituong,
