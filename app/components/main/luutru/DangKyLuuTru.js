@@ -17,6 +17,10 @@ export default class SignUp extends React.Component {
     this.onChange = this.onChange.bind(this);
   }
    componentDidMount() {  
+    var userEmail = localStorage.getItem('email');
+    if(userEmail){
+      window.location.href="/login";
+    }
     ManageUuTienStore.listen(this.onChange);
     DangKyLuuTruStore.listen(this.onChange);
 
@@ -35,9 +39,13 @@ export default class SignUp extends React.Component {
   } 
   dangKyLuuTru(event)
   {   
+    event.preventDefault();
     console.log('aaa');
     var userEmail = localStorage.getItem('email');
     var userName = localStorage.getItem('name');
+    var mssv = userEmail.split('@');
+    var svmssv = mssv[0];
+    console.log(mssv);
     var namvaotruong = this.state.state2.namvaotruong;
     var svkhuvuc = this.state.state2.svkhuvuc;
     var svtinh = this.state.state2.svtinh;
@@ -76,10 +84,10 @@ export default class SignUp extends React.Component {
     }
 
     else {
-        DangKyLuuTruAction.dangKyLuuTru({ userEmail: userEmail, userName: userName, namvaotruong: namvaotruong, svkhuvuc: svkhuvuc, svtinh: svtinh, 
+        DangKyLuuTruAction.dangKyLuuTru({ userEmail: userEmail, userName: userName, svmssv: svmssv, namvaotruong: namvaotruong, svkhuvuc: svkhuvuc, svtinh: svtinh, 
             svdoituong: svdoituong, svhocluc: svhocluc, svhoancanh: svhoancanh, svloaiphong: svloaiphong});
     }
-    event.preventDefault();
+    
 
   }
 

@@ -28,7 +28,7 @@ class DangKyLuuTruAction {
 		$.ajax({
 	      	type: 'POST',
 	      	url: '/api/dangkyluutru',
-	      	data: { userEmail: payload.userEmail, userName: payload.userName, namvaotruong: payload.namvaotruong, svkhuvuc: payload.svkhuvuc, svtinh: payload.svtinh, 
+	      	data: { userEmail: payload.userEmail, userName: payload.userName, svmssv: payload.svmssv, namvaotruong: payload.namvaotruong, svkhuvuc: payload.svkhuvuc, svtinh: payload.svtinh, 
             svdoituong: payload.svdoituong, svhocluc: payload.svhocluc, svhoancanh: payload.svhoancanh, svloaiphong: payload.svloaiphong }
 	    })
 	    .done((data) => {
