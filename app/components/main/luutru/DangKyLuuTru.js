@@ -35,16 +35,26 @@ export default class SignUp extends React.Component {
   } 
   dangKyLuuTru(event)
   {   
-    
+    console.log('aaa');
     var userEmail = localStorage.getItem('email');
+    var userName = localStorage.getItem('name');
+    var namvaotruong = this.state.state2.namvaotruong;
     var svkhuvuc = this.state.state2.svkhuvuc;
     var svtinh = this.state.state2.svtinh;
     var svdoituong = this.state.state2.svdoituong;
     var svhocluc = this.state.state2.svhocluc;
     var svhoancanh = this.state.state2.svhoancanh;
     var svloaiphong = this.state.state2.svloaiphong;
+    console.log(userName);
 
-    if(!svkhuvuc){
+    var presentYear = new Date().getFullYear();
+
+    if (namvaotruong > presentYear || (presentYear - namvaotruong) > 6) {
+        DangKyLuuTruAction.invalidNam();
+        this.refs.NamTextField.focus();
+    }
+
+    else if(!svkhuvuc){
         DangKyLuuTruAction.invalidKhuVuc();
         this.refs.KhuVucTextField.focus();
     }
@@ -65,8 +75,8 @@ export default class SignUp extends React.Component {
         this.refs.HoanCanhTextField.focus();
     }
 
-    if(userEmail && svkhuvuc && svtinh && svdoituong && svhocluc && svhoancanh && svloaiphong){
-        DangKyLuuTruAction.dangKyLuuTru({ userEmail: userEmail,  svkhuvuc: svkhuvuc, svtinh: svtinh, 
+    else {
+        DangKyLuuTruAction.dangKyLuuTru({ userEmail: userEmail, userName: userName,  svkhuvuc: svkhuvuc, svtinh: svtinh, 
             svdoituong: svdoituong, svhocluc: svhocluc, svhoancanh: svhoancanh, svloaiphong: svloaiphong});
     }
     event.preventDefault();
@@ -107,8 +117,17 @@ export default class SignUp extends React.Component {
               <div className="row">
                 <div className="col-md-10 col-md-offset-1">
                   <h2>Đăng ký lưu trú ký túc xá</h2>
+                  <div ><span>{this.state.state2.messDK}</span></div>
                   <form className="form-horizontal" role="form" onSubmit ={this.dangKyLuuTru.bind(this)}>
                     <div className="form-body">
+                      <div className={'form-group has-feedback ' }>
+                        <label htmlFor="nam-vao-truong" className="col-md-3 control-label">Năm vào trường</label>
+                        <div className="col-md-9">
+                            <input type='number' className="form-control" id='nam-vao-truong' value={this.state.state2.namvaotruong}
+                              onChange={DangKyLuuTruAction.updateNamVaoTruong} ref='NamTextField'/>
+                            <div className=''><span className="control-label">{this.state.state2.validateNam}</span></div>
+                        </div>
+                      </div> 
                       <div className={'form-group has-feedback ' }>
                         <label htmlFor="khu-vuc-uu-tien" className="col-md-3 control-label">Khu vực ưu tiên</label>
                         <div className="col-md-9">
@@ -313,7 +332,7 @@ export default class SignUp extends React.Component {
                       </div>  */} 
                     <div className="form-group"> 
                       <div className="col-sm-offset-3 col-sm-9">
-                        <button type="submit" className="btn btn-default btn-signup" >Đăng ký lưu trú</button>
+                        <button type="submit" className="btn btn-default btn-signup" disabled={this.state.state2.disableDK}>Đăng ký lưu trú</button>
                       </div>
                     </div>    
                   </form> 

@@ -47,6 +47,22 @@ ul{
 	text-transform: uppercase;
 }
 
+.colorAdd{
+  color: #449D44;
+}
+.colorUp{
+  color: #ffcc00;
+}
+.colorDown{
+  color: #ff9933;
+}
+.colorDel{
+  color: #D9534F;
+}
+.colorEdit{
+  color: #00ccff;
+}
+
 /*====================== css admin page ===========*/
 .navbar-right{
 	margin-right: 0 !important;
@@ -302,6 +318,73 @@ ul.msg_list li a .message {
   opacity: 0.8;
   font-size: 100px;
 }
+
+  /*================ css menu page =================*/
+  .admin-list-menu{
+    margin-left: 40px !important;
+  }
+  .admin-list-menu li{
+    list-style: none;
+  }
+  .list-button{
+    display: none;
+  }
+  .cha-item:hover{
+    cursor: pointer;
+  }
+  .cha-item:hover .list-button{
+    display: inline-block;
+  }
+  .font20{
+    font-size: 20px;
+  }
+  .tooltip {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
+}
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    top: 150%;
+    left: 50%;
+    margin-left: -60px;
+}
+  .tooltip .tooltiptext::after {
+    content: " ";
+    position: absolute;
+    bottom: 100%;  /* At the top of the tooltip */
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent transparent black transparent;
+}
+.colorTitle{
+  color: #00cc99;
+}
+.live-search{
+    background-color: #fff;
+    margin-left: 17px;
+    margin-right: 11px;
+    padding-left: 13px;
+    position: absolute;
+    z-index: 999999;
+    right: 4px;
+    left: -1px;
+    top: 70%;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    /* width: 1000px; */
+}
+  
 
 
 /*====================== end css admin ============*/

@@ -3,6 +3,7 @@ var student = require('../../models/student');
 function LuuTruServer(app){
 	app.post('/api/dangkyluutru', function(req, res, next){
 		var userEmail = req.body.userEmail;
+		var userName = req.body.userName;
 	    var svkhuvuc = req.body.svkhuvuc;
 	    var svtinh = req.body.svtinh;
 	    var svdoituong = req.body.svdoituong;
@@ -13,6 +14,7 @@ function LuuTruServer(app){
 	    try{
 	    	var newStu = new student({
 	    		email: userEmail,
+	    		ten: userName,
 	    		_khu_vuc_id: svkhuvuc,
 	    		_tinh_id: svtinh,
 	    		_doi_tuong_id: svdoituong,

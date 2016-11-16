@@ -57,7 +57,9 @@ class HomeMenuAction {
         'invalidPageLink',
 
         'editLinkToPageSuccess',
-        'editLinkToPageFail'
+        'editLinkToPageFail',
+
+        'searchPageSuccess'
       
     );
   }
@@ -188,6 +190,7 @@ class HomeMenuAction {
       });
   }
   moveDownOrder(id, type){
+    console.log(id);
     $.ajax({
       type: 'PUT',
       url: '/api/movedownorder',
@@ -216,6 +219,22 @@ class HomeMenuAction {
     .fail((jqXhr) =>{      
      // console.log(jqXhr.responseText.message);
       this.actions.noneExistTitle();
+    });
+  }
+
+  searchPage(name)
+  {
+    $.ajax({
+      type:'GET',
+      url:'/api/searchpage/' + name,
+      
+    })
+    .done((data) => {
+      this.actions.searchPageSuccess(data);
+    })
+    .fail((jqXhr) =>{      
+     console.log(jqXhr.responseText.message);
+      // this.actions.noneExistTitle();
     });
   }
 

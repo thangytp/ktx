@@ -29,6 +29,8 @@ class LogInStore {
     // localStorage.setItem('userid', data._id);
     localStorage.setItem('email', response.profileObj.email);
     localStorage.setItem('avatar', response.profileObj.imageUrl);
+    localStorage.setItem('name', response.profileObj.name);
+    console.log(response.profileObj.name);
     this.loginSuccessMess='Đăng nhập thành công';
   	setTimeout(function() {
       history.go(-1);
