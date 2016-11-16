@@ -123,7 +123,7 @@ module.exports = function(app, importStudent) {
   // Get Students By Hoc Vu
 
   app.get('/getstudenthocvu', function(req, res){
-    Student.find({tamdung_hocvu : true}, function(err, students){
+    Student.find({tamdung_hocvu : false}, function(err, students){
       if(err) throw err;
       res.json(students);
     });
@@ -132,19 +132,28 @@ module.exports = function(app, importStudent) {
   //Get Students By Diem Ren Luyen
 
   app.get('/getstudent/diem/:stuDiem', function(req, res){
-    console.log(req.params.stuDiem);
-    Student.find({diem_ren_luyen : {$gt: req.params.stuDiem}}, function(err, students){
+    Student.find({tamdung_hocvu : false, diem_ren_luyen : {$gt: req.params.stuDiem}}, function(err, students){
       if(err) throw err;
       res.json(students);
     });
   })
 
-  app.get('/getstudent/diemxetduyet', function(req, res){
+  app.get('/getstudent/diemxetduyet/:soluong/:nam', function(req, res){
+    var cYear = new Date().getFullYear(),
+        cMonth = new Date().getMonth() + 1,
+        fYear;
+    if(cMonth > 10) {
+      fYear = cYear - req.params.nam + 1;
+    } else {
+      fYear = cYear - req.params.nam;
+    }
+    console.log(fYear);
     Student
-    .find()
+    .find({tamdung_hocvu : false, diem_ren_luyen : {$gt: 75}, diem_xet_duyet : { $ne:null }, nam_vao_truong : fYear})
     .sort('-diem_ren_luyen')
-    .limit(80)
+    .limit(req.params.soluong)
     .exec(function(err, students){
+      console.log(students);
       if(err) throw err;
       res.json(students);
     });
@@ -175,9 +184,11 @@ module.exports = function(app, importStudent) {
   // Update Student
 
   app.put('/editstudent/:stuId', function(req, res){
-    Student.findByIdAndUpdate(req.params.stuId, req.body , { new: true }, function (err, student) {
+    console.log(req.body);
+    Student.findByIdAndUpdate(req.params.stuId, {email: req.body.email, _khu_vuc_id : req.body.khuvuc, _tinh_id : req.body.tinh, _doi_tuong_id : req.body.doituong, _hoc_luc_id : req.body.hocluc, _hoan_canh_id : req.body.hoancanh} , { new: true }, function (err, student) {
       if (err) throw err;
       res.send(student);
+      console.log(student);
     });
   })
 
@@ -279,50 +290,32 @@ module.exports = function(app, importStudent) {
 
   //Update Diem Ren Luyen
 
-  app.post('/upload/diemxetduyet', function(req, res) {
-      var exceltojson;
-
-      importStudent(req,res,function(err){
-          if(err){
-               res.json({error_code:1,err_desc:err});
-               return;
-          }
-          /** Multer gives us file info in req.file object */
-          if(!req.file){
-              res.json({error_code:1,err_desc:"No file passed"});
-              return;
-          }
-          /** Check the extension of the incoming file and
-           *  use the appropriate module
-           */
-          if(req.file.originalname.split('.')[req.file.originalname.split('.').length-1] === 'xlsx'){
-              exceltojson = xlsxtojson;
-          } else {
-              exceltojson = xlstojson;
-          }
-          // console.log(req.file.path);
-          try {
-              exceltojson({
-                  input: req.file.path,
-                  output: null, //since we don't need output.json
-                  // sheet: "Sheet1",
-                  lowerCaseHeaders:true
-              }, function(err,result){
-                  if(err) {
-                      return res.json({error_code:1,err_desc:err, data: null});
-                  }
-                  for(var i=0; i<result.length; i++){
-                    Student.findOneAndUpdate({ma_sinh_vien : result[i].ma_sinh_vien}, {diem_xet_duyet : parseInt(result[i].diem_co_ban) + parseInt(result[i].diem_khuyen_khich) + parseInt(result[i].diem_uu_tien)} , { new: true }, function (err, student) {
-                      if (err) throw err;
-                    });
-                  }
-                  res.send(true);
-              });
-          } catch (e){
-              res.json({error_code:1,err_desc:"Corupted excel file"});
-          }
-      })
-
+  app.put('/diemxetduyet', function(req, res) {
+    var cYear = new Date().getFullYear(),
+        cMonth = new Date().getMonth() + 1,
+        fYear;
+    if(cMonth > 10) {
+      fYear = cYear - req.body.nam + 1;
+    } else {
+      fYear = cYear - req.body.nam;
+    }
+    Student.find({tamdung_hocvu : false, diem_ren_luyen : {$gt: 75}, nam_vao_truong : fYear})
+    .populate('_khu_vuc_id')
+    .populate('_tinh_id')
+    .populate('_doi_tuong_id')
+    .populate('_hoc_luc_id')
+    .populate('_hoan_canh_id')
+    .exec(function(err, students){
+      if(err) throw err;
+      students.forEach(function(student){
+        if(student._khu_vuc_id !== undefined && student._tinh_id !== undefined && student._doi_tuong_id !== undefined && student._hoc_luc_id !== undefined && student._hoan_canh_id !== undefined ) {
+          student.update({$set : {diem_xet_duyet : student._khu_vuc_id.diem + student._tinh_id.diem + student._doi_tuong_id.diem + student._hoc_luc_id.diem + student._hoan_canh_id.diem + parseInt(req.body.diemcb)}}, function(err, res){
+            if (err) throw err;
+          });
+        }
+      });
+      res.send(true);
+    });
   });
 
 

@@ -7,6 +7,7 @@ class ManageUserStore {
   constructor() {
     this.bindActions(ManageUserAction);
     this.users = [];
+    this.user = {};
     if(localStorage.getItem('deactiveStep2')) {
       this.deactiveStep2 = false;
     } else {
@@ -57,8 +58,8 @@ class ManageUserStore {
     this.deactiveStep3 = false;
   }
 
-  onUpdateDiemXetDuyetSuccess() {
-    ManageUserAction.getUsersByDiemXetDuyet();
+  updateXetDuyetSuccess(payload) {
+    ManageUserAction.getUsersByDiemXetDuyet(payload);
     localStorage.setItem('deactiveStep3', false);
     this.deactiveStep3 = false;
   }

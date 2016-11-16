@@ -11,7 +11,7 @@ class ManageUserAction {
        'editUserSuccess',
        'updateHocVuSuccess',
        'updateDiemRenLuyenSuccess',
-       'updateDiemXetDuyetSuccess'
+       'updateXetDuyetSuccess'
     );
   }
 
@@ -46,8 +46,9 @@ class ManageUserAction {
   }
 
   getUsersByDiemXetDuyet(payload) {
+    console.log(payload);
     $.ajax({
-      url: '/getstudent/diemxetduyet',
+      url: '/getstudent/diemxetduyet/' + payload.soluong + '/' + payload.nam,
       type: 'GET'
     })
     .done((data) => {
@@ -115,24 +116,23 @@ class ManageUserAction {
     })
   }
 
-  updateDiemXetDuyet(payload) {
+  updateXetDuyet(payload) {
     $.ajax({
-        url: '/upload/diemxetduyet',
-        data: payload,
-        processData: false,
-        contentType: false,
-        type: 'POST'
+        url: '/diemxetduyet',
+        data: {soluong : payload.soluong, diemcb : payload.diemcb, nam : payload.nam},
+        type: 'PUT'
     })
     .done((data) => {
-      this.actions.updateDiemXetDuyetSuccess();
+      this.actions.updateXetDuyetSuccess({soluong : payload.soluong, nam : payload.nam});
     })
   }
 
   editUser(payload) {
+    console.log(payload.hoancanh);
     $.ajax({
       url: '/editstudent/' + payload.id,
       type: 'PUT',
-      data: {email : payload.email, mssv : payload.mssv}
+      data: {email : payload.email, khuvuc : payload.khuvuc, tinh : payload.tinh, doituong : payload.doituong, hocluc : payload.hocluc, hoancanh : payload.hoancanh}
     })
     .done((data) => {
       this.actions.editUserSuccess();
