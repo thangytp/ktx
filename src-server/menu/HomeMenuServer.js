@@ -82,7 +82,7 @@ function HomeMenuServer(app){
 		    .sort({order:1})
 		    .exec(function(err, listCon){
 		      if(err || !listCon) return next(err);
-		      console.log(listCon);
+		      // console.log(listCon);
 		      res.send(listCon);
 		    })
 		} catch(e){
@@ -491,6 +491,7 @@ function HomeMenuServer(app){
 	app.put('/api/editlinktopage', function(req, res, next){
 		var idItemEditLinkToPage = req.body.idItemEditLinkToPage;
 		var idPage = req.body.idPage;
+		console.log(idPage);
 		var typeEditPageLink = req.body.typeEditPageLink;
 
 		if(typeEditPageLink == 'cha'){

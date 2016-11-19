@@ -28,12 +28,16 @@ class HomeMenuStore {
     this.idDeleteCha = '';
     this.modalIsOpenDelete = false;
 
+    // edit link to page
     this.idEditLinkToPage = '';
     this.modalIsOpenEditLinkPage = false;
     this.pagelink = 0;
+    this.pageTitle = '';
+
     this.typeEditPageLink = '';
     this.validatePageLink = '';
     this.classValidatePageLink = '';
+    // end
 
     this.validateTitle = '';
     this.classValidate = '';
@@ -42,7 +46,7 @@ class HomeMenuStore {
     // page search
     this.listPageSearch = [];
     this.displayListPage = 'none';
-    this.disableButtonAddPage = 'disabled';
+    this.disableButtonAddPage = '';
 
     // state disable button khong cho them khi ten danh muc da ton tai
     this.disabledButton = '';
@@ -188,10 +192,13 @@ class HomeMenuStore {
   }
 
   onOpenMoDEditLinkToPage(payload){
+
     this.modalIsOpenEditLinkPage = true;
     this.idEditLinkToPage = payload.id;
     this.typeEditPageLink = payload.type;
     this.pagelink = payload.pageId;
+    this.pageTitle = payload.pageTitle;
+
     console.log(this.typeEditPageLink);
     this.classValidatePageLink = '';
     this.validatePageLink = '';
@@ -202,6 +209,13 @@ class HomeMenuStore {
     this.classValidatePageLink = '';
     this.validatePageLink = '';
   }
+  onUpdateSelectPage(payload){
+    this.pagelink = payload.idPage;
+    this.pageTitle = payload.pageTitle;
+    console.log(this.pagelink);
+    this.displayListPage = 'none';
+    this.disableButtonAddPage = '';
+  }
 
 
   onInvalidPageLink(){
@@ -210,9 +224,10 @@ class HomeMenuStore {
   }
   onEditLinkToPageSuccess(data){
     this.modalIsOpenEditLinkPage = false;
-    HomeMenuAction.getListCha();
-    HomeMenuAction.getListChild();
-    HomeMenuAction.getListSubChild();
+    HomeMenuAction.testGetListCha();
+    // HomeMenuAction.getListCha();
+    // HomeMenuAction.getListChild();
+    // HomeMenuAction.getListSubChild();
     console.log(data);
   }
   onEditLinkToPageFail(){
@@ -252,18 +267,23 @@ class HomeMenuStore {
   }
 
   onUpdateLinkToPage(event){
-    this.pagelink = event.target.value;
-    HomeMenuAction.searchPage(this.pagelink);
+    this.pageTitle = event.target.value;
+    HomeMenuAction.searchPage(this.pageTitle);
     this.classValidatePageLink = '';
     this.validatePageLink = '';
-    if(this.pagelink===''){
+    if(this.pageTitle===''){
+      this.pagelink = undefined;
       this.displayListPage = 'none';
+      this.disableButtonAddPage = '';
     }
   }
 
   onSearchPageSuccess(data){
     this.listPageSearch = data;
     this.displayListPage = 'block';
+    if(data.length==0){
+      this.disableButtonAddPage = 'disabled';
+    }
     console.log(data);
   }
   

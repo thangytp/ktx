@@ -46,6 +46,7 @@ function PageServer(app){
 				title: title,
 				layoutType: layoutType,
 				content: content
+				
 			});
 			newPage.save(function(err){
 				if(err) return next(err);
@@ -58,7 +59,7 @@ function PageServer(app){
 					title: title,
 					layoutType: layoutType,
 					content: content,
-					cotphaiHome: cotphaiHome
+					cotPhaiHome: cotphaiHome
 				});
 				newPage.save(function(err){
 					if(err) return next(err);
@@ -68,16 +69,21 @@ function PageServer(app){
 			else{
 				if(numberOfImageItem != 0){
 					for(var i=0; i<numberOfImageItem; i++){
-						imgRight.push({'imgText': req.body['imgRight['+i+'][imgText]'], 'imgLink': req.body['imgRight['+i+'][imgLink]']});
+						imgRight.push({'imgText': req.body['imgRight['+i+'][imgText]'], 'imgLink': req.body['imgRight['+i+'][imgLink]'], 'linkToPage': req.body['imgRight['+i+'][linkToPage]']});
+					}
+				}
+				if(numberOfVideoItem != 0){
+					for(var i=0; i<numberOfVideoItem; i++){
+						videoRight.push({'videoText': req.body['videoRight['+i+'][videoText]'], 'videoLink': req.body['videoRight['+i+'][videoLink]']});
 					}
 				}
 				var newPage = new page({
 					title: title,
 					layoutType: layoutType,
 					content: content,
-					cotphaiHome: cotphaiHome,
+					cotPhaiHome: cotphaiHome,
 					imgRight: imgRight,
-					videoRight: []
+					videoRight: videoRight
 				});
 				newPage.save(function(err){
 					if(err) return next(err);
@@ -85,6 +91,57 @@ function PageServer(app){
 				});
 			}
 		}
+
+	});
+
+	// update page
+	app.put('/api/updatepage', function(req, res, next){
+		var id = req.body.id;
+		var title = req.body.title;
+		var layoutType = req.body.layoutType;
+
+		var content = req.body.content;
+		var cotphaiHome = req.body.cotphaiHome;
+		var imgRight = [];
+		var videoRight = [];
+		var numberOfImageItem = req.body.numberOfImageItem;
+		var numberOfVideoItem = req.body.numberOfVideoItem;
+
+		page.findOne({_id: id}, function(err, pageRes){
+			if(err) return next(err);
+			if(layoutType==1){
+				pageRes.update({ $set: {title: title, content: content, layoutType: layoutType} }, function(err, re){
+					res.send({message: 'Cập nhật trang thành công!'});
+				});
+			}
+			else{
+				if(cotphaiHome==1){
+					
+					pageRes.update({ $set: {title: title, content: content, layoutType: layoutType, cotPhaiHome: cotphaiHome} }, function(err, re){
+						res.send({message: 'Cập nhật trang thành công!'});
+					});
+				}
+				else{
+					if(numberOfImageItem != 0){
+						for(var i=0; i<numberOfImageItem; i++){
+							imgRight.push({'imgText': req.body['imgRight['+i+'][imgText]'], 'imgLink': req.body['imgRight['+i+'][imgLink]'], 'linkToPage': req.body['imgRight['+i+'][linkToPage]']});
+						}
+					}
+					if(numberOfVideoItem != 0){
+						for(var i=0; i<numberOfVideoItem; i++){
+							videoRight.push({'videoText': req.body['videoRight['+i+'][videoText]'], 'videoLink': req.body['videoRight['+i+'][videoLink]']});
+						}
+					}
+					
+					pageRes.update({ $set: { title: title, layoutType: layoutType, content: content, cotPhaiHome: cotphaiHome,
+							imgRight: imgRight, videoRight: videoRight} }, function(err, re){
+								console.log(layoutType);
+						res.send({message: 'Cập nhật trang thành công!', page: pageRes});
+					});
+					
+				}
+			}
+		});
 
 	});
 

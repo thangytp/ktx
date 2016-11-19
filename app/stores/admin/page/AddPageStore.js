@@ -63,7 +63,8 @@ class AddPageStore {
     this.numberOfImageItem +=1;
     var imgText = 'imgText';
     var imgLink = 'imgLink';
-    this.arrImg.push({imgText : '', imgLink : ''});
+    var linkToPage = 'linkToPage';
+    this.arrImg.push({imgText : '', imgLink : '', linkToPage: ''});
     console.log(this.arrImg);
   }
   onAddVideo(){
@@ -87,6 +88,10 @@ class AddPageStore {
   }
   onUpdateImgLink(payload){
     this.arrImg[payload.id].imgLink = payload.link;
+    console.log(this.arrImg);
+  }
+  onUpdateLinkToPage(payload){
+    this.arrImg[payload.id].linkToPage = payload.linkToPage;
     console.log(this.arrImg);
   }
 
@@ -221,8 +226,8 @@ class AddPageStore {
     this.numberOfImageItem = data.imgRight.length? data.imgRight.length : 0;
     this.numberOfVideoItem = data.videoRight.length? data.videoRight.length : 0;
     
-    this.cotphaiHome = data.cotPhaiHome;
-    if(this.cotPhaiHome==1){
+    this.cotphaiHome = data.cotPhaiHome? data.cotPhaiHome : 0;
+    if(this.cotphaiHome==1){
       this.styleCustomContentRight = 'none';
     }
     else{
@@ -255,6 +260,15 @@ class AddPageStore {
   }
   onDeletePageFail(jqXhr){
     console.log('khong xoa dc sach');
+  }
+
+  //update page 
+  onUpdatePageSuccess(data){
+    AddPageAction.getListPage();
+    console.log(data);
+  }
+  onUpdatePageFail(data){
+    console.log(data);
   }
 
 }
