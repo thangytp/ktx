@@ -24,7 +24,7 @@ class AddPage extends React.Component {
 		pasteFromWordRemoveFontStyles : false,
 		pasteFromWordRemoveStyles : false
 		});
-		console.log(this.state);
+		// console.log(this.state);
 	}
 
 	componentWillUnmount() {
@@ -33,7 +33,6 @@ class AddPage extends React.Component {
 
 	onChange(state) {
 		this.setState(state);  
-		console.log(state);
 	}
 
 	// them page
@@ -48,18 +47,18 @@ class AddPage extends React.Component {
 		var id = this.state.idPage;
 		var title = this.state.titlePage;
 		var contentLeft = ReactDom.findDOMNode(this.refs.ContentPageField).value;
-		console.log(contentLeft);
+
 		var layoutType = this.state.layoutType;
-		var cotphaiHome = null;
+		var cotphaiHome = this.state.cotphaiHome;
+		console.log(cotphaiHome);
 		var imgRight = [];
 		var videoRight = [];
+
 		if(layoutType==1){
-			cotphaiHome = null;
 			imgRight = [];
 			videoRight = [];
 		}
 		else{
-			cotphaiHome = this.state.cotphaiHome;
 			if(cotphaiHome==1){
 				imgRight = [];
 				videoRight = [];

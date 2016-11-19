@@ -52,9 +52,9 @@ class SubItemAdmin extends React.Component {
 		}
 	}
 
-	openMoDEditLinkToPage(id, type, pageId){
+	openMoDEditLinkToPage(id, type, pageId, pageTitle){
 		if(id){
-			HomeMenuAction.openMoDEditLinkToPage({id: id, type: type, pageId: pageId});
+			HomeMenuAction.openMoDEditLinkToPage({id: id, type: type, pageId: pageId, pageTitle: pageTitle});
 		}
 	}
 	// =================== end new add ===================//
@@ -63,17 +63,18 @@ class SubItemAdmin extends React.Component {
 		let menuCon = this.props.listCon.map((con, index) =>{
 			var pageTitle = con._postId? con._postId.title : '';
 			var idPage = con._postId? con._postId._id : 0;
+			var classAddedPage = con._postId? 'colorTitle' : '';
 
 			if(con.subChild.length != 0){
 				if(con.order <= 1){
 					return(
 							<li key = {index} className=''>
-								<span className='cha-item'>{con.title}
+								<span className={'cha-item '+ classAddedPage} data-toggle="tooltip" data-placement="bottom" title={'Bài viết được liên kết: '+pageTitle}>{con.title}
 									{' '}
 									{/*pageTitle*/}
 									{' '}
 					          		<span className='list-button'>
-						          		<i className="fa fa-pencil-square-o font20 colorEdit" aria-hidden="true" onClick={this.openMoDEditLinkToPage.bind(this, con._id, this.state.con, idPage)}></i>
+						          		<i className="fa fa-pencil-square-o font20 colorEdit" aria-hidden="true" onClick={this.openMoDEditLinkToPage.bind(this, con._id, this.state.con, idPage, pageTitle)}></i>
 						          		{' '}
 						          		<i className="fa fa-plus-square font20 colorAdd" aria-hidden="true" onClick ={this.openMoD.bind(this, con._id)}></i>
 						          		{' '}
@@ -90,11 +91,11 @@ class SubItemAdmin extends React.Component {
 				else{
 					return(
 							<li key = {index} className=''>
-								<span className='cha-item'>{con.title}
+								<span className={'cha-item '+ classAddedPage} data-toggle="tooltip" data-placement="bottom" title={'Bài viết được liên kết: '+pageTitle}>{con.title}
 								{' '}
 								{' '}
 									<span className='list-button'>
-						          		<i className="fa fa-pencil-square-o font20 colorEdit" aria-hidden="true" onClick={this.openMoDEditLinkToPage.bind(this, con._id, this.state.con, idPage)}></i>
+						          		<i className="fa fa-pencil-square-o font20 colorEdit" aria-hidden="true" onClick={this.openMoDEditLinkToPage.bind(this, con._id, this.state.con, idPage, pageTitle)}></i>
 						          		{' '}
 						          		<i className="fa fa-plus-square font20 colorAdd" aria-hidden="true" onClick ={this.openMoD.bind(this, con._id)}></i>
 						          		{' '}
@@ -115,11 +116,11 @@ class SubItemAdmin extends React.Component {
 				if(con.order <= 1){
 					return(
 							<li key = {index} className=''>
-								<span className='cha-item'>{con.title}
+								<span className={'cha-item '+ classAddedPage} data-toggle="tooltip" data-placement="bottom" title={'Bài viết được liên kết: '+pageTitle}>{con.title}
 								{' '}
 								{' '}
 									<span className='list-button'>
-						          		<i className="fa fa-pencil-square-o font20 colorEdit" aria-hidden="true" onClick={this.openMoDEditLinkToPage.bind(this, con._id, this.state.con, idPage)}></i>
+						          		<i className="fa fa-pencil-square-o font20 colorEdit" aria-hidden="true" onClick={this.openMoDEditLinkToPage.bind(this, con._id, this.state.con, idPage, pageTitle)}></i>
 						          		{' '}
 						          		<i className="fa fa-plus-square font20 colorAdd" aria-hidden="true" onClick ={this.openMoD.bind(this, con._id)}></i>
 						          		{' '}
@@ -134,11 +135,11 @@ class SubItemAdmin extends React.Component {
 				else{
 					return(
 							<li key = {index} className=''>
-								<span className='cha-item'>{con.title}
+								<span className={'cha-item '+ classAddedPage} data-toggle="tooltip" data-placement="bottom" title={'Bài viết được liên kết: '+pageTitle}>{con.title}
 								{' '}
 								{' '}
 									<span className='list-button'>
-						          		<i className="fa fa-pencil-square-o font20 colorEdit" aria-hidden="true" onClick={this.openMoDEditLinkToPage.bind(this, con._id, this.state.con, idPage)}></i>
+						          		<i className="fa fa-pencil-square-o font20 colorEdit" aria-hidden="true" onClick={this.openMoDEditLinkToPage.bind(this, con._id, this.state.con, idPage, pageTitle)}></i>
 						          		{' '}
 						          		<i className="fa fa-plus-square font20 colorAdd" aria-hidden="true" onClick ={this.openMoD.bind(this, con._id)}></i>
 						          		{' '}

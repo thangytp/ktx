@@ -18,7 +18,7 @@ export default class SignUp extends React.Component {
   }
    componentDidMount() {  
     var userEmail = localStorage.getItem('email');
-    if(userEmail){
+    if(!userEmail){
       window.location.href="/login";
     }
     ManageUuTienStore.listen(this.onChange);

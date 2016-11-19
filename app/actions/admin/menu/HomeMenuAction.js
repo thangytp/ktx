@@ -53,6 +53,9 @@ class HomeMenuAction {
 
         'openMoDEditLinkToPage',
         'updateLinkToPage',
+
+        'updateSelectPage',
+
         'closeModalEditLinkPage',
         'invalidPageLink',
 
@@ -71,7 +74,11 @@ class HomeMenuAction {
     this.actions.openModalDelete(id);
   }
   openMoDEditLinkToPage(payload){
-    this.actions.openMoDEditLinkToPage({id: payload.id, type: payload.type, pageId: payload.pageId});
+    this.actions.openMoDEditLinkToPage({id: payload.id, type: payload.type, pageId: payload.pageId, pageTitle: payload.pageTitle});
+  }
+
+  updateSelectPage(payload){
+    this.actions.updateSelectPage({idPage: payload.idPage, pageTitle: payload,pageTitle});
   }
 
   //=============== code test menu ==============//

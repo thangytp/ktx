@@ -16,6 +16,7 @@ class AddPageAction {
         'updateTitlePage',
         'updateImgText',
         'updateImgLink',
+        'updateLinkToPage',
         'updateVideoText',
         'updateVideoLink',
 
@@ -53,6 +54,9 @@ class AddPageAction {
   }
   updateImgLink(payload){
     this.actions.updateImgLink({link: payload.link, id: payload.id});
+  }
+  updateLinkToPage(payload){
+    this.actions.updateLinkToPage({linkToPage: payload.linkToPage, id: payload.id});
   }
 
   updateVideoText(payload){
@@ -97,7 +101,7 @@ class AddPageAction {
           numberOfImageItem: payload.numberOfImageItem, numberOfVideoItem: payload.numberOfVideoItem},
       })
       .done((data) =>{
-        this.actions.updatePageSuccess(data.message);
+        this.actions.updatePageSuccess(data);
         console.log("success");
       })
       .fail((jqXhr) =>{
