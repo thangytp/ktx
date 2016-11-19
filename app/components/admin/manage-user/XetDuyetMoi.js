@@ -168,7 +168,6 @@ class XetDuyetMoi extends Component {
           </tr>
         )
     });
-
     let listUsersDrlLoai = this.state.state1.usersdrlloai.map(function(user, index){
         return (
           <tr>

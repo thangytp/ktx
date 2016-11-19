@@ -64,7 +64,7 @@ class ManageUserStore {
     });
 
     var result = uniqueResultOne.concat(uniqueResultTwo);
-    this.usersdrloai = result;
+    this.usersdrlloai = result;
   }
 
   onGetUsersByHocVuSuccess(response) {
