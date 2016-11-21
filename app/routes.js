@@ -11,6 +11,8 @@ import UuTien from './components/admin/manage-uutien/UuTien';
 import AddItemMenu from './components/admin/menu/AddItemMenu';
 import AddPage from './components/admin/page/AddPage';
 import Images from './components/admin/image/Images';
+import LienKetSite from './components/admin/lienketsite/LienKetSite';
+import CotPhaiHome from './components/admin/cotphaihome/CotPhaiHome';
 
 import Main from './components/main/Main';
 import Home from './components/main/Home';
@@ -43,6 +45,8 @@ export default (
             <Route path="/quanly@ktx/xet-duyet-luu-tru-moi" component={XetDuyetMoi}/>
             <Route path="/quanly@ktx/chi-tieu" component={ChiTieu}/>
             <Route path="/quanly@ktx/uu-tien" component={UuTien}/>
+            <Route path="/quanly@ktx/cotphai-home" component={CotPhaiHome}/>
+            <Route path="/quanly@ktx/lienket-site" component={LienKetSite}/>
 
         </Route>
 

@@ -264,6 +264,35 @@ class AddPageStore {
 
   //update page 
   onUpdatePageSuccess(data){
+    this.idPage = '';
+    this.titlePage = '';
+    this.contentLeft = '';
+    CKEDITOR.instances.ckedit.setData('');
+
+    this.layoutType = 1;
+    this.checkedLayoutOne = "checked";
+    this.checkedLayoutTwo = '';
+
+    this.styleContentRight = 'none';
+    this.numberOfImageItem = 0;
+    this.numberOfVideoItem = 0;
+
+    this.cotphaiHome = 0;
+    this.styleCustomContentRight = '';
+    this.arrImg = [];
+    this.arrVideo = [];
+
+    this.modalIsOpenDelete = false;
+    this.idItemImgDelete = '';
+    this.idItemVideoDelete = '';
+    this.typeItemDelete = '';
+
+    this.helpBlockTitle = '';
+    this.helpBlockContent = '';
+    this.helpBlockContentRight = '';
+    this.helpBlockImage = '';
+    this.helpBlockVideo = '';
+
     AddPageAction.getListPage();
     console.log(data);
   }
