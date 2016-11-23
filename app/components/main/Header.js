@@ -15,6 +15,8 @@ class Header extends React.Component {
         this.state = HomeMenuStore.getState();
         this.onChange = this.onChange.bind(this);
     }
+    componentWillMount() {
+    }
     componentDidMount() {  
         HomeMenuStore.listen(this.onChange);
         HomeMenuAction.testGetListCha();

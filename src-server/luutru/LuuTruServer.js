@@ -5,6 +5,7 @@ function LuuTruServer(app){
 		var userEmail = req.body.userEmail;
 		var userName = req.body.userName;
 		var mssv = req.body.svmssv;
+		var gioitinh = req.body.gioitinh;
 		var namvaotruong = req.body.namvaotruong;
 	    var svkhuvuc = req.body.svkhuvuc;
 	    var svtinh = req.body.svtinh;
@@ -18,6 +19,7 @@ function LuuTruServer(app){
 	    		email: userEmail,
 	    		ten: userName,
 	    		ma_sinh_vien: mssv,
+	    		phai: gioitinh,
 	    		nam_vao_truong: namvaotruong,
 	    		_khu_vuc_id: svkhuvuc,
 	    		_tinh_id: svtinh,
@@ -35,6 +37,14 @@ function LuuTruServer(app){
 	        res.status(e).send({ message: bookname+ 'error when add new.' });
 	    }
 
+	});
+
+	app.get('/getstudentBymssv/:id', function(req, res, next){
+		var mssv = req.params.id;
+		student.findOne({ma_sinh_vien: mssv}, function(err, stuRes){
+			if(err) return next(err);
+			res.send(stuRes);
+		});
 	});
 }
 module.exports = LuuTruServer;

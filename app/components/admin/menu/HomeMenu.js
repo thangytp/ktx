@@ -110,13 +110,13 @@ class HomeMenu extends React.Component {
 		var idItemEditLinkToPage = this.state.state1.idEditLinkToPage;
 		var idPage = this.state.state1.pagelink;
 		var typeEditPageLink = this.state.state1.typeEditPageLink;
-		if(idPage==0){
-			HomeMenuAction.invalidPageLink();
-			this.refs.PageLinkField.focus();
-		}
-		if(idPage != 0){
+		// if(idPage==0){
+		// 	HomeMenuAction.invalidPageLink();
+		// 	this.refs.PageLinkField.focus();
+		// }
+		// if(idPage != 0){
 			HomeMenuAction.editLinkToPage({idItemEditLinkToPage: idItemEditLinkToPage, idPage: idPage, typeEditPageLink: typeEditPageLink});
-		}
+		// }
 	}
 
 	// =================== new add here ================= //
@@ -145,6 +145,9 @@ class HomeMenu extends React.Component {
 			HomeMenuAction.openMoDEditLinkToPage({id: id, type: type, pageId: pageId});
 		}
 	}
+	itemPageClick(idPage, pageTitle){
+		HomeMenuAction.updateSelectPage({idPage: idPage, pageTitle: pageTitle});
+	}
 	// =================== end new add ===================//
 
   render() {  
@@ -157,11 +160,20 @@ class HomeMenu extends React.Component {
   				
   	// 		);
   	// });
-	let listPageSearch = this.state.state1.listPageSearch.map((page, index) =>{
-		return (
-				<div key={index}>{page.title}</div>
+	let listPageSearch;
+	if(this.state.state1.listPageSearch.length>0){
+		listPageSearch = this.state.state1.listPageSearch.map((page, index) =>{
+			return (
+					<div className="item-page" key={index} onClick={this.itemPageClick.bind(this, page._id, page.title)}>{page.title}</div>
+				);
+		});
+	}
+	else{
+		listPageSearch = (
+				<span className='err-findpage'>Không tìm thấy trang, vui lòng thử với từ khóa khác</span>
 			);
-	});
+	}
+	
 
 	let listPage = this.state.state2.listPage.map((page, index) =>{
 		if(this.state.state1.pagelink == page._id){	
@@ -314,7 +326,7 @@ class HomeMenu extends React.Component {
 							    <option value='0'>--Chọn--</option>
 							    {listPage}
 					  	</select>*/}
-					  	<input type="text" className="form-control" ref='NamePage' value={this.state.state1.pagelink} 
+					  	<input type="text" className="form-control" ref='NamePage' value={this.state.state1.pageTitle} 
 						    	onChange={HomeMenuAction.updateLinkToPage} autoFocus onKeyPress={this.test.bind(this)}/>
 	              		<div className="live-search" style={{'display':this.state.state1.displayListPage}}>
 

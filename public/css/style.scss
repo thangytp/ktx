@@ -63,20 +63,7 @@ ul{
   color: #00ccff;
 }
 
-.listBtn-xd {
-  li {
-    .listBtn-nn {
-      display: none;
-    }
-    &:hover {
-      .listBtn-nn {
-        display: block;
-      }
-    }
-  }
-}
 /*====================== css admin page ===========*/
-
 .navbar-right{
 	margin-right: 0 !important;
 }
@@ -335,6 +322,7 @@ ul.msg_list li a .message {
   /*================ css menu page =================*/
   .admin-list-menu{
     margin-left: 40px !important;
+    transition: all 2s;
   }
   .admin-list-menu li{
     list-style: none;
@@ -365,7 +353,7 @@ ul.msg_list li a .message {
     border-radius: 6px;
     padding: 5px 0;
     position: absolute;
-    z-index: 1;
+    z-index: 111;
     top: 150%;
     left: 50%;
     margin-left: -60px;
@@ -385,9 +373,11 @@ ul.msg_list li a .message {
 }
 .live-search{
     background-color: #fff;
-    margin-left: 17px;
+    border: 1px solid #f2f2f2;
+    border-top: none;
+    margin-left: 16px;
     margin-right: 11px;
-    padding-left: 13px;
+    padding-top: 10px;
     position: absolute;
     z-index: 999999;
     right: 4px;
@@ -398,6 +388,21 @@ ul.msg_list li a .message {
     /* width: 1000px; */
 }
 
+.item-page:hover{
+  background-color: #f2f2f2;
+  color: #3488BF;
+  cursor: pointer;
+}
+.item-page{
+  padding-left: 10px;
+}
+.item-page:last-child{
+  border-bottom: none;
+}
+.err-findpage{
+  padding-left: 10px;
+}
+  
 
 
 /*====================== end css admin ============*/
@@ -432,7 +437,7 @@ ul.msg_list li a .message {
   border-radius: 0px !important;
 }
 .main-header{
-
+ 
 }
 .main-navigation{
     background-color: #fff;
@@ -593,7 +598,7 @@ a {
     margin-top: -6px;
     border-top-left-radius: 0;
     z-index: 1000;
-
+    
     float: left;
     min-width: 160px;
     padding: 5px 0;
@@ -616,9 +621,9 @@ a {
 	margin-right: 5px;
 	margin-top: -3px;
 	width: 30px;
-}
+} 
 .user-email{
-
+	
 }
 /*======================css home page==============*/
 #tin-tuc-moi{
@@ -679,7 +684,7 @@ a {
 
 		}
 	}
-
+	
 }
 
 /*======================css footer=================*/

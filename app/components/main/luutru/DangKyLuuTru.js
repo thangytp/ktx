@@ -21,6 +21,12 @@ export default class SignUp extends React.Component {
     if(!userEmail){
       window.location.href="/login";
     }
+    else { 
+      var mssv = userEmail.split('@');
+      var svmssv = mssv[0];
+      DangKyLuuTruAction.getStudent(svmssv);
+      console.log(svmssv);
+    };
     ManageUuTienStore.listen(this.onChange);
     DangKyLuuTruStore.listen(this.onChange);
 
@@ -40,12 +46,12 @@ export default class SignUp extends React.Component {
   dangKyLuuTru(event)
   {
     event.preventDefault();
-    console.log('aaa');
     var userEmail = localStorage.getItem('email');
     var userName = localStorage.getItem('name');
     var mssv = userEmail.split('@');
     var svmssv = mssv[0];
-    console.log(mssv);
+    
+    var gioitinh = this.state.state2.gioitinh;    
     var namvaotruong = this.state.state2.namvaotruong;
     var svkhuvuc = this.state.state2.svkhuvuc;
     var svtinh = this.state.state2.svtinh;
@@ -53,11 +59,13 @@ export default class SignUp extends React.Component {
     var svhocluc = this.state.state2.svhocluc;
     var svhoancanh = this.state.state2.svhoancanh;
     var svloaiphong = this.state.state2.svloaiphong;
-    console.log(userName);
 
     var presentYear = new Date().getFullYear();
 
-    if (namvaotruong > presentYear || (presentYear - namvaotruong) > 6) {
+    if(gioitinh == ''){
+        DangKyLuuTruAction.invalidGioiTinh();
+    }
+    else if (namvaotruong > presentYear || (presentYear - namvaotruong) > 6) {
         DangKyLuuTruAction.invalidNam();
         this.refs.NamTextField.focus();
     }
@@ -82,9 +90,14 @@ export default class SignUp extends React.Component {
         DangKyLuuTruAction.invalidHoanCanh();
         this.refs.HoanCanhTextField.focus();
     }
+    else if(!svloaiphong){
+        DangKyLuuTruAction.invalidLoaiPhong();
+        this.refs.LoaiPhongTextField.focus();
+    }
 
     else {
-        DangKyLuuTruAction.dangKyLuuTru({ userEmail: userEmail, userName: userName, svmssv: svmssv, namvaotruong: namvaotruong, svkhuvuc: svkhuvuc, svtinh: svtinh,
+        DangKyLuuTruAction.showLoading();
+        DangKyLuuTruAction.dangKyLuuTru({ userEmail: userEmail, userName: userName, svmssv: svmssv, gioitinh: gioitinh, namvaotruong: namvaotruong, svkhuvuc: svkhuvuc, svtinh: svtinh,
             svdoituong: svdoituong, svhocluc: svhocluc, svhoancanh: svhoancanh, svloaiphong: svloaiphong});
     }
 
@@ -119,21 +132,44 @@ export default class SignUp extends React.Component {
           );
     });
 
-    return (
+    let daDangKyLuuTru = this.state.state2.daDangKyLuuTru;
+    if(daDangKyLuuTru){
+      return(
+          <div className="container luu-tru">
+
+              <div className="row">
+                <div className="col-md-10 col-md-offset-1">
+                  <h2>Đăng ký lưu trú ký túc xá</h2>
+                  <h4 className="text-center">Bạn đã đăng ký lưu trú. Vui lòng chờ xét duyệt!</h4>
+                </div>
+            </div>
+          </div>
+        );
+    }
+
+    else return (
             <div className="container luu-tru">
 
               <div className="row">
                 <div className="col-md-10 col-md-offset-1">
                   <h2>Đăng ký lưu trú ký túc xá</h2>
-                  <div ><span>{this.state.state2.messDK}</span></div>
+                  
                   <form className="form-horizontal" role="form" onSubmit ={this.dangKyLuuTru.bind(this)}>
                     <div className="form-body">
+                      <div className="form-group">
+                          <label className="control-label col-md-3" htmlFor="">Giới tính</label>
+                          <div className="col-md-9"> 
+                              <label className="radio-inline"><input type="radio" name="gender" value="m" onClick={DangKyLuuTruAction.updateGioiTinhNam} />Nam</label>
+                              <label className="radio-inline"><input type="radio" name="gender" value="f" onClick={DangKyLuuTruAction.updateGioiTinhNu} />Nữ</label>
+                              <div className=''><span className="control-label text-danger">{this.state.state2.validateGioiTinh}</span></div>
+                          </div>
+                      </div>
                       <div className={'form-group has-feedback ' }>
                         <label htmlFor="nam-vao-truong" className="col-md-3 control-label">Năm vào trường</label>
                         <div className="col-md-9">
                             <input type='number' className="form-control" id='nam-vao-truong' value={this.state.state2.namvaotruong}
                               onChange={DangKyLuuTruAction.updateNamVaoTruong} ref='NamTextField'/>
-                            <div className=''><span className="control-label">{this.state.state2.validateNam}</span></div>
+                            <div className=''><span className="control-label text-danger">{this.state.state2.validateNam}</span></div>
                         </div>
                       </div>
                       <div className={'form-group has-feedback ' }>
@@ -144,7 +180,7 @@ export default class SignUp extends React.Component {
                               <option value =''>-- Chọn khu vực ưu tiên --</option>
             					        {khuVucUuTien}
                             </select>
-                            <div className=''><span className="control-label">{this.state.state2.validateKhuVuc}</span></div>
+                            <div className=''><span className="control-label text-danger">{this.state.state2.validateKhuVuc}</span></div>
                         </div>
                       </div>
                       <div className={'form-group has-feedback ' }>
@@ -283,7 +319,7 @@ export default class SignUp extends React.Component {
                               <option value="63">Yên Bái</option>*/}
 
                             </select>
-                            <div className=''><span className="control-label">{this.state.state2.validateTinh}</span></div>
+                            <div className=''><span className="control-label text-danger">{this.state.state2.validateTinh}</span></div>
                         </div>
                       </div>
                       <div className={'form-group has-feedback ' }>
@@ -294,7 +330,7 @@ export default class SignUp extends React.Component {
                               <option value =''>-- Chọn đối tượng ưu tiên --</option>
                               {doiTuongUuTien}
                             </select>
-                            <div className=''><span className="control-label">{this.state.state2.validateDoiTuong}</span></div>
+                            <div className=''><span className="control-label text-danger">{this.state.state2.validateDoiTuong}</span></div>
                         </div>
                       </div>
                       <div className={'form-group has-feedback ' }>
@@ -305,7 +341,7 @@ export default class SignUp extends React.Component {
                               <option value =''>-- Chọn học lực --</option>
                               {sinhvien}
                             </select>
-                            <div className=''><span className="control-label">{this.state.state2.validateHocLuc}</span></div>
+                            <div className=''><span className="control-label text-danger">{this.state.state2.validateHocLuc}</span></div>
                         </div>
                       </div>
                       <div className={'form-group has-feedback ' }>
@@ -316,17 +352,19 @@ export default class SignUp extends React.Component {
                               <option value =''>-- Chọn hoàn cảnh --</option>
                               {hoanCanh}
                             </select>
-                            <div className=''><span className="control-label">{this.state.state2.validateHoanCanh}</span></div>
+                            <div className=''><span className="control-label text-danger">{this.state.state2.validateHoanCanh}</span></div>
                         </div>
                       </div>
                       <div className={'form-group has-feedback ' }>
                         <label htmlFor="phong-luu-tru" className="col-md-3 control-label">Nguyện vọng lưu trú</label>
                         <div className="col-md-9">
                             <select className="form-control" id="phong-luu-tru" onChange={DangKyLuuTruAction.updateLoaiPhong}
-                                value={this.state.state2.svloaiphong}>
+                                value={this.state.state2.svloaiphong} ref='LoaiPhongTextField'>
+                              <option value=''>-- Chọn loại phòng --</option>
                               <option value='0'>Phòng thông thường</option>
                               <option value='1'>Phòng dịch vụ</option>
                             </select>
+                            <div className=''><span className="control-label text-danger">{this.state.state2.validateLoaiPhong}</span></div>
                         </div>
                       </div>
 
@@ -340,7 +378,8 @@ export default class SignUp extends React.Component {
                       </div>  */}
                     <div className="form-group">
                       <div className="col-sm-offset-3 col-sm-9">
-                        <button type="submit" className="btn btn-default btn-signup" disabled={this.state.state2.disableDK}>Đăng ký lưu trú</button>
+                        <button type="submit" className="btn btn-default btn-signup" disabled={this.state.state2.disableDK}><span><i className="fa fa-refresh fa-spin" style={{'display': this.state.state2.loading}}></i> <span>{this.state.state2.textButtonDangKy}</span></span></button>
+                        <span className="text-success">{this.state.state2.messDK}</span>
                       </div>
                     </div>
                   </form>

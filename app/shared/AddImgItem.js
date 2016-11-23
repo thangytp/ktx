@@ -43,6 +43,10 @@ export default class AddImgItem extends React.Component {
     var link = e.target.value;
     AddPageAction.updateImgLink({link : link, id: this.props.number});
   }
+  handleChangeLinkToPage(e){
+    var linkToPage = e.target.value;
+    AddPageAction.updateLinkToPage({linkToPage : linkToPage, id: this.props.number});
+  }
 
   openModDelete(e){
     e.preventDefault();
@@ -76,17 +80,24 @@ export default class AddImgItem extends React.Component {
     return (
         <div>
           <div className="form-group image-item" id="image-item"> 
-              <label className="control-label col-sm-2" htmlFor=""><i className="fa fa-file-image-o" aria-hidden="true"></i> Tiêu đề ảnh:</label>
+              <label className="control-label col-sm-2" htmlFor="image-item-text"><i className="fa fa-file-image-o" aria-hidden="true"></i> Tiêu đề ảnh:</label>
               <div className="col-sm-10"> 
                 <input type="text" className="form-control" id="image-item-text" placeholder="VD: Giới thiệu" 
                   onChange={this.handleChangTitle.bind(this)} value={this.props.state.imgText}/>
               </div>
           </div>
           <div className="form-group image-item" id="image-item"> 
-              <label className="control-label col-sm-2" htmlFor="">Link ảnh:</label>
+              <label className="control-label col-sm-2" htmlFor="image-item-link">Link ảnh:</label>
               <div className="col-sm-10"> 
                 <input type="text" className="form-control" id="image-item-link" placeholder="VD: /uploads/tuvan_Internet1477983672758.jpg" 
                   onChange={this.handleChangLink.bind(this)} value={this.props.state.imgLink} onFocus={this.openModal.bind(this, this.props.number)}/>
+              </div>
+          </div>
+          <div className="form-group image-item" id="image-item"> 
+              <label className="control-label col-sm-2" htmlFor="link-to-page"><i className="fa fa-file-image-o" aria-hidden="true"></i> Link tới trang:</label>
+              <div className="col-sm-10"> 
+                <input type="text" className="form-control" id="link-to-page" placeholder="" 
+                  onChange={this.handleChangeLinkToPage.bind(this)} value={this.props.state.linkToPage}/>
               </div>
           </div>
           <div className="form-group">
