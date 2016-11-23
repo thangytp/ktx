@@ -9,7 +9,7 @@ var HocVu = React.createClass({
     uploadFile: function (e) {
         var fd = new FormData();
         fd.append('file', this.refs.file.getDOMNode().files[0]);
-        ManageUserAction.updateHocVuXetDuyet(fd);
+        ManageUserAction.updateHocVuGiaHan(fd);
         e.preventDefault()
     },
     render: function() {
@@ -31,13 +31,12 @@ var DiemRenLuyen = React.createClass({
     uploadFile: function (e) {
         var fd = new FormData();
         fd.append('file', this.refs.file.getDOMNode().files[0]);
-        ManageUserAction.updateDiemRenLuyenXetDuyet({'file' : fd, 'drl' : parseInt(this.refs.diemrl.value)});
+        ManageUserAction.updateDiemRenLuyenGiaHan({'file' : fd, 'drl' : parseInt(this.refs.diemrl.value)});
         e.preventDefault()
     },
     activeInput: function() {
       if(this.refs.diemrl.value !== '') {
         this.setState({'activeUploadDrl' : false});
-        this.setState({'state1.diemrl' : parseInt(this.refs.diemrl.value)});
       } else {
         this.setState({'activeUploadDrl' : true});
       }
@@ -49,6 +48,44 @@ var DiemRenLuyen = React.createClass({
                    <input ref='diemrl' type="number" name="number" onChange={this.activeInput.bind(this)} />
                    <input ref="file" type="file" name="file" className="upload-file"/>
                    <input type="button" ref="button" value="Upload" disabled={this.state.activeUploadDrl} onClick={this.uploadFile.bind(this)} />
+               </form>
+            </div>
+        );
+    }
+});
+
+var DiemRenLuyenKtx = React.createClass({
+    getInitialState() {
+      return { 'activeUploadDrlKtx' : true, 'activeUploadDvs' : true};
+    },
+    uploadFile: function (e) {
+        var fd = new FormData();
+        fd.append('file', this.refs.file.getDOMNode().files[0]);
+        ManageUserAction.updateDiemRenLuyenKtx({'file' : fd, 'drlktx' : parseInt(this.refs.diemrlktx.value), 'dvs' : parseInt(this.refs.diemvs.value)});
+        e.preventDefault()
+    },
+    activeInput1: function() {
+      if(this.refs.diemrlktx.value !== '') {
+        this.setState({'activeUploadDrlKtx' : false});
+      } else {
+        this.setState({'activeUploadDrlKtx' : true});
+      }
+    },
+    activeInput2: function() {
+      if(this.refs.diemvs.value !== '') {
+        this.setState({'activeUploadDvs' : false});
+      } else {
+        this.setState({'activeUploadDvs' : true});
+      }
+    },
+    render: function() {
+        return (
+            <div>
+               <form ref="uploadForm" className="uploader" encType="multipart/form-data" >
+                   <input ref='diemrlktx' type="number" name="number1" onChange={this.activeInput1.bind(this)} />
+                   <input ref='diemvs' type="number" name="number2" onChange={this.activeInput2.bind(this)} />
+                   <input ref="file" type="file" name="file" className="upload-file"/>
+                   <input type="button" ref="button" value="Upload" disabled={this.state.activeUploadDrlKtx || this.state.activeUploadDvs} onClick={this.uploadFile.bind(this)} />
                </form>
             </div>
         );
@@ -82,9 +119,11 @@ class XetDuyetMoi extends Component {
         phai: phai,
         diemcb : diemcb,
         nam : nam,
-        drl : this.state.state1.inputdrl
+        drl : this.state.state1.inputdrl,
+        drlktx : this.state.state1.inputdrlktx,
+        dvs : this.state.state1.inputdvs
     };
-    ManageUserAction.updateXetDuyetXetDuyet(data);
+    ManageUserAction.updateXetDuyetGiaHan(data);
   }
 
   onChange(state) {
@@ -106,7 +145,7 @@ class XetDuyetMoi extends Component {
         )
     });
 
-    let listUsersEHocvu = this.state.state1.usersehv.map(function(user, index){
+    let listUsersEHocvu = this.state.state1.usersehvgh.map(function(user, index){
         return (
           <tr>
            <th scope="row">{index + 1}</th>
@@ -119,7 +158,7 @@ class XetDuyetMoi extends Component {
         )
     });
 
-    let listUsersHocvu = this.state.state1.usershv.map(function(user, index){
+    let listUsersHocvu = this.state.state1.usershvgh.map(function(user, index){
         return (
           <tr>
            <th scope="row">{index + 1}</th>
@@ -132,7 +171,7 @@ class XetDuyetMoi extends Component {
         )
     });
 
-    let listUsersEDiemrenluyen = this.state.state1.usersedrl.map(function(user, index){
+    let listUsersEDiemrenluyen = this.state.state1.usersedrlgh.map(function(user, index){
         return (
           <tr>
            <th scope="row">{index + 1}</th>
@@ -144,20 +183,7 @@ class XetDuyetMoi extends Component {
           </tr>
         )
     });
-    let listUsersDiemrenluyen = this.state.state1.usersdrl.map(function(user, index){
-        return (
-          <tr>
-           <th scope="row">{index + 1}</th>
-           <td>{user.ho_lot}' '{user.ten}</td>
-           <td>{user.email}</td>
-           <td>{user.ma_sinh_vien}</td>
-           <td>{user.so_cmnd}</td>
-           <td>{user.dien_thoai}</td>
-          </tr>
-        )
-    });
-
-    let listUsersDiemxetduyet = this.state.state1.usersdxd.map(function(user, index){
+    let listUsersDiemrenluyen = this.state.state1.usersdrlgh.map(function(user, index){
         return (
           <tr>
            <th scope="row">{index + 1}</th>
@@ -170,7 +196,7 @@ class XetDuyetMoi extends Component {
         )
     });
 
-    let listUsersHvLoai = this.state.state1.usershvloai.map(function(user, index){
+    let listUsersEDiemrenluyenKtx = this.state.state1.usersedrlktx.map(function(user, index){
         return (
           <tr>
            <th scope="row">{index + 1}</th>
@@ -182,7 +208,59 @@ class XetDuyetMoi extends Component {
           </tr>
         )
     });
-    let listUsersDrlLoai = this.state.state1.usersdrlloai.map(function(user, index){
+
+    let listUsersDiemrenluyenKtx = this.state.state1.usersdrlktx.map(function(user, index){
+        return (
+          <tr>
+           <th scope="row">{index + 1}</th>
+           <td>{user.ho_lot}' '{user.ten}</td>
+           <td>{user.email}</td>
+           <td>{user.ma_sinh_vien}</td>
+           <td>{user.so_cmnd}</td>
+           <td>{user.dien_thoai}</td>
+          </tr>
+        )
+    });
+
+    let listUsersDiemxetduyet = this.state.state1.usersdxdgh.map(function(user, index){
+        return (
+          <tr>
+           <th scope="row">{index + 1}</th>
+           <td>{user.ho_lot}' '{user.ten}</td>
+           <td>{user.email}</td>
+           <td>{user.ma_sinh_vien}</td>
+           <td>{user.so_cmnd}</td>
+           <td>{user.dien_thoai}</td>
+          </tr>
+        )
+    });
+
+    let listUsersHvLoai = this.state.state1.usershvloaigh.map(function(user, index){
+        return (
+          <tr>
+           <th scope="row">{index + 1}</th>
+           <td>{user.ho_lot}' '{user.ten}</td>
+           <td>{user.email}</td>
+           <td>{user.ma_sinh_vien}</td>
+           <td>{user.so_cmnd}</td>
+           <td>{user.dien_thoai}</td>
+          </tr>
+        )
+    });
+    let listUsersDrlLoai = this.state.state1.usersdrlloaigh.map(function(user, index){
+        return (
+          <tr>
+           <th scope="row">{index + 1}</th>
+           <td>{user.ho_lot}' '{user.ten}</td>
+           <td>{user.email}</td>
+           <td>{user.ma_sinh_vien}</td>
+           <td>{user.so_cmnd}</td>
+           <td>{user.dien_thoai}</td>
+          </tr>
+        )
+    });
+
+    let listUsersDrlKtxLoai = this.state.state1.usersdrlktxloai.map(function(user, index){
         return (
           <tr>
            <th scope="row">{index + 1}</th>
@@ -453,6 +531,98 @@ class XetDuyetMoi extends Component {
       )
     }
 
+
+    let contentDiemrenluyenKtx;
+    if(this.state.state1.activeDiemrenluyenKtx === false) {
+      contentDiemrenluyenKtx = (
+        <div className="uploadLuutru">
+          <h1>Vui lòng import file điểm rèn luyện ký túc xá</h1>
+          <DiemRenLuyenKtx/>
+        </div>
+      );
+    } else {
+      contentDiemrenluyenKtx = (
+        <Tabs defaultActiveKey={1} id="xulydiemrenluyenktx">
+          <Tab eventKey={1} title="Danh sách sinh viên">
+            <div className="table-responsive">
+              <table className="table">
+                <thead>
+                 <tr>
+                   <th>#</th>
+                   <th>Họ Tên</th>
+                   <th>Email</th>
+                   <th>MSSV</th>
+                   <th>CMND</th>
+                   <th>SDT</th>
+                   </tr>
+                 </thead>
+                 <tbody>
+                  {listUsersDiemrenluyen}
+                 </tbody>
+              </table>
+            </div>
+          </Tab>
+          <Tab eventKey={2} title="Danh sách sinh viên không đủ điểm rèn luyện">
+          <div className="table-responsive">
+            <table className="table">
+              <thead>
+               <tr>
+                 <th>#</th>
+                 <th>Họ Tên</th>
+                 <th>Email</th>
+                 <th>MSSV</th>
+                 <th>CMND</th>
+                 <th>SDT</th>
+                 </tr>
+               </thead>
+               <tbody>
+                {listUsersEDiemrenluyenKtx}
+               </tbody>
+            </table>
+          </div>
+          </Tab>
+          <Tab eventKey={3} title="Danh sách sinh viên đạt tiêu chuẩn">
+          <div className="table-responsive">
+            <table className="table">
+              <thead>
+               <tr>
+                 <th>#</th>
+                 <th>Họ Tên</th>
+                 <th>Email</th>
+                 <th>MSSV</th>
+                 <th>CMND</th>
+                 <th>SDT</th>
+                 </tr>
+               </thead>
+               <tbody>
+                {listUsersDiemrenluyenKtx}
+               </tbody>
+            </table>
+          </div>
+          </Tab>
+          <Tab eventKey={4} title="Danh sách sinh viên bị loại">
+          <div className="table-responsive">
+            <table className="table">
+              <thead>
+               <tr>
+                 <th>#</th>
+                 <th>Họ Tên</th>
+                 <th>Email</th>
+                 <th>MSSV</th>
+                 <th>CMND</th>
+                 <th>SDT</th>
+                 </tr>
+               </thead>
+               <tbody>
+                {listUsersDrlKtxLoai}
+               </tbody>
+            </table>
+          </div>
+          </Tab>
+        </Tabs>
+      )
+    }
+
     let contentDiemxetduyet;
     if(this.state.state1.activeDiemxetduyet === false) {
       contentDiemxetduyet = null;
@@ -499,7 +669,10 @@ class XetDuyetMoi extends Component {
         <Tab eventKey={2} title="Bước 2">
           {contentDiemrenluyen}
         </Tab>
-        <Tab eventKey={3} title="Buoc 3">
+        <Tab eventKey={3} title="Bước 3">
+          {contentDiemrenluyenKtx}
+        </Tab>
+        <Tab eventKey={4} title="Bước 4">
         <h1>Tiến Hành Xét Duyệt</h1>
           {contentTab3}
           {contentDiemxetduyet}

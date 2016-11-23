@@ -10,12 +10,18 @@ const AddUserModal = React.createClass({
     e.preventDefault()
     const data = {
         nam: this.refs.nam.value,
-        nam1: this.refs.nam1.value,
-        nam2: this.refs.nam2.value,
-        nam3: this.refs.nam3.value,
-        nam4: this.refs.nam4.value,
-        nam5: this.refs.nam5.value,
-        nam6: this.refs.nam6.value,
+        namnam1: this.refs.namnam1.value,
+        nunam1: this.refs.nunam1.value,
+        namnam2: this.refs.namnam2.value,
+        nunam2: this.refs.nunam2.value,
+        namnam3: this.refs.namnam3.value,
+        nunam3: this.refs.nunam3.value,
+        namnam4: this.refs.namnam4.value,
+        nunam4: this.refs.nunam4.value,
+        namnam5: this.refs.namnam5.value,
+        nunam5: this.refs.nunam5.value,
+        namnam6: this.refs.namnam6.value,
+        nunam6: this.refs.nunam6.value,
         diemcb1: this.refs.diemcoban1.value,
         diemcb2: this.refs.diemcoban2.value,
         diemcb3: this.refs.diemcoban3.value,
@@ -40,48 +46,72 @@ const AddUserModal = React.createClass({
               <input type="text" className="form-control" ref="nam" placeholder="Năm" />
             </div>
             <div className="form-group">
-              <label for="exampleInputEmail1">Chỉ tiêu năm 1</label>
-              <input type="text" className="form-control" ref="nam1" placeholder="Năm 1" />
+              <label for="exampleInputEmail1">Chỉ tiêu nam năm 1</label>
+              <input type="text" className="form-control" ref="namnam1" placeholder="Chỉ Tiêu Nam Năm 1" />
+            </div>
+            <div className="form-group">
+              <label for="exampleInputEmail1">Chỉ tiêu nữ năm 1</label>
+              <input type="text" className="form-control" ref="nunam1" placeholder="Chỉ Tiêu Nữ Năm 1" />
             </div>
             <div className="form-group">
               <label for="exampleInputEmail1">Điểm Cơ Bản năm 1</label>
               <input type="number" className="form-control" ref="diemcoban1" placeholder="Điểm Cơ Bản Năm 1" />
             </div>
             <div className="form-group">
-              <label for="exampleInputEmail1">Chỉ tiêu năm 2</label>
-              <input type="text" className="form-control" ref="nam2" placeholder="Năm 2" />
+              <label for="exampleInputEmail1">Chỉ tiêu nam năm 2</label>
+              <input type="text" className="form-control" ref="namnam2" placeholder="Chỉ Tiêu Nam Năm 2" />
+            </div>
+            <div className="form-group">
+              <label for="exampleInputEmail1">Chỉ tiêu nữ năm 2</label>
+              <input type="text" className="form-control" ref="nunam2" placeholder="Chỉ Tiêu Nữ Năm 2" />
             </div>
             <div className="form-group">
               <label for="exampleInputEmail1">Điểm Cơ Bản năm 2</label>
               <input type="number" className="form-control" ref="diemcoban2" placeholder="Điểm Cơ Bản Năm 2" />
             </div>
             <div className="form-group">
-              <label for="exampleInputEmail1">Chỉ tiêu năm 3</label>
-              <input type="text" className="form-control" ref="nam3" placeholder="Năm 3" />
+              <label for="exampleInputEmail1">Chỉ tiêu nam năm 3</label>
+              <input type="text" className="form-control" ref="namnam3" placeholder="Chỉ Tiêu Nam Năm 3" />
+            </div>
+            <div className="form-group">
+              <label for="exampleInputEmail1">Chỉ tiêu nữ năm 3</label>
+              <input type="text" className="form-control" ref="nunam3" placeholder="Chỉ Tiêu Nữ Năm 3" />
             </div>
             <div className="form-group">
               <label for="exampleInputEmail1">Điểm Cơ Bản năm 3</label>
               <input type="number" className="form-control" ref="diemcoban3" placeholder="Điểm Cơ Bản Năm 3" />
             </div>
             <div className="form-group">
-              <label for="exampleInputEmail1">Chỉ tiêu năm 4</label>
-              <input type="text" className="form-control" ref="nam4" placeholder="Năm 4" />
+              <label for="exampleInputEmail1">Chỉ tiêu nam năm 4</label>
+              <input type="text" className="form-control" ref="namnam4" placeholder="Chỉ Tiêu Nam Năm 4" />
+            </div>
+            <div className="form-group">
+              <label for="exampleInputEmail1">Chỉ tiêu nữ năm 4</label>
+              <input type="text" className="form-control" ref="nunam4" placeholder="Chỉ Tiêu Nữ Năm 4" />
             </div>
             <div className="form-group">
               <label for="exampleInputEmail1">Điểm Cơ Bản năm 4</label>
               <input type="number" className="form-control" ref="diemcoban4" placeholder="Điểm Cơ Bản Năm 4" />
             </div>
             <div className="form-group">
-              <label for="exampleInputEmail1">Chỉ tiêu năm 5</label>
-              <input type="text" className="form-control" ref="nam5" placeholder="Năm 5" />
+              <label for="exampleInputEmail1">Chỉ tiêu nam năm 5</label>
+              <input type="text" className="form-control" ref="namnam5" placeholder="Chỉ Tiêu Nam Năm 5" />
+            </div>
+            <div className="form-group">
+              <label for="exampleInputEmail1">Chỉ tiêu nữ năm 5</label>
+              <input type="text" className="form-control" ref="nunam5" placeholder="Chỉ Tiêu Nữ Năm 5" />
             </div>
             <div className="form-group">
               <label for="exampleInputEmail1">Điểm Cơ Bản năm 5</label>
               <input type="number" className="form-control" ref="diemcoban5" placeholder="Điểm Cơ Bản Năm 5" />
             </div>
             <div className="form-group">
-              <label for="exampleInputEmail1">Chỉ tiêu năm 6</label>
-              <input type="text" className="form-control" ref="nam6" placeholder="Năm 6" />
+              <label for="exampleInputEmail1">Chỉ tiêu nam năm 6</label>
+              <input type="text" className="form-control" ref="namnam6" placeholder="Chỉ Tiêu Nam Năm 6" />
+            </div>
+            <div className="form-group">
+              <label for="exampleInputEmail1">Chỉ tiêu nữ năm 4</label>
+              <input type="text" className="form-control" ref="nunam6" placeholder="Chỉ Tiêu Nữ Năm 6" />
             </div>
             <div className="form-group">
               <label for="exampleInputEmail1">Điểm Cơ Bản năm 6</label>
@@ -136,7 +166,8 @@ class ChiTieu extends Component {
              <tr>
                <th>#</th>
                <th>Chỉ Tiêu</th>
-               <th>Số Lượng</th>
+               <th>Nam</th>
+               <th>Nữ</th>
                <th>Điểm Cơ Bản</th>
              </tr>
            </thead>
@@ -144,38 +175,44 @@ class ChiTieu extends Component {
             <tr>
               <td>0</td>
               <td>Năm 1</td>
-              <td>{chitieu.nam1.soluong}</td>
+              <td>{chitieu.nam1.male}</td>
+              <td>{chitieu.nam1.female}</td>
               <td>{chitieu.nam1.diemcoban}</td>
 
             </tr>
             <tr>
               <td>1</td>
               <td>Năm 2</td>
-              <td>{chitieu.nam2.soluong}</td>
+              <td>{chitieu.nam2.male}</td>
+              <td>{chitieu.nam2.female}</td>
               <td>{chitieu.nam2.diemcoban}</td>
             </tr>
             <tr>
               <td>2</td>
               <td>Năm 3</td>
-              <td>{chitieu.nam3.soluong}</td>
+              <td>{chitieu.nam3.male}</td>
+              <td>{chitieu.nam3.female}</td>
               <td>{chitieu.nam3.diemcoban}</td>
             </tr>
             <tr>
               <td>3</td>
               <td>Năm 4</td>
-              <td>{chitieu.nam4.soluong}</td>
+              <td>{chitieu.nam4.male}</td>
+              <td>{chitieu.nam4.female}</td>
               <td>{chitieu.nam4.diemcoban}</td>
             </tr>
             <tr>
               <td>4</td>
               <td>Năm 5</td>
-              <td>{chitieu.nam5.soluong}</td>
+              <td>{chitieu.nam5.male}</td>
+              <td>{chitieu.nam5.female}</td>
               <td>{chitieu.nam5.diemcoban}</td>
             </tr>
             <tr>
               <td>0</td>
               <td>Năm 6</td>
-              <td>{chitieu.nam6.soluong}</td>
+              <td>{chitieu.nam6.male}</td>
+              <td>{chitieu.nam6.female}</td>
               <td>{chitieu.nam6.diemcoban}</td>
             </tr>
            </tbody>

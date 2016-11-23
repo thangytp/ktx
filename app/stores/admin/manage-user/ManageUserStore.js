@@ -14,12 +14,26 @@ class ManageUserStore {
     this.usersdxd = [];
     this.usershvloai = [];
     this.usersdrlloai = [];
+    this.usersehvgh = [];
+    this.usershvgh = [];
+    this.usersedrlgh = [];
+    this.usersdrlgh = [];
+    this.usersdxdgh = [];
+    this.usershvloaigh = [];
+    this.usersdrlloaigh = [];
+    this.usersedrlktx = [];
+    this.usersdrlktx = [];
+    this.usersdrlktxloai = [];
     this.activeHocvu = false;
     this.activeDiemrenluyen = false;
+    this.activeDiemrenluyenKtx = false;
     this.activeDiemxetduyet = false;
     this.deactiveStep2 = true;
     this.deactiveStep3 = true;
     this.user = {};
+    this.inputdrl = null;
+    this.inputdrlktx = null;
+    this.inputdvs = null;
     // if(localStorage.getItem('deactiveStep2')) {
     //   this.deactiveStep2 = false;
     // } else {
@@ -42,11 +56,35 @@ class ManageUserStore {
     this.users = response;
   }
 
-  onGetUsersByDiemXetDuyetSuccess(response) {
-    this.usersdxd = response;
+  getUsersByDiemXetDuyetGiaHanSuccess(response) {
+    this.usersdxdgh = response;
   }
 
-  onGetUsersByDiemRenLuyenSuccess(response) {
+  getUsersByDiemXetDuyetXetDuyetSuccess(response) {
+    this.usersdxd = response;
+  }
+  onGetUsersByDiemRenLuyenKtxSuccess(response) {
+    this.usersdrlktx = response;
+    var users1 = this.usersdrlgh,
+        users2 = response;
+
+    var uniqueResultOne = users1.filter(function(obj) {
+      return !users2.some(function(obj2) {
+          return obj.ma_sinh_vien == obj2.ma_sinh_vien;
+      });
+    });
+
+    var uniqueResultTwo = users2.filter(function(obj) {
+        return !users1.some(function(obj2) {
+            return obj.ma_sinh_vien == obj2.ma_sinh_vien;
+        });
+    });
+
+    var result = uniqueResultOne.concat(uniqueResultTwo);
+    this.usersdrlktxloai = result;
+  }
+
+  onGetUsersByDiemRenLuyenXetDuyetSuccess(response) {
     this.usersdrl = response;
     var users1 = this.usershv,
         users2 = response;
@@ -67,7 +105,28 @@ class ManageUserStore {
     this.usersdrlloai = result;
   }
 
-  onGetUsersByHocVuSuccess(response) {
+  onGetUsersByDiemRenLuyenGiaHanSuccess(response) {
+    this.usersdrlgh = response;
+    var users1 = this.usershvgh,
+        users2 = response;
+
+    var uniqueResultOne = users1.filter(function(obj) {
+      return !users2.some(function(obj2) {
+          return obj.ma_sinh_vien == obj2.ma_sinh_vien;
+      });
+    });
+
+    var uniqueResultTwo = users2.filter(function(obj) {
+        return !users1.some(function(obj2) {
+            return obj.ma_sinh_vien == obj2.ma_sinh_vien;
+        });
+    });
+
+    var result = uniqueResultOne.concat(uniqueResultTwo);
+    this.usersdrlloaigh = result;
+  }
+
+  onGetUsersByHocVuXetDuyetSuccess(response) {
     this.usershv = response;
     var users1 = this.users,
         users2 = response;
@@ -88,6 +147,27 @@ class ManageUserStore {
     this.usershvloai = result;
   }
 
+  onGetUsersByHocVuGiaHanSuccess(response) {
+    this.usershvgh = response;
+    var users1 = this.users,
+        users2 = response;
+
+    var uniqueResultOne = users1.filter(function(obj) {
+      return !users2.some(function(obj2) {
+          return obj.ma_sinh_vien == obj2.ma_sinh_vien;
+      });
+    });
+
+    var uniqueResultTwo = users2.filter(function(obj) {
+        return !users1.some(function(obj2) {
+            return obj.ma_sinh_vien == obj2.ma_sinh_vien;
+        });
+    });
+
+    var result = uniqueResultOne.concat(uniqueResultTwo);
+    this.usershvloaigh = result;
+  }
+
   onGetUserSuccess(response) {
     this.user = response;
   }
@@ -104,29 +184,59 @@ class ManageUserStore {
     ManageUserAction.getUsers();
   }
 
-  onUpdateHocVuSuccess(data) {
+  onUpdateHocVuXetDuyetSuccess(data) {
     this.usersehv = data;
-    ManageUserAction.getUsersByHocVu();
+    ManageUserAction.getUsersByHocVuXetDuyet();
     // localStorage.setItem('deactiveStep2', false);
     // localStorage.setItem('activeHocvu', true);
     this.activeHocvu = true;
     this.deactiveStep2 = false;
   }
 
-  onUpdateDiemRenLuyenSuccess(data) {
-    this.usersedrl = data;
-    ManageUserAction.getUsersByDiemRenLuyen(75);
-    // localStorage.setItem('deactiveStep3', false);
-    // localStorage.setItem('activeDiemrenluyen', true);
+  onUpdateHocVuGiaHanSuccess(data) {
+    this.usersehvgh = data;
+    ManageUserAction.getUsersByHocVuGiaHan();
+    // localStorage.setItem('deactiveStep2', false);
+    // localStorage.setItem('activeHocvu', true);
+    this.activeHocvu = true;
+    this.deactiveStep2 = false;
+  }
+
+  onUpdateDiemRenLuyenXetDuyetSuccess(data) {
+    this.usersedrl = data.eusers;
+    ManageUserAction.getUsersByDiemRenLuyenXetDuyet(data.drl);
+    this.inputdrl = data.drl;
     this.activeDiemrenluyen = true;
     this.deactiveStep3 = false;
   }
 
-  updateXetDuyetSuccess(payload) {
-    ManageUserAction.getUsersByDiemXetDuyet(payload);
+  onUpdateDiemRenLuyenGiaHanSuccess(data) {
+    this.usersedrlgh = data.eusers;
+    ManageUserAction.getUsersByDiemRenLuyenGiaHan(data.drl);
+    this.inputdrl = data.drl;
+    this.activeDiemrenluyen = true;
+    this.deactiveStep3 = false;
+  }
+
+  onUpdateDiemRenLuyenKtxSuccess(data) {
+    this.usersedrlktx = data.eusers;
+    ManageUserAction.getUsersByDiemRenLuyenKtx({drl : this.inputdrl, drlktx : data.drlktx, dvs: data.dvs});
+    this.inputdrlktx = data.drlktx;
+    this.inputdvs = data.dvs;
+    this.activeDiemrenluyenKtx = true;
+    this.deactiveStep3 = false;
+  }
+
+  onUpdateXetDuyetXetDuyetSuccess(payload) {
+    ManageUserAction.getUsersByDiemXetDuyetXetDuyet(payload);
     // localStorage.setItem('deactiveStep3', false);
     this.activeDiemxetduyet = true;
-    this.deactiveStep3 = false;
+  }
+
+  onUpdateXetDuyetGiaHanSuccess(payload) {
+    ManageUserAction.getUsersByDiemXetDuyetGiaHan(payload);
+    // localStorage.setItem('deactiveStep3', false);
+    this.activeDiemxetduyet = true;
   }
   // onUpdateuser(event)
   // {

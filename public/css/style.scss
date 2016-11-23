@@ -63,7 +63,20 @@ ul{
   color: #00ccff;
 }
 
+.listBtn-xd {
+  li {
+    .listBtn-nn {
+      display: none;
+    }
+    &:hover {
+      .listBtn-nn {
+        display: block;
+      }
+    }
+  }
+}
 /*====================== css admin page ===========*/
+
 .navbar-right{
 	margin-right: 0 !important;
 }
@@ -384,7 +397,7 @@ ul.msg_list li a .message {
     box-sizing: border-box;
     /* width: 1000px; */
 }
-  
+
 
 
 /*====================== end css admin ============*/
@@ -419,7 +432,7 @@ ul.msg_list li a .message {
   border-radius: 0px !important;
 }
 .main-header{
- 
+
 }
 .main-navigation{
     background-color: #fff;
@@ -580,7 +593,7 @@ a {
     margin-top: -6px;
     border-top-left-radius: 0;
     z-index: 1000;
-    
+
     float: left;
     min-width: 160px;
     padding: 5px 0;
@@ -603,9 +616,9 @@ a {
 	margin-right: 5px;
 	margin-top: -3px;
 	width: 30px;
-} 
+}
 .user-email{
-	
+
 }
 /*======================css home page==============*/
 #tin-tuc-moi{
@@ -666,7 +679,7 @@ a {
 
 		}
 	}
-	
+
 }
 
 /*======================css footer=================*/
