@@ -122,8 +122,15 @@ module.exports = function(app, importStudent) {
 
   // Get Students By Hoc Vu
 
-  app.get('/getstudenthocvu', function(req, res){
-    Student.find({tamdung_hocvu : false}, function(err, students){
+  app.get('/xetduyet/getstudenthocvu', function(req, res){
+    Student.find({tamdung_hocvu : false, dang_o_ktx : false}, function(err, students){
+      if(err) throw err;
+      res.json(students);
+    });
+  })
+
+  app.get('/giahan/getstudenthocvu', function(req, res){
+    Student.find({tamdung_hocvu : false, dang_o_ktx : true}, function(err, students){
       if(err) throw err;
       res.json(students);
     });
@@ -131,14 +138,28 @@ module.exports = function(app, importStudent) {
 
   //Get Students By Diem Ren Luyen
 
-  app.get('/getstudent/diem/:stuDiem', function(req, res){
-    Student.find({tamdung_hocvu : false, diem_ren_luyen : {$gt: req.params.stuDiem}}, function(err, students){
+  app.get('/xetduyet/getstudent/diem/:stuDiem', function(req, res){
+    Student.find({tamdung_hocvu : false, diem_ren_luyen : {$gt: req.params.stuDiem}, dang_o_ktx : false}, function(err, students){
       if(err) throw err;
       res.json(students);
     });
   })
 
-  app.get('/getstudent/diemxetduyet/:soluong/:nam', function(req, res){
+  app.get('/giahan/getstudent/diem/:stuDiem', function(req, res){
+    Student.find({tamdung_hocvu : false, diem_ren_luyen : {$gt: req.params.stuDiem}, dang_o_ktx : true}, function(err, students){
+      if(err) throw err;
+      res.json(students);
+    });
+  })
+
+  app.get('/getstudent/diemktx/:stuDrl/:stuVs/:drl', function(req, res){
+    Student.find({tamdung_hocvu : false, diem_ren_luyen : {$gt: req.params.drl}, 'diem_ren_luyen_ktx.tong' : {$gt : req.params.stuDrl}, 'diem_ren_luyen_ktx.ve_sinh' : {$gt : req.params.stuDrl} }, function(err, students){
+      if(err) throw err;
+      res.json(students);
+    });
+  })
+
+  app.get('/xetduyet/getstudent/diemxetduyet/:soluong/:phai/:nam/:drl', function(req, res){
     var cYear = new Date().getFullYear(),
         cMonth = new Date().getMonth() + 1,
         fYear;
@@ -148,7 +169,27 @@ module.exports = function(app, importStudent) {
       fYear = cYear - req.params.nam;
     }
     Student
-    .find({tamdung_hocvu : false, diem_ren_luyen : {$gt: 75}, diem_xet_duyet : { $ne:null }, nam_vao_truong : fYear})
+    .find({tamdung_hocvu : false, dang_o_ktx: false, diem_ren_luyen : {$gt: req.params.drl}, diem_xet_duyet : { $ne:null },phai : req.params.phai, nam_vao_truong : fYear})
+    .sort('-diem_ren_luyen')
+    .limit(req.params.soluong)
+    .exec(function(err, students){
+      if(err) throw err;
+      res.json(students);
+    });
+
+  })
+
+  app.get('/giahan/getstudent/diemxetduyet/:soluong/:phai/:nam/:drl/:drlktx/:dvs', function(req, res){
+    var cYear = new Date().getFullYear(),
+        cMonth = new Date().getMonth() + 1,
+        fYear;
+    if(cMonth > 10) {
+      fYear = cYear - req.params.nam + 1;
+    } else {
+      fYear = cYear - req.params.nam;
+    }
+    Student
+    .find({tamdung_hocvu : false, dang_o_ktx: true, diem_ren_luyen : {$gt: req.params.drl}, 'diem_ren_luyen_ktx.tong' : {$gt : req.params.drlktx}, 'diem_ren_luyen_ktx.ve_sinh' : {$gt : req.params.dvs}, diem_xet_duyet : { $ne:null }, phai : req.params.phai, nam_vao_truong : fYear})
     .sort('-diem_ren_luyen')
     .limit(req.params.soluong)
     .exec(function(err, students){
@@ -193,7 +234,7 @@ module.exports = function(app, importStudent) {
 
   // Update Xy Ky Hoc Vu
 
-  app.post('/upload/xulyhocvu', function(req, res) {
+  app.post('/upload/xetduyet/xulyhocvu', function(req, res) {
       var exceltojson;
 
       importStudent(req,res,function(err){
@@ -226,7 +267,7 @@ module.exports = function(app, importStudent) {
                       return res.json({error_code:1,err_desc:err, data: null});
                   }
                   for(var i=0; i<result.length; i++){
-                    Student.findOneAndUpdate({ma_sinh_vien : result[i].ma_sinh_vien}, {tamdung_hocvu : true} , { new: true }, function (err, student) {
+                    Student.findOneAndUpdate({ma_sinh_vien : result[i].ma_sinh_vien, dang_o_ktx : false}, {tamdung_hocvu : true} , { new: true }, function (err, student) {
                       if (err) throw err;
                     });
                   }
@@ -239,9 +280,7 @@ module.exports = function(app, importStudent) {
 
   });
 
-  //Update Diem Ren Luyen
-
-  app.post('/upload/diemrenluyen', function(req, res) {
+  app.post('/upload/giahan/xulyhocvu', function(req, res) {
       var exceltojson;
 
       importStudent(req,res,function(err){
@@ -274,7 +313,7 @@ module.exports = function(app, importStudent) {
                       return res.json({error_code:1,err_desc:err, data: null});
                   }
                   for(var i=0; i<result.length; i++){
-                    Student.findOneAndUpdate({ma_sinh_vien : result[i].ma_sinh_vien}, {diem_ren_luyen : result[i].diem_ren_luyen} , { new: true }, function (err, student) {
+                    Student.findOneAndUpdate({ma_sinh_vien : result[i].ma_sinh_vien, dang_o_ktx : true}, {tamdung_hocvu : true} , { new: true }, function (err, student) {
                       if (err) throw err;
                     });
                   }
@@ -288,8 +327,149 @@ module.exports = function(app, importStudent) {
   });
 
   //Update Diem Ren Luyen
+  app.post('/upload/xetduyet/diemrenluyen', function(req, res) {
+      var exceltojson;
 
-  app.put('/diemxetduyet', function(req, res) {
+      importStudent(req,res,function(err){
+          if(err){
+               res.json({error_code:1,err_desc:err});
+               return;
+          }
+          /** Multer gives us file info in req.file object */
+          if(!req.file){
+              res.json({error_code:1,err_desc:"No file passed"});
+              return;
+          }
+          /** Check the extension of the incoming file and
+           *  use the appropriate module
+           */
+          if(req.file.originalname.split('.')[req.file.originalname.split('.').length-1] === 'xlsx'){
+              exceltojson = xlsxtojson;
+          } else {
+              exceltojson = xlstojson;
+          }
+          // console.log(req.file.path);
+          try {
+              exceltojson({
+                  input: req.file.path,
+                  output: null, //since we don't need output.json
+                  // sheet: "Sheet1",
+                  lowerCaseHeaders:true
+              }, function(err,result){
+                  if(err) {
+                      return res.json({error_code:1,err_desc:err, data: null});
+                  }
+                  for(var i=0; i<result.length; i++){
+                    Student.findOneAndUpdate({ma_sinh_vien : result[i].ma_sinh_vien, dang_o_ktx : false}, {diem_ren_luyen : result[i].diem_ren_luyen} , { new: true }, function (err, student) {
+                      if (err) throw err;
+                    });
+                  }
+                  res.send(result);
+              });
+          } catch (e){
+              res.json({error_code:1,err_desc:"Corupted excel file"});
+          }
+      })
+
+  });
+
+  app.post('/upload/giahan/diemrenluyen', function(req, res) {
+      var exceltojson;
+
+      importStudent(req,res,function(err){
+          if(err){
+               res.json({error_code:1,err_desc:err});
+               return;
+          }
+          /** Multer gives us file info in req.file object */
+          if(!req.file){
+              res.json({error_code:1,err_desc:"No file passed"});
+              return;
+          }
+          /** Check the extension of the incoming file and
+           *  use the appropriate module
+           */
+          if(req.file.originalname.split('.')[req.file.originalname.split('.').length-1] === 'xlsx'){
+              exceltojson = xlsxtojson;
+          } else {
+              exceltojson = xlstojson;
+          }
+          // console.log(req.file.path);
+          try {
+              exceltojson({
+                  input: req.file.path,
+                  output: null, //since we don't need output.json
+                  // sheet: "Sheet1",
+                  lowerCaseHeaders:true
+              }, function(err,result){
+                  if(err) {
+                      return res.json({error_code:1,err_desc:err, data: null});
+                  }
+                  for(var i=0; i<result.length; i++){
+                    Student.findOneAndUpdate({ma_sinh_vien : result[i].ma_sinh_vien, dang_o_ktx : true}, {diem_ren_luyen : result[i].diem_ren_luyen} , { new: true }, function (err, student) {
+                      if (err) throw err;
+                    });
+                  }
+                  res.send(result);
+              });
+          } catch (e){
+              res.json({error_code:1,err_desc:"Corupted excel file"});
+          }
+      })
+
+  });
+
+
+  //Update Diem Ren Luyen Ky Tuc Xa
+
+  //Update Diem Ren Luyen
+  app.post('/upload/giahan/diemrenluyenktx', function(req, res) {
+      var exceltojson;
+
+      importStudent(req,res,function(err){
+          if(err){
+               res.json({error_code:1,err_desc:err});
+               return;
+          }
+          /** Multer gives us file info in req.file object */
+          if(!req.file){
+              res.json({error_code:1,err_desc:"No file passed"});
+              return;
+          }
+          /** Check the extension of the incoming file and
+           *  use the appropriate module
+           */
+          if(req.file.originalname.split('.')[req.file.originalname.split('.').length-1] === 'xlsx'){
+              exceltojson = xlsxtojson;
+          } else {
+              exceltojson = xlstojson;
+          }
+          // console.log(req.file.path);
+          try {
+              exceltojson({
+                  input: req.file.path,
+                  output: null, //since we don't need output.json
+                  // sheet: "Sheet1",
+                  lowerCaseHeaders:true
+              }, function(err,result){
+                  if(err) {
+                      return res.json({error_code:1,err_desc:err, data: null});
+                  }
+                  for(var i=0; i<result.length; i++){
+                    Student.findOneAndUpdate({ma_sinh_vien : result[i].ma_sinh_vien, dang_o_ktx : true}, {$push : { diem_ren_luyen_ktx : { tong : result[i].diem_ren_luyen_ktx, ve_sinh: result[i].diem_ve_sinh_ktx}}} , { new: true }, function (err, student) {
+                      if (err) throw err;
+                    });
+                  }
+                  res.send(result);
+              });
+          } catch (e){
+              res.json({error_code:1,err_desc:"Corupted excel file"});
+          }
+      })
+
+  });
+
+  app.put('/xetduyet/diemxetduyet', function(req, res) {
     var cYear = new Date().getFullYear(),
         cMonth = new Date().getMonth() + 1,
         fYear;
@@ -298,7 +478,35 @@ module.exports = function(app, importStudent) {
     } else {
       fYear = cYear - req.body.nam;
     }
-    Student.find({tamdung_hocvu : false, diem_ren_luyen : {$gt: 75}, nam_vao_truong : fYear})
+    Student.find({tamdung_hocvu : false, dang_o_ktx: false,  diem_ren_luyen : {$gt: req.body.drl}, phai : req.body.phai,  nam_vao_truong : fYear})
+    .populate('_khu_vuc_id')
+    .populate('_tinh_id')
+    .populate('_doi_tuong_id')
+    .populate('_hoc_luc_id')
+    .populate('_hoan_canh_id')
+    .exec(function(err, students){
+      if(err) throw err;
+      students.forEach(function(student){
+        if(student._khu_vuc_id !== undefined && student._tinh_id !== undefined && student._doi_tuong_id !== undefined && student._hoc_luc_id !== undefined && student._hoan_canh_id !== undefined ) {
+          student.update({$set : {diem_xet_duyet : student._khu_vuc_id.diem + student._tinh_id.diem + student._doi_tuong_id.diem + student._hoc_luc_id.diem + student._hoan_canh_id.diem + parseInt(req.body.diemcb)}}, function(err, res){
+            if (err) throw err;
+          });
+        }
+      });
+      res.send(true);
+    });
+  });
+
+  app.put('/giahan/diemxetduyet', function(req, res) {
+    var cYear = new Date().getFullYear(),
+        cMonth = new Date().getMonth() + 1,
+        fYear;
+    if(cMonth > 10) {
+      fYear = cYear - req.body.nam + 1;
+    } else {
+      fYear = cYear - req.body.nam;
+    }
+    Student.find({tamdung_hocvu : false, dang_o_ktx: true, diem_ren_luyen : {$gt: req.body.drl}, 'diem_ren_luyen_ktx.tong' : {$gt: req.body.drlktx}, 'diem_ren_luyen_ktx.ve_sinh' : {$gt: req.body.dvs}, phai : req.body.phai,  nam_vao_truong : fYear})
     .populate('_khu_vuc_id')
     .populate('_tinh_id')
     .populate('_doi_tuong_id')
@@ -339,30 +547,37 @@ module.exports = function(app, importStudent) {
   // Add Chi Tieu
 
     app.post('/addchitieu', function(req, res){
+      console.log(req.body);
       var nChitieu = new Chitieu();
       nChitieu.nam = req.body.nam;
       nChitieu.nam1 = {
-        soluong: req.body.nam1,
+        male : req.body.namnam1,
+        female: req.body.nunam1,
         diemcoban: req.body.diemcb1
       }
       nChitieu.nam2 = {
-        soluong: req.body.nam1,
+        male : req.body.namnam2,
+        female: req.body.nunam2,
         diemcoban: req.body.diemcb2
       }
       nChitieu.nam3 = {
-        soluong: req.body.nam1,
+        male : req.body.namnam3,
+        female: req.body.nunam3,
         diemcoban: req.body.diemcb3
       }
       nChitieu.nam4 = {
-        soluong: req.body.nam1,
+        male : req.body.namnam4,
+        female: req.body.nunam4,
         diemcoban: req.body.diemcb4
       }
       nChitieu.nam5 = {
-        soluong: req.body.nam1,
+        male : req.body.namnam5,
+        female: req.body.nunam5,
         diemcoban: req.body.diemcb5
       }
       nChitieu.nam6 = {
-        soluong: req.body.nam1,
+        male : req.body.namnam6,
+        female: req.body.nunam6,
         diemcoban: req.body.diemcb6
       }
       nChitieu.save(function(err){
