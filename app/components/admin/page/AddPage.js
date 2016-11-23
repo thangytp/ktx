@@ -111,6 +111,14 @@ class AddPage extends React.Component {
 
 	}
 
+	deletePage(e){
+		e.preventDefault();
+		var id = this.state.idPageToDelete;
+		if(id){
+			AddPageAction.deletePage(id);
+		}
+	}
+
 
   	render() {  
   		let styleContentRight = {'display' : this.state.styleContentRight};
@@ -218,6 +226,26 @@ class AddPage extends React.Component {
                     	onClick={AddPageAction.deleteItemOfRight}><i className="fa fa-check"> Xóa</i> </button>          
               	</Modal.Footer>
             </Modal>
+
+            {/* modal xoa item */}
+              <Modal show={this.state.modalIsOpenDeletePage} onHide ={AddPageAction.closeModalDeletePage}>
+                  <Modal.Header>
+                    <Modal.Title>
+                      Xóa
+                    </Modal.Title>
+                  </Modal.Header>
+                  <Modal.Body>
+                    <p>Bạn có chắc muốn xóa trang này?</p>
+                  </Modal.Body>      
+                  <Modal.Footer>
+                      <button
+                          className="btn btn-warning"
+                        onClick={AddPageAction.closeModalDeletePage}><i className="fa fa-times"> Hủy bỏ</i> </button>          
+                      <button
+                          className="btn btn-success"
+                        onClick={this.deletePage.bind(this)}><i className="fa fa-check"> Xóa</i> </button>          
+                  </Modal.Footer>
+              </Modal>
 
             <ListPage/>
         </div>

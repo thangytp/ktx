@@ -39,6 +39,10 @@ class AddPageStore {
 
     // initial state for list page
     this.listPage = [];
+
+    // initial for delete page
+    this.modalIsOpenDeletePage = false;
+    this.idPageToDelete = '';
   }
 
   onUpdateTitlePage(event){
@@ -254,7 +258,17 @@ class AddPageStore {
   }
 
   //delte page
+  onOpenMoDDeletePage(id){
+    this.idPageToDelete = id;
+    this.modalIsOpenDeletePage = true;
+  }
+  onCloseModalDeletePage(){
+    this.idPageToDelete = '';
+    this.modalIsOpenDeletePage = false;
+  }
   onDeletePageSucess(data){
+    this.idPageToDelete = '';
+    this.modalIsOpenDeletePage = false;
     AddPageAction.getListPage();
     console.log(data);
   }

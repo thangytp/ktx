@@ -3,8 +3,9 @@
 // 	// font-family: 'Raleway', sans-serif;
 // 	font-size: 15px !important;
 // }
+@import url('https://fonts.googleapis.com/css?family=Exo');
 body{
-    font: Normal 14px/26px "Open Sans", sans-serif;
+    background-color: #fff;
     letter-spacing: 1px;
     text-transform: none;
     color: #555555 !important;
@@ -687,14 +688,41 @@ a {
 	
 }
 
+.link-site{
+  background-color: #FBFBFB;
+}
+.slick-slider{
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+
+.img-site-lien-ket{
+  // height: 97px;
+  overflow: hidden;
+  text-align: center;
+  img{
+    height: 100%;
+    margin: 0 auto;
+    vertical-align: middle;
+    width: 90%;
+  }
+}
+.name-site-lien-ket{
+  color: #000;
+  font-family: 'Exo', sans-serif;
+  font-size: 20px;
+  text-align: center;
+}
+
 /*======================css footer=================*/
 footer#footer {
+  clear: both;
     background-color: #141414 !important;
-    margin-top: 10px;
+    margin-top: 20px;
 }
 footer#footer {
     position: relative;
-    z-index: 1;
+    z-index: 0;
 }
 #footer .cs-copyright {
     background: #0c0c0c !important;
