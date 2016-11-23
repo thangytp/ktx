@@ -36,7 +36,6 @@ class ManageChiTieuAction {
       data: payload
     })
     .done((data) => {
-      console.log('aaa');
       this.actions.addChiTieuSuccess();
     })
   }

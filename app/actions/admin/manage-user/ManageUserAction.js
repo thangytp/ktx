@@ -6,15 +6,24 @@ class ManageUserAction {
        'importUserSuccess',
        'getUsersSuccess',
        'getUserSuccess',
-       'getUsersByDiemXetDuyetSuccess',
-       'getUsersByDiemRenLuyenSuccess',
-       'getUsersByHocVuSuccess',
+       'getUsersByDiemXetDuyetXetDuyetSuccess',
+       'getUsersByDiemXetDuyetGiaHanSuccess',
+       'getUsersByDiemRenLuyenXetDuyetSuccess',
+       'getUsersByDiemRenLuyenGiaHanSuccess',
+       'getUsersByDiemRenLuyenKtxSuccess',
+       'getUsersByHocVuXetDuyetSuccess',
+       'getUsersByHocVuGiaHanSuccess',
        'addUserSuccess',
        'deleteUserSuccess',
        'editUserSuccess',
-       'updateHocVuSuccess',
-       'updateDiemRenLuyenSuccess',
-       'updateXetDuyetSuccess'
+       'updateHocVuXetDuyetSuccess',
+       'updateHocVuGiaHanSuccess',
+       'updateDiemRenLuyenXetDuyetSuccess',
+       'updateDiemRenLuyenGiaHanSuccess',
+       'updateDiemRenLuyenKtxSuccess',
+       'updateXetDuyetXetDuyetSuccess',
+       'updateXetDuyetGiaHanSuccess'
+
     );
   }
 
@@ -28,34 +37,74 @@ class ManageUserAction {
     })
   }
 
-  getUsersByHocVu() {
+  getUsersByHocVuXetDuyet() {
     $.ajax({
-      url: '/getstudenthocvu',
+      url: '/xetduyet/getstudenthocvu',
       type: 'GET'
     })
     .done((data) => {
-      this.actions.getUsersByHocVuSuccess(data);
+      this.actions.getUsersByHocVuXetDuyetSuccess(data);
     })
   }
 
-  getUsersByDiemRenLuyen(payload) {
+  getUsersByHocVuGiaHan() {
     $.ajax({
-      url: '/getstudent/diem/' + payload,
+      url: '/giahan/getstudenthocvu',
       type: 'GET'
     })
     .done((data) => {
-      this.actions.getUsersByDiemRenLuyenSuccess(data);
+      this.actions.getUsersByHocVuGiaHanSuccess(data);
     })
   }
 
-  getUsersByDiemXetDuyet(payload) {
-    console.log(payload);
+  getUsersByDiemRenLuyenXetDuyet(payload) {
     $.ajax({
-      url: '/getstudent/diemxetduyet/' + payload.soluong + '/' + payload.nam,
+      url: '/xetduyet/getstudent/diem/' + payload,
       type: 'GET'
     })
     .done((data) => {
-      this.actions.getUsersByDiemXetDuyetSuccess(data);
+      this.actions.getUsersByDiemRenLuyenXetDuyetSuccess(data);
+    })
+  }
+
+  getUsersByDiemRenLuyenGiaHan(payload) {
+    $.ajax({
+      url: '/giahan/getstudent/diem/' + payload,
+      type: 'GET'
+    })
+    .done((data) => {
+      this.actions.getUsersByDiemRenLuyenGiaHanSuccess(data);
+    })
+  }
+
+  getUsersByDiemRenLuyenKtx(payload) {
+    $.ajax({
+      url: '/getstudent/diemktx/' + payload.drlktx + '/' + payload.dvs + '/' + payload.drl,
+      type: 'GET'
+    })
+    .done((data) => {
+      this.actions.getUsersByDiemRenLuyenKtxSuccess(data);
+    })
+  }
+
+  getUsersByDiemXetDuyetXetDuyet(payload) {
+    $.ajax({
+      url: '/xetduyet/getstudent/diemxetduyet/' + payload.soluong + '/' + payload.phai + '/' + payload.nam + '/' + payload.drl,
+      type: 'GET'
+    })
+    .done((data) => {
+      console.log(data);
+      this.actions.getUsersByDiemXetDuyetXetDuyetSuccess(data);
+    })
+  }
+
+  getUsersByDiemXetDuyetGiaHan(payload) {
+    $.ajax({
+      url: '/giahan/getstudent/diemxetduyet/' + payload.soluong + '/' + payload.phai + '/' + payload.nam + '/' + payload.drl + '/' + payload.drlktx + '/' + payload.dvs,
+      type: 'GET'
+    })
+    .done((data) => {
+      this.actions.getUsersByDiemXetDuyetGiaHanSuccess(data);
     })
   }
 
@@ -93,40 +142,90 @@ class ManageUserAction {
     })
   }
 
-  updateHocVu(payload) {
+  updateHocVuXetDuyet(payload) {
     $.ajax({
-        url: '/upload/xulyhocvu',
+        url: '/upload/xetduyet/xulyhocvu',
         data: payload,
         processData: false,
         contentType: false,
         type: 'POST'
     })
     .done((data) => {
-      this.actions.updateHocVuSuccess(data);
+      this.actions.updateHocVuXetDuyetSuccess(data);
     })
   }
 
-  updateDiemRenLuyen(payload) {
+  updateHocVuGiaHan(payload) {
     $.ajax({
-        url: '/upload/diemrenluyen',
+        url: '/upload/giahan/xulyhocvu',
         data: payload,
         processData: false,
         contentType: false,
         type: 'POST'
     })
     .done((data) => {
-      this.actions.updateDiemRenLuyenSuccess(data);
+      this.actions.updateHocVuGiaHanSuccess(data);
     })
   }
 
-  updateXetDuyet(payload) {
+  updateDiemRenLuyenXetDuyet(payload) {
     $.ajax({
-        url: '/diemxetduyet',
-        data: {soluong : payload.soluong, diemcb : payload.diemcb, nam : payload.nam},
+        url: '/upload/xetduyet/diemrenluyen',
+        data: payload.file,
+        processData: false,
+        contentType: false,
+        type: 'POST'
+    })
+    .done((data) => {
+      this.actions.updateDiemRenLuyenXetDuyetSuccess({eusers : data, drl : payload.drl});
+    })
+  }
+
+  updateDiemRenLuyenGiaHan(payload) {
+    $.ajax({
+        url: '/upload/giahan/diemrenluyen',
+        data: payload.file,
+        processData: false,
+        contentType: false,
+        type: 'POST'
+    })
+    .done((data) => {
+      this.actions.updateDiemRenLuyenGiaHanSuccess({eusers : data, drl : payload.drl});
+    })
+  }
+
+  updateDiemRenLuyenKtx(payload) {
+    $.ajax({
+        url: '/upload/giahan/diemrenluyenktx',
+        data: payload.file,
+        processData: false,
+        contentType: false,
+        type: 'POST'
+    })
+    .done((data) => {
+      this.actions.updateDiemRenLuyenKtxSuccess({eusers : data, drlktx : payload.drlktx, dvs : payload.dvs});
+    })
+  }
+
+  updateXetDuyetXetDuyet(payload) {
+    $.ajax({
+        url: '/xetduyet/diemxetduyet',
+        data: {soluong : payload.soluong, phai: payload.phai, diemcb : payload.diemcb, nam : payload.nam, drl : payload.drl},
         type: 'PUT'
     })
     .done((data) => {
-      this.actions.updateXetDuyetSuccess({soluong : payload.soluong, nam : payload.nam});
+      this.actions.updateXetDuyetXetDuyetSuccess({soluong : payload.soluong, phai: payload.phai, nam : payload.nam, drl : payload.drl});
+    })
+  }
+
+  updateXetDuyetGiaHan(payload) {
+    $.ajax({
+        url: '/giahan/diemxetduyet',
+        data: {soluong : payload.soluong, phai: payload.phai, diemcb : payload.diemcb, nam : payload.nam, drl : payload.drl, drlktx : payload.drlktx, dvs : payload.dvs},
+        type: 'PUT'
+    })
+    .done((data) => {
+      this.actions.updateXetDuyetGiaHanSuccess({soluong : payload.soluong, phai: payload.phai, nam : payload.nam, drl : payload.drl, drlktx : payload.drlktx, dvs : payload.dvs});
     })
   }
 

@@ -41,6 +41,13 @@ var studentSchema = new mongoose.Schema({
   tamdung_hocvu:    {type: 'Boolean', default: false},
   diem_ren_luyen: Number,
   diem_xet_duyet: Number,
+  dang_o_ktx: {type: 'Boolean', default: true},
+  xet_duyet_thanh_cong: {type: 'Boolean', default: false},
+  gia_han_thanh_cong: {type: 'Boolean', default: false},
+  diem_ren_luyen_ktx : [{
+    tong: {type : 'Number'},
+    ve_sinh: {type: 'Number'}
+  }],
   _khu_vuc_id: {type: mongoose.Schema.Types.ObjectId, ref: 'Khuvuc'},
   _doi_tuong_id: {type: mongoose.Schema.Types.ObjectId, ref: 'Doituong'},
   _hoc_luc_id: {type: mongoose.Schema.Types.ObjectId, ref: 'Hocluc'},
