@@ -50,6 +50,7 @@ var ImageServer = require('./src-server/image/ImageServer');
 var HomeMenuServer = require('./src-server/menu/HomeMenuServer');
 var PageServer = require('./src-server/page/PageServer');
 var LuuTruServer = require('./src-server/luutru/LuuTruServer');
+var LienKetSiteServer = require('./src-server/lienketsite/LienKetSiteServer');
 //==============================================
 
 var Adminserver = require('./src-server/admin/Adminserver');
@@ -114,6 +115,7 @@ ImageServer(app);
 HomeMenuServer(app);
 PageServer(app);
 LuuTruServer(app);
+LienKetSiteServer(app);
 Adminserver(app, importStudent);
 
 /*

@@ -28,8 +28,8 @@ class ListPage extends React.Component {
 	editPage(id){
 		AddPageAction.getPage(id);
 	}
-	deletePage(id){
-		AddPageAction.deletePage(id);
+	openMoDDeletePage(id){
+		AddPageAction.openMoDDeletePage(id);
 	}
 
 	render() {  
@@ -42,7 +42,7 @@ class ListPage extends React.Component {
 						<td>{page.title}</td>
 						<td colSpan="2">
 							<button type="button" className="btn btn-info" onClick={this.editPage.bind(this, page._id)}><i className="fa fa-pencil-square-o" aria-hidden="true"></i></button>
-							<button type="button" className="btn btn-danger" onClick={this.deletePage.bind(this, page._id)}><i className="fa fa-trash-o" aria-hidden="true"></i></button>
+							<button type="button" className="btn btn-danger" onClick={this.openMoDDeletePage.bind(this, page._id)}><i className="fa fa-trash-o" aria-hidden="true"></i></button>
 						</td>
 					</tr>
 				);
