@@ -32,37 +32,41 @@ class LienKetSiteMain extends React.Component {
 	render() {  
 		let settings = {
 			autoplay: true,
-			arrows: false,
+			arrows: true,
 	      dots: false,
 	      infinite: true,
 	      pauseOnHover: true,
 	      speed: 500,
-	      slidesToShow: 4,
+	      slidesToShow: 3,
 	      slidesToScroll: 1,
 	      responsive: [ { breakpoint: 768, settings: { slidesToShow: 1 } }, 
-	      	{ breakpoint: 1024, settings: { slidesToShow: 4 } }, 
+	      	{ breakpoint: 1024, settings: { slidesToShow: 3 } }, 
 	      	 ]
 	    };
 
 	    let listSiteShow = [];
 	    if(this.state.listSite.length>0){
 			for(var i = 0; i<this.state.listSite.length; i++){
-				listSiteShow.push(<div className="col-sm-12 img-site-lien-ket" key={i}><a href={this.state.listSite[i].link} target="_blank"><div><i className="fa fa-external-link" aria-hidden="true"></i></div><span className="name-site-lien-ket">{this.state.listSite[i].name} </span></a></div>);
+				listSiteShow.push(<div className="col-sm-12 img-site-lien-ket" key={i}><a href={this.state.listSite[i].link} target="_blank"><span className="name-site-lien-ket">{this.state.listSite[i].name} <i className="fa fa-external-link" aria-hidden="true"></i></span></a></div>);
 			}
 		}
-		else listSiteShow.push(<div></div>);
+		else listSiteShow.push(<div key={0}></div>);
 
 		return(
-			<div className="col-md-12 link-site">
-				<div className="col-md-10 col-md-offset-1" style={{'clear':'both'}}>
-					<Slider {...settings}>
-						
-						{	listSiteShow
-						}
-						
-	                </Slider>
+			<div className="container">
+        		<div className="row">
+					<div className="col-md-12 link-site">
+						<div className="col-md-12" style={{'clear':'both'}}>
+							<Slider {...settings}>
+								
+								{	listSiteShow
+								}
+								
+			                </Slider>
+						</div>
+					</div>
 				</div>
-			</div>
+      		</div>
 		);
 	}
 }

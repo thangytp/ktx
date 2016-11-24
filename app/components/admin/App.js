@@ -27,7 +27,7 @@ class App extends React.Component {
           <div className="row">
 
   	      	  <SidebarLeft />
-              <div className="col-md-10">
+              <div className="col-md-10 admin-right-content">
                 <Navbar />
   	      	    <div className="right_col" role="main">
   				          {this.props.children}

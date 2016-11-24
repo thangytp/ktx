@@ -65,6 +65,9 @@ ul{
 }
 
 /*====================== css admin page ===========*/
+.admin-right-content{
+  background-color: #EEEEEF;
+}
 .navbar-right{
 	margin-right: 0 !important;
 }
@@ -75,7 +78,7 @@ ul{
 }
 .nav_menu {
     float: left;
-    background: #EDEDED;
+    background: #fff;
     border-bottom: 1px solid #D9DEE4;
     margin-bottom: 10px;
     max-height: 50px;
@@ -403,6 +406,22 @@ ul.msg_list li a .message {
 .err-findpage{
   padding-left: 10px;
 }
+
+  /*========== css lien ket site ===========*/
+  .table-primary thead tr th {
+    background-color: #00B1E1 !important;
+    border-color: #00c5fb #00c5fb #0095bd !important;
+    color: #fff;
+}
+.table thead tr th {
+    background-color: #EEEEEE;
+    border-color: #e1e1e1 #e1e1e1 gainsboro;
+    vertical-align: middle;
+    border-width: 1px 1px 7px;
+    border-style: solid;
+    font-weight: 400;
+    font-size: 13px;
+}
   
 
 
@@ -688,8 +707,11 @@ a {
 	
 }
 
+/*====================== css lien ket site =============*/
+
 .link-site{
-  background-color: #FBFBFB;
+  // background-color: #FBFBFB;
+  margin-bottom: 40px;
 }
 .slick-slider{
   margin-bottom: 10px;
@@ -708,11 +730,49 @@ a {
   }
 }
 .name-site-lien-ket{
-  color: #000;
+  color: #3488BF;
   font-family: 'Exo', sans-serif;
   font-size: 20px;
   text-align: center;
 }
+
+.slick-next:before, .slick-prev:before {
+  color: #3488BF;
+}
+.ktx-heading h6:before {
+    position: absolute;
+    height: 1px;
+    left: 100%;
+    width: 9999px;
+    top: 10px;
+    background: #eeeeee;
+    content: '';
+    margin-left: 10px;
+}
+.ktx-heading h6:after {
+    position: absolute;
+    height: 1px;
+    right: 100%;
+    width: 9999px;
+    top: 10px;
+    background: #eeeeee;
+    content: '';
+    margin-right: 10px;
+}
+.ktx-heading {
+    text-align: center;
+    margin-bottom: 0;
+    overflow: hidden;
+}
+.ktx-heading h6 {
+    font-size: 12px !important;
+    color: #3488BF !important;
+    position: relative;
+    display: inline-block;
+    font-weight: 700;
+}
+
+  /*====================== css lien ket site =============*/
 
 /*======================css footer=================*/
 footer#footer {
