@@ -69,9 +69,10 @@ class LienKetSite extends React.Component {
   		return(
               <div className="row">
                   <div className="col-md-12">
-                    <div className="panel panel-default">
-                      <div className="panel-heading">Thêm site liên kết</div>
-                    </div>
+                    <ul className="breadcrumb">
+                      <li><Link to="/quanly@ktx">Trang quản trị</Link></li>
+                      <li>Thêm site liên kết</li>
+                    </ul>
                     <form className="form-horizontal" encType="multipart/form-data" onSubmit={this.handleSubmitSite.bind(this)}>
                       <div className="form-group">
                         <label className="control-label col-sm-2" htmlFor="name-item">Tên site:</label>

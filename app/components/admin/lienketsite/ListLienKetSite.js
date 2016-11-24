@@ -48,10 +48,10 @@ class ListLienKetSite extends React.Component {
 
 		return(
 			<div className="col-md-12 table-responsive">
-				<table className="table white-bg table-bordered">
+				<table className="table white-bg table-bordered table-striped table-hover table-primary">
                   <thead>
                     <tr>
-                      <th>#</th>
+                      <th className="text-center" width='1%'>STT</th>
                       <th>Tên</th>
                       <th>Hành động</th>  
                     </tr>
