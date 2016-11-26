@@ -550,35 +550,65 @@ module.exports = function(app, importStudent) {
       console.log(req.body);
       var nChitieu = new Chitieu();
       nChitieu.nam = req.body.nam;
-      nChitieu.nam1 = {
-        male : req.body.namnam1,
-        female: req.body.nunam1,
-        diemcoban: req.body.diemcb1
+      nChitieu.nam1.xetduyet = {
+        male : req.body.namnam1xd,
+        female: req.body.nunam1xd,
+        diemcoban: req.body.diemcb1xd
       }
-      nChitieu.nam2 = {
-        male : req.body.namnam2,
-        female: req.body.nunam2,
-        diemcoban: req.body.diemcb2
+      nChitieu.nam1.giahan = {
+        male : req.body.namnam1gh,
+        female: req.body.nunam1gh,
+        diemcoban: req.body.diemcb1gh
       }
-      nChitieu.nam3 = {
-        male : req.body.namnam3,
-        female: req.body.nunam3,
-        diemcoban: req.body.diemcb3
+      nChitieu.nam2.xetduyet = {
+        male : req.body.namnam2xd,
+        female: req.body.nunam2xd,
+        diemcoban: req.body.diemcb2xd
       }
-      nChitieu.nam4 = {
-        male : req.body.namnam4,
-        female: req.body.nunam4,
-        diemcoban: req.body.diemcb4
+      nChitieu.nam2.giahan = {
+        male : req.body.namnam2gh,
+        female: req.body.nunam2gh,
+        diemcoban: req.body.diemcb2gh
       }
-      nChitieu.nam5 = {
-        male : req.body.namnam5,
-        female: req.body.nunam5,
-        diemcoban: req.body.diemcb5
+      nChitieu.nam3.xetduyet = {
+        male : req.body.namnam3xd,
+        female: req.body.nunam3xd,
+        diemcoban: req.body.diemcb3xd
       }
-      nChitieu.nam6 = {
-        male : req.body.namnam6,
-        female: req.body.nunam6,
-        diemcoban: req.body.diemcb6
+      nChitieu.nam3.giahan = {
+        male : req.body.namnam3gh,
+        female: req.body.nunam3gh,
+        diemcoban: req.body.diemcb3gh
+      }
+      nChitieu.nam4.xetduyet = {
+        male : req.body.namnam4xd,
+        female: req.body.nunam4xd,
+        diemcoban: req.body.diemcb4xd
+      }
+      nChitieu.nam4.giahan = {
+        male : req.body.namnam4gh,
+        female: req.body.nunam4gh,
+        diemcoban: req.body.diemcb4gh
+      }
+      nChitieu.nam5.xetduyet = {
+        male : req.body.namnam5xd,
+        female: req.body.nunam5xd,
+        diemcoban: req.body.diemcb5xd
+      }
+      nChitieu.nam5.giahan = {
+        male : req.body.namnam5gh,
+        female: req.body.nunam5gh,
+        diemcoban: req.body.diemcb5gh
+      }
+      nChitieu.nam6.xetduyet = {
+        male : req.body.namnam6xd,
+        female: req.body.nunam6xd,
+        diemcoban: req.body.diemcb6xd
+      }
+      nChitieu.nam6.giahan = {
+        male : req.body.namnam6gh,
+        female: req.body.nunam6gh,
+        diemcoban: req.body.diemcb6gh
       }
       nChitieu.save(function(err){
         if(err) throw err;
