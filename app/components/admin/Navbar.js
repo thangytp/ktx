@@ -48,12 +48,40 @@ class Navbar extends React.Component {
     }
     let avatar = localStorage.getItem('adminavatar');
     return (
-          <div className="row">
-            <div className="col-md-12 nP">
-              <div className="nav_menu">
-                <nav>
+        <header id="header">
+          <div className="header-left">
+              <div className="navbar-minimize-mobile left">
+                  <i className="fa fa-bars"></i>
+              </div>
+              <div className="navbar-header">
+
+                  <Link className="navbar-brand text-center" to="/quanly@ktx">
+                      <span className="text-white"><i className="fa fa-home" aria-hidden="true"></i>Trang quản trị</span>
+                  </Link>
+                  
+              </div>
+              <div className="navbar-minimize-mobile right">
+                  <i className="fa fa-cog"></i>
+              </div>
+              <div className="clearfix"></div>
+          </div>
+          <div className="header-right">
+            
+              <div className="navbar navbar-toolbar navbar-light">
+                  <ul className="nav navbar-nav navbar-left">
+
+                      
+                      <li className="navbar-minimize">
+                          <a href="javascript:void(0);" title="Minimize sidebar">
+                              <i className="fa fa-bars"></i>
+                          </a>
+                      </li>
+                      
+                      
+                  </ul>
+
                   <ul className="nav navbar-nav navbar-right">
-                    <li className="">
+                    <li className="dropdown navbar-message">
                       <a href="javascript:;" className="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                         <img src="/img/user.png" alt=""/>John Doe
                         <span className=" fa fa-angle-down"></span>
@@ -135,10 +163,11 @@ class Navbar extends React.Component {
                       </ul>
                     </li>
                   </ul>
-                </nav>
+                
               </div>
-            </div>
+            
           </div>
+        </header>
 
       );
   }

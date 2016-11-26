@@ -67,43 +67,56 @@ class LienKetSite extends React.Component {
 
   render(){
   		return(
+            <div className="body-content animated fadeIn no-overflow">
               <div className="row">
                   <div className="col-md-12">
-                    <ul className="breadcrumb">
-                      <li><Link to="/quanly@ktx">Trang quản trị</Link></li>
-                      <li>Thêm site liên kết</li>
-                    </ul>
-                    <form className="form-horizontal" encType="multipart/form-data" onSubmit={this.handleSubmitSite.bind(this)}>
-                      <div className="form-group">
-                        <label className="control-label col-sm-2" htmlFor="name-item">Tên site:</label>
-                        <div className="col-sm-10">
-                            <input type="text" className="form-control" id="name-item" placeholder="VD: ĐH Bách Khoa" 
-                              ref="NameField" value={this.state.name} onChange={LienKetSiteAction.updateName}/>
-                            <span className='help-block text-danger'>{this.state.helpBlockName}</span>
-                        </div>
+                    <ol className="breadcrumb no-overflow">
+                      <li><Link to="/quanly@ktx"><i className="fa fa-home" aria-hidden="true"></i> Trang quản trị</Link></li>
+                      <li>Site liên kết</li>
+                    </ol>
+                    <div className="panel rounded shadow no-overflow">
+                      <div className="panel-heading">
+                        <div className="pull-left"><h3 className="panel-title">Thêm site liên kết</h3></div>
+                        <div className="clearfix"></div>
                       </div>
-                      <div className="form-group">
-                        <label className="control-label col-sm-2" htmlFor="name-item">Link site:</label>
-                        <div className="col-sm-10">
-                            <input type="text" className="form-control" id="name-item" placeholder="VD: http://hcmut.edu.vn" 
-                              ref="LinkField" value={this.state.link} onChange={LienKetSiteAction.updateLink}/>
-                            <span className='help-block text-danger'>{this.state.helpBlockLink}</span>
-                        </div>
+                      <div className="panel-body no-padding">
+                          <form className="form-horizontal mt-10" encType="multipart/form-data" onSubmit={this.handleSubmitSite.bind(this)}>
+                            <div className="form-body">
+                              <div className="form-group">
+                                <label className="control-label col-sm-3" htmlFor="name-item">Tên site:</label>
+                                <div className="col-sm-7">
+                                    <input type="text" className="form-control" id="name-item" placeholder="VD: ĐH Bách Khoa" 
+                                      ref="NameField" value={this.state.name} onChange={LienKetSiteAction.updateName}/>
+                                    <span className='help-block text-danger'>{this.state.helpBlockName}</span>
+                                </div>
+                              </div>
+                              <div className="form-group">
+                                <label className="control-label col-sm-3" htmlFor="name-item">Link site:</label>
+                                <div className="col-sm-7">
+                                    <input type="text" className="form-control" id="name-item" placeholder="VD: http://hcmut.edu.vn" 
+                                      ref="LinkField" value={this.state.link} onChange={LienKetSiteAction.updateLink}/>
+                                    <span className='help-block text-danger'>{this.state.helpBlockLink}</span>
+                                </div>
+                              </div>
+                              <div className="form-group">
+                                <label className="control-label col-sm-3" htmlFor="name-item">Logo site:</label>
+                                <div className="col-sm-7">
+                                    <input type="text" className="form-control" id="name-item" placeholder="http://www.aao.hcmut.edu.vn/catalog/view/theme/default/images/logo.png" 
+                                      ref="LogoField" value={this.state.image} onChange={LienKetSiteAction.updateLogo}/>
+                                    <span className='help-block text-danger'>{this.state.helpBlockLogo}</span>
+                                </div>
+                              </div>
+                            </div>
+                            <div className="form-footer">
+                              <div className="form-group"> 
+                                <div className="col-sm-offset-3">
+                                    <button type="submit" className="btn btn-success">Thêm</button>
+                                </div>
+                              </div>
+                            </div>
+                          </form>
                       </div>
-                      <div className="form-group">
-                        <label className="control-label col-sm-2" htmlFor="name-item">Logo site:</label>
-                        <div className="col-sm-10">
-                            <input type="text" className="form-control" id="name-item" placeholder="http://www.aao.hcmut.edu.vn/catalog/view/theme/default/images/logo.png" 
-                              ref="LogoField" value={this.state.image} onChange={LienKetSiteAction.updateLogo}/>
-                            <span className='help-block text-danger'>{this.state.helpBlockLogo}</span>
-                        </div>
-                      </div>
-                      <div className="form-group"> 
-                        <div className="col-sm-offset-2 col-sm-10">
-                            <button type="submit" className="btn btn-default">Thêm</button>
-                        </div>
-                      </div>
-                    </form>
+                    </div>
 
                   </div>
 
@@ -130,6 +143,7 @@ class LienKetSite extends React.Component {
                   </Modal>
 
               </div>
+            </div>
   			);
   	}
 }

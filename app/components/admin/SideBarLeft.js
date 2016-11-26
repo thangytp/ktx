@@ -29,73 +29,76 @@ class SideBarLeft extends React.Component {
     let avatar = localStorage.getItem('adminavatar');
     let style= {"border": "0"}
     return(
-            <div className="col-sm-3 col-md-2">
-              <nav className="navbar navbar-default navbar-fixed-side">
-                <div className="container">
-                  <div className="navbar-header">
-                    <button className="navbar-toggle" data-target=".navbar-collapse" data-toggle="collapse">
-                      <span className="sr-only">Toggle navigation</span>
-                      <span className="icon-bar"></span>
-                      <span className="icon-bar"></span>
-                      <span className="icon-bar"></span>
-                    </button>
-                    <div className="navbar-brand" >Chào admin</div>
-                  </div>
-                  <div className="collapse navbar-collapse">
-                    <ul className="nav navbar-nav">
+            
+            <aside id="sidebar-left" className="sidebar-circle sidebar-dark">
+                <ul className="sidebar-menu">
                       <li className="active">
-                        <Link to="/quanly@ktx">Quản lý menu</Link>
+                        <Link to="/quanly@ktx">
+                            <span className="icon"><i className="fa fa-dropbox"></i></span>
+                            <span className="text">Quản lý menu</span>
+                        </Link>
                       </li>
                       <li>
-                        <Link to="/quanly@ktx/them-page">Thêm trang</Link>
+                        <Link to="/quanly@ktx/them-page">
+                            <span className="icon"><i className="fa fa-dropbox"></i></span>
+                            <span className="text">Thêm trang</span>
+                        </Link>
                       </li>
                       <li className="">
-                        <Link to="/quanly@ktx/quan-ly-hinh-anh">Quản lý hình ảnh</Link>
+                        <Link to="/quanly@ktx/quan-ly-hinh-anh">
+                            <span className="icon"><i className="fa fa-dropbox"></i></span>
+                            <span className="text">Quản lý hình ảnh</span>
+                        </Link>
                       </li>
-                      <li className="dropdown"><a className="dropdown-toggle" data-toggle="dropdown" href="#"><Link to="/quanly@ktx/quan-ly-sinh-vien">Quản lý sinh viên</Link>
-                      <b className="caret"></b></a><ul className="dropdown-menu">
-                      <li>
-                        <Link to="/quanly@ktx/xet-duyet-luu-tru-moi">Xét Duyệt Lưu Trú Mới</Link>
+                      <li className="submenu">
+                              <Link to="/quanly@ktx/quan-ly-sinh-vien">
+                                  <span className="icon"><i className="fa fa-dropbox"></i></span>
+                                  <span className="text">Quản lý sinh viên</span>
+                              </Link>
+                          
                       </li>
-                      <li>
-                        <Link to="/quanly@ktx/gia-han-luu-tru-cu">Gia Hạn Lưu Trú Cũ</Link>
+                      <li className="submenu">
+                          <a href="javascript:void(0);">
+                              <span className="icon"><i className="fa fa-dropbox"></i></span>
+                              <span className="text">Xét duyệt lưu trú</span>
+                              <span className="arrow fa-angle-double-right"></span>
+                          </a>
+                          <ul style={{"display":"none"}}>
+                              <li>
+                                <Link to="/quanly@ktx/xet-duyet-luu-tru-moi">Xét Duyệt Lưu Trú Mới</Link>
+                              </li>
+                              <li>
+                                <Link to="/quanly@ktx/gia-han-luu-tru-cu">Gia Hạn Lưu Trú Cũ</Link>
+                              </li>
+                          </ul>
                       </li>
-                      {/*<li><a href="#">Sub-page 2</a></li>*/}
-                      </ul></li>
                       <li className="">
-                        <Link to="/quanly@ktx/chi-tieu">Chỉ Tiêu</Link>
+                        <Link to="/quanly@ktx/chi-tieu">
+                            <span className="icon"><i className="fa fa-dropbox"></i></span>
+                            <span className="text">Chỉ Tiêu</span>
+                        </Link>
                       </li>
                       <li className="">
-                        <Link to="/quanly@ktx/uu-tien">Ưu Tiên</Link>
+                        <Link to="/quanly@ktx/uu-tien">
+                            <span className="icon"><i className="fa fa-dropbox"></i></span>
+                            <span className="text">Ưu Tiên</span>
+                        </Link>
                       </li>
                       <li className="">
-                        <Link to="/quanly@ktx/cotphai-home">Cột phải trang Home</Link>
+                        <Link to="/quanly@ktx/cotphai-home">
+                            <span className="icon"><i className="fa fa-dropbox"></i></span>
+                            <span className="text">Cột phải trang Home</span>
+                        </Link>
                       </li>
                       <li className="">
-                        <Link to="/quanly@ktx/lienket-site">Liên kết site</Link>
+                        <Link to="/quanly@ktx/lienket-site">
+                            <span className="icon"><i className="fa fa-dropbox"></i></span>
+                            <span className="text">Liên kết site</span>
+                        </Link>
                       </li>
-                      {/*<li className="dropdown"><a className="dropdown-toggle" data-toggle="dropdown" href="#">Dropdown <b className="caret"></b></a>
-                        <ul className="dropdown-menu"><li><a href="#">Sub-page 1</a></li>
-                        <li><a href="#">Sub-page 2</a></li>
-                        <li className="divider"></li>
-                        <li className="dropdown-header">Dropdown Header</li>
-                        <li><a href="#">Sub-page 3</a></li>
-                        </ul>
-                      </li>*/}
-                    </ul>
-                    {/*
-                    <form className="navbar-form navbar-left">
-                      <div className="form-group">
-                        <input className="form-control" placeholder="Search"/>
-                      </div>
-                      <button className="btn btn-default">Search</button>
-                    </form>*/}
 
-
-                  </div>
-                </div>
-              </nav>
-            </div>
+                </ul>
+            </aside>
           );
 }
 }
