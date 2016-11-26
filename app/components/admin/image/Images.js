@@ -66,12 +66,14 @@ class Images extends React.Component {
             reset: this.reset
         }
 		return(
-			<div className="row">
-				<div className="col-md-12">
-					<DropzoneComponent config={config} eventHandlers={eventHandlers} djsConfig={djsConfig} />
-					<div className="row">
-						<div className="col-md-12">
-							<ListImage />
+			<div className="body-content animated fadeIn no-overflow">
+				<div className="row">
+					<div className="col-md-12">
+						<DropzoneComponent config={config} eventHandlers={eventHandlers} djsConfig={djsConfig} />
+						<div className="row">
+							<div className="col-md-12">
+								<ListImage />
+							</div>
 						</div>
 					</div>
 				</div>

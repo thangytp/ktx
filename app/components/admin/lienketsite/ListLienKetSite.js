@@ -3,46 +3,44 @@ import ReactDom from 'react-dom';
 import {Modal} from 'react-bootstrap';
 import InlineEdit from 'react-edit-inline';
 
-import AddPageAction from '../../../actions/admin/page/AddPageAction';
-import AddPageStore from '../../../stores/admin/page/AddPageStore';
+import LienKetSiteAction from '../../../actions/admin/lienketsite/LienKetSiteAction';
+import LienKetSiteStore from '../../../stores/admin/lienketsite/LienKetSiteStore';
 
-class ListPage extends React.Component {
+class ListLienKetSite extends React.Component {
 	constructor(props)
 	{
 		super(props);
-		this.state = AddPageStore.getState();
+		this.state = LienKetSiteStore.getState();
 		this.onChange = this.onChange.bind(this);
 	}
 	componentDidMount() {
-		AddPageStore.listen(this.onChange);
-		AddPageAction.getListPage();
+		LienKetSiteStore.listen(this.onChange);
+		LienKetSiteAction.getListSite();
 	}
 
 	componentWillUnmount() {
-		AddPageStore.unlisten(this.onChange);
+		LienKetSiteStore.unlisten(this.onChange);
 	}
 
 	onChange(state) {
 		this.setState(state);  
 	}
-	editPage(id){
-		AddPageAction.getPage(id);
+	editSite(id){
+		LienKetSiteAction.getSite(id);
 	}
-	openMoDDeletePage(id){
-		AddPageAction.openMoDDeletePage(id);
+	openMoDDelete(id){
+		LienKetSiteAction.openMoDDelete(id);
 	}
 
 	render() {  
-
-		let listPage = this.state.listPage.map((page, index) => {
-
+		let listSite = this.state.listSite.map((site, index) =>{
 			return(
 					<tr key={index}>
 						<td className="text-center border-right">{index+1}</td>
-						<td>{page.title}</td>
+						<td>{site.name +' ' + site.sort}</td>
 						<td colSpan="2">
-							<a className="btn btn-primary btn-xs" onClick={this.editPage.bind(this, page._id)}><i className="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-							<a className="btn btn-danger btn-xs" onClick={this.openMoDDeletePage.bind(this, page._id)}><i className="fa fa-trash-o" aria-hidden="true"></i></a>
+							<a className="btn btn-primary btn-xs" onClick={this.editSite.bind(this, site._id)}><i className="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+							<a className="btn btn-danger btn-xs" onClick={this.openMoDDelete.bind(this, site._id)}><i className="fa fa-trash-o" aria-hidden="true"></i></a>
 						</td>
 					</tr>
 				);
@@ -59,7 +57,7 @@ class ListPage extends React.Component {
                     </tr>
                   </thead>
                   <tbody>                       
-                    {listPage}
+                    {listSite}
                   </tbody>
                        
                 </table>       
@@ -68,4 +66,4 @@ class ListPage extends React.Component {
 	}
 }
 
-export default ListPage;
+export default ListLienKetSite;

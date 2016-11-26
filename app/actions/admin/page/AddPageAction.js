@@ -43,6 +43,8 @@ class AddPageAction {
         'getPageSuccess',
         'getPageFail',
 
+        'openMoDDeletePage',
+        'closeModalDeletePage',
         'deletePageSucess',
         'deletePageFail'
     
@@ -137,6 +139,9 @@ class AddPageAction {
   }
 
   // delete page
+  openMoDDeletePage(id){
+    this.actions.openMoDDeletePage(id);
+  }
   deletePage(id){
     $.ajax({
       type: 'DELETE',

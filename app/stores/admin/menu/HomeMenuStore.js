@@ -95,7 +95,6 @@ class HomeMenuStore {
     for(var i=0; i< this.testListCha.length; i++){
         HomeMenuAction.getListCon({idCha: this.testListCha[i]._id, num: i});
     }
-    console.log(data);
   }
   onTestGetListChaFail(jqXhr){
     console.log("khong get dc danh sach cha");
@@ -118,7 +117,6 @@ class HomeMenuStore {
   //handle get chau success
   onTestGetListChauSuccess(payload){
       this.testListCha[payload.numCha].child[payload.numCon].subChild = payload.data;
-      console.log(this.testListCha);
   }
   onTestGetListChauFail(jqXhr){
     console.log("khong get dc danh sach con");
