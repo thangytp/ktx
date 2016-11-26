@@ -69,19 +69,21 @@ class HomeMenuStore {
     this.itemMenuName='';
     this.parent = 0;
     this.helpBlock ='';
-    HomeMenuAction.getListCha();
-    HomeMenuAction.getListChild();
-    HomeMenuAction.getListSubChild();
+    // HomeMenuAction.getListCha();
+    // HomeMenuAction.getListChild();
+    // HomeMenuAction.getListSubChild();
     this.modalIsOpen=false;
+    HomeMenuAction.testGetListCha();
   }
   onAddItemMenuFail(mess){
     console.log(mess);
   }
 
   onDeleteChaSuccess(mes){
-    HomeMenuAction.getListCha();
-    HomeMenuAction.getListChild();
-    HomeMenuAction.getListSubChild();
+    // HomeMenuAction.getListCha();
+    // HomeMenuAction.getListChild();
+    // HomeMenuAction.getListSubChild();
+    HomeMenuAction.testGetListCha();
     this.modalIsOpenDelete = false;
   }
   onDeleteChaFail(jqXhr){

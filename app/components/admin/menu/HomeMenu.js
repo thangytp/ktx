@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDom from 'react-dom';
+import {Link} from 'react-router';
 import {Modal} from 'react-bootstrap';
 
 import HomeMenuAction from '../../../actions/admin/menu/HomeMenuAction';
@@ -236,12 +237,28 @@ class HomeMenu extends React.Component {
     	<div className="body-content animated fadeIn">
 	    	<div className="row">
 	    		<div className="col-md-12">
+	    			<ol className="breadcrumb">
+                      <li><Link to="/quanly@ktx"><i className="fa fa-home" aria-hidden="true"></i> Trang quản trị</Link></li>
+                      <li>Quản lý menu</li>
+                    </ol>
+                    <div className="panel rounded shadow no-overflow">
+                      	<div className="panel-heading">
+	                        <div className="pull-left"><h3 className="panel-title">Menu</h3></div>
+	                        <div className="pull-right">
+                            	<button className="btn btn-sm" data-action="collapse" data-container="body" data-toggle="panel-body" data-placement="top" 
+                                	data-title="Collapse" data-original-title="" title=""><i className="fa fa-angle-up"></i></button>
+                        	</div>
+                        	<div className="clearfix"></div>
+                      	</div>
+                      	<div className="panel-body no-padding">
 	    			{/*<button type="submit" style={{'marginBottom':'0px', 'marginLeft':'20px'}} className="btn btn-success" onClick ={this.openMoD.bind(this, this.state.state1.parent)}><i className="fa fa-plus-square" aria-hidden="true"></i></button>*/}
-	    			<i className="fa fa-plus-square font20" aria-hidden="true" onClick ={this.openMoD.bind(this, this.state.state1.parent)} style={{'marginBottom':'0px', 'marginLeft':'31px', 'color':'#449D44', 'cursor': 'pointer'}}></i>
-	    			
-	    			<ul className='admin-list-menu tree'>
-	    				{menu}
-	    			</ul>
+			    			<i className="fa fa-plus-square font20 mt-10" aria-hidden="true" onClick ={this.openMoD.bind(this, this.state.state1.parent)} style={{'marginBottom':'0px', 'marginLeft':'31px', 'color':'#449D44', 'cursor': 'pointer'}}></i>
+			    			
+			    			<ul className='admin-list-menu tree'>
+			    				{menu}
+			    			</ul>
+			    		</div>
+			    	</div>
 	    		</div>
 	    {/*//         <div className="col-md-12">
 	    // 			<h2>Quản lý menu</h2>

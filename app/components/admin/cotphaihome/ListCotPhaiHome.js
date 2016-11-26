@@ -3,44 +3,45 @@ import ReactDom from 'react-dom';
 import {Modal} from 'react-bootstrap';
 import InlineEdit from 'react-edit-inline';
 
-import LienKetSiteAction from '../../../actions/admin/lienketsite/LienKetSiteAction';
-import LienKetSiteStore from '../../../stores/admin/lienketsite/LienKetSiteStore';
+import CotPhaiHomeAction from '../../../actions/admin/cotphaihome/CotPhaiHomeAction';
+import CotPhaiHomeStore from '../../../stores/admin/cotphaihome/CotPhaiHomeStore';
 
-class ListLienKetSite extends React.Component {
+class ListCotPhaiHome extends React.Component {
 	constructor(props)
 	{
 		super(props);
-		this.state = LienKetSiteStore.getState();
+		this.state = CotPhaiHomeStore.getState();
 		this.onChange = this.onChange.bind(this);
 	}
 	componentDidMount() {
-		LienKetSiteStore.listen(this.onChange);
-		LienKetSiteAction.getListSite();
+		CotPhaiHomeStore.listen(this.onChange);
+		CotPhaiHomeAction.getListItem();
 	}
 
 	componentWillUnmount() {
-		LienKetSiteStore.unlisten(this.onChange);
+		CotPhaiHomeStore.unlisten(this.onChange);
 	}
 
 	onChange(state) {
 		this.setState(state);  
 	}
-	editSite(id){
-		LienKetSiteAction.getSite(id);
+	editSite(id, type){
+		CotPhaiHomeAction.getItem({id, type});
 	}
 	openMoDDelete(id){
-		LienKetSiteAction.openMoDDelete(id);
+		CotPhaiHomeAction.openMoDDelete(id);
 	}
 
 	render() {  
-		let listSite = this.state.listSite.map((site, index) =>{
+		let listItem = this.state.listItem.map((item, index) =>{
 			return(
 					<tr key={index}>
 						<td className="text-center border-right">{index+1}</td>
-						<td>{site.name}</td>
+						<td>{item.name}</td>
+						<td>{item.type}</td>
 						<td colSpan="2">
-							<a className="btn btn-primary btn-xs" onClick={this.editSite.bind(this, site._id)}><i className="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-							<a className="btn btn-danger btn-xs" onClick={this.openMoDDelete.bind(this, site._id)}><i className="fa fa-trash-o" aria-hidden="true"></i></a>
+							<a className="btn btn-primary btn-xs" onClick={this.editSite.bind(this, item._id, item.type)}><i className="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+							<a className="btn btn-danger btn-xs" onClick={this.openMoDDelete.bind(this, item._id)}><i className="fa fa-trash-o" aria-hidden="true"></i></a>
 						</td>
 					</tr>
 				);
@@ -53,11 +54,12 @@ class ListLienKetSite extends React.Component {
                     <tr>
                       <th className="text-center" width='1%'>STT</th>
                       <th>Tên</th>
+                      <th>Loại</th>
                       <th>Hành động</th>  
                     </tr>
                   </thead>
                   <tbody>                       
-                    {listSite}
+                    {listItem}
                   </tbody>
                        
                 </table>       
@@ -66,4 +68,4 @@ class ListLienKetSite extends React.Component {
 	}
 }
 
-export default ListLienKetSite;
+export default ListCotPhaiHome;
