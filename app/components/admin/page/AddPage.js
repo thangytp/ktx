@@ -146,6 +146,10 @@ class AddPage extends React.Component {
 	                    <div className="panel rounded shadow no-overflow">
 	                      	<div className="panel-heading">
 	                        	<div className="pull-left"><h3 className="panel-title">Thêm trang</h3></div>
+	                        	<div className="pull-right">
+		                            <button className="btn btn-sm" data-action="collapse" data-container="body" data-toggle="panel-body" data-placement="top" 
+		                                data-title="Collapse" data-original-title="" title=""><i className="fa fa-angle-up"></i></button>
+		                        </div>
 	                        	<div className="clearfix"></div>
 	                      	</div>
 	                      	<div className="panel-body no-padding">

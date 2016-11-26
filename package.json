@@ -36,6 +36,7 @@
     "react-slick": "^0.14.5",
     "react-star-rating-component": "^1.0.0",
     "react-tabs": "^0.8.2",
+    "react-youtube": "^7.2.0",
     "request": "^2.69.0",
     "rimraf": "^2.5.2",
     "serve-favicon": "^2.3.0",
