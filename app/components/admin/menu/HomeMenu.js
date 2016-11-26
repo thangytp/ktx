@@ -233,120 +233,122 @@ class HomeMenu extends React.Component {
 	});
 
     return (
-    	<div className="row">
-    		<div className="col-md-12">
-    			{/*<button type="submit" style={{'marginBottom':'0px', 'marginLeft':'20px'}} className="btn btn-success" onClick ={this.openMoD.bind(this, this.state.state1.parent)}><i className="fa fa-plus-square" aria-hidden="true"></i></button>*/}
-    			<i className="fa fa-plus-square font20" aria-hidden="true" onClick ={this.openMoD.bind(this, this.state.state1.parent)} style={{'marginBottom':'0px', 'marginLeft':'31px', 'color':'#449D44', 'cursor': 'pointer'}}></i>
-    			
-    			<ul className='admin-list-menu tree'>
-    				{menu}
-    			</ul>
-    		</div>
-    {/*//         <div className="col-md-12">
-    // 			<h2>Quản lý menu</h2>
-    // 			<form className="form-inline" onSubmit={this.themMenuItem.bind(this)}>
-				//   	<div className="form-group">
-				// 	    <label for="item-menu-name">Tên item menu:</label>
-				// 	    <input type="text" className="form-control" id="item-menu-name" ref='NameItemMenu' value={this.state.itemMenuName} 
-				// 	    	onChange={HomeMenuAction.updateItemMenuName} autoFocus onKeyPress={this.test.bind(this)}/>
-					    
-				//   	</div>
-				//   	<div className="form-group">
-				// 	    <select className="form-control" id="sel-parent" value={this.state.parent} 
-				// 	    	onChange={HomeMenuAction.updateParent}>
-				// 			    <option value='5126bbf64aed4daf9e2ab771'>--Chọn--</option>
-				// 			    {listCha}
-				// 	  	</select>
-				//   	</div>
-				  	
-				//   	<button type="submit" className="btn btn-default">Thêm</button>
-				//   	<span className='help-block has-error'>{this.state.helpBlock}</span>
-				// </form>
-    // 		</div>*/}
+    	<div className="body-content animated fadeIn">
+	    	<div className="row">
+	    		<div className="col-md-12">
+	    			{/*<button type="submit" style={{'marginBottom':'0px', 'marginLeft':'20px'}} className="btn btn-success" onClick ={this.openMoD.bind(this, this.state.state1.parent)}><i className="fa fa-plus-square" aria-hidden="true"></i></button>*/}
+	    			<i className="fa fa-plus-square font20" aria-hidden="true" onClick ={this.openMoD.bind(this, this.state.state1.parent)} style={{'marginBottom':'0px', 'marginLeft':'31px', 'color':'#449D44', 'cursor': 'pointer'}}></i>
+	    			
+	    			<ul className='admin-list-menu tree'>
+	    				{menu}
+	    			</ul>
+	    		</div>
+	    {/*//         <div className="col-md-12">
+	    // 			<h2>Quản lý menu</h2>
+	    // 			<form className="form-inline" onSubmit={this.themMenuItem.bind(this)}>
+					//   	<div className="form-group">
+					// 	    <label for="item-menu-name">Tên item menu:</label>
+					// 	    <input type="text" className="form-control" id="item-menu-name" ref='NameItemMenu' value={this.state.itemMenuName} 
+					// 	    	onChange={HomeMenuAction.updateItemMenuName} autoFocus onKeyPress={this.test.bind(this)}/>
+						    
+					//   	</div>
+					//   	<div className="form-group">
+					// 	    <select className="form-control" id="sel-parent" value={this.state.parent} 
+					// 	    	onChange={HomeMenuAction.updateParent}>
+					// 			    <option value='5126bbf64aed4daf9e2ab771'>--Chọn--</option>
+					// 			    {listCha}
+					// 	  	</select>
+					//   	</div>
+					  	
+					//   	<button type="submit" className="btn btn-default">Thêm</button>
+					//   	<span className='help-block has-error'>{this.state.helpBlock}</span>
+					// </form>
+	    // 		</div>*/}
 
-    		
+	    		
 
-    		{/*hien thi danh sach menu item*/}
-    		{/*<ListItemMenu/>*/}
+	    		{/*hien thi danh sach menu item*/}
+	    		{/*<ListItemMenu/>*/}
 
-    		<Modal show={this.state.state1.modalIsOpen} onHide ={HomeMenuAction.closeModal}>
-              	<Modal.Header>
-	                <Modal.Title>
-	                	Thêm danh mục
-	                </Modal.Title>
-              	</Modal.Header>
-              	<Modal.Body>
-	              	<div>
-	              		<label>Tên danh mục</label>
-	              		<input type="text" className="form-control" id="item-menu-name" ref='NameItemMenu' value={this.state.state1.itemMenuName} 
-						    	onChange={HomeMenuAction.updateItemMenuName} autoFocus onKeyPress={this.test.bind(this)}/>
-	              	</div>
-	              	<div className={this.state.state1.classValidate}><span className="control-label">{this.state.state1.validateTitle}</span></div>
-              	</Modal.Body>      
-              	<Modal.Footer>
-                  	<button
-                      	className="btn btn-warning"
-                    	onClick={HomeMenuAction.closeModal}><i className="fa fa-times"> Hủy bỏ</i> </button>          
-                  	<button
-                      	className="btn btn-success"
-                    	onClick={this.themMenuItem.bind(this)} disabled={this.state.state1.disabledButton}><i className="fa fa-check"> Thêm</i> </button>          
-              	</Modal.Footer>
-            </Modal>
+	    		<Modal show={this.state.state1.modalIsOpen} onHide ={HomeMenuAction.closeModal}>
+	              	<Modal.Header>
+		                <Modal.Title>
+		                	Thêm danh mục
+		                </Modal.Title>
+	              	</Modal.Header>
+	              	<Modal.Body>
+		              	<div>
+		              		<label>Tên danh mục</label>
+		              		<input type="text" className="form-control" id="item-menu-name" ref='NameItemMenu' value={this.state.state1.itemMenuName} 
+							    	onChange={HomeMenuAction.updateItemMenuName} autoFocus onKeyPress={this.test.bind(this)}/>
+		              	</div>
+		              	<div className={this.state.state1.classValidate}><span className="control-label">{this.state.state1.validateTitle}</span></div>
+	              	</Modal.Body>      
+	              	<Modal.Footer>
+	                  	<button
+	                      	className="btn btn-warning"
+	                    	onClick={HomeMenuAction.closeModal}><i className="fa fa-times"> Hủy bỏ</i> </button>          
+	                  	<button
+	                      	className="btn btn-success"
+	                    	onClick={this.themMenuItem.bind(this)} disabled={this.state.state1.disabledButton}><i className="fa fa-check"> Thêm</i> </button>          
+	              	</Modal.Footer>
+	            </Modal>
 
-        	{/* modal xoa item va con cua no */}
-        	<Modal show={this.state.state1.modalIsOpenDelete} onHide ={HomeMenuAction.closeModalDelete}>
-              	<Modal.Header>
-	                <Modal.Title>
-	                	Xóa
-	                </Modal.Title>
-              	</Modal.Header>
-              	<Modal.Body>
-              		<p>Bạn có chắc muốn xóa danh mục này? Nếu đồng ý thì tất cả danh mục con của nó(nếu có) cũng sẽ bị xóa.</p>
-              	</Modal.Body>      
-              	<Modal.Footer>
-                  	<button
-                      	className="btn btn-warning"
-                    	onClick={HomeMenuAction.closeModalDelete}><i className="fa fa-times"> Hủy bỏ</i> </button>          
-                  	<button
-                      	className="btn btn-success"
-                    	onClick={this.deleteMenuItem.bind(this)}><i className="fa fa-check"> Xóa</i> </button>          
-              	</Modal.Footer>
-            </Modal>
+	        	{/* modal xoa item va con cua no */}
+	        	<Modal show={this.state.state1.modalIsOpenDelete} onHide ={HomeMenuAction.closeModalDelete}>
+	              	<Modal.Header>
+		                <Modal.Title>
+		                	Xóa
+		                </Modal.Title>
+	              	</Modal.Header>
+	              	<Modal.Body>
+	              		<p>Bạn có chắc muốn xóa danh mục này? Nếu đồng ý thì tất cả danh mục con của nó(nếu có) cũng sẽ bị xóa.</p>
+	              	</Modal.Body>      
+	              	<Modal.Footer>
+	                  	<button
+	                      	className="btn btn-warning"
+	                    	onClick={HomeMenuAction.closeModalDelete}><i className="fa fa-times"> Hủy bỏ</i> </button>          
+	                  	<button
+	                      	className="btn btn-success"
+	                    	onClick={this.deleteMenuItem.bind(this)}><i className="fa fa-check"> Xóa</i> </button>          
+	              	</Modal.Footer>
+	            </Modal>
 
-            <Modal show={this.state.state1.modalIsOpenEditLinkPage} onHide ={HomeMenuAction.closeModalEditLinkPage}>
-              	<Modal.Header>
-	                <Modal.Title>
-	                	Chọn trang
-	                </Modal.Title>
-              	</Modal.Header>
-              	<Modal.Body>
-	              	<div>
-	              		{/*<select className="form-control" id="sel-parent" value={this.state.state1.pagelink} 
-					    	onChange={HomeMenuAction.updateLinkToPage} ref='PageLinkField'>
-							    <option value='0'>--Chọn--</option>
-							    {listPage}
-					  	</select>*/}
-					  	<input type="text" className="form-control" ref='NamePage' value={this.state.state1.pageTitle} 
-						    	onChange={HomeMenuAction.updateLinkToPage} autoFocus onKeyPress={this.test.bind(this)}/>
-	              		<div className="live-search" style={{'display':this.state.state1.displayListPage}}>
+	            <Modal show={this.state.state1.modalIsOpenEditLinkPage} onHide ={HomeMenuAction.closeModalEditLinkPage}>
+	              	<Modal.Header>
+		                <Modal.Title>
+		                	Chọn trang
+		                </Modal.Title>
+	              	</Modal.Header>
+	              	<Modal.Body>
+		              	<div>
+		              		{/*<select className="form-control" id="sel-parent" value={this.state.state1.pagelink} 
+						    	onChange={HomeMenuAction.updateLinkToPage} ref='PageLinkField'>
+								    <option value='0'>--Chọn--</option>
+								    {listPage}
+						  	</select>*/}
+						  	<input type="text" className="form-control" ref='NamePage' value={this.state.state1.pageTitle} 
+							    	onChange={HomeMenuAction.updateLinkToPage} autoFocus onKeyPress={this.test.bind(this)}/>
+		              		<div className="live-search" style={{'display':this.state.state1.displayListPage}}>
 
-	              			{listPageSearch}
+		              			{listPageSearch}
 
-	              		</div>
-	              	</div>
-	              	<div className={this.state.state1.classValidatePageLink}><span className="control-label">{this.state.state1.validatePageLink}</span></div>
-              	</Modal.Body>      
-              	<Modal.Footer>
-                  	<button
-                      	className="btn btn-warning"
-                    	onClick={HomeMenuAction.closeModalEditLinkPage}><i className="fa fa-times"> Hủy bỏ</i> </button>          
-                  	<button
-                      	className="btn btn-success"
-                    	onClick={this.editLinkToPage.bind(this)} disabled={this.state.state1.disableButtonAddPage}><i className="fa fa-check"> Thêm</i> </button>          
-              	</Modal.Footer>
-            </Modal>
+		              		</div>
+		              	</div>
+		              	<div className={this.state.state1.classValidatePageLink}><span className="control-label">{this.state.state1.validatePageLink}</span></div>
+	              	</Modal.Body>      
+	              	<Modal.Footer>
+	                  	<button
+	                      	className="btn btn-warning"
+	                    	onClick={HomeMenuAction.closeModalEditLinkPage}><i className="fa fa-times"> Hủy bỏ</i> </button>          
+	                  	<button
+	                      	className="btn btn-success"
+	                    	onClick={this.editLinkToPage.bind(this)} disabled={this.state.state1.disableButtonAddPage}><i className="fa fa-check"> Thêm</i> </button>          
+	              	</Modal.Footer>
+	            </Modal>
 
-        </div>
+	        </div>
+	    </div>
     );
   }
 }

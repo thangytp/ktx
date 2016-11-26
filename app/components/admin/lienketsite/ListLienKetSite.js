@@ -36,11 +36,11 @@ class ListLienKetSite extends React.Component {
 		let listSite = this.state.listSite.map((site, index) =>{
 			return(
 					<tr key={index}>
-						<td>{index+1}</td>
+						<td className="text-center border-right">{index+1}</td>
 						<td>{site.name +' ' + site.sort}</td>
 						<td colSpan="2">
-							<button type="button" className="btn btn-info" onClick={this.editSite.bind(this, site._id)}><i className="fa fa-pencil-square-o" aria-hidden="true"></i></button>
-							<button type="button" className="btn btn-danger" onClick={this.openMoDDelete.bind(this, site._id)}><i className="fa fa-trash-o" aria-hidden="true"></i></button>
+							<a className="btn btn-primary btn-xs" onClick={this.editSite.bind(this, site._id)}><i className="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+							<a className="btn btn-danger btn-xs" onClick={this.openMoDDelete.bind(this, site._id)}><i className="fa fa-trash-o" aria-hidden="true"></i></a>
 						</td>
 					</tr>
 				);
@@ -48,7 +48,7 @@ class ListLienKetSite extends React.Component {
 
 		return(
 			<div className="col-md-12 table-responsive">
-				<table className="table white-bg table-bordered table-striped table-hover table-primary">
+				<table className="table white-bg table-striped table-hover table-success">
                   <thead>
                     <tr>
                       <th className="text-center" width='1%'>STT</th>

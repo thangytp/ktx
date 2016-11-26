@@ -38,11 +38,11 @@ class ListPage extends React.Component {
 
 			return(
 					<tr key={index}>
-						<td>{index+1}</td>
+						<td className="text-center border-right">{index+1}</td>
 						<td>{page.title}</td>
 						<td colSpan="2">
-							<button type="button" className="btn btn-info" onClick={this.editPage.bind(this, page._id)}><i className="fa fa-pencil-square-o" aria-hidden="true"></i></button>
-							<button type="button" className="btn btn-danger" onClick={this.openMoDDeletePage.bind(this, page._id)}><i className="fa fa-trash-o" aria-hidden="true"></i></button>
+							<a className="btn btn-primary btn-xs" onClick={this.editPage.bind(this, page._id)}><i className="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+							<a className="btn btn-danger btn-xs" onClick={this.openMoDDeletePage.bind(this, page._id)}><i className="fa fa-trash-o" aria-hidden="true"></i></a>
 						</td>
 					</tr>
 				);
@@ -50,10 +50,10 @@ class ListPage extends React.Component {
 
 		return(
 			<div className="col-md-12 table-responsive">
-				<table className="table white-bg table-bordered">
+				<table className="table white-bg table-striped table-hover table-success">
                   <thead>
                     <tr>
-                      <th>#</th>
+                      <th className="text-center" width='1%'>STT</th>
                       <th>Tên</th>
                       <th>Hành động</th>  
                     </tr>

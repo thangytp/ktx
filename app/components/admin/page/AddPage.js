@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDom from 'react-dom';
+import {Link} from 'react-router';
 import {Modal} from 'react-bootstrap';
 
 import AddPageAction from '../../../actions/admin/page/AddPageAction';
@@ -135,76 +136,89 @@ class AddPage extends React.Component {
 		}
 
     return (
-    	<div className="row">
-            <div className="col-md-12">
-    			<div className="panel panel-default">
-				  	<div className="panel-heading">Thêm trang</div>
-				</div>
-				<div className="row"><span className='help-block'>{this.state.helpBlockAddPage}</span></div>
+    	<div className="body-content animated fadeIn no-overflow">
+              <div className="row">
+                  	<div className="col-md-12">
+                    	<ol className="breadcrumb no-overflow">
+                      		<li><Link to="/quanly@ktx"><i className="fa fa-home" aria-hidden="true"></i> Trang quản trị</Link></li>
+                      		<li>Quản lý trang</li>
+                    	</ol>
+	                    <div className="panel rounded shadow no-overflow">
+	                      	<div className="panel-heading">
+	                        	<div className="pull-left"><h3 className="panel-title">Thêm trang</h3></div>
+	                        	<div className="clearfix"></div>
+	                      	</div>
+	                      	<div className="panel-body no-padding">
+								<form className="form-horizontal" encType="multipart/form-data" onSubmit={this.handleSubmitPage.bind(this)}>
+								  	<div className="form-body">
+									  	<div className="form-group">
+										    <label className="control-label col-sm-2" htmlFor="name-item">Tên trang:</label>
+										    <div className="col-sm-10">
+									      		<input type="text" className="form-control" id="name-item" placeholder="Nhập tên trang" 
+									      			ref="TitlePageField" value={this.state.titlePage} onChange={AddPageAction.updateTitlePage}/>
+									      		<span className='help-block'>{this.state.helpBlockTitle}</span>
+									    	</div>
+									  	</div>
+									  	
+										<div className="form-group">
+										    <label className="control-label col-sm-2" htmlFor="">Dạng giao diện:</label>
+										    <div className="col-sm-10"> 
+												  <label className="radio-inline"><input type="radio" name="dang-layout" value="1" onClick={AddPageAction.hideContentRight} checked={this.state.checkedLayoutOne} />Giao diện 1 cột</label>
+												  <label className="radio-inline"><input type="radio" name="dang-layout" value="2" onClick={AddPageAction.showContentRight} checked={this.state.checkedLayoutTwo} />Giao diện 2 cột</label>
+									    	</div>
+										</div>
 
-				<form className="form-horizontal" encType="multipart/form-data" onSubmit={this.handleSubmitPage.bind(this)}>
-				  	<div className="form-group">
-					    <label className="control-label col-sm-2" htmlFor="name-item">Tên trang:</label>
-					    <div className="col-sm-10">
-				      		<input type="text" className="form-control" id="name-item" placeholder="Nhập tên trang" 
-				      			ref="TitlePageField" value={this.state.titlePage} onChange={AddPageAction.updateTitlePage}/>
-				      		<span className='help-block'>{this.state.helpBlockTitle}</span>
-				    	</div>
-				  	</div>
-				  	
-					<div className="form-group">
-					    <label className="control-label col-sm-2" htmlFor="">Dạng giao diện:</label>
-					    <div className="col-sm-10"> 
-							  <label className="radio-inline"><input type="radio" name="dang-layout" value="1" onClick={AddPageAction.hideContentRight} checked={this.state.checkedLayoutOne} />Giao diện 1 cột</label>
-							  <label className="radio-inline"><input type="radio" name="dang-layout" value="2" onClick={AddPageAction.showContentRight} checked={this.state.checkedLayoutTwo} />Giao diện 2 cột</label>
-				    	</div>
-					</div>
+										<div className='form-group '>
+					                    	<label className='col-sm-2 control-label'>Nội dung:</label>
+					                      	<div  className ='col-sm-10'>
+					                      		<textarea id ='ckedit' value ="" ref ='ContentPageField' value={this.state.contentPage} ></textarea>
+					                      		<span className='help-block'>{this.state.helpBlockContent}</span>
+					                    	</div>
+					                  	</div>
 
-					<div className='form-group '>
-                    	<label className='col-sm-2 control-label'>Nội dung:</label>
-                      	<div  className ='col-sm-10'>
-                      		<textarea id ='ckedit' value ="" ref ='ContentPageField' value={this.state.contentPage} ></textarea>
-                      		<span className='help-block'>{this.state.helpBlockContent}</span>
-                    	</div>
-                  	</div>
+					                  	<div className="panel panel-default" style={{'display':this.state.styleContentRight}}>
+										  	<div className="panel-heading">Nội dung cột bên phải</div>
+										  	
+										  		
+										  	 
+										  	<div className="panel-body">
+										  		<label>
+										  			<input type="checkbox" value={this.state.cotphaiHome} onChange={AddPageAction.cotphaiHome}/>
+										  			Dùng nội dung cột bên phải trang Home cho trang này?
+										  		</label>
+										  		<div style={{'display': this.state.styleCustomContentRight}}>
+											  		<div className=" col-sm-10 col-sm-offset-2 form-group">
+											  			<button type="button" className="btn btn-default" onClick={AddPageAction.addImg}>Thêm hình ảnh</button>
+													  	<button type="button" className="btn btn-primary" onClick={AddPageAction.addVideo}>Thêm video</button>
+											  		</div>
+											  		<div><span className='help-block'>{this.state.helpBlockContentRight}</span></div>
+											  		<div><span className='help-block'>{this.state.helpBlockImage}</span></div>
+											  		<div className="col-sm-12 image-wrap form-horizontal">
+											  			<input type="hidden" value="image"/>
+											  			{listImageItem}
+											  		</div>
+											  		<div><span className='help-block'>{this.state.helpBlockVideo}</span></div>
+											  		<div className="col-sm-12 video-wrap form-horizontal">
+											  			<input type="hidden" value="video"/>
+											  			{listVideoItem}
+											  		</div>
+											  	</div>
+										  	</div>
+										</div>
+									</div>
+									<div className="form-footer">
+									  	<div className="form-group"> 
+									    	<div className="col-sm-offset-2">
+									      		<button type="submit" className="btn btn-success">Thêm</button><span className='help-block'> {this.state.helpBlockAddPage}</span>
+									    	</div>
+									  	</div>
+									</div>
+								</form>
+							</div>
+	                    </div>
 
-                  	<div className="panel panel-default" style={{'display':this.state.styleContentRight}}>
-					  	<div className="panel-heading">Nội dung cột bên phải</div>
-					  	
-					  		
-					  	 
-					  	<div className="panel-body">
-					  		<label>
-					  			<input type="checkbox" value={this.state.cotphaiHome} onChange={AddPageAction.cotphaiHome}/>
-					  			Dùng nội dung cột bên phải trang Home cho trang này?
-					  		</label>
-					  		<div style={{'display': this.state.styleCustomContentRight}}>
-						  		<div className=" col-sm-10 col-sm-offset-2 form-group">
-						  			<button type="button" className="btn btn-default" onClick={AddPageAction.addImg}>Thêm hình ảnh</button>
-								  	<button type="button" className="btn btn-primary" onClick={AddPageAction.addVideo}>Thêm video</button>
-						  		</div>
-						  		<div><span className='help-block'>{this.state.helpBlockContentRight}</span></div>
-						  		<div><span className='help-block'>{this.state.helpBlockImage}</span></div>
-						  		<div className="col-sm-12 image-wrap form-horizontal">
-						  			<input type="hidden" value="image"/>
-						  			{listImageItem}
-						  		</div>
-						  		<div><span className='help-block'>{this.state.helpBlockVideo}</span></div>
-						  		<div className="col-sm-12 video-wrap form-horizontal">
-						  			<input type="hidden" value="video"/>
-						  			{listVideoItem}
-						  		</div>
-						  	</div>
-					  	</div>
-					</div>
-					
-				  	<div className="form-group"> 
-				    	<div className="col-sm-offset-2 col-sm-10">
-				      		<button type="submit" className="btn btn-default">Thêm</button>
-				    	</div>
-				  	</div>
-				</form>
-
+                </div>
+                <ListPage/>
     		</div>
 
     		{/* modal xoa item*/}
@@ -247,7 +261,7 @@ class AddPage extends React.Component {
                   </Modal.Footer>
               </Modal>
 
-            <ListPage/>
+            
         </div>
     );
   }

@@ -23,18 +23,18 @@ class App extends React.Component {
   render() {
 
     return (
-      <div className="container-fluid">
-          <div className="row">
-
+      <div className="">
+          
+              <Navbar />
   	      	  <SidebarLeft />
-              <div className="col-md-10 admin-right-content">
-                <Navbar />
-  	      	    <div className="right_col" role="main">
+              <section id="page-content" className="no-overflow">
+                
   				          {this.props.children}
-                </div>
                 <Footer />
+              </section>
+              <div id="back-top" className="circle" style={{"display": "none"}}>
+                  <i className="fa fa-angle-up"></i>
               </div>
-          </div>
       </div>
 
     );
