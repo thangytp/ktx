@@ -45,3 +45,9 @@
    $(document).ready(function(){
         $('[data-toggle="tooltip"]').tooltip(); 
     });
+   $(document).ready(function(){
+        $('#sidebar-left .sidebar-menu li').click(function(){
+            $('li').removeClass("active");
+            $(this).addClass("active");
+        });
+    });

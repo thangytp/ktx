@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css?family=Open+Sans");
 @import url("https://fonts.googleapis.com/css?family=Exo");
 body {
-  background-color: #fff;
+  background-color: #eeeeef;
   font-family: "Open Sans", sans-serif;
   color: #636E7B;
   -webkit-font-smoothing: antialiased;
@@ -91,6 +91,9 @@ input[type="text"], input[type="password"], input[type="datetime"], input[type="
 .col-xs-1, .col-xs-2, .col-xs-3, .col-xs-4, .col-xs-5, .col-xs-6, .col-xs-7, .col-xs-8, .col-xs-9, .col-xs-10, .col-xs-11, .col-xs-12, .col-sm-1, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-sm-10, .col-sm-11, .col-sm-12, .col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12, .col-lg-1, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-lg-10, .col-lg-11, .col-lg-12 {
   padding-left: 10px;
   padding-right: 10px; }
+
+input:focus, textarea:focus {
+  border: 1px solid #81b71a !important; }
 
 /*====================== css admin page ===========*/
 #header {
@@ -498,6 +501,12 @@ body.page-sidebar-minimize #sidebar-left .sidebar-menu .submenu ul li:after, bod
 .sidebar-menu ul li a:hover {
   color: #b7b7b7; }
 
+.sidebar-menu > li.active {
+  background-color: #3c3c3c; }
+
+.sidebar-menu > li.active > a span {
+  color: #d0d0d0; }
+
 #page-content {
   background-color: #F3F3F4;
   margin-left: 220px;
@@ -797,35 +806,7 @@ ul.msg_list li a .message {
   font-size: 20px; }
 
 .tooltip {
-  position: relative;
-  display: inline-block;
-  border-bottom: 1px dotted black;
-  /* If you want dots under the hoverable text */ }
-
-.tooltip .tooltiptext {
-  visibility: hidden;
-  width: 120px;
-  background-color: black;
-  color: #fff;
-  text-align: center;
-  border-radius: 6px;
-  padding: 5px 0;
-  position: absolute;
-  z-index: 111;
-  top: 150%;
-  left: 50%;
-  margin-left: -60px; }
-
-.tooltip .tooltiptext::after {
-  content: " ";
-  position: absolute;
-  bottom: 100%;
-  /* At the top of the tooltip */
-  left: 50%;
-  margin-left: -5px;
-  border-width: 5px;
-  border-style: solid;
-  border-color: transparent transparent black transparent; }
+  z-index: 1000; }
 
 .colorTitle {
   color: #00cc99; }
@@ -841,7 +822,7 @@ ul.msg_list li a .message {
   z-index: 999999;
   right: 4px;
   left: -1px;
-  top: 70%;
+  top: 60%;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   /* width: 1000px; */ }
@@ -985,6 +966,11 @@ form .form-group .control-label {
     background-color: #FBFBFB;
     padding: 10px; }
 
+.panel-primary > .panel-heading {
+  background-color: #00B1E1;
+  border: 1px solid #00addc;
+  color: white; }
+
 .form-body {
   padding: 10px; }
 
@@ -999,10 +985,26 @@ form .form-group .control-label {
 .no-padding {
   padding: 0 !important; }
 
+.panel .panel-heading > .pull-right {
+  margin-top: 5px;
+  margin-right: 5px; }
+
+.btn:after {
+  content: ' ';
+  position: absolute;
+  z-index: -1;
+  -moz-transition: all 0.3s;
+  -o-transition: all 0.3s;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+  -moz-border-radius: 0px;
+  -webkit-border-radius: 0px;
+  border-radius: 0px; }
+
 /*====================== end css admin ============*/
 /*====================== css header trang home ===============*/
 .top-bar {
-  background: #3488bf; }
+  background: #00B1E1; }
 
 .top-bar a {
   color: #FFF !important; }
@@ -1021,7 +1023,7 @@ form .form-group .control-label {
   color: #fff !important; }
 
 .top-bar .cs-user ul li a {
-  background-color: #3488bf !important; }
+  background-color: #00B1E1 !important; }
 
 .navbar-default {
   background-color: #fff !important;
@@ -1118,7 +1120,7 @@ a {
   color: #FFF !important; }
 
 .main-navigation ul > li:hover {
-  background-color: #207dba !important; }
+  background-color: #00B1E1 !important; }
 
 .menu-item-has-children ul li {
   margin-left: 0px;
@@ -1201,8 +1203,16 @@ a {
   width: 30px; }
 
 /*======================css home page==============*/
-#tin-tuc-moi h3 {
-  border-bottom: 1px solid #ccc; }
+#tin-tuc-moi .title-tin-tuc {
+  border-bottom: 1px solid #EEEEEF; }
+
+.cotphaihome a img {
+  display: block;
+  width: 98%;
+  margin: auto; }
+
+.panel-border-primary {
+  border: 1px solid #00addc; }
 
 /*=====================css register page==========*/
 .signup h2 {

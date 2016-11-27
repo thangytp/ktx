@@ -4,7 +4,7 @@ class LienKetSiteAction {
   constructor() {
     this.generateActions(
     		'getListSiteSuccess',
-    		'getListPageFail',
+    		'getListSiteFail',
 
     		'addSiteSuccess',
     		'addSiteFail',
@@ -41,7 +41,7 @@ class LienKetSiteAction {
   		console.log("success");
   	})
   	.fail((jqXhr) =>{
-  		this.actions.getListPageFail(jqXhr.responseJSON);
+  		this.actions.getListSiteFail(jqXhr.responseJSON);
   		console.log("error");
   	});
   	

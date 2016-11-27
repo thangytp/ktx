@@ -532,5 +532,24 @@ function HomeMenuServer(app){
 		}
 	});
 
+	app.get('/api/searchItemMenu/:name', function(req, res, next){
+		var name = req.params.name;
+		MenuChild.find({title: { $regex: new RegExp(name, "i") } })
+		.exec(function(err, itemMenuChilds){
+			if(err) return next(err);
+			if (!itemMenuChilds) {
+		      	return res.status(404).send({ message: 'Không tìm thấy trang.' });
+		    }
+		    MenuSubChild.find({title: { $regex: new RegExp(name, "i") } })
+			.exec(function(err, itemMenuSubChilds){
+				if(err) return next(err);
+				if (!itemMenuSubChilds) {
+			      	return res.status(404).send({ message: 'Không tìm thấy trang.' });
+			    }
+		    	res.send({itemMenuChilds: itemMenuChilds, itemMenuSubChilds: itemMenuSubChilds});
+		    });
+		});
+	});
+
 }
 module.exports = HomeMenuServer;
