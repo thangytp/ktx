@@ -7,6 +7,8 @@ var Tinh = require('../../models/tinh');
 var Doituong = require('../../models/doituong');
 var Hocluc = require('../../models/hocluc');
 var Hoancanh = require('../../models/hoancanh');
+var Phong = require('../../models/phong');
+
 
 
 
@@ -136,6 +138,20 @@ module.exports = function(app, importStudent) {
     });
   })
 
+  app.get('/xetduyet/getstudentluutru', function(req, res){
+    Student.find({xet_duyet_thanh_cong: true}, function(err, students){
+      if(err) throw err;
+      res.json(students);
+    });
+  })
+
+  app.get('/giahan/getstudentluutru', function(req, res){
+    Student.find({gia_han_thanh_cong: true}, function(err, students){
+      if(err) throw err;
+      res.json(students);
+    });
+  })
+
   //Get Students By Diem Ren Luyen
 
   app.get('/xetduyet/getstudent/diem/:stuDiem', function(req, res){
@@ -173,7 +189,17 @@ module.exports = function(app, importStudent) {
     .sort('-diem_ren_luyen')
     .limit(req.params.soluong)
     .exec(function(err, students){
-      if(err) throw err;
+      if(err) {
+        throw err;
+      }
+      else {
+        students.forEach(function(student){
+          student.update({$set : {xet_duyet_thanh_cong: true}}, function(err){
+            if(err) throw err;
+            console.log(student);
+          });
+        });
+      }
       res.json(students);
     });
 
@@ -193,8 +219,16 @@ module.exports = function(app, importStudent) {
     .sort('-diem_ren_luyen')
     .limit(req.params.soluong)
     .exec(function(err, students){
-      console.log(students);
-      if(err) throw err;
+      if(err) {
+        throw err;
+      }
+      else {
+        students.forEach(function(student){
+          student.update({$set : {gia_han_thanh_cong: true}}, function(err){
+            if(err) throw err;
+          });
+        });
+      }
       res.json(students);
     });
 
@@ -634,6 +668,13 @@ module.exports = function(app, importStudent) {
       });
     })
 
+    app.get('/getkhuvuc/:id', function(req, res){
+      Khuvuc.findOne({_id : req.params.id}, function(err, khuvuc){
+        if(err) throw err;
+        res.json(khuvuc);
+      });
+    })
+
     // Add Khu Vuc
 
     app.post('/addkhuvuc', function(req, res){
@@ -645,6 +686,13 @@ module.exports = function(app, importStudent) {
       nKhuvuc.save(function(err){
         if(err) throw err;
         res.send(true);
+      });
+    })
+
+    app.put('/editkhuvuc/:id', function(req, res){
+      Khuvuc.findByIdAndUpdate(req.params.id, {ten: req.body.ten, diem: req.body.diem, ma: req.body.ma} , { new: true }, function (err, khuvuc) {
+        if (err) throw err;
+        res.send(khuvuc);
       });
     })
 
@@ -666,6 +714,13 @@ module.exports = function(app, importStudent) {
       });
     })
 
+    app.get('/gettinh/:id', function(req, res){
+      Tinh.findOne({_id : req.params.id}, function(err, tinh){
+        if(err) throw err;
+        res.json(tinh);
+      });
+    })
+
     // Add Tinh
 
     app.post('/addtinh', function(req, res){
@@ -676,6 +731,13 @@ module.exports = function(app, importStudent) {
       nTinh.save(function(err){
         if(err) throw err;
         res.send(true);
+      });
+    })
+
+    app.put('/edittinh/:id', function(req, res){
+      Tinh.findByIdAndUpdate(req.params.id, {ten: req.body.ten, diem: req.body.diem, ma: req.body.ma} , { new: true }, function (err, tinh) {
+        if (err) throw err;
+        res.send(tinh);
       });
     })
 
@@ -697,6 +759,13 @@ module.exports = function(app, importStudent) {
       });
     })
 
+    app.get('/getdoituong/:id', function(req, res){
+      Doituong.findOne({_id : req.params.id}, function(err, doituong){
+        if(err) throw err;
+        res.json(doituong);
+      });
+    })
+
     // Add Doi Tuong
 
     app.post('/adddoituong', function(req, res){
@@ -707,6 +776,13 @@ module.exports = function(app, importStudent) {
       nDoituong.save(function(err){
         if(err) throw err;
         res.send(true);
+      });
+    })
+
+    app.put('/editdoituong/:id', function(req, res){
+      Doituong.findByIdAndUpdate(req.params.id, {ten: req.body.ten, diem: req.body.diem, ma: req.body.ma} , { new: true }, function (err, doituong) {
+        if (err) throw err;
+        res.send(doituong);
       });
     })
 
@@ -728,6 +804,13 @@ module.exports = function(app, importStudent) {
       });
     })
 
+    app.get('/gethocluc/:id', function(req, res){
+      Hocluc.findOne({_id : req.params.id}, function(err, hocluc){
+        if(err) throw err;
+        res.json(hocluc);
+      });
+    })
+
     // Add Hoc Luc
 
     app.post('/addhocluc', function(req, res){
@@ -738,6 +821,13 @@ module.exports = function(app, importStudent) {
       nHocluc.save(function(err){
         if(err) throw err;
         res.send(true);
+      });
+    })
+
+    app.put('/edithocluc/:id', function(req, res){
+      Hocluc.findByIdAndUpdate(req.params.id, {ten: req.body.ten, diem: req.body.diem, ma: req.body.ma} , { new: true }, function (err, hocluc) {
+        if (err) throw err;
+        res.send(hocluc);
       });
     })
 
@@ -759,6 +849,13 @@ module.exports = function(app, importStudent) {
       });
     })
 
+    app.get('/gethoancanh/:id', function(req, res){
+      Hoancanh.findOne({_id : req.params.id}, function(err, hoancanh){
+        if(err) throw err;
+        res.json(hoancanh);
+      });
+    })
+
     // Add Hoan Canh
 
     app.post('/addhoancanh', function(req, res){
@@ -772,6 +869,13 @@ module.exports = function(app, importStudent) {
       });
     })
 
+    app.put('/edithoancanh/:id', function(req, res){
+      Hoancanh.findByIdAndUpdate(req.params.id, {ten: req.body.ten, diem: req.body.diem, ma: req.body.ma} , { new: true }, function (err, hoancanh) {
+        if (err) throw err;
+        res.send(hoancanh);
+      });
+    })
+
     // Delete Hoan Canh
 
     app.delete('/deletehoancanh/:hoancanhId', function(req, res){
@@ -780,5 +884,35 @@ module.exports = function(app, importStudent) {
         res.send(true);
       });
     })
+
+    app.get('/getphong', function(req, res){
+      Phong.find(function(err, phong){
+        if(err) throw err;
+        res.json(phong);
+      });
+    })
+
+    // Add Chi Tieu
+
+      app.post('/addphong', function(req, res){
+        var nPhong = new Phong();
+        nPhong.loai = req.body.loai;
+        nPhong.gia = req.body.gia;
+        nPhong.kichco = req.body.kichco;
+        nPhong.soluong = req.body.soluong;
+        nPhong.save(function(err){
+          if(err) throw err;
+          res.send(true);
+        });
+      })
+
+      // Delete Student
+
+      app.delete('/deletephong/:phongId', function(req, res){
+        Phong.remove({_id: req.params.phongId}, function(err) {
+          if (err) throw err;
+          res.send(true);
+        });
+      })
 
 }

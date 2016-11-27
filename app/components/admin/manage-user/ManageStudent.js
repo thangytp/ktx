@@ -83,7 +83,6 @@ const EditUserModal = React.createClass({
         hocluc: this.state.hocluc,
         hoancanh: this.state.hoancanh
     };
-    console.log(data);
     ManageUserAction.editUser(data);
   },
 

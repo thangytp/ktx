@@ -13,6 +13,8 @@ class ManageUserAction {
        'getUsersByDiemRenLuyenKtxSuccess',
        'getUsersByHocVuXetDuyetSuccess',
        'getUsersByHocVuGiaHanSuccess',
+       'getUsersByXetDuyetThanhCongSuccess',
+       'getUsersByGiaHanThanhCongSuccess',
        'addUserSuccess',
        'deleteUserSuccess',
        'editUserSuccess',
@@ -54,6 +56,26 @@ class ManageUserAction {
     })
     .done((data) => {
       this.actions.getUsersByHocVuGiaHanSuccess(data);
+    })
+  }
+
+  getUsersByXetDuyetThanhCong() {
+    $.ajax({
+      url: '/xetduyet/getstudentluutru',
+      type: 'GET'
+    })
+    .done((data) => {
+      this.actions.getUsersByXetDuyetThanhCongSuccess(data);
+    })
+  }
+
+  getUsersByGiaHanThanhCong() {
+    $.ajax({
+      url: '/giahan/getstudentluutru',
+      type: 'GET'
+    })
+    .done((data) => {
+      this.actions.getUsersByGiaHanThanhCongSuccess(data);
     })
   }
 
@@ -230,7 +252,6 @@ class ManageUserAction {
   }
 
   editUser(payload) {
-    console.log(payload.hoancanh);
     $.ajax({
       url: '/editstudent/' + payload.id,
       type: 'PUT',

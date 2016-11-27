@@ -7,14 +7,23 @@ class ManageUuTienStore {
   constructor() {
     this.bindActions(ManageUuTienAction);
     this.khuvuc = [];
+    this.khuvuce = {};
     this.tinh = [];
+    this.tinhe = {};
     this.doituong = [];
+    this.doituonge = {};
     this.hocluc = [];
+    this.hocluce = {};
     this.hoancanh = [];
+    this.hoancanhe = {};
   }
 
   onGetKhuvucSuccess(response) {
     this.khuvuc = response;
+  }
+
+  onGetEKhuvucSuccess(response) {
+    this.khuvuce = response
   }
 
   onAddKhuvucSuccess() {
@@ -25,8 +34,16 @@ class ManageUuTienStore {
     ManageUuTienAction.getKhuvuc();
   }
 
+  onEditKhuvucSuccess() {
+    ManageUuTienAction.getKhuvuc();
+  }
+
   onGetTinhSuccess(response) {
     this.tinh = response;
+  }
+
+  onGetETinhSuccess(response) {
+    this.tinhe = response
   }
 
   onAddTinhSuccess() {
@@ -37,8 +54,16 @@ class ManageUuTienStore {
     ManageUuTienAction.getTinh();
   }
 
+  onEditTinhSuccess() {
+    ManageUuTienAction.getTinh();
+  }
+
   onGetDoituongSuccess(response) {
     this.doituong = response;
+  }
+
+  onGetEDoituongSuccess(response) {
+    this.doituonge = response
   }
 
   onAddDoituongSuccess() {
@@ -49,8 +74,16 @@ class ManageUuTienStore {
     ManageUuTienAction.getDoituong();
   }
 
+  onEditDoituongSuccess() {
+    ManageUuTienAction.getDoituong();
+  }
+
   onGetHoclucSuccess(response) {
     this.hocluc = response;
+  }
+
+  onGetEHoclucSuccess(response) {
+    this.hocluce = response
   }
 
   onAddHoclucSuccess() {
@@ -61,8 +94,16 @@ class ManageUuTienStore {
     ManageUuTienAction.getHocluc();
   }
 
+  onEditHoclucSuccess() {
+    ManageUuTienAction.getHocluc();
+  }
+
   onGetHoancanhSuccess(response) {
     this.hoancanh = response;
+  }
+
+  onGetEHoancanhSuccess(response) {
+    this.hoancanhe = response
   }
 
   onAddHoancanhSuccess() {
@@ -70,6 +111,10 @@ class ManageUuTienStore {
   }
 
   onDelTinhSuccess() {
+    ManageUuTienAction.getHoancanh();
+  }
+
+  onEditHoancanhSuccess() {
     ManageUuTienAction.getHoancanh();
   }
 

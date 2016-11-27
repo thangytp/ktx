@@ -4,19 +4,29 @@ class ManageUuTienAction {
   constructor() {
     this.generateActions(
       'getKhuvucSuccess',
+      'getEKhuvucSuccess',
       'addKhuvucSuccess',
+      'editKhuvucSuccess',
       'delKhuvucSuccess',
       'getTinhSuccess',
+      'getETinhSuccess',
+      'editTinhSuccess',
       'addTinhSuccess',
       'delTinhSuccess',
       'getDoituongSuccess',
+      'getEDoituongSuccess',
       'addDoituongSuccess',
+      'editDoituongSuccess',
       'delDoituongSuccess',
       'getHoclucSuccess',
+      'getEHoclucSuccess',
       'addHoclucSuccess',
+      'editHoclucSuccess',
       'delHoclucSuccess',
       'getHoancanhSuccess',
+      'getEHoancanhSuccess',
       'addHoancanhSuccess',
+      'editHoancanhSuccess',
       'delHoancanhSuccess'
     );
   }
@@ -27,6 +37,16 @@ class ManageUuTienAction {
     })
     .done((data) => {
       this.actions.getKhuvucSuccess(data);
+    })
+  }
+
+  getEKhuvuc(payload) {
+    $.ajax({
+      url: '/getkhuvuc/' + payload,
+      type: 'GET'
+    })
+    .done((data) => {
+      this.actions.getEKhuvucSuccess(data);
     })
   }
 
@@ -53,6 +73,17 @@ class ManageUuTienAction {
 
   }
 
+  editKhuvuc(payload) {
+    $.ajax({
+      url: '/editkhuvuc/' + payload.id,
+      type: 'PUT',
+      data: {ten : payload.ten, diem : payload.diem, ma : payload.ma}
+    })
+    .done((data) => {
+      this.actions.editKhuvucSuccess();
+    })
+  }
+
   getTinh() {
     $.ajax({
       url: '/gettinh',
@@ -60,6 +91,16 @@ class ManageUuTienAction {
     })
     .done((data) => {
       this.actions.getTinhSuccess(data);
+    })
+  }
+
+  getETinh(payload) {
+    $.ajax({
+      url: '/gettinh/' + payload,
+      type: 'GET'
+    })
+    .done((data) => {
+      this.actions.getETinhSuccess(data);
     })
   }
 
@@ -85,6 +126,17 @@ class ManageUuTienAction {
     })
   }
 
+  editTinh(payload) {
+    $.ajax({
+      url: '/edittinh/' + payload.id,
+      type: 'PUT',
+      data: {ten : payload.ten, diem : payload.diem, ma : payload.ma}
+    })
+    .done((data) => {
+      this.actions.editTinhSuccess();
+    })
+  }
+
   getDoituong() {
     $.ajax({
       url: '/getdoituong',
@@ -92,6 +144,16 @@ class ManageUuTienAction {
     })
     .done((data) => {
       this.actions.getDoituongSuccess(data);
+    })
+  }
+
+  getEDoituong(payload) {
+    $.ajax({
+      url: '/getdoituong/' + payload,
+      type: 'GET'
+    })
+    .done((data) => {
+      this.actions.getEDoituongSuccess(data);
     })
   }
 
@@ -117,6 +179,17 @@ class ManageUuTienAction {
     })
   }
 
+  editDoituong(payload) {
+    $.ajax({
+      url: '/editdoituong/' + payload.id,
+      type: 'PUT',
+      data: {ten : payload.ten, diem : payload.diem, ma : payload.ma}
+    })
+    .done((data) => {
+      this.actions.editDoituongSuccess();
+    })
+  }
+
   getHocluc() {
     $.ajax({
       url: '/gethocluc',
@@ -124,6 +197,16 @@ class ManageUuTienAction {
     })
     .done((data) => {
       this.actions.getHoclucSuccess(data);
+    })
+  }
+
+  getEHocluc(payload) {
+    $.ajax({
+      url: '/gethocluc/' + payload,
+      type: 'GET'
+    })
+    .done((data) => {
+      this.actions.getEHoclucSuccess(data);
     })
   }
 
@@ -149,6 +232,17 @@ class ManageUuTienAction {
     })
   }
 
+  editHocluc(payload) {
+    $.ajax({
+      url: '/edithocluc/' + payload.id,
+      type: 'PUT',
+      data: {ten : payload.ten, diem : payload.diem, ma : payload.ma}
+    })
+    .done((data) => {
+      this.actions.editHoclucSuccess();
+    })
+  }
+
   getHoancanh() {
     $.ajax({
       url: '/gethoancanh',
@@ -156,6 +250,16 @@ class ManageUuTienAction {
     })
     .done((data) => {
       this.actions.getHoancanhSuccess(data);
+    })
+  }
+
+  getEHoancanh(payload) {
+    $.ajax({
+      url: '/gethoancanh/' + payload,
+      type: 'GET'
+    })
+    .done((data) => {
+      this.actions.getEHoancanhSuccess(data);
     })
   }
 
@@ -178,6 +282,17 @@ class ManageUuTienAction {
     })
     .done((data) => {
       this.actions.addHoancanhSuccess();
+    })
+  }
+
+  editHoancanh(payload) {
+    $.ajax({
+      url: '/edithoancanh/' + payload.id,
+      type: 'PUT',
+      data: {ten : payload.ten, diem : payload.diem, ma : payload.ma}
+    })
+    .done((data) => {
+      this.actions.editHoancanhSuccess();
     })
   }
 
