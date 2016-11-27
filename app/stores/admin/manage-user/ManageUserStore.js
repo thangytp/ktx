@@ -24,6 +24,8 @@ class ManageUserStore {
     this.usersedrlktx = [];
     this.usersdrlktx = [];
     this.usersdrlktxloai = [];
+    this.usersxd = [];
+    this.usersgh = [];
     this.activeHocvu = false;
     this.activeDiemrenluyen = false;
     this.activeDiemrenluyenKtx = false;
@@ -54,6 +56,14 @@ class ManageUserStore {
 
   onGetUsersSuccess(response) {
     this.users = response;
+  }
+
+  getUsersByGiaHanThanhCongSuccess(response) {
+    this.usersgh = response;
+  }
+
+  getUsersByXetDuyetThanhCongSuccess(response) {
+    this.usersxd = response;
   }
 
   getUsersByDiemXetDuyetGiaHanSuccess(response) {

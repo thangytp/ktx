@@ -6,9 +6,14 @@ import HomeMenu from './components/admin/menu/HomeMenu';
 import ManageStudent from './components/admin/manage-user/ManageStudent';
 import XetDuyetMoi from './components/admin/manage-user/XetDuyetMoi';
 import GiaHanCu from './components/admin/manage-user/GiaHanCu';
+import XetDuyetStudent from './components/admin/manage-user/XetDuyetStudent';
+import GiaHanStudent from './components/admin/manage-user/GiaHanStudent';
+
 
 import ChiTieu from './components/admin/manage-chitieu/ChiTieu';
 import UuTien from './components/admin/manage-uutien/UuTien';
+import Phong from './components/admin/manage-phong/Phong';
+
 
 import AddItemMenu from './components/admin/menu/AddItemMenu';
 import AddPage from './components/admin/page/AddPage';
@@ -44,11 +49,14 @@ export default (
             <Route path='/quanly@ktx/them-page' component={AddPage} onEnter={requireAuth}/>
             <Route path='/quanly@ktx/quan-ly-hinh-anh' component={Images} onEnter={requireAuth}/>
             <Route path='/quanly@ktx/quan-ly-sinh-vien' component={ManageStudent} onEnter={requireAuth} />
+            <Route path='/quanly@ktx/sinh-vien-xet-duyet' component={XetDuyetStudent} onEnter={requireAuth} />
+            <Route path='/quanly@ktx/sinh-vien-gia-han' component={GiaHanStudent} onEnter={requireAuth} />
             <Route path="/quanly@ktx/xet-duyet-luu-tru-moi" component={XetDuyetMoi}/>
             <Route path="/quanly@ktx/gia-han-luu-tru-cu" component={GiaHanCu}/>
 
             <Route path="/quanly@ktx/chi-tieu" component={ChiTieu}/>
             <Route path="/quanly@ktx/uu-tien" component={UuTien}/>
+            <Route path="/quanly@ktx/phong" component={Phong}/>
             <Route path="/quanly@ktx/cotphai-home" component={CotPhaiHome}/>
             <Route path="/quanly@ktx/lienket-site" component={LienKetSite}/>
 

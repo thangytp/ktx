@@ -29,7 +29,7 @@ class SideBarLeft extends React.Component {
     let avatar = localStorage.getItem('adminavatar');
     let style= {"border": "0"}
     return(
-            
+
             <aside id="sidebar-left" className="sidebar-circle sidebar-dark">
                 <ul className="sidebar-menu">
                       <li className="active">
@@ -51,11 +51,24 @@ class SideBarLeft extends React.Component {
                         </Link>
                       </li>
                       <li className="submenu">
-                              <Link to="/quanly@ktx/quan-ly-sinh-vien">
-                                  <span className="icon"><i className="fa fa-dropbox"></i></span>
-                                  <span className="text">Quản lý sinh viên</span>
-                              </Link>
-                          
+                          <a href="javascript:void(0);">
+                              <span className="icon"><i className="fa fa-dropbox"></i></span>
+                              <span className="text">Quản lý sinh viên</span>
+                              <span className="arrow fa-angle-double-right"></span>
+                          </a>
+                          <ul style={{"display":"none"}}>
+                              <li>
+                                <Link to="/quanly@ktx/quan-ly-sinh-vien">
+                                    <span className="text">Danh sách sinh viên</span>
+                                </Link>
+                              </li>
+                              <li>
+                                <Link to="/quanly@ktx/sinh-vien-xet-duyet">Danh sách sinh viên xét duyệt thành công</Link>
+                              </li>
+                              <li>
+                                <Link to="/quanly@ktx/sinh-vien-gia-han">Danh sách sinh viên gia hạn thành công</Link>
+                              </li>
+                          </ul>
                       </li>
                       <li className="submenu">
                           <a href="javascript:void(0);">
@@ -82,6 +95,12 @@ class SideBarLeft extends React.Component {
                         <Link to="/quanly@ktx/uu-tien">
                             <span className="icon"><i className="fa fa-dropbox"></i></span>
                             <span className="text">Ưu Tiên</span>
+                        </Link>
+                      </li>
+                      <li className="">
+                        <Link to="/quanly@ktx/phong">
+                            <span className="icon"><i className="fa fa-dropbox"></i></span>
+                            <span className="text">Phòng</span>
                         </Link>
                       </li>
                       <li className="">
