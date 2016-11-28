@@ -5,6 +5,8 @@ import YouTube from 'react-youtube';
 import CotPhaiHomeAction from '../../actions/admin/cotphaihome/CotPhaiHomeAction';
 import CotPhaiHomeStore from '../../stores/admin/cotphaihome/CotPhaiHomeStore';
 
+import CotPhaiHome from './CotPhaiHome';
+
 class Home extends React.Component {
 	constructor(props)
 	{
@@ -91,7 +93,7 @@ class Home extends React.Component {
 			    		</div>
 			    	</div>
 			    	<div className="col-md-3 col-sm-12">
-			    		{listItem}
+			    		<CotPhaiHome />
 			    	</div>
 		    	</section>
 		    </div>     

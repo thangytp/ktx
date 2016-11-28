@@ -187,7 +187,7 @@ class AddPage extends React.Component {
 										  	 
 										  	<div className="panel-body">
 										  		<label>
-										  			<input type="checkbox" value={this.state.cotphaiHome} onChange={AddPageAction.cotphaiHome}/>
+										  			<input type="checkbox" value={this.state.cotphaiHome} checked={this.state.checkCotPhaiHome} onChange={AddPageAction.cotphaiHome}/>
 										  			Dùng nội dung cột bên phải trang Home cho trang này?
 										  		</label>
 										  		<div style={{'display': this.state.styleCustomContentRight}}>
@@ -213,7 +213,7 @@ class AddPage extends React.Component {
 									<div className="form-footer">
 									  	<div className="form-group"> 
 									    	<div className="col-sm-offset-2">
-									      		<button type="submit" className="btn btn-success">Thêm</button><span className='help-block'> {this.state.helpBlockAddPage}</span>
+									      		<button type="submit" className="btn btn-success">{this.state.textButton}</button><span className='help-block'> {this.state.helpBlockAddPage}</span>
 									    	</div>
 									  	</div>
 									</div>

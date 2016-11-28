@@ -25,6 +25,8 @@ import LogIn from './components/main/user/LogIn';
 import LogInAdmin from './components/admin/LogIn';
 import InfoPage from './components/main/user/InfoPage';
 
+import ViewDetailPage from './components/main/page/ViewDetailPage';
+
 import localStorage from 'localStorage';
 
 
@@ -62,6 +64,8 @@ export default (
             <Route path='/xem-ket-qua-luu-tru' component={KetQuaDangKyLuuTru}/>
             <Route path='/login' component={LogIn}/>
             <Route path='/info-stu' component={InfoPage}/>
+            <Route path=':link/:link2' component={ViewDetailPage}/>
+            <Route path=':link/:link2/:link3' component={ViewDetailPage}/>
         </Route>
   </Route>
 );
