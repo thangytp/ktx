@@ -17,6 +17,10 @@ class ManageChiTieuStore {
     ManageChiTieuAction.getChitieu();
   }
 
+  onUpdateChiTieuSuccess() {
+    ManageChiTieuAction.getChitieu();
+  }
+
   onDelChitieuSuccess() {
     ManageChiTieuAction.getChitieu();
   }

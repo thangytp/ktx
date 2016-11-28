@@ -17,7 +17,7 @@ const AddPhongModal = React.createClass({
     ManagePhongAction.addPhong(data);
   },
 
-  render() {
+  render() {  
     return (
       <Modal {...this.props} bsSize="large" aria-labelledby="contained-modal-title-lg">
         <Modal.Header closeButton>

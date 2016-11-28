@@ -581,70 +581,167 @@ module.exports = function(app, importStudent) {
   // Add Chi Tieu
 
     app.post('/addchitieu', function(req, res){
-      console.log(req.body);
+      var chitiet = {
+        "_phong_id" : req.body.phong,
+        "nam1" : {
+          "xetduyet" : {
+            "male" : req.body.namnam1xd,
+            "female" : req.body.nunam1xd,
+            "diemcoban" : req.body.diemcb1xd
+          },
+          "giahan" : {
+            "male" : req.body.namnam1gh,
+            "female": req.body.nunam1gh,
+            "diemcoban": req.body.diemcb1gh
+          }
+        },
+        "nam2" : {
+          "xetduyet" : {
+            "male" : req.body.namnam2xd,
+            "female" : req.body.nunam2xd,
+            "diemcoban" : req.body.diemcb2xd
+          },
+          "giahan" : {
+            "male" : req.body.namnam2gh,
+            "female": req.body.nunam2gh,
+            "diemcoban": req.body.diemcb2gh
+          }
+        },
+        "nam3" : {
+          "xetduyet" : {
+            "male" : req.body.namnam3xd,
+            "female" : req.body.nunam3xd,
+            "diemcoban" : req.body.diemcb3xd
+          },
+          "giahan" : {
+            "male" : req.body.namnam3gh,
+            "female": req.body.nunam3gh,
+            "diemcoban": req.body.diemcb3gh
+          }
+        },
+        "nam4" : {
+          "xetduyet" : {
+            "male" : req.body.namnam4xd,
+            "female" : req.body.nunam4xd,
+            "diemcoban" : req.body.diemcb4xd
+          },
+          "giahan" : {
+            "male" : req.body.namnam4gh,
+            "female": req.body.nunam4gh,
+            "diemcoban": req.body.diemcb4gh
+          }
+        },
+        "nam5" : {
+          "xetduyet" : {
+            "male" : req.body.namnam5xd,
+            "female" : req.body.nunam5xd,
+            "diemcoban" : req.body.diemcb5xd
+          },
+          "giahan" : {
+            "male" : req.body.namnam5gh,
+            "female": req.body.nunam5gh,
+            "diemcoban": req.body.diemcb5gh
+          }
+        },
+        "nam6" : {
+          "xetduyet" : {
+            "male" : req.body.namnam6xd,
+            "female" : req.body.nunam6xd,
+            "diemcoban" : req.body.diemcb6xd
+          },
+          "giahan" : {
+            "male" : req.body.namnam6gh,
+            "female": req.body.nunam6gh,
+            "diemcoban": req.body.diemcb6gh
+          }
+        }
+      };
       var nChitieu = new Chitieu();
       nChitieu.nam = req.body.nam;
-      nChitieu.nam1.xetduyet = {
-        male : req.body.namnam1xd,
-        female: req.body.nunam1xd,
-        diemcoban: req.body.diemcb1xd
-      }
-      nChitieu.nam1.giahan = {
-        male : req.body.namnam1gh,
-        female: req.body.nunam1gh,
-        diemcoban: req.body.diemcb1gh
-      }
-      nChitieu.nam2.xetduyet = {
-        male : req.body.namnam2xd,
-        female: req.body.nunam2xd,
-        diemcoban: req.body.diemcb2xd
-      }
-      nChitieu.nam2.giahan = {
-        male : req.body.namnam2gh,
-        female: req.body.nunam2gh,
-        diemcoban: req.body.diemcb2gh
-      }
-      nChitieu.nam3.xetduyet = {
-        male : req.body.namnam3xd,
-        female: req.body.nunam3xd,
-        diemcoban: req.body.diemcb3xd
-      }
-      nChitieu.nam3.giahan = {
-        male : req.body.namnam3gh,
-        female: req.body.nunam3gh,
-        diemcoban: req.body.diemcb3gh
-      }
-      nChitieu.nam4.xetduyet = {
-        male : req.body.namnam4xd,
-        female: req.body.nunam4xd,
-        diemcoban: req.body.diemcb4xd
-      }
-      nChitieu.nam4.giahan = {
-        male : req.body.namnam4gh,
-        female: req.body.nunam4gh,
-        diemcoban: req.body.diemcb4gh
-      }
-      nChitieu.nam5.xetduyet = {
-        male : req.body.namnam5xd,
-        female: req.body.nunam5xd,
-        diemcoban: req.body.diemcb5xd
-      }
-      nChitieu.nam5.giahan = {
-        male : req.body.namnam5gh,
-        female: req.body.nunam5gh,
-        diemcoban: req.body.diemcb5gh
-      }
-      nChitieu.nam6.xetduyet = {
-        male : req.body.namnam6xd,
-        female: req.body.nunam6xd,
-        diemcoban: req.body.diemcb6xd
-      }
-      nChitieu.nam6.giahan = {
-        male : req.body.namnam6gh,
-        female: req.body.nunam6gh,
-        diemcoban: req.body.diemcb6gh
-      }
-      nChitieu.save(function(err){
+      nChitieu.chitiet.push(chitiet);
+      nChitieu.save(function(err) {
+        if(err) throw err;
+        res.send(true);
+      });
+    })
+
+    app.put('/updatechitieu/:nam', function(req, res){
+      var chitiet = {
+        "_phong_id" : req.body.phong,
+        "nam1" : {
+          "xetduyet" : {
+            "male" : req.body.namnam1xd,
+            "female" : req.body.nunam1xd,
+            "diemcoban" : req.body.diemcb1xd
+          },
+          "giahan" : {
+            "male" : req.body.namnam1gh,
+            "female": req.body.nunam1gh,
+            "diemcoban": req.body.diemcb1gh
+          }
+        },
+        "nam2" : {
+          "xetduyet" : {
+            "male" : req.body.namnam2xd,
+            "female" : req.body.nunam2xd,
+            "diemcoban" : req.body.diemcb2xd
+          },
+          "giahan" : {
+            "male" : req.body.namnam2gh,
+            "female": req.body.nunam2gh,
+            "diemcoban": req.body.diemcb2gh
+          }
+        },
+        "nam3" : {
+          "xetduyet" : {
+            "male" : req.body.namnam3xd,
+            "female" : req.body.nunam3xd,
+            "diemcoban" : req.body.diemcb3xd
+          },
+          "giahan" : {
+            "male" : req.body.namnam3gh,
+            "female": req.body.nunam3gh,
+            "diemcoban": req.body.diemcb3gh
+          }
+        },
+        "nam4" : {
+          "xetduyet" : {
+            "male" : req.body.namnam4xd,
+            "female" : req.body.nunam4xd,
+            "diemcoban" : req.body.diemcb4xd
+          },
+          "giahan" : {
+            "male" : req.body.namnam4gh,
+            "female": req.body.nunam4gh,
+            "diemcoban": req.body.diemcb4gh
+          }
+        },
+        "nam5" : {
+          "xetduyet" : {
+            "male" : req.body.namnam5xd,
+            "female" : req.body.nunam5xd,
+            "diemcoban" : req.body.diemcb5xd
+          },
+          "giahan" : {
+            "male" : req.body.namnam5gh,
+            "female": req.body.nunam5gh,
+            "diemcoban": req.body.diemcb5gh
+          }
+        },
+        "nam6" : {
+          "xetduyet" : {
+            "male" : req.body.namnam6xd,
+            "female" : req.body.nunam6xd,
+            "diemcoban" : req.body.diemcb6xd
+          },
+          "giahan" : {
+            "male" : req.body.namnam6gh,
+            "female": req.body.nunam6gh,
+            "diemcoban": req.body.diemcb6gh
+          }
+        }
+      };
+      Chitieu.findOneAndUpdate({nam: req.params.nam}, {$push : {"chitiet" : chitiet}}, {new : true}, function(err){
         if(err) throw err;
         res.send(true);
       });
