@@ -3,6 +3,8 @@ var MenuCha = require('../../models/chaMenu');
 var MenuChild = require('../../models/conMenu');
 var MenuSubChild = require('../../models/chauMenu');
 
+var page = require('../../models/page');
+
 function HomeMenuServer(app){
 
 	// app.get('/api/getallmenu', function(req, res, next){
@@ -56,6 +58,50 @@ function HomeMenuServer(app){
 	// 	    res.status(e).send({ message: 'Error when get list cha item'});
 	// 	}
 	// });
+	
+	app.get('/api/getpagebylink/:link/:link2', function(req, res, next){
+		var link = req.params.link + '/' + req.params.link2;
+		console.log(link);
+		try{
+			MenuChild.findOne({slug: link}, function(err, menuRes){
+				if(err) return next(err);
+				if(menuRes){
+					if(menuRes._postId){
+						page.findOne({_id: menuRes._postId}, function(err, pageRes){
+							if(err) return next(err);
+							if(pageRes) res.send(pageRes);
+						});
+					}
+					
+				}
+				
+			});
+		}catch(e){
+		    res.status(e).send({ message: 'Error when get list cha item'});
+		}
+	});
+
+	app.get('/api/getpagebylink/:link/:link2/:link3', function(req, res, next){
+		var link = req.params.link + '/' + req.params.link2 + '/' + req.params.link3;
+		console.log(link);
+		try{
+		
+			MenuSubChild.findOne({slug: link}, function(err, menuSubChildRes){
+				if(err) return next(err);
+				if(menuSubChildRes){
+					if(menuSubChildRes._postId){
+						page.findOne({_id: menuSubChildRes._postId}, function(err, pageRes){
+							if(err) return next(err);
+							if(pageRes) res.send(pageRes);
+						});
+					}
+				}
+			});
+			
+		}catch(e){
+		    res.status(e).send({ message: 'Error when get list cha item'});
+		}
+	});
 
 	// ====== code test menu ==============//
 	app.get('/api/testgetcha', function(req, res, next){

@@ -34,25 +34,25 @@ class SideBarLeft extends React.Component {
                 <ul className="sidebar-menu">
                       <li className="active">
                         <Link to="/quanly@ktx">
-                            <span className="icon"><i className="fa fa-dropbox"></i></span>
+                            <span className="icon"><i className="fa fa-bars"></i></span>
                             <span className="text">Quản lý menu</span>
                         </Link>
                       </li>
                       <li>
                         <Link to="/quanly@ktx/them-page">
-                            <span className="icon"><i className="fa fa-dropbox"></i></span>
-                            <span className="text">Thêm trang</span>
+                            <span className="icon"><i className="fa fa-file-o"></i></span>
+                            <span className="text">Quản lý trang</span>
                         </Link>
                       </li>
                       <li className="">
                         <Link to="/quanly@ktx/quan-ly-hinh-anh">
-                            <span className="icon"><i className="fa fa-dropbox"></i></span>
+                            <span className="icon"><i className="fa fa-file-image-o"></i></span>
                             <span className="text">Quản lý hình ảnh</span>
                         </Link>
                       </li>
                       <li className="submenu">
                           <a href="javascript:void(0);">
-                              <span className="icon"><i className="fa fa-dropbox"></i></span>
+                              <span className="icon"><i className="fa fa-graduation-cap"></i></span>
                               <span className="text">Quản lý sinh viên</span>
                               <span className="arrow fa-angle-double-right"></span>
                           </a>
@@ -72,7 +72,7 @@ class SideBarLeft extends React.Component {
                       </li>
                       <li className="submenu">
                           <a href="javascript:void(0);">
-                              <span className="icon"><i className="fa fa-dropbox"></i></span>
+                              <span className="icon"><i className="fa fa-check-circle-o"></i></span>
                               <span className="text">Xét duyệt lưu trú</span>
                               <span className="arrow fa-angle-double-right"></span>
                           </a>
@@ -87,7 +87,7 @@ class SideBarLeft extends React.Component {
                       </li>
                       <li className="">
                         <Link to="/quanly@ktx/chi-tieu">
-                            <span className="icon"><i className="fa fa-dropbox"></i></span>
+                            <span className="icon"><i className="fa fa-list-alt"></i></span>
                             <span className="text">Chỉ Tiêu</span>
                         </Link>
                       </li>
@@ -105,13 +105,13 @@ class SideBarLeft extends React.Component {
                       </li>
                       <li className="">
                         <Link to="/quanly@ktx/cotphai-home">
-                            <span className="icon"><i className="fa fa-dropbox"></i></span>
+                            <span className="icon"><i className="fa fa-cog"></i></span>
                             <span className="text">Cột phải trang Home</span>
                         </Link>
                       </li>
                       <li className="">
                         <Link to="/quanly@ktx/lienket-site">
-                            <span className="icon"><i className="fa fa-dropbox"></i></span>
+                            <span className="icon"><i className="fa fa-link"></i></span>
                             <span className="text">Liên kết site</span>
                         </Link>
                       </li>

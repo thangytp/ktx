@@ -7,7 +7,7 @@
 @import url('https://fonts.googleapis.com/css?family=Exo');
 body{
     background-color: #eeeeef;
-    font-family: "Open Sans", sans-serif;
+    font-family: "Open Sans", sans-serif !important;
     color: #636E7B;
     -webkit-font-smoothing: antialiased;
     direction: ltr;
@@ -19,6 +19,7 @@ body{
 }
 a{
 	cursor: pointer;
+    font-family: "Open Sans", sans-serif !important;
 	text-decoration: none !important;
 }
 a {
@@ -1307,6 +1308,22 @@ a {
 }
 .panel-border-primary{
     border: 1px solid #00addc;
+}
+
+/*=============== css chi tiet page ===============*/
+.panel-blog {
+    padding: 20px;
+}
+.panel-blog .panel-body {
+    background-color: #ffffff !important;
+}
+.page-title {
+    color: #333;
+    margin: 0px;
+    font-weight: 600;
+    font-size: 18px;
+    margin-bottom: 10px;
+    text-transform: uppercase;
 }
  /*=====================css register page==========*/
  .signup h2{

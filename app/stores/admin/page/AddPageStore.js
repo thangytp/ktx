@@ -20,6 +20,8 @@ class AddPageStore {
     this.imagePreviewUrl='/uploads/LogoBK.png';
     this.imageUrl='/uploads/LogoBK.png';
 
+    //cotphaihome = 1 : dung noi dung cot phai trang home, = 0 la khong dung
+    this.checkCotPhaiHome = '';
     this.cotphaiHome = 0;
     this.styleCustomContentRight = '';
     this.arrImg = [];
@@ -43,9 +45,12 @@ class AddPageStore {
     // initial for delete page
     this.modalIsOpenDeletePage = false;
     this.idPageToDelete = '';
+
+    this.textButton = 'Thêm';
   }
 
   onUpdateTitlePage(event){
+    this.helpBlockAddPage = '';
     this.titlePage = event.target.value;
   }
 
@@ -80,10 +85,11 @@ class AddPageStore {
   
   onCotphaiHome(){
     if(this.cotphaiHome){
+      this.checkCotPhaiHome = '';
       this.cotphaiHome = 0;
       this.styleCustomContentRight = 'block';
     }
-    else{ this.cotphaiHome = 1; this.styleCustomContentRight = 'none';}
+    else{ this.cotphaiHome = 1; this.styleCustomContentRight = 'none';this.checkCotPhaiHome = 'checked';}
   }
 
   onUpdateImgText(payload){
@@ -178,6 +184,7 @@ class AddPageStore {
       this.numberOfImageItem = 0;
       this.numberOfVideoItem = 0;
 
+      this.checkCotPhaiHome = '';
       this.cotphaiHome = 0;
       this.styleCustomContentRight = '';
       this.arrImg = [];
@@ -193,6 +200,8 @@ class AddPageStore {
       this.helpBlockContentRight = '';
       this.helpBlockImage = '';
       this.helpBlockVideo = '';
+
+      this.textButton = 'Thêm';
 
       AddPageAction.getListPage();
   }
@@ -233,8 +242,10 @@ class AddPageStore {
     this.cotphaiHome = data.cotPhaiHome? data.cotPhaiHome : 0;
     if(this.cotphaiHome==1){
       this.styleCustomContentRight = 'none';
+      this.checkCotPhaiHome = 'checked';
     }
     else{
+      this.checkCotPhaiHome = '';
       this.styleCustomContentRight = 'block';
     }
     // this.styleCustomContentRight = '';
@@ -252,6 +263,9 @@ class AddPageStore {
     this.helpBlockContentRight = '';
     this.helpBlockImage = '';
     this.helpBlockVideo = '';
+
+    this.helpBlockAddPage = '';
+    this.textButton = 'Lưu';
   }
   onGetPageFail(jqXhr){
     console.log('get page fail');
@@ -291,6 +305,7 @@ class AddPageStore {
     this.numberOfImageItem = 0;
     this.numberOfVideoItem = 0;
 
+    this.checkCotPhaiHome = '';
     this.cotphaiHome = 0;
     this.styleCustomContentRight = '';
     this.arrImg = [];
@@ -306,6 +321,9 @@ class AddPageStore {
     this.helpBlockContentRight = '';
     this.helpBlockImage = '';
     this.helpBlockVideo = '';
+
+    this.helpBlockAddPage = 'Cập nhật trang thành công';
+    this.textButton = 'Thêm';
 
     AddPageAction.getListPage();
     console.log(data);
