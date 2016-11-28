@@ -4,6 +4,7 @@ class ManageChiTieuAction {
   constructor() {
     this.generateActions(
       'addChiTieuSuccess',
+      'updateChiTieuSuccess',
       'getChitieuSuccess',
       'delChitieuSuccess'
     );
@@ -37,6 +38,17 @@ class ManageChiTieuAction {
     })
     .done((data) => {
       this.actions.addChiTieuSuccess();
+    })
+  }
+
+  updateChiTieu(payload) {
+    $.ajax({
+      url: '/updatechitieu/' + payload.nam,
+      type: 'PUT',
+      data: payload
+    })
+    .done((data) => {
+      this.actions.updateChiTieuSuccess();
     })
   }
 }

@@ -7,6 +7,8 @@ var Tinh = require('../../models/tinh');
 var Doituong = require('../../models/doituong');
 var Hocluc = require('../../models/hocluc');
 var Hoancanh = require('../../models/hoancanh');
+var Phong = require('../../models/phong');
+
 
 
 
@@ -136,6 +138,20 @@ module.exports = function(app, importStudent) {
     });
   })
 
+  app.get('/xetduyet/getstudentluutru', function(req, res){
+    Student.find({xet_duyet_thanh_cong: true}, function(err, students){
+      if(err) throw err;
+      res.json(students);
+    });
+  })
+
+  app.get('/giahan/getstudentluutru', function(req, res){
+    Student.find({gia_han_thanh_cong: true}, function(err, students){
+      if(err) throw err;
+      res.json(students);
+    });
+  })
+
   //Get Students By Diem Ren Luyen
 
   app.get('/xetduyet/getstudent/diem/:stuDiem', function(req, res){
@@ -173,7 +189,17 @@ module.exports = function(app, importStudent) {
     .sort('-diem_ren_luyen')
     .limit(req.params.soluong)
     .exec(function(err, students){
-      if(err) throw err;
+      if(err) {
+        throw err;
+      }
+      else {
+        students.forEach(function(student){
+          student.update({$set : {xet_duyet_thanh_cong: true}}, function(err){
+            if(err) throw err;
+            console.log(student);
+          });
+        });
+      }
       res.json(students);
     });
 
@@ -193,8 +219,16 @@ module.exports = function(app, importStudent) {
     .sort('-diem_ren_luyen')
     .limit(req.params.soluong)
     .exec(function(err, students){
-      console.log(students);
-      if(err) throw err;
+      if(err) {
+        throw err;
+      }
+      else {
+        students.forEach(function(student){
+          student.update({$set : {gia_han_thanh_cong: true}}, function(err){
+            if(err) throw err;
+          });
+        });
+      }
       res.json(students);
     });
 
@@ -547,70 +581,167 @@ module.exports = function(app, importStudent) {
   // Add Chi Tieu
 
     app.post('/addchitieu', function(req, res){
-      console.log(req.body);
+      var chitiet = {
+        "_phong_id" : req.body.phong,
+        "nam1" : {
+          "xetduyet" : {
+            "male" : req.body.namnam1xd,
+            "female" : req.body.nunam1xd,
+            "diemcoban" : req.body.diemcb1xd
+          },
+          "giahan" : {
+            "male" : req.body.namnam1gh,
+            "female": req.body.nunam1gh,
+            "diemcoban": req.body.diemcb1gh
+          }
+        },
+        "nam2" : {
+          "xetduyet" : {
+            "male" : req.body.namnam2xd,
+            "female" : req.body.nunam2xd,
+            "diemcoban" : req.body.diemcb2xd
+          },
+          "giahan" : {
+            "male" : req.body.namnam2gh,
+            "female": req.body.nunam2gh,
+            "diemcoban": req.body.diemcb2gh
+          }
+        },
+        "nam3" : {
+          "xetduyet" : {
+            "male" : req.body.namnam3xd,
+            "female" : req.body.nunam3xd,
+            "diemcoban" : req.body.diemcb3xd
+          },
+          "giahan" : {
+            "male" : req.body.namnam3gh,
+            "female": req.body.nunam3gh,
+            "diemcoban": req.body.diemcb3gh
+          }
+        },
+        "nam4" : {
+          "xetduyet" : {
+            "male" : req.body.namnam4xd,
+            "female" : req.body.nunam4xd,
+            "diemcoban" : req.body.diemcb4xd
+          },
+          "giahan" : {
+            "male" : req.body.namnam4gh,
+            "female": req.body.nunam4gh,
+            "diemcoban": req.body.diemcb4gh
+          }
+        },
+        "nam5" : {
+          "xetduyet" : {
+            "male" : req.body.namnam5xd,
+            "female" : req.body.nunam5xd,
+            "diemcoban" : req.body.diemcb5xd
+          },
+          "giahan" : {
+            "male" : req.body.namnam5gh,
+            "female": req.body.nunam5gh,
+            "diemcoban": req.body.diemcb5gh
+          }
+        },
+        "nam6" : {
+          "xetduyet" : {
+            "male" : req.body.namnam6xd,
+            "female" : req.body.nunam6xd,
+            "diemcoban" : req.body.diemcb6xd
+          },
+          "giahan" : {
+            "male" : req.body.namnam6gh,
+            "female": req.body.nunam6gh,
+            "diemcoban": req.body.diemcb6gh
+          }
+        }
+      };
       var nChitieu = new Chitieu();
       nChitieu.nam = req.body.nam;
-      nChitieu.nam1.xetduyet = {
-        male : req.body.namnam1xd,
-        female: req.body.nunam1xd,
-        diemcoban: req.body.diemcb1xd
-      }
-      nChitieu.nam1.giahan = {
-        male : req.body.namnam1gh,
-        female: req.body.nunam1gh,
-        diemcoban: req.body.diemcb1gh
-      }
-      nChitieu.nam2.xetduyet = {
-        male : req.body.namnam2xd,
-        female: req.body.nunam2xd,
-        diemcoban: req.body.diemcb2xd
-      }
-      nChitieu.nam2.giahan = {
-        male : req.body.namnam2gh,
-        female: req.body.nunam2gh,
-        diemcoban: req.body.diemcb2gh
-      }
-      nChitieu.nam3.xetduyet = {
-        male : req.body.namnam3xd,
-        female: req.body.nunam3xd,
-        diemcoban: req.body.diemcb3xd
-      }
-      nChitieu.nam3.giahan = {
-        male : req.body.namnam3gh,
-        female: req.body.nunam3gh,
-        diemcoban: req.body.diemcb3gh
-      }
-      nChitieu.nam4.xetduyet = {
-        male : req.body.namnam4xd,
-        female: req.body.nunam4xd,
-        diemcoban: req.body.diemcb4xd
-      }
-      nChitieu.nam4.giahan = {
-        male : req.body.namnam4gh,
-        female: req.body.nunam4gh,
-        diemcoban: req.body.diemcb4gh
-      }
-      nChitieu.nam5.xetduyet = {
-        male : req.body.namnam5xd,
-        female: req.body.nunam5xd,
-        diemcoban: req.body.diemcb5xd
-      }
-      nChitieu.nam5.giahan = {
-        male : req.body.namnam5gh,
-        female: req.body.nunam5gh,
-        diemcoban: req.body.diemcb5gh
-      }
-      nChitieu.nam6.xetduyet = {
-        male : req.body.namnam6xd,
-        female: req.body.nunam6xd,
-        diemcoban: req.body.diemcb6xd
-      }
-      nChitieu.nam6.giahan = {
-        male : req.body.namnam6gh,
-        female: req.body.nunam6gh,
-        diemcoban: req.body.diemcb6gh
-      }
-      nChitieu.save(function(err){
+      nChitieu.chitiet.push(chitiet);
+      nChitieu.save(function(err) {
+        if(err) throw err;
+        res.send(true);
+      });
+    })
+
+    app.put('/updatechitieu/:nam', function(req, res){
+      var chitiet = {
+        "_phong_id" : req.body.phong,
+        "nam1" : {
+          "xetduyet" : {
+            "male" : req.body.namnam1xd,
+            "female" : req.body.nunam1xd,
+            "diemcoban" : req.body.diemcb1xd
+          },
+          "giahan" : {
+            "male" : req.body.namnam1gh,
+            "female": req.body.nunam1gh,
+            "diemcoban": req.body.diemcb1gh
+          }
+        },
+        "nam2" : {
+          "xetduyet" : {
+            "male" : req.body.namnam2xd,
+            "female" : req.body.nunam2xd,
+            "diemcoban" : req.body.diemcb2xd
+          },
+          "giahan" : {
+            "male" : req.body.namnam2gh,
+            "female": req.body.nunam2gh,
+            "diemcoban": req.body.diemcb2gh
+          }
+        },
+        "nam3" : {
+          "xetduyet" : {
+            "male" : req.body.namnam3xd,
+            "female" : req.body.nunam3xd,
+            "diemcoban" : req.body.diemcb3xd
+          },
+          "giahan" : {
+            "male" : req.body.namnam3gh,
+            "female": req.body.nunam3gh,
+            "diemcoban": req.body.diemcb3gh
+          }
+        },
+        "nam4" : {
+          "xetduyet" : {
+            "male" : req.body.namnam4xd,
+            "female" : req.body.nunam4xd,
+            "diemcoban" : req.body.diemcb4xd
+          },
+          "giahan" : {
+            "male" : req.body.namnam4gh,
+            "female": req.body.nunam4gh,
+            "diemcoban": req.body.diemcb4gh
+          }
+        },
+        "nam5" : {
+          "xetduyet" : {
+            "male" : req.body.namnam5xd,
+            "female" : req.body.nunam5xd,
+            "diemcoban" : req.body.diemcb5xd
+          },
+          "giahan" : {
+            "male" : req.body.namnam5gh,
+            "female": req.body.nunam5gh,
+            "diemcoban": req.body.diemcb5gh
+          }
+        },
+        "nam6" : {
+          "xetduyet" : {
+            "male" : req.body.namnam6xd,
+            "female" : req.body.nunam6xd,
+            "diemcoban" : req.body.diemcb6xd
+          },
+          "giahan" : {
+            "male" : req.body.namnam6gh,
+            "female": req.body.nunam6gh,
+            "diemcoban": req.body.diemcb6gh
+          }
+        }
+      };
+      Chitieu.findOneAndUpdate({nam: req.params.nam}, {$push : {"chitiet" : chitiet}}, {new : true}, function(err){
         if(err) throw err;
         res.send(true);
       });
@@ -634,6 +765,13 @@ module.exports = function(app, importStudent) {
       });
     })
 
+    app.get('/getkhuvuc/:id', function(req, res){
+      Khuvuc.findOne({_id : req.params.id}, function(err, khuvuc){
+        if(err) throw err;
+        res.json(khuvuc);
+      });
+    })
+
     // Add Khu Vuc
 
     app.post('/addkhuvuc', function(req, res){
@@ -645,6 +783,13 @@ module.exports = function(app, importStudent) {
       nKhuvuc.save(function(err){
         if(err) throw err;
         res.send(true);
+      });
+    })
+
+    app.put('/editkhuvuc/:id', function(req, res){
+      Khuvuc.findByIdAndUpdate(req.params.id, {ten: req.body.ten, diem: req.body.diem, ma: req.body.ma} , { new: true }, function (err, khuvuc) {
+        if (err) throw err;
+        res.send(khuvuc);
       });
     })
 
@@ -666,6 +811,13 @@ module.exports = function(app, importStudent) {
       });
     })
 
+    app.get('/gettinh/:id', function(req, res){
+      Tinh.findOne({_id : req.params.id}, function(err, tinh){
+        if(err) throw err;
+        res.json(tinh);
+      });
+    })
+
     // Add Tinh
 
     app.post('/addtinh', function(req, res){
@@ -676,6 +828,13 @@ module.exports = function(app, importStudent) {
       nTinh.save(function(err){
         if(err) throw err;
         res.send(true);
+      });
+    })
+
+    app.put('/edittinh/:id', function(req, res){
+      Tinh.findByIdAndUpdate(req.params.id, {ten: req.body.ten, diem: req.body.diem, ma: req.body.ma} , { new: true }, function (err, tinh) {
+        if (err) throw err;
+        res.send(tinh);
       });
     })
 
@@ -697,6 +856,13 @@ module.exports = function(app, importStudent) {
       });
     })
 
+    app.get('/getdoituong/:id', function(req, res){
+      Doituong.findOne({_id : req.params.id}, function(err, doituong){
+        if(err) throw err;
+        res.json(doituong);
+      });
+    })
+
     // Add Doi Tuong
 
     app.post('/adddoituong', function(req, res){
@@ -707,6 +873,13 @@ module.exports = function(app, importStudent) {
       nDoituong.save(function(err){
         if(err) throw err;
         res.send(true);
+      });
+    })
+
+    app.put('/editdoituong/:id', function(req, res){
+      Doituong.findByIdAndUpdate(req.params.id, {ten: req.body.ten, diem: req.body.diem, ma: req.body.ma} , { new: true }, function (err, doituong) {
+        if (err) throw err;
+        res.send(doituong);
       });
     })
 
@@ -728,6 +901,13 @@ module.exports = function(app, importStudent) {
       });
     })
 
+    app.get('/gethocluc/:id', function(req, res){
+      Hocluc.findOne({_id : req.params.id}, function(err, hocluc){
+        if(err) throw err;
+        res.json(hocluc);
+      });
+    })
+
     // Add Hoc Luc
 
     app.post('/addhocluc', function(req, res){
@@ -738,6 +918,13 @@ module.exports = function(app, importStudent) {
       nHocluc.save(function(err){
         if(err) throw err;
         res.send(true);
+      });
+    })
+
+    app.put('/edithocluc/:id', function(req, res){
+      Hocluc.findByIdAndUpdate(req.params.id, {ten: req.body.ten, diem: req.body.diem, ma: req.body.ma} , { new: true }, function (err, hocluc) {
+        if (err) throw err;
+        res.send(hocluc);
       });
     })
 
@@ -759,6 +946,13 @@ module.exports = function(app, importStudent) {
       });
     })
 
+    app.get('/gethoancanh/:id', function(req, res){
+      Hoancanh.findOne({_id : req.params.id}, function(err, hoancanh){
+        if(err) throw err;
+        res.json(hoancanh);
+      });
+    })
+
     // Add Hoan Canh
 
     app.post('/addhoancanh', function(req, res){
@@ -772,6 +966,13 @@ module.exports = function(app, importStudent) {
       });
     })
 
+    app.put('/edithoancanh/:id', function(req, res){
+      Hoancanh.findByIdAndUpdate(req.params.id, {ten: req.body.ten, diem: req.body.diem, ma: req.body.ma} , { new: true }, function (err, hoancanh) {
+        if (err) throw err;
+        res.send(hoancanh);
+      });
+    })
+
     // Delete Hoan Canh
 
     app.delete('/deletehoancanh/:hoancanhId', function(req, res){
@@ -780,5 +981,35 @@ module.exports = function(app, importStudent) {
         res.send(true);
       });
     })
+
+    app.get('/getphong', function(req, res){
+      Phong.find(function(err, phong){
+        if(err) throw err;
+        res.json(phong);
+      });
+    })
+
+    // Add Chi Tieu
+
+      app.post('/addphong', function(req, res){
+        var nPhong = new Phong();
+        nPhong.loai = req.body.loai;
+        nPhong.gia = req.body.gia;
+        nPhong.kichco = req.body.kichco;
+        nPhong.soluong = req.body.soluong;
+        nPhong.save(function(err){
+          if(err) throw err;
+          res.send(true);
+        });
+      })
+
+      // Delete Student
+
+      app.delete('/deletephong/:phongId', function(req, res){
+        Phong.remove({_id: req.params.phongId}, function(err) {
+          if (err) throw err;
+          res.send(true);
+        });
+      })
 
 }
