@@ -20,6 +20,8 @@ import AddPage from './components/admin/page/AddPage';
 import Images from './components/admin/image/Images';
 import LienKetSite from './components/admin/lienketsite/LienKetSite';
 import CotPhaiHome from './components/admin/cotphaihome/CotPhaiHome';
+import TinTucHome from './components/admin/tintuchome/TinTucHome';
+import QuanLyTinTuc from './components/admin/quanlytintuc/QuanLyTinTuc';
 
 import Main from './components/main/Main';
 import Home from './components/main/Home';
@@ -31,6 +33,7 @@ import LogInAdmin from './components/admin/LogIn';
 import InfoPage from './components/main/user/InfoPage';
 
 import ViewDetailPage from './components/main/page/ViewDetailPage';
+import ViewDetailTinTuc from './components/main/tintuc/ViewDetailTinTuc';
 
 import localStorage from 'localStorage';
 
@@ -61,6 +64,8 @@ export default (
             <Route path="/quanly@ktx/phong" component={Phong}/>
             <Route path="/quanly@ktx/cotphai-home" component={CotPhaiHome}/>
             <Route path="/quanly@ktx/lienket-site" component={LienKetSite}/>
+            <Route path="/quanly@ktx/hien-thi-tin-tuc" component={TinTucHome}/>
+            <Route path="/quanly@ktx/quan-ly-tin-tuc" component={QuanLyTinTuc}/>
 
         </Route>
 
@@ -72,6 +77,7 @@ export default (
             <Route path='/xem-ket-qua-luu-tru' component={KetQuaDangKyLuuTru}/>
             <Route path='/login' component={LogIn}/>
             <Route path='/info-stu' component={InfoPage}/>
+            <Route path='/tin-tuc/:link' component={ViewDetailTinTuc} />
             <Route path=':link/:link2' component={ViewDetailPage}/>
             <Route path=':link/:link2/:link3' component={ViewDetailPage}/>
         </Route>
