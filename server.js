@@ -52,6 +52,8 @@ var PageServer = require('./src-server/page/PageServer');
 var LuuTruServer = require('./src-server/luutru/LuuTruServer');
 var LienKetSiteServer = require('./src-server/lienketsite/LienKetSiteServer');
 var CotPhaiHomeServer = require('./src-server/cotphaihome/CotPhaiHomeServer');
+var QuanLyTinTucServer = require('./src-server/quanlytintuc/QuanLyTinTucServer');
+var TinTucHomeServer = require('./src-server/tintuchome/TinTucHomeServer');
 //==============================================
 
 var Adminserver = require('./src-server/admin/Adminserver');
@@ -59,8 +61,10 @@ var Adminserver = require('./src-server/admin/Adminserver');
 var app = express();
 app.set('port', process.env.PORT || 3000);
 app.use(logger('dev'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+// app.use(bodyParser.json());
+// app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json({limit: '50mb'}));
+app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 app.use(express.static(path.join(__dirname, 'public')));
 /**UPLOAD**/
 
@@ -118,6 +122,8 @@ PageServer(app);
 LuuTruServer(app);
 LienKetSiteServer(app);
 CotPhaiHomeServer(app);
+QuanLyTinTucServer(app);
+TinTucHomeServer(app);
 Adminserver(app, importStudent);
 
 /*

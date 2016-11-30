@@ -6,6 +6,9 @@ import localStorage from 'localStorage';
 import ManageUuTienAction from '../../../actions/admin/manage-uutien/ManageUuTienAction';
 import ManageUuTienStore from '../../../stores/admin/manage-uutien/ManageUuTienStore';
 
+import ManagePhongAction from '../../../actions/admin/manage-phong/ManagePhongAction';
+import ManagePhongStore from '../../../stores/admin/manage-phong/ManagePhongStore';
+
 import DangKyLuuTruAction from '../../../actions/main/luutru/DangKyLuuTruAction';
 import DangKyLuuTruStore from '../../../stores/main/luutru/DangKyLuuTruStore';
 
@@ -13,7 +16,7 @@ export default class SignUp extends React.Component {
   constructor(props)
   {
     super(props);
-    this.state = {state1: ManageUuTienStore.getState(), state2: DangKyLuuTruStore.getState()};
+    this.state = {state1: ManageUuTienStore.getState(), state2: DangKyLuuTruStore.getState(), state3: ManagePhongStore.getState()};
     this.onChange = this.onChange.bind(this);
   }
    componentDidMount() {
@@ -29,19 +32,23 @@ export default class SignUp extends React.Component {
     };
     ManageUuTienStore.listen(this.onChange);
     DangKyLuuTruStore.listen(this.onChange);
+    ManagePhongStore.listen(this.onChange);
 
     ManageUuTienAction.getKhuvuc();
     ManageUuTienAction.getTinh();
     ManageUuTienAction.getDoituong();
     ManageUuTienAction.getHocluc();
     ManageUuTienAction.getHoancanh();
+
+    ManagePhongAction.getPhong();
   }
   componentWillUnmount() {
     ManageUuTienStore.unlisten(this.onChange);
     DangKyLuuTruStore.unlisten(this.onChange);
+    ManagePhongStore.unlisten(this.onChange);
   }
   onChange(state) {
-    this.setState({state1: ManageUuTienStore.getState(), state2: DangKyLuuTruStore.getState()});
+    this.setState({state1: ManageUuTienStore.getState(), state2: DangKyLuuTruStore.getState(), state3: ManagePhongStore.getState()});
   }
   dangKyLuuTru(event)
   {
@@ -129,6 +136,12 @@ export default class SignUp extends React.Component {
     let hoanCanh = this.state.state1.hoancanh.map((hc, index)=>{
         return(
               <option value={hc._id} key={index}>{hc.ten}</option>
+          );
+    });
+
+    let loaiPhong = this.state.state3.phong.map((po, index) =>{
+        return (
+              <option value={po._id} key={index}>{po.loai}</option>
           );
     });
 
@@ -361,8 +374,7 @@ export default class SignUp extends React.Component {
                             <select className="form-control" id="phong-luu-tru" onChange={DangKyLuuTruAction.updateLoaiPhong}
                                 value={this.state.state2.svloaiphong} ref='LoaiPhongTextField'>
                               <option value=''>-- Chọn loại phòng --</option>
-                              <option value='0'>Phòng thông thường</option>
-                              <option value='1'>Phòng dịch vụ</option>
+                              {loaiPhong}
                             </select>
                             <div className=''><span className="control-label text-danger">{this.state.state2.validateLoaiPhong}</span></div>
                         </div>
