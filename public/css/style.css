@@ -972,6 +972,11 @@ form .form-group .control-label {
   border: 1px solid #00addc;
   color: white; }
 
+.panel-success > .panel-heading {
+  background-color: #8CC152;
+  border: 1px solid #8ac04e;
+  color: white; }
+
 .form-body {
   padding: 10px; }
 
@@ -1005,7 +1010,7 @@ form .form-group .control-label {
 /*====================== end css admin ============*/
 /*====================== css header trang home ===============*/
 .top-bar {
-  background: #00B1E1; }
+  background: #81B71A; }
 
 .top-bar a {
   color: #FFF !important; }
@@ -1024,7 +1029,7 @@ form .form-group .control-label {
   color: #fff !important; }
 
 .top-bar .cs-user ul li a {
-  background-color: #00B1E1 !important; }
+  background-color: #81B71A !important; }
 
 .navbar-default {
   background-color: #fff !important;
@@ -1214,6 +1219,9 @@ a {
 
 .panel-border-primary {
   border: 1px solid #00addc; }
+
+.panel-border-success {
+  border: 1px solid #8ac04e; }
 
 /*=============== css chi tiet page ===============*/
 .panel-blog {

@@ -38,11 +38,11 @@ class CotPhaiHome extends React.Component {
   			if(item.type==='image'){
 				return (
 						<div className="col-sm-12" key={index}>
-							<div className="panel panel-primary rounded shadow no-overflow cotphaihome">
+							<div className="panel panel-success rounded shadow no-overflow cotphaihome">
 	                      		<div className="panel-heading">
 	                      			<h3 className="panel-title text-center text-upper">{item.name}</h3>
 	                      		</div>
-	                      		<div className="panel-body panel-border-primary no-padding">
+	                      		<div className="panel-body panel-border-success no-padding">
 	                      			<Link to={'/'+item.linkToPage}><img className="responsive" src={item.image}/></Link>
 	                      		</div>
 	                      	</div>
@@ -52,11 +52,11 @@ class CotPhaiHome extends React.Component {
 			else {
 				return (
 						<div className="col-sm-12" key={index}>
-							<div className="panel panel-primary rounded shadow no-overflow">
+							<div className="panel panel-success rounded shadow no-overflow">
 	                      		<div className="panel-heading">
 	                      			<h3 className="panel-title text-center text-upper">{item.name}</h3>
 	                      		</div>
-	                      		<div className="panel-body panel-border-primary no-padding">
+	                      		<div className="panel-body panel-border-success no-padding">
 	                      			<YouTube
 								        videoId="IXfVciwlnoU"
 								       	opts={opts}
