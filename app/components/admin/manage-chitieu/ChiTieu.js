@@ -601,119 +601,127 @@ class ChiTieu extends Component {
       return (
         <Tab eventKey={index + 1} title={chitieu.nam}>
         <h1>Chỉ Tiêu Ký Túc Xá Năm {chitieu.nam}</h1>
-        {/* <div className="table-responsive">
-          <table className="table">
-            <thead>
-             <tr>
-               <th>#</th>
-               <th>Chỉ Tiêu</th>
-               <th>Loại</th>
-               <th>Nam</th>
-               <th>Nữ</th>
-               <th>Điểm Cơ Bản</th>
-             </tr>
-           </thead>
-           <tbody>
-            <tr>
-              <td>0</td>
-              <td>Năm 1</td>
-              <td>Xét Duyệt</td>
-              <td>{chitieu.nam1.xetduyet.male}</td>
-              <td>{chitieu.nam1.xetduyet.female}</td>
-              <td>{chitieu.nam1.xetduyet.diemcoban}</td>
-            </tr>
-            <tr>
-              <td></td>
-              <td></td>
-              <td>Gia Hạn</td>
-              <td>{chitieu.nam1.giahan.male}</td>
-              <td>{chitieu.nam1.giahan.female}</td>
-              <td>{chitieu.nam1.giahan.diemcoban}</td>
-            </tr>
-            <tr>
-              <td>1</td>
-              <td>Năm 2</td>
-              <td>Xét Duyệt</td>
-              <td>{chitieu.nam2.xetduyet.male}</td>
-              <td>{chitieu.nam2.xetduyet.female}</td>
-              <td>{chitieu.nam2.xetduyet.diemcoban}</td>
-            </tr>
-            <tr>
-              <td></td>
-              <td></td>
-              <td>Gia Hạn</td>
-              <td>{chitieu.nam2.giahan.male}</td>
-              <td>{chitieu.nam2.giahan.female}</td>
-              <td>{chitieu.nam2.giahan.diemcoban}</td>
-            </tr>
-            <tr>
-              <td>2</td>
-              <td>Năm 3</td>
-              <td>Xét Duyệt</td>
-              <td>{chitieu.nam3.xetduyet.male}</td>
-              <td>{chitieu.nam3.xetduyet.female}</td>
-              <td>{chitieu.nam3.xetduyet.diemcoban}</td>
-            </tr>
-            <tr>
-              <td></td>
-              <td></td>
-              <td>Gia Hạn</td>
-              <td>{chitieu.nam3.giahan.male}</td>
-              <td>{chitieu.nam3.giahan.female}</td>
-              <td>{chitieu.nam3.giahan.diemcoban}</td>
-            </tr>
-            <tr>
-              <td>3</td>
-              <td>Năm 4</td>
-              <td>Xét Duyệt</td>
-              <td>{chitieu.nam4.xetduyet.male}</td>
-              <td>{chitieu.nam4.xetduyet.female}</td>
-              <td>{chitieu.nam4.xetduyet.diemcoban}</td>
-            </tr>
-            <tr>
-              <td></td>
-              <td></td>
-              <td>Gia Hạn</td>
-              <td>{chitieu.nam4.giahan.male}</td>
-              <td>{chitieu.nam4.giahan.female}</td>
-              <td>{chitieu.nam4.giahan.diemcoban}</td>
-            </tr>
-            <tr>
-              <td>4</td>
-              <td>Năm 5</td>
-              <td>Xét Duyệt</td>
-              <td>{chitieu.nam5.xetduyet.male}</td>
-              <td>{chitieu.nam5.xetduyet.female}</td>
-              <td>{chitieu.nam5.xetduyet.diemcoban}</td>
-            </tr>
-            <tr>
-              <td></td>
-              <td></td>
-              <td>Gia Hạn</td>
-              <td>{chitieu.nam5.giahan.male}</td>
-              <td>{chitieu.nam5.giahan.female}</td>
-              <td>{chitieu.nam5.giahan.diemcoban}</td>
-            </tr>
-            <tr>
-              <td>5</td>
-              <td>Năm 6</td>
-              <td>Xét Duyệt</td>
-              <td>{chitieu.nam6.xetduyet.male}</td>
-              <td>{chitieu.nam6.xetduyet.female}</td>
-              <td>{chitieu.nam6.xetduyet.diemcoban}</td>
-            </tr>
-            <tr>
-              <td></td>
-              <td></td>
-              <td>Gia Hạn</td>
-              <td>{chitieu.nam6.giahan.male}</td>
-              <td>{chitieu.nam6.giahan.female}</td>
-              <td>{chitieu.nam6.giahan.diemcoban}</td>
-            </tr>
+        {chitieu.chitiet.map(function(chitieu){
+          return (
+            <div>
+              <h3>{'Phòng ' + chitieu._phong_id.loai}</h3>
+              <div className="table-responsive">
+                <table className="table">
+                  <thead>
+                   <tr>
+                     <th>#</th>
+                     <th>Chỉ Tiêu</th>
+                     <th>Loại</th>
+                     <th>Nam</th>
+                     <th>Nữ</th>
+                     <th>Điểm Cơ Bản</th>
+                   </tr>
+                 </thead>
+                 <tbody>
+                  <tr>
+                    <td>0</td>
+                    <td>Năm 1</td>
+                    <td>Xét Duyệt</td>
+                    <td>{chitieu.nam1.xetduyet.male}</td>
+                    <td>{chitieu.nam1.xetduyet.female}</td>
+                    <td>{chitieu.nam1.xetduyet.diemcoban}</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td></td>
+                    <td>Gia Hạn</td>
+                    <td>{chitieu.nam1.giahan.male}</td>
+                    <td>{chitieu.nam1.giahan.female}</td>
+                    <td>{chitieu.nam1.giahan.diemcoban}</td>
+                  </tr>
+                  <tr>
+                    <td>1</td>
+                    <td>Năm 2</td>
+                    <td>Xét Duyệt</td>
+                    <td>{chitieu.nam2.xetduyet.male}</td>
+                    <td>{chitieu.nam2.xetduyet.female}</td>
+                    <td>{chitieu.nam2.xetduyet.diemcoban}</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td></td>
+                    <td>Gia Hạn</td>
+                    <td>{chitieu.nam2.giahan.male}</td>
+                    <td>{chitieu.nam2.giahan.female}</td>
+                    <td>{chitieu.nam2.giahan.diemcoban}</td>
+                  </tr>
+                  <tr>
+                    <td>2</td>
+                    <td>Năm 3</td>
+                    <td>Xét Duyệt</td>
+                    <td>{chitieu.nam3.xetduyet.male}</td>
+                    <td>{chitieu.nam3.xetduyet.female}</td>
+                    <td>{chitieu.nam3.xetduyet.diemcoban}</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td></td>
+                    <td>Gia Hạn</td>
+                    <td>{chitieu.nam3.giahan.male}</td>
+                    <td>{chitieu.nam3.giahan.female}</td>
+                    <td>{chitieu.nam3.giahan.diemcoban}</td>
+                  </tr>
+                  <tr>
+                    <td>3</td>
+                    <td>Năm 4</td>
+                    <td>Xét Duyệt</td>
+                    <td>{chitieu.nam4.xetduyet.male}</td>
+                    <td>{chitieu.nam4.xetduyet.female}</td>
+                    <td>{chitieu.nam4.xetduyet.diemcoban}</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td></td>
+                    <td>Gia Hạn</td>
+                    <td>{chitieu.nam4.giahan.male}</td>
+                    <td>{chitieu.nam4.giahan.female}</td>
+                    <td>{chitieu.nam4.giahan.diemcoban}</td>
+                  </tr>
+                  <tr>
+                    <td>4</td>
+                    <td>Năm 5</td>
+                    <td>Xét Duyệt</td>
+                    <td>{chitieu.nam5.xetduyet.male}</td>
+                    <td>{chitieu.nam5.xetduyet.female}</td>
+                    <td>{chitieu.nam5.xetduyet.diemcoban}</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td></td>
+                    <td>Gia Hạn</td>
+                    <td>{chitieu.nam5.giahan.male}</td>
+                    <td>{chitieu.nam5.giahan.female}</td>
+                    <td>{chitieu.nam5.giahan.diemcoban}</td>
+                  </tr>
+                  <tr>
+                    <td>5</td>
+                    <td>Năm 6</td>
+                    <td>Xét Duyệt</td>
+                    <td>{chitieu.nam6.xetduyet.male}</td>
+                    <td>{chitieu.nam6.xetduyet.female}</td>
+                    <td>{chitieu.nam6.xetduyet.diemcoban}</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td></td>
+                    <td>Gia Hạn</td>
+                    <td>{chitieu.nam6.giahan.male}</td>
+                    <td>{chitieu.nam6.giahan.female}</td>
+                    <td>{chitieu.nam6.giahan.diemcoban}</td>
+                  </tr>
 
-           </tbody>
-          </table>
-        </div> */}
+                 </tbody>
+                </table>
+              </div>
+            </div>
+          )
+        })}
+
         <button className="btn btn-large btn-danger" onClick={this.handleDelChitieu.bind(this, chitieu._id)}>Xóa</button>
 
         </Tab>
@@ -737,7 +745,7 @@ class ChiTieu extends Component {
       <UpdateChitieuModal {...props} show={this.state.updateModalShow} onHide={updateModalClose} />
 
       <Tabs defaultActiveKey={1} id="chitieu">
-        {/* {tabArr} */}
+        {tabArr}
       </Tabs>
       </div>
     );
