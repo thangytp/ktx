@@ -52,6 +52,8 @@ var PageServer = require('./src-server/page/PageServer');
 var LuuTruServer = require('./src-server/luutru/LuuTruServer');
 var LienKetSiteServer = require('./src-server/lienketsite/LienKetSiteServer');
 var CotPhaiHomeServer = require('./src-server/cotphaihome/CotPhaiHomeServer');
+var QuanLyTinTucServer = require('./src-server/quanlytintuc/QuanLyTinTucServer');
+var TinTucHomeServer = require('./src-server/tintuchome/TinTucHomeServer');
 //==============================================
 
 var Adminserver = require('./src-server/admin/Adminserver');
@@ -120,6 +122,8 @@ PageServer(app);
 LuuTruServer(app);
 LienKetSiteServer(app);
 CotPhaiHomeServer(app);
+QuanLyTinTucServer(app);
+TinTucHomeServer(app);
 Adminserver(app, importStudent);
 
 /*
