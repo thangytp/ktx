@@ -8,6 +8,7 @@ var Doituong = require('../../models/doituong');
 var Hocluc = require('../../models/hocluc');
 var Hoancanh = require('../../models/hoancanh');
 var Phong = require('../../models/phong');
+var Phongchitiet = require('../../models/phongchitiet');
 
 
 
@@ -175,7 +176,7 @@ module.exports = function(app, importStudent) {
     });
   })
 
-  app.get('/xetduyet/getstudent/diemxetduyet/:soluong/:phai/:nam/:drl', function(req, res){
+  app.get('/xetduyet/getstudent/diemxetduyet/:phongid/:soluong/:phai/:nam/:drl', function(req, res){
     var cYear = new Date().getFullYear(),
         cMonth = new Date().getMonth() + 1,
         fYear;
@@ -185,7 +186,7 @@ module.exports = function(app, importStudent) {
       fYear = cYear - req.params.nam;
     }
     Student
-    .find({tamdung_hocvu : false, dang_o_ktx: false, diem_ren_luyen : {$gt: req.params.drl}, diem_xet_duyet : { $ne:null },phai : req.params.phai, nam_vao_truong : fYear})
+    .find({_phong_id: req.params.phongid, tamdung_hocvu : false, dang_o_ktx: false, diem_ren_luyen : {$gt: req.params.drl}, diem_xet_duyet : { $ne:null },phai : req.params.phai, nam_vao_truong : fYear})
     .sort('-diem_ren_luyen')
     .limit(req.params.soluong)
     .exec(function(err, students){
@@ -205,7 +206,7 @@ module.exports = function(app, importStudent) {
 
   })
 
-  app.get('/giahan/getstudent/diemxetduyet/:soluong/:phai/:nam/:drl/:drlktx/:dvs', function(req, res){
+  app.get('/giahan/getstudent/diemxetduyet/:phongid/:soluong/:phai/:nam/:drl/:drlktx/:dvs', function(req, res){
     var cYear = new Date().getFullYear(),
         cMonth = new Date().getMonth() + 1,
         fYear;
@@ -215,7 +216,7 @@ module.exports = function(app, importStudent) {
       fYear = cYear - req.params.nam;
     }
     Student
-    .find({tamdung_hocvu : false, dang_o_ktx: true, diem_ren_luyen : {$gt: req.params.drl}, 'diem_ren_luyen_ktx.tong' : {$gt : req.params.drlktx}, 'diem_ren_luyen_ktx.ve_sinh' : {$gt : req.params.dvs}, diem_xet_duyet : { $ne:null }, phai : req.params.phai, nam_vao_truong : fYear})
+    .find({_phong_id: req.params.phongid, tamdung_hocvu : false, dang_o_ktx: true, diem_ren_luyen : {$gt: req.params.drl}, 'diem_ren_luyen_ktx.tong' : {$gt : req.params.drlktx}, 'diem_ren_luyen_ktx.ve_sinh' : {$gt : req.params.dvs}, diem_xet_duyet : { $ne:null }, phai : req.params.phai, nam_vao_truong : fYear})
     .sort('-diem_ren_luyen')
     .limit(req.params.soluong)
     .exec(function(err, students){
@@ -512,7 +513,7 @@ module.exports = function(app, importStudent) {
     } else {
       fYear = cYear - req.body.nam;
     }
-    Student.find({tamdung_hocvu : false, dang_o_ktx: false,  diem_ren_luyen : {$gt: req.body.drl}, phai : req.body.phai,  nam_vao_truong : fYear})
+    Student.find({_phong_id: req.body.phongid, tamdung_hocvu : false, dang_o_ktx: false,  diem_ren_luyen : {$gt: req.body.drl}, phai : req.body.phai,  nam_vao_truong : fYear})
     .populate('_khu_vuc_id')
     .populate('_tinh_id')
     .populate('_doi_tuong_id')
@@ -540,7 +541,7 @@ module.exports = function(app, importStudent) {
     } else {
       fYear = cYear - req.body.nam;
     }
-    Student.find({tamdung_hocvu : false, dang_o_ktx: true, diem_ren_luyen : {$gt: req.body.drl}, 'diem_ren_luyen_ktx.tong' : {$gt: req.body.drlktx}, 'diem_ren_luyen_ktx.ve_sinh' : {$gt: req.body.dvs}, phai : req.body.phai,  nam_vao_truong : fYear})
+    Student.find({_phong_id: req.body.phongid, tamdung_hocvu : false, dang_o_ktx: true, diem_ren_luyen : {$gt: req.body.drl}, 'diem_ren_luyen_ktx.tong' : {$gt: req.body.drlktx}, 'diem_ren_luyen_ktx.ve_sinh' : {$gt: req.body.dvs}, phai : req.body.phai,  nam_vao_truong : fYear})
     .populate('_khu_vuc_id')
     .populate('_tinh_id')
     .populate('_doi_tuong_id')
@@ -572,7 +573,9 @@ module.exports = function(app, importStudent) {
   // Get Chi Tieu
 
   app.get('/getchitieu', function(req, res){
-    Chitieu.find(function(err, chitieu){
+    Chitieu.find()
+    .populate('chitiet._phong_id')
+    .exec(function(err, chitieu){
       if(err) throw err;
       res.json(chitieu);
     });
@@ -1011,5 +1014,37 @@ module.exports = function(app, importStudent) {
           res.send(true);
         });
       })
+
+      app.get('/getphongchitiet', function(req, res){
+        Phongchitiet
+        .find()
+        .populate('_loai')
+        .exec(function(err, phong){
+          if(err) throw err;
+          res.json(phong);
+        });
+      })
+
+      // Add Chi Tieu
+
+        app.post('/addphongchitiet', function(req, res){
+          var nPhongchitiet = new Phongchitiet();
+          nPhongchitiet._loai = req.body.loai;
+          nPhongchitiet.ma = req.body.ma;
+          nPhongchitiet.tang = req.body.tang;
+          nPhongchitiet.save(function(err){
+            if(err) throw err;
+            res.send(true);
+          });
+        })
+
+        // Delete Student
+
+        app.delete('/deletephongchitiet/:phongchitietId', function(req, res){
+          Phongchitiet.remove({_id: req.params.phongchitietId}, function(err) {
+            if (err) throw err;
+            res.send(true);
+          });
+        })
 
 }

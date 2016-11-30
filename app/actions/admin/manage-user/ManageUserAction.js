@@ -111,7 +111,7 @@ class ManageUserAction {
 
   getUsersByDiemXetDuyetXetDuyet(payload) {
     $.ajax({
-      url: '/xetduyet/getstudent/diemxetduyet/' + payload.soluong + '/' + payload.phai + '/' + payload.nam + '/' + payload.drl,
+      url: '/xetduyet/getstudent/diemxetduyet/' + payload.phongid + '/' + payload.soluong + '/' + payload.phai + '/' + payload.nam + '/' + payload.drl,
       type: 'GET'
     })
     .done((data) => {
@@ -122,7 +122,7 @@ class ManageUserAction {
 
   getUsersByDiemXetDuyetGiaHan(payload) {
     $.ajax({
-      url: '/giahan/getstudent/diemxetduyet/' + payload.soluong + '/' + payload.phai + '/' + payload.nam + '/' + payload.drl + '/' + payload.drlktx + '/' + payload.dvs,
+      url: '/giahan/getstudent/diemxetduyet/' + payload.phongid + '/' + payload.soluong + '/' + payload.phai + '/' + payload.nam + '/' + payload.drl + '/' + payload.drlktx + '/' + payload.dvs,
       type: 'GET'
     })
     .done((data) => {
@@ -232,22 +232,22 @@ class ManageUserAction {
   updateXetDuyetXetDuyet(payload) {
     $.ajax({
         url: '/xetduyet/diemxetduyet',
-        data: {soluong : payload.soluong, phai: payload.phai, diemcb : payload.diemcb, nam : payload.nam, drl : payload.drl},
+        data: {phongid: payload.phongid, soluong : payload.soluong, phai: payload.phai, diemcb : payload.diemcb, nam : payload.nam, drl : payload.drl},
         type: 'PUT'
     })
     .done((data) => {
-      this.actions.updateXetDuyetXetDuyetSuccess({soluong : payload.soluong, phai: payload.phai, nam : payload.nam, drl : payload.drl});
+      this.actions.updateXetDuyetXetDuyetSuccess({phongid: payload.phongid, soluong : payload.soluong, phai: payload.phai, nam : payload.nam, drl : payload.drl});
     })
   }
 
   updateXetDuyetGiaHan(payload) {
     $.ajax({
         url: '/giahan/diemxetduyet',
-        data: {soluong : payload.soluong, phai: payload.phai, diemcb : payload.diemcb, nam : payload.nam, drl : payload.drl, drlktx : payload.drlktx, dvs : payload.dvs},
+        data: {phongid: payload.phongid, soluong : payload.soluong, phai: payload.phai, diemcb : payload.diemcb, nam : payload.nam, drl : payload.drl, drlktx : payload.drlktx, dvs : payload.dvs},
         type: 'PUT'
     })
     .done((data) => {
-      this.actions.updateXetDuyetGiaHanSuccess({soluong : payload.soluong, phai: payload.phai, nam : payload.nam, drl : payload.drl, drlktx : payload.drlktx, dvs : payload.dvs});
+      this.actions.updateXetDuyetGiaHanSuccess({phongid: payload.phongid, soluong : payload.soluong, phai: payload.phai, nam : payload.nam, drl : payload.drl, drlktx : payload.drlktx, dvs : payload.dvs});
     })
   }
 
