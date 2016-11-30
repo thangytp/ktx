@@ -76,8 +76,9 @@ class XetDuyetMoi extends Component {
     ManageChiTieuStore.unlisten(this.onChange);
   }
 
-  handleXetDuyet(soluong, phai, diemcb, nam) {
+  handleXetDuyet(phong, soluong, phai, diemcb, nam) {
     const data = {
+        phongid: phong._id,
         soluong : soluong,
         phai: phai,
         diemcb : diemcb,
@@ -201,76 +202,85 @@ class XetDuyetMoi extends Component {
         contentTab3 = null
     } else {
       contentTab3 = (
-        <ul className="listBtn-xd">
-          <li>
-            <button className="btn btn-large btn-success">Năm 1</button>
-            <ul className="listBtn-nn">
-              <li>
-                <button className="btn btn-large btn-success" onClick={this.handleXetDuyet.bind(this, this.state.state2.chitieu[0].nam1.xetduyet.male,'M', this.state.state2.chitieu[0].nam1.xetduyet.diemcoban, 1)}>Nam</button>
-              </li>
-              <li>
-                <button className="btn btn-large btn-success" onClick={this.handleXetDuyet.bind(this, this.state.state2.chitieu[0].nam1.xetduyet.female,'F', this.state.state2.chitieu[0].nam1.xetduyet.diemcoban, 1)}>Nữ</button>
-              </li>
-            </ul>
-          </li>
-          <li>
-            <button className="btn btn-large btn-success">Năm 2</button>
-            <ul className="listBtn-nn">
-              <li>
-                <button className="btn btn-large btn-success" onClick={this.handleXetDuyet.bind(this, this.state.state2.chitieu[0].nam2.xetduyet.male,'M', this.state.state2.chitieu[0].nam2.xetduyet.diemcoban, 2)}>Nam</button>
-              </li>
-              <li>
-                <button className="btn btn-large btn-success" onClick={this.handleXetDuyet.bind(this, this.state.state2.chitieu[0].nam2.xetduyet.female,'F', this.state.state2.chitieu[0].nam2.xetduyet.diemcoban, 2)}>Nữ</button>
-              </li>
-            </ul>
-          </li>
-          <li>
-            <button className="btn btn-large btn-success">Năm 3</button>
-            <ul className="listBtn-nn">
-              <li>
-                <button className="btn btn-large btn-success" onClick={this.handleXetDuyet.bind(this, this.state.state2.chitieu[0].nam3.xetduyet.male,'M', this.state.state2.chitieu[0].nam3.xetduyet.diemcoban, 3)}>Nam</button>
-              </li>
-              <li>
-                <button className="btn btn-large btn-success" onClick={this.handleXetDuyet.bind(this, this.state.state2.chitieu[0].nam3.xetduyet.female,'F', this.state.state2.chitieu[0].nam3.xetduyet.diemcoban, 3)}>Nữ</button>
-              </li>
-            </ul>
-          </li>
-          <li>
-            <button className="btn btn-large btn-success">Năm 4</button>
-            <ul className="listBtn-nn">
-              <li>
-                <button className="btn btn-large btn-success" onClick={this.handleXetDuyet.bind(this, this.state.state2.chitieu[0].nam4.xetduyet.male,'M', this.state.state2.chitieu[0].nam4.xetduyet.diemcoban, 4)}>Nam</button>
-              </li>
-              <li>
-                <button className="btn btn-large btn-success" onClick={this.handleXetDuyet.bind(this, this.state.state2.chitieu[0].nam4.xetduyet.female,'F', this.state.state2.chitieu[0].nam4.xetduyet.diemcoban, 4)}>Nữ</button>
-              </li>
-            </ul>
-          </li>
-          <li>
-            <button className="btn btn-large btn-success">Năm 5</button>
-            <ul className="listBtn-nn">
-              <li>
-                <button className="btn btn-large btn-success" onClick={this.handleXetDuyet.bind(this, this.state.state2.chitieu[0].nam5.xetduyet.male,'M', this.state.state2.chitieu[0].nam5.xetduyet.diemcoban, 5)}>Nam</button>
-              </li>
-              <li>
-                <button className="btn btn-large btn-success" onClick={this.handleXetDuyet.bind(this, this.state.state2.chitieu[0].nam5.xetduyet.female,'F', this.state.state2.chitieu[0].nam5.xetduyet.diemcoban, 5)}>Nữ</button>
-              </li>
-            </ul>
-          </li>
-          <li>
-            <button className="btn btn-large btn-success">Năm 6</button>
-            <ul className="listBtn-nn">
-              <li>
-                <button className="btn btn-large btn-success" onClick={this.handleXetDuyet.bind(this, this.state.state2.chitieu[0].nam6.xetduyet.male,'M', this.state.state2.chitieu[0].nam6.xetduyet.diemcoban, 6)}>Nam</button>
-              </li>
-              <li>
-                <button className="btn btn-large btn-success" onClick={this.handleXetDuyet.bind(this, this.state.state2.chitieu[0].nam6.xetduyet.female,'F', this.state.state2.chitieu[0].nam6.xetduyet.diemcoban, 6)}>Nữ</button>
-              </li>
-            </ul>
-          </li>
-        </ul>
+        <Tabs defaultActiveKey={1} id="tienhanhxetduyet">
+          {this.state.state2.chitieu[0].chitiet.map(function(chitiet, index){
+            return (
+              <Tab eventKey={index + 1} title={'Phòng ' + chitiet._phong_id.loai}>
+                <ul className="listBtn-xd">
+                  <li>
+                    <button className="btn btn-large btn-success">Năm 1</button>
+                    <ul className="listBtn-nn">
+                      <li>
+                        <button className="btn btn-large btn-success" onClick={this.handleXetDuyet.bind(this, chitiet._phong_id, chitiet.nam1.xetduyet.male,'M', chitiet.nam1.xetduyet.diemcoban, 1)}>Nam</button>
+                      </li>
+                      <li>
+                        <button className="btn btn-large btn-success" onClick={this.handleXetDuyet.bind(this, chitiet._phong_id, chitiet.nam1.xetduyet.female,'F', chitiet.nam1.xetduyet.diemcoban, 1)}>Nữ</button>
+                      </li>
+                    </ul>
+                  </li>
+                  <li>
+                    <button className="btn btn-large btn-success">Năm 2</button>
+                    <ul className="listBtn-nn">
+                      <li>
+                        <button className="btn btn-large btn-success" onClick={this.handleXetDuyet.bind(this, chitiet._phong_id, chitiet.nam2.xetduyet.male,'M', chitiet.nam2.xetduyet.diemcoban, 2)}>Nam</button>
+                      </li>
+                      <li>
+                        <button className="btn btn-large btn-success" onClick={this.handleXetDuyet.bind(this, chitiet._phong_id, chitiet.nam2.xetduyet.female,'F', chitiet.nam2.xetduyet.diemcoban, 2)}>Nữ</button>
+                      </li>
+                    </ul>
+                  </li>
+                  <li>
+                    <button className="btn btn-large btn-success">Năm 3</button>
+                    <ul className="listBtn-nn">
+                      <li>
+                        <button className="btn btn-large btn-success" onClick={this.handleXetDuyet.bind(this, chitiet._phong_id, chitiet.nam3.xetduyet.male,'M', chitiet.nam3.xetduyet.diemcoban, 3)}>Nam</button>
+                      </li>
+                      <li>
+                        <button className="btn btn-large btn-success" onClick={this.handleXetDuyet.bind(this, chitiet._phong_id, chitiet.nam3.xetduyet.female,'F', chitiet.nam3.xetduyet.diemcoban, 3)}>Nữ</button>
+                      </li>
+                    </ul>
+                  </li>
+                  <li>
+                    <button className="btn btn-large btn-success">Năm 4</button>
+                    <ul className="listBtn-nn">
+                      <li>
+                        <button className="btn btn-large btn-success" onClick={this.handleXetDuyet.bind(this, chitiet._phong_id, chitiet.nam4.xetduyet.male,'M', chitiet.nam4.xetduyet.diemcoban, 4)}>Nam</button>
+                      </li>
+                      <li>
+                        <button className="btn btn-large btn-success" onClick={this.handleXetDuyet.bind(this, chitiet._phong_id, chitiet.nam4.xetduyet.female,'F', chitiet.nam4.xetduyet.diemcoban, 4)}>Nữ</button>
+                      </li>
+                    </ul>
+                  </li>
+                  <li>
+                    <button className="btn btn-large btn-success">Năm 5</button>
+                    <ul className="listBtn-nn">
+                      <li>
+                        <button className="btn btn-large btn-success" onClick={this.handleXetDuyet.bind(this, chitiet._phong_id, chitiet.nam5.xetduyet.male,'M', chitiet.nam5.xetduyet.diemcoban, 5)}>Nam</button>
+                      </li>
+                      <li>
+                        <button className="btn btn-large btn-success" onClick={this.handleXetDuyet.bind(this, chitiet._phong_id, chitiet.nam5.xetduyet.female,'F', chitiet.nam5.xetduyet.diemcoban, 5)}>Nữ</button>
+                      </li>
+                    </ul>
+                  </li>
+                  <li>
+                    <button className="btn btn-large btn-success">Năm 6</button>
+                    <ul className="listBtn-nn">
+                      <li>
+                        <button className="btn btn-large btn-success" onClick={this.handleXetDuyet.bind(this, chitiet._phong_id, chitiet.nam6.xetduyet.male,'M', chitiet.nam6.xetduyet.diemcoban, 6)}>Nam</button>
+                      </li>
+                      <li>
+                        <button className="btn btn-large btn-success" onClick={this.handleXetDuyet.bind(this, chitiet._phong_id, chitiet.nam6.xetduyet.female,'F', chitiet.nam6.xetduyet.diemcoban, 6)}>Nữ</button>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </Tab>
+            )
+          }, this)}
+        </Tabs>
       )
     }
+
     let contentHocvu;
     if(this.state.state1.activeHocvu === false) {
       contentHocvu = (
@@ -499,8 +509,7 @@ class XetDuyetMoi extends Component {
         <Tab eventKey={2} title="Bước 2">
           {contentDiemrenluyen}
         </Tab>
-        <Tab eventKey={3} title="Buoc 3">
-        <h1>Tiến Hành Xét Duyệt</h1>
+        <Tab eventKey={3} title="Bước 3">
           {contentTab3}
           {contentDiemxetduyet}
         </Tab>

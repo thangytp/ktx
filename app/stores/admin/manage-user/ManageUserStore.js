@@ -67,6 +67,7 @@ class ManageUserStore {
   }
 
   getUsersByDiemXetDuyetGiaHanSuccess(response) {
+    console.log(response);
     this.usersdxdgh = response;
   }
 
