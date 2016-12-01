@@ -28,7 +28,10 @@ class DangKyLuuTruAction {
             'showLoading',
 
             'getStudentSuccess',
-            'getStudentFail'
+            'getStudentFail',
+
+            'giaHanLuuTruSuccess',
+            'giaHanLuuTruFail'
 
     	);
 	}
@@ -47,6 +50,20 @@ class DangKyLuuTruAction {
 	        this.actions.dangKyLuuTruFail(jqXhr.responseJSON);
 	    });
 	}
+
+    giaHanLuuTru(payload){
+        $.ajax({
+            type: 'PUT',
+            url: '/api/giahanluutru',
+            data: { idStu: payload.idStu, svhocluc: payload.svhocluc, svhoancanh: payload.svhoancanh, svloaiphong: payload.svloaiphong }
+        })
+        .done((data) => {
+            this.actions.giaHanLuuTruSuccess(data.message);
+        })
+        .fail((jqXhr) => {
+            this.actions.giaHanLuuTruFail(jqXhr.responseJSON);
+        });
+    }
 
     getStudent(id){
         $.ajax({

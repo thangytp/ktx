@@ -32,12 +32,12 @@ class LienKetSiteMain extends React.Component {
 	render() {  
 		let settings = {
 			autoplay: true,
-			arrows: true,
+			arrows: false,
 	      dots: false,
 	      infinite: true,
 	      pauseOnHover: true,
 	      speed: 500,
-	      slidesToShow: 3,
+	      slidesToShow: 1,
 	      slidesToScroll: 1,
 	      responsive: [ { breakpoint: 768, settings: { slidesToShow: 1 } }, 
 	      	{ breakpoint: 1024, settings: { slidesToShow: 3 } }, 
@@ -53,10 +53,9 @@ class LienKetSiteMain extends React.Component {
 		else listSiteShow.push(<div key={0}></div>);
 
 		return(
-			<div className="container">
-        		<div className="row">
-					<div className="col-md-12 link-site">
-						<div className="col-md-12" style={{'clear':'both'}}>
+			
+					<div className="col-sm-12 col-xs-12 link-site">
+						<div className="col-md-12 col-sm-12 col-xs-12" style={{'clear':'both'}}>
 							<Slider {...settings}>
 								
 								{	listSiteShow
@@ -65,8 +64,7 @@ class LienKetSiteMain extends React.Component {
 			                </Slider>
 						</div>
 					</div>
-				</div>
-      		</div>
+				
 		);
 	}
 }
