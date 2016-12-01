@@ -42,7 +42,14 @@ function LuuTruServer(app){
 
 	app.get('/getstudentBymssv/:id', function(req, res, next){
 		var mssv = req.params.id;
-		student.findOne({ma_sinh_vien: mssv}, function(err, stuRes){
+		student.findOne({ma_sinh_vien: mssv})
+		// .populate('_khu_vuc_id')
+		// .populate('_doi_tuong_id')
+		// .populate('_hoc_luc_id')
+		// .populate('_hoan_canh_id')
+		// .populate('_tinh_id')
+		// .populate('_khu_vuc_id')
+		.exec(function(err, stuRes){
 			if(err) return next(err);
 			res.send(stuRes);
 		});

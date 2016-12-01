@@ -7,6 +7,8 @@ class DangKyLuuTruStore {
 
         this.daDangKyLuuTru = '';
 
+        this.checkNam = '';
+        this.checkNu = '';
         this.gioitinh = '';
     	this.namvaotruong = new Date().getFullYear();
     	this.svkhuvuc = '';
@@ -33,6 +35,8 @@ class DangKyLuuTruStore {
 	}
 
 	onDangKyLuuTruSuccess(data){
+        this.checkNam = '';
+        this.checkNu = '';
         this.gioitinh = '';
         this.namvaotruong = new Date().getFullYear();
 		this.svkhuvuc = '';
@@ -63,9 +67,13 @@ class DangKyLuuTruStore {
 
     onUpdateGioiTinhNam(event){
         this.gioitinh = 'm';
+        this.checkNam = 'checked';
+        this.checkNu = '';
     }
     onUpdateGioiTinhNu(){
         this.gioitinh = 'f';
+        this.checkNam = '';
+        this.checkNu = 'checked';
     }
 
 	onUpdateNamVaoTruong(event){
@@ -180,7 +188,40 @@ class DangKyLuuTruStore {
 
     onGetStudentSuccess(data){
         if(data){
+            console.log(data);
             this.daDangKyLuuTru = data;
+
+            this.gioitinh = data.phai;
+            if(this.gioitinh === 'm'){
+                this.checkNam = 'checked';
+                this.checkNu = '';
+            }
+            else {
+                this.checkNam = '';
+                this.checkNu = 'checked';
+            }
+            this.namvaotruong = data.nam_vao_truong;
+            this.svkhuvuc = data._khu_vuc_id;
+            this.svtinh = data._tinh_id;
+            this.svdoituong = data._doi_tuong_id;
+            this.svhocluc = data._hoc_luc_id;
+            this.svhoancanh = data._hoan_canh_id;
+            this.svloaiphong = '';
+
+            this.validateGioiTinh = '';
+            this.validateNam = '';
+            this.validateKhuVuc = '';
+            this.validateTinh = '';
+            this.validateDoiTuong = '';
+            this.validateHocLuc = '';
+            this.validateHoanCanh = '';
+            this.validateLoaiPhong = '';
+
+            this.messDK = '';
+
+            this.textButtonDangKy = 'Gia hạn lưu trú';
+            this.loading = 'none';
+            this.disableDK = '';
         }
     }
     onGetStudentFail(data){
