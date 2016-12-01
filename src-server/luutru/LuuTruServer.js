@@ -26,7 +26,7 @@ function LuuTruServer(app){
 	    		_doi_tuong_id: svdoituong,
 	    		_hoc_luc_id: svhocluc,
 	    		_hoan_canh_id: svhoancanh,
-	    		tang: svloaiphong,
+	    		_phong_id: svloaiphong,
 	    		dang_o_ktx: false
 	    	});
 	    	newStu.save(function(err){

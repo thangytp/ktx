@@ -26,7 +26,6 @@ var studentSchema = new mongoose.Schema({
   ngay_lam_thu_tuc: String,
   dk_hoc_ky_moi: String,
   dk_hoc_ky_he: String,
-  tang: String,
   ngay: String,
   thang: String,
   ly_do_ra: String,
@@ -48,6 +47,7 @@ var studentSchema = new mongoose.Schema({
     tong: {type : 'Number'},
     ve_sinh: {type: 'Number'}
   }],
+  _phong_id: {type: mongoose.Schema.Types.ObjectId, ref: 'Phong'},
   _khu_vuc_id: {type: mongoose.Schema.Types.ObjectId, ref: 'Khuvuc'},
   _doi_tuong_id: {type: mongoose.Schema.Types.ObjectId, ref: 'Doituong'},
   _hoc_luc_id: {type: mongoose.Schema.Types.ObjectId, ref: 'Hocluc'},
