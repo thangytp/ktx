@@ -27,7 +27,7 @@ export default class KetQuaDangKyLuuTru extends React.Component {
               <div className="row">
                 <div className="col-md-9 ">
                   <ol className="breadcrumb no-overflow">
-                      <li><Link to="/quanly@ktx"><i className="fa fa-home" aria-hidden="true"></i> Trang chủ</Link></li>
+                      <li><Link to="/"><i className="fa fa-home" aria-hidden="true"></i> Trang chủ</Link></li>
                       <li>Kết quả đăng ký lưu trú</li>
                   </ol>
 

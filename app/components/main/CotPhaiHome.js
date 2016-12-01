@@ -5,6 +5,9 @@ import YouTube from 'react-youtube';
 import CotPhaiHomeAction from '../../actions/admin/cotphaihome/CotPhaiHomeAction';
 import CotPhaiHomeStore from '../../stores/admin/cotphaihome/CotPhaiHomeStore';
 
+import LienKetSiteMain from './LienKetSiteMain';
+import DivideComponent from './DivideComponent';
+
 class CotPhaiHome extends React.Component {
 	constructor(props)
 	{
@@ -71,6 +74,8 @@ class CotPhaiHome extends React.Component {
 	    return (  
 		    	<div>
 			    	{listItem}
+			    	<DivideComponent/>
+        			<LienKetSiteMain />
 			    </div>
 		    	  
 	    );

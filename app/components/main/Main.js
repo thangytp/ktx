@@ -13,8 +13,7 @@ class Main extends React.Component {
           {this.props.children}
         </div>		
 
-        <DivideComponent/>
-        <LienKetSiteMain />
+        
         <Footer/>
       </div>
     );
