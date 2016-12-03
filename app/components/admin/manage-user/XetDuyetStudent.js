@@ -21,7 +21,8 @@ const UpdateUserModal = React.createClass({
         userId: this.props.user._id,
         phongchitiet: this.state.loai,
         tang: this.state.tang,
-        maktx: this.refs.maktx.value
+        maktx: this.refs.maktx.value,
+        xetduyet: true
     };
     ManageUserAction.updateInfoKtx(data);
   },
