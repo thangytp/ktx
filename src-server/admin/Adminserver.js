@@ -10,8 +10,7 @@ var Hoancanh = require('../../models/hoancanh');
 var Tang = require('../../models/tang');
 var Phong = require('../../models/phong');
 var Phongchitiet = require('../../models/phongchitiet');
-
-
+var Dichvu = require('../../models/dichvu');
 
 
 
@@ -125,7 +124,7 @@ module.exports = function(app, importStudent) {
   })
 
   app.get('/getstudent/test', function(req, res){
-    Student.findOne({ma_sinh_vien: '71200838'}, function(err, student){
+    Student.findOne({ma_sinh_vien: '51203104'}, function(err, student){
       if(err) throw err;
       res.json(student);
     });
@@ -142,10 +141,7 @@ module.exports = function(app, importStudent) {
 
   app.get('/giahan/getstudenthocvu', function(req, res){
     Student
-    .find({tamdung_hocvu : false, dang_o_ktx : true})
-    .populate('_phongchitiet_id')
-    .populate('_tang_id')
-    .populate('_phong_id')
+    .find({tamdung_hocvu : false, gia_han_luu_tru : true})
     .exec(function(err, students){
       if(err) throw err;
       res.json(students);
@@ -165,7 +161,12 @@ module.exports = function(app, importStudent) {
   })
 
   app.get('/giahan/getstudentluutru', function(req, res){
-    Student.find({gia_han_thanh_cong: true}, function(err, students){
+    Student
+    .find({gia_han_thanh_cong: true})
+    .populate('_phongchitiet_id')
+    .populate('_tang_id')
+    .populate('_phong_id')
+    .exec(function(err, students){
       if(err) throw err;
       res.json(students);
     });
@@ -181,7 +182,7 @@ module.exports = function(app, importStudent) {
   })
 
   app.get('/giahan/getstudent/diem/:stuDiem', function(req, res){
-    Student.find({tamdung_hocvu : false, diem_ren_luyen : {$gt: req.params.stuDiem}, dang_o_ktx : true}, function(err, students){
+    Student.find({tamdung_hocvu : false, diem_ren_luyen : {$gt: req.params.stuDiem}, gia_han_luu_tru : true}, function(err, students){
       if(err) throw err;
       res.json(students);
     });
@@ -376,7 +377,7 @@ module.exports = function(app, importStudent) {
                       return res.json({error_code:1,err_desc:err, data: null});
                   }
                   for(var i=0; i<result.length; i++){
-                    Student.findOneAndUpdate({ma_sinh_vien : result[i].ma_sinh_vien, dang_o_ktx : true}, {tamdung_hocvu : true} , { new: true }, function (err, student) {
+                    Student.findOneAndUpdate({ma_sinh_vien : result[i].ma_sinh_vien, gia_han_luu_tru : true}, {tamdung_hocvu : true} , { new: true }, function (err, student) {
                       if (err) throw err;
                     });
                   }
@@ -469,7 +470,7 @@ module.exports = function(app, importStudent) {
                       return res.json({error_code:1,err_desc:err, data: null});
                   }
                   for(var i=0; i<result.length; i++){
-                    Student.findOneAndUpdate({ma_sinh_vien : result[i].ma_sinh_vien, dang_o_ktx : true}, {diem_ren_luyen : result[i].diem_ren_luyen} , { new: true }, function (err, student) {
+                    Student.findOneAndUpdate({ma_sinh_vien : result[i].ma_sinh_vien, gia_han_luu_tru : true}, {diem_ren_luyen : result[i].diem_ren_luyen} , { new: true }, function (err, student) {
                       if (err) throw err;
                     });
                   }
@@ -519,7 +520,7 @@ module.exports = function(app, importStudent) {
                       return res.json({error_code:1,err_desc:err, data: null});
                   }
                   for(var i=0; i<result.length; i++){
-                    Student.findOneAndUpdate({ma_sinh_vien : result[i].ma_sinh_vien, dang_o_ktx : true}, {$push : { diem_ren_luyen_ktx : { tong : result[i].diem_ren_luyen_ktx, ve_sinh: result[i].diem_ve_sinh_ktx}}} , { new: true }, function (err, student) {
+                    Student.findOneAndUpdate({ma_sinh_vien : result[i].ma_sinh_vien, gia_han_luu_tru : true}, {$push : { diem_ren_luyen_ktx : { tong : result[i].diem_ren_luyen_ktx, ve_sinh: result[i].diem_ve_sinh_ktx}}} , { new: true }, function (err, student) {
                       if (err) throw err;
                     });
                   }
@@ -1102,5 +1103,33 @@ module.exports = function(app, importStudent) {
               res.send(true);
             });
           })
+
+          app.get('/getdichvu', function(req, res){
+            Dichvu.find(function(err, dichvu){
+              if(err) throw err;
+              res.json(dichvu);
+            });
+          })
+
+          // Add Chi Tieu
+
+            app.post('/adddichvu', function(req, res){
+              var nDichvu = new Dichvu();
+              nDichvu.ten = req.body.ten;
+              nDichvu.gia = req.body.gia;
+              nDichvu.save(function(err){
+                if(err) throw err;
+                res.send(true);
+              });
+            })
+
+            // Delete Student
+
+            app.delete('/deletedichvu/:dichvuId', function(req, res){
+              Dichvu.remove({_id: req.params.dichvuId}, function(err) {
+                if (err) throw err;
+                res.send(true);
+              });
+            })
 
 }

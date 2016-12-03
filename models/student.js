@@ -54,6 +54,7 @@ var studentSchema = new mongoose.Schema({
   _doi_tuong_id: {type: mongoose.Schema.Types.ObjectId, ref: 'Doituong'},
   _hoc_luc_id: {type: mongoose.Schema.Types.ObjectId, ref: 'Hocluc'},
   _hoan_canh_id: {type: mongoose.Schema.Types.ObjectId, ref: 'Hoancanh'},
-  _tinh_id: {type: mongoose.Schema.Types.ObjectId, ref: 'Tinh'}
+  _tinh_id: {type: mongoose.Schema.Types.ObjectId, ref: 'Tinh'},
+  _dichvu_id: {type: mongoose.Schema.Types.ObjectId, ref: 'Dichvu'}
 });
 module.exports = mongoose.model('Student', studentSchema);

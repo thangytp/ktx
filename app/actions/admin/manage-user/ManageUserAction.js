@@ -105,7 +105,7 @@ class ManageUserAction {
       url: '/getstudent/diemktx/' + payload.drlktx + '/' + payload.dvs + '/' + payload.drl,
       type: 'GET'
     })
-    .done((data) => {      
+    .done((data) => {
       this.actions.getUsersByDiemRenLuyenKtxSuccess(data);
     })
   }
@@ -270,7 +270,7 @@ class ManageUserAction {
       data: {phongchitiet : payload.phongchitiet, tang : payload.tang, maktx : payload.maktx}
     })
     .done((data) => {
-      this.actions.updateInfoKtxSuccess();
+      this.actions.updateInfoKtxSuccess(payload.xetduyet);
     })
   }
 
