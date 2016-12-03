@@ -11,6 +11,8 @@ var Tang = require('../../models/tang');
 var Phong = require('../../models/phong');
 var Phongchitiet = require('../../models/phongchitiet');
 var Dichvu = require('../../models/dichvu');
+var Hedaotao = require('../../models/hedaotao');
+
 
 
 
@@ -1131,5 +1133,32 @@ module.exports = function(app, importStudent) {
                 res.send(true);
               });
             })
+
+            app.get('/gethedaotao', function(req, res){
+              Hedaotao.find(function(err, hedaotao){
+                if(err) throw err;
+                res.json(hedaotao);
+              });
+            })
+
+            // Add Chi Tieu
+
+              app.post('/addhedaotao', function(req, res){
+                var nHedaotao = new Hedaotao();
+                nHedaotao.ten = req.body.ten;
+                nHedaotao.save(function(err){
+                  if(err) throw err;
+                  res.send(true);
+                });
+              })
+
+              // Delete Student
+  
+              app.delete('/deletehedaotao/:hedaotaoId', function(req, res){
+                Hedaotao.remove({_id: req.params.hedaotaoId}, function(err) {
+                  if (err) throw err;
+                  res.send(true);
+                });
+              })
 
 }
