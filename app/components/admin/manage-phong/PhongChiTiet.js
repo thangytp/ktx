@@ -4,6 +4,8 @@ import ManagePhongAction from '../../../actions/admin/manage-phong/ManagePhongAc
 import ManagePhongStore from '../../../stores/admin/manage-phong/ManagePhongStore';
 import ManagePhongChitietAction from '../../../actions/admin/manage-phong/ManagePhongChitietAction';
 import ManagePhongChitietStore from '../../../stores/admin/manage-phong/ManagePhongChitietStore';
+import ManageTangAction from '../../../actions/admin/manage-phong/ManageTangAction';
+import ManageTangStore from '../../../stores/admin/manage-phong/ManageTangStore';
 
 const AddPhongChitietModal = React.createClass({
 
@@ -13,7 +15,7 @@ const AddPhongChitietModal = React.createClass({
     const data = {
         loai: this.state.loai,
         ma: this.refs.ma.value,
-        tang: this.refs.tang.value
+        tang: this.state.tang
     };
     ManagePhongChitietAction.addPhong(data);
   },
@@ -22,12 +24,24 @@ const AddPhongChitietModal = React.createClass({
     this.setState({loai : e.target.value});
   },
 
+  handleChangeTang(e) {
+    this.setState({tang : e.target.value});
+  },
+
   render() {
 
     let listPhong = this.props.phong.map(function(phong, index){
       return(
 				<option value={phong._id} key={index}>
 					{phong.loai}
+				</option>
+			);
+    });
+
+    let listTang = this.props.tang.map(function(tang, index){
+      return(
+				<option value={tang._id} key={index}>
+					{tang.ten}
 				</option>
 			);
     });
@@ -51,8 +65,11 @@ const AddPhongChitietModal = React.createClass({
             <input type="text" className="form-control" ref="ma" placeholder="Mã Phòng" />
           </div>
           <div className="form-group">
-            <label for="exampleInputEmail1">Tầng</label>
-            <input type="Number" className="form-control" ref="tang" placeholder="Tầng" />
+            <label for="exampleInputPassword1">Tầng</label>
+            <select className="form-control" onChange={this.handleChangeTang.bind(this)}>
+                <option value='0'>--Chọn--</option>
+                {listTang}
+            </select>
           </div>
           <button className="btn btn-success btn-large" type="submit">Thêm Phòng</button>
         </form>
@@ -70,7 +87,7 @@ class Phong extends Component {
   constructor(props)
 	{
 		super(props);
-		this.state = {state1: ManagePhongStore.getState(), state2: ManagePhongChitietStore.getState()};
+		this.state = {state1: ManagePhongStore.getState(), state2: ManagePhongChitietStore.getState(), state3: ManageTangStore.getState()};
 		this.onChange = this.onChange.bind(this);
     this.state.addModalShow = false;
   }
@@ -78,14 +95,16 @@ class Phong extends Component {
   componentDidMount() {
     ManagePhongStore.listen(this.onChange);
     ManagePhongChitietStore.listen(this.onChange);
+    ManageTangStore.listen(this.onChange);
     ManagePhongAction.getPhong();
     ManagePhongChitietAction.getPhong();
+    ManageTangAction.getTang();
   }
 
   componentWillUnmount() {
     ManagePhongStore.unlisten(this.onChange);
     ManagePhongChitietStore.unlisten(this.onChange);
-
+    ManageTangStore.unlisten(this.onChange);
   }
 
   handleDelPhonChitiet(id) {
@@ -93,7 +112,7 @@ class Phong extends Component {
   }
 
   onChange(state) {
-    this.setState({state1: ManagePhongStore.getState(), state2: ManagePhongChitietStore.getState()});
+    this.setState({state1: ManagePhongStore.getState(), state2: ManagePhongChitietStore.getState(), state3: ManageTangStore.getState()});
   }
 
   render() {
@@ -104,7 +123,7 @@ class Phong extends Component {
         <th scope="row">{index + 1}</th>
         <td>{phongchitiet._loai.loai}</td>
         <td>{phongchitiet.ma}</td>
-        <td>{phongchitiet.tang}</td>
+        <td>{phongchitiet._tang.ten}</td>
         {/* <td><button className="btn btn-primary" onClick={this.handleGetStudent.bind(this, user._id)}>Edit</button></td> */}
         <td><button className="btn btn-danger" onClick={this.handleDelPhonChitiet.bind(this, phongchitiet._id)}>Delete</button></td>
         </tr>
@@ -113,7 +132,7 @@ class Phong extends Component {
 
     let addModalClose = () => this.setState({ addModalShow: false });
 
-    const props = {phong : this.state.state1.phong};
+    const props = {phong : this.state.state1.phong, tang : this.state.state3.tang};
 
 
     return (

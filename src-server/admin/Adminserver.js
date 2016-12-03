@@ -7,6 +7,7 @@ var Tinh = require('../../models/tinh');
 var Doituong = require('../../models/doituong');
 var Hocluc = require('../../models/hocluc');
 var Hoancanh = require('../../models/hoancanh');
+var Tang = require('../../models/tang');
 var Phong = require('../../models/phong');
 var Phongchitiet = require('../../models/phongchitiet');
 
@@ -124,7 +125,7 @@ module.exports = function(app, importStudent) {
   })
 
   app.get('/getstudent/test', function(req, res){
-    Student.findOne({ma_sinh_vien: '51203104'}, function(err, student){
+    Student.findOne({ma_sinh_vien: '71200838'}, function(err, student){
       if(err) throw err;
       res.json(student);
     });
@@ -140,14 +141,24 @@ module.exports = function(app, importStudent) {
   })
 
   app.get('/giahan/getstudenthocvu', function(req, res){
-    Student.find({tamdung_hocvu : false, dang_o_ktx : true}, function(err, students){
+    Student
+    .find({tamdung_hocvu : false, dang_o_ktx : true})
+    .populate('_phongchitiet_id')
+    .populate('_tang_id')
+    .populate('_phong_id')
+    .exec(function(err, students){
       if(err) throw err;
       res.json(students);
     });
   })
 
   app.get('/xetduyet/getstudentluutru', function(req, res){
-    Student.find({xet_duyet_thanh_cong: true}, function(err, students){
+    Student
+    .find({xet_duyet_thanh_cong: true})
+    .populate('_phongchitiet_id')
+    .populate('_tang_id')
+    .populate('_phong_id')
+    .exec(function(err, students){
       if(err) throw err;
       res.json(students);
     });
@@ -177,7 +188,7 @@ module.exports = function(app, importStudent) {
   })
 
   app.get('/getstudent/diemktx/:stuDrl/:stuVs/:drl', function(req, res){
-    Student.find({tamdung_hocvu : false, diem_ren_luyen : {$gt: req.params.drl}, 'diem_ren_luyen_ktx.tong' : {$gt : req.params.stuDrl}, 'diem_ren_luyen_ktx.ve_sinh' : {$gt : req.params.stuDrl} }, function(err, students){
+    Student.find({tamdung_hocvu : false, diem_ren_luyen : {$gt: req.params.drl}, 'diem_ren_luyen_ktx.tong' : {$gt : req.params.stuDrl}, 'diem_ren_luyen_ktx.ve_sinh' : {$gt : req.params.stuVs} }, function(err, students){
       if(err) throw err;
       res.json(students);
     });
@@ -274,7 +285,13 @@ module.exports = function(app, importStudent) {
     Student.findByIdAndUpdate(req.params.stuId, {email: req.body.email, _khu_vuc_id : req.body.khuvuc, _tinh_id : req.body.tinh, _doi_tuong_id : req.body.doituong, _hoc_luc_id : req.body.hocluc, _hoan_canh_id : req.body.hoancanh} , { new: true }, function (err, student) {
       if (err) throw err;
       res.send(student);
-      console.log(student);
+    });
+  })
+
+  app.put('/updatethongtinktx/:stuId', function(req, res){
+    Student.findByIdAndUpdate(req.params.stuId, {_tang_id: req.body.tang, ma_ktx : req.body.maktx, _phongchitiet_id : req.body.phongchitiet} , { new: true }, function (err, student) {
+      if (err) throw err;
+      res.send(student);
     });
   })
 
@@ -1030,6 +1047,7 @@ module.exports = function(app, importStudent) {
         Phongchitiet
         .find()
         .populate('_loai')
+        .populate('_tang')
         .exec(function(err, phong){
           if(err) throw err;
           res.json(phong);
@@ -1042,7 +1060,7 @@ module.exports = function(app, importStudent) {
           var nPhongchitiet = new Phongchitiet();
           nPhongchitiet._loai = req.body.loai;
           nPhongchitiet.ma = req.body.ma;
-          nPhongchitiet.tang = req.body.tang;
+          nPhongchitiet._tang = req.body.tang;
           nPhongchitiet.save(function(err){
             if(err) throw err;
             res.send(true);
@@ -1057,5 +1075,32 @@ module.exports = function(app, importStudent) {
             res.send(true);
           });
         })
+
+        app.get('/gettang', function(req, res){
+          Tang.find(function(err, tang){
+            if(err) throw err;
+            res.json(tang);
+          });
+        })
+
+        // Add Chi Tieu
+
+          app.post('/addtang', function(req, res){
+            var nTang = new Tang();
+            nTang.ten = req.body.ten;
+            nTang.save(function(err){
+              if(err) throw err;
+              res.send(true);
+            });
+          })
+
+          // Delete Student
+
+          app.delete('/deletetang/:tangId', function(req, res){
+            Tang.remove({_id: req.params.tangId}, function(err) {
+              if (err) throw err;
+              res.send(true);
+            });
+          })
 
 }
