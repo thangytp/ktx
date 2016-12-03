@@ -105,6 +105,9 @@ class SideBarLeft extends React.Component {
                           </a>
                           <ul style={{"display":"none"}}>
                               <li>
+                                <Link to="/quanly@ktx/tang">Tầng</Link>
+                              </li>
+                              <li>
                                 <Link to="/quanly@ktx/loaiphong">Loại Phòng</Link>
                               </li>
                               <li>

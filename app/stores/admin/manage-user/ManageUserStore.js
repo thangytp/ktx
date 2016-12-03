@@ -190,6 +190,9 @@ class ManageUserStore {
   onEditUserSuccess() {
     ManageUserAction.getUsers();
   }
+  onUpdateInfoKtxSuccess(){
+    ManageUserAction.getUsersByXetDuyetThanhCong();
+  }
 
   onImportUserSuccess() {
     ManageUserAction.getUsers();
