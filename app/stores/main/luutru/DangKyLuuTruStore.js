@@ -5,7 +5,11 @@ class DangKyLuuTruStore {
   	constructor() {
     	this.bindActions(DangKyLuuTruAction);
 
+        this.titleForm = 'Đăng ký lưu trú';
         this.daDangKyLuuTru = '';
+        this.daGiaHan = '';
+
+        this.idStu = '';
 
         this.checkNam = '';
         this.checkNu = '';
@@ -27,6 +31,12 @@ class DangKyLuuTruStore {
     	this.validateHoanCanh = '';
         this.validateLoaiPhong = '';
 
+        this.styleGioiTinh = 'block';
+        this.styleNamVaoTruong = 'block';
+        this.styleKhuVuc = 'block';
+        this.styleTinh = 'block';
+        this.styleDoiTuong = 'block';
+
     	this.messDK = '';
 
         this.textButtonDangKy = 'Đăng ký';
@@ -35,6 +45,7 @@ class DangKyLuuTruStore {
 	}
 
 	onDangKyLuuTruSuccess(data){
+        this.idStu = '';
         this.checkNam = '';
         this.checkNu = '';
         this.gioitinh = '';
@@ -188,9 +199,9 @@ class DangKyLuuTruStore {
 
     onGetStudentSuccess(data){
         if(data){
-            console.log(data);
+            this.titleForm = 'Gia hạn lưu trú';
             this.daDangKyLuuTru = data;
-
+            this.idStu = data._id;
             this.gioitinh = data.phai;
             if(this.gioitinh === 'm'){
                 this.checkNam = 'checked';
@@ -206,7 +217,9 @@ class DangKyLuuTruStore {
             this.svdoituong = data._doi_tuong_id;
             this.svhocluc = data._hoc_luc_id;
             this.svhoancanh = data._hoan_canh_id;
-            this.svloaiphong = '';
+            this.svloaiphong = data._phong_id;
+
+            this.daGiaHan = data.gia_han_luu_tru;
 
             this.validateGioiTinh = '';
             this.validateNam = '';
@@ -222,9 +235,45 @@ class DangKyLuuTruStore {
             this.textButtonDangKy = 'Gia hạn lưu trú';
             this.loading = 'none';
             this.disableDK = '';
+
+            this.styleGioiTinh = 'none';
+            this.styleNamVaoTruong = 'none';
+            this.styleKhuVuc = 'none';
+            this.styleTinh = 'none';
+            this.styleDoiTuong = 'none';
         }
     }
     onGetStudentFail(data){
+        console.log(data);
+    }
+
+    onGiaHanLuuTruSuccess(data){
+        this.idStu = '';
+        this.checkNam = '';
+        this.checkNu = '';
+        this.gioitinh = '';
+        this.namvaotruong = new Date().getFullYear();
+        this.svkhuvuc = '';
+        this.svtinh = '';
+        this.svdoituong = '';
+        this.svhocluc = '';
+        this.svhoancanh = '';
+        this.svloaiphong = '';
+
+        this.validateGioiTinh = '';
+        this.validateNam = '';
+        this.validateKhuVuc = '';
+        this.validateTinh = '';
+        this.validateDoiTuong = '';
+        this.validateHocLuc = '';
+        this.validateHoanCanh = '';
+        this.validateLoaiPhong = '';
+
+        this.messDK = ' Gia hạn lưu trú thành công!';
+        this.disableDK = 'disabled';
+        this.loading = 'none';
+    }
+    onGiaHanLuuTruFail(data){
         console.log(data);
     }
 

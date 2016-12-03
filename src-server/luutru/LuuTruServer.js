@@ -35,7 +35,30 @@ function LuuTruServer(app){
 	    	});
 	    }
 		catch (e) {
-	        res.status(e).send({ message: bookname+ 'error when add new.' });
+	        res.status(e).send({ message: 'Đăng ký lưu trú thất bại' });
+	    }
+
+	});
+
+	app.put('/api/giahanluutru', function(req, res, next){
+		var idStu = req.body.idStu;
+		
+	    var svhocluc = req.body.svhocluc;
+	    var svhoancanh = req.body.svhoancanh;
+	    var svloaiphong = req.body.svloaiphong;
+
+	    try{
+	    	student.findOne({_id: idStu}, function(err, stuRes){
+	    		if(err) return next(err);
+	    		stuRes.update({ $set: {_hoc_luc_id: svhocluc, _hoan_canh_id: svhoancanh, _phong_id: svloaiphong, gia_han_luu_tru: true} }, function(err1, re){
+	    			if(err1) return next(err1);
+	    			res.send({message: 'Gia hạn thành công'});
+	    		});
+	    	});
+	    	
+	    }
+		catch (e) {
+	        res.status(e).send({ message: 'Gia hạn thất bại' });
 	    }
 
 	});

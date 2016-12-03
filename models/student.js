@@ -40,6 +40,7 @@ var studentSchema = new mongoose.Schema({
   diem_ren_luyen: Number,
   diem_xet_duyet: Number,
   dang_o_ktx: {type: 'Boolean', default: true},
+  gia_han_luu_tru: {type: 'Boolean', default: false},
   xet_duyet_thanh_cong: {type: 'Boolean', default: false},
   gia_han_thanh_cong: {type: 'Boolean', default: false},
   diem_ren_luyen_ktx : [{

@@ -54,6 +54,8 @@ export default class SignUp extends React.Component {
   dangKyLuuTru(event)
   {
     event.preventDefault();
+    var idStu = this.state.state2.idStu;
+
     var userEmail = localStorage.getItem('email');
     var userName = localStorage.getItem('name');
     var mssv = userEmail.split('@');
@@ -104,9 +106,15 @@ export default class SignUp extends React.Component {
     }
 
     else {
-        DangKyLuuTruAction.showLoading();
-        DangKyLuuTruAction.dangKyLuuTru({ userEmail: userEmail, userName: userName, svmssv: svmssv, gioitinh: gioitinh, namvaotruong: namvaotruong, svkhuvuc: svkhuvuc, svtinh: svtinh,
-            svdoituong: svdoituong, svhocluc: svhocluc, svhoancanh: svhoancanh, svloaiphong: svloaiphong});
+        if(!idStu){
+          DangKyLuuTruAction.showLoading();
+          DangKyLuuTruAction.dangKyLuuTru({ userEmail: userEmail, userName: userName, svmssv: svmssv, gioitinh: gioitinh, namvaotruong: namvaotruong, svkhuvuc: svkhuvuc, svtinh: svtinh,
+              svdoituong: svdoituong, svhocluc: svhocluc, svhoancanh: svhoancanh, svloaiphong: svloaiphong});
+        }
+        else {
+          DangKyLuuTruAction.showLoading();
+          DangKyLuuTruAction.giaHanLuuTru({ idStu: idStu, svhocluc: svhocluc, svhoancanh: svhoancanh, svloaiphong: svloaiphong});
+        }
     }
 
 
@@ -115,16 +123,16 @@ export default class SignUp extends React.Component {
   render() {
 
     let khuVucUuTien = this.state.state1.khuvuc.map((kv, index)=>{
-      if(kv._id === this.state.state2.svkhuvuc){
-        return(
-              <option value={kv._id} key={index} selected>{kv.ten}</option>
-          );
-      }
-      else {
+      //if(kv._id === this.state.state2.svkhuvuc){
         return(
               <option value={kv._id} key={index}>{kv.ten}</option>
           );
-      }
+      // }
+      // else {
+      //   return(
+      //         <option value={kv._id} key={index}>{kv.ten}</option>
+      //     );
+      // }
     });
     let tinh = this.state.state1.tinh.map((ti, index)=>{
         return(
@@ -153,20 +161,36 @@ export default class SignUp extends React.Component {
           );
     });
 
-    {/*let daDangKyLuuTru = this.state.state2.daDangKyLuuTru;
-    if(daDangKyLuuTru){
+    let daGiaHan = this.state.state2.daGiaHan;
+    if(daGiaHan){
       return(
           <div className="container luu-tru">
 
               <div className="row">
-                <div className="col-md-10 col-md-offset-1">
-                  <h2>Đăng ký lưu trú ký túc xá</h2>
-                  <h4 className="text-center">Bạn đã đăng ký lưu trú. Vui lòng chờ xét duyệt!</h4>
+                <div className="col-md-9" >
+                  <ol className="breadcrumb no-overflow">
+                      <li><Link to="/"><i className="fa fa-home" aria-hidden="true"></i> Trang chủ</Link></li>
+                      <li>{this.state.state2.titleForm}</li>
+                  </ol>
+                  <div className="panel rounded shadow no-overflow">
+                    <div className="panel-heading">
+                        <div className="pull-left"><h3 className="panel-title">{this.state.state2.titleForm}</h3></div>
+                        <div className="clearfix"></div>
+                    </div>
+                    <div className="panel-body no-padding">
+                        <h3 className='text-center'>Bạn đã đăng ký gia hạn. Vui lòng chờ kết quả xét duyệt!</h3>
+                    </div>
+                  </div>
                 </div>
+
+                <div className="col-md-3 col-sm-12">
+                    <CotPhaiHome />
+                </div>
+
+              </div>
             </div>
-          </div>
         );
-    }*/}
+    }
 
     return (
             <div className="container luu-tru">
@@ -174,20 +198,20 @@ export default class SignUp extends React.Component {
               <div className="row">
                 <div className="col-md-9 ">
                   <ol className="breadcrumb no-overflow">
-                      <li><Link to="/quanly@ktx"><i className="fa fa-home" aria-hidden="true"></i> Trang chủ</Link></li>
-                      <li>Đăng ký lưu trú</li>
+                      <li><Link to="/"><i className="fa fa-home" aria-hidden="true"></i> Trang chủ</Link></li>
+                      <li>{this.state.state2.titleForm}</li>
                   </ol>
 
                   <div className="panel rounded shadow no-overflow">
                     <div className="panel-heading">
-                        <div className="pull-left"><h3 className="panel-title">Đăng ký lưu trú ký túc xá</h3></div>
+                        <div className="pull-left"><h3 className="panel-title">{this.state.state2.titleForm}</h3></div>
                         <div className="clearfix"></div>
                     </div>
                     <div className="panel-body no-padding">
                       
                       <form className="form-horizontal" role="form" onSubmit ={this.dangKyLuuTru.bind(this)}>
                         <div className="form-body">
-                          <div className="form-group">
+                          <div className="form-group" style={{'display': this.state.state2.styleGioiTinh}} >
                               <label className="control-label col-md-3 col-sm-3" htmlFor="">Giới tính</label>
                               <div className="col-md-7 col-sm-7"> 
                                   <label className="radio-inline"><input type="radio" name="gender" value="m" onClick={DangKyLuuTruAction.updateGioiTinhNam} checked={this.state.state2.checkNam}/>Nam</label>
@@ -195,7 +219,7 @@ export default class SignUp extends React.Component {
                                   <div className=''><span className="control-label text-danger">{this.state.state2.validateGioiTinh}</span></div>
                               </div>
                           </div>
-                          <div className={'form-group has-feedback ' }>
+                          <div className={'form-group has-feedback ' } style={{'display': this.state.state2.styleNamVaoTruong}}>
                             <label htmlFor="nam-vao-truong" className="col-md-3 control-label">Năm vào trường</label>
                             <div className="col-md-7">
                                 <input type='number' className="form-control" id='nam-vao-truong' value={this.state.state2.namvaotruong}
@@ -203,7 +227,7 @@ export default class SignUp extends React.Component {
                                 <div className=''><span className="control-label text-danger">{this.state.state2.validateNam}</span></div>
                             </div>
                           </div>
-                          <div className={'form-group has-feedback ' }>
+                          <div className={'form-group has-feedback ' } style={{'display': this.state.state2.styleKhuVuc}}>
                             <label htmlFor="khu-vuc-uu-tien" className="col-md-3 control-label">Khu vực ưu tiên</label>
                             <div className="col-md-7">
                                 <select className="form-control" id="khu-vuc-uu-tien" value={this.state.state2.svkhuvuc}
@@ -214,146 +238,19 @@ export default class SignUp extends React.Component {
                                 <div className=''><span className="control-label text-danger">{this.state.state2.validateKhuVuc}</span></div>
                             </div>
                           </div>
-                          <div className={'form-group has-feedback ' }>
+                          <div className={'form-group has-feedback ' } style={{'display': this.state.state2.styleTinh}}>
                             <label htmlFor="tinh" className="col-md-3 control-label">Tỉnh</label>
                             <div className="col-md-7">
                                 <select className="form-control" id="tinh" value={this.state.state2.svtinh}
                                     onChange={DangKyLuuTruAction.updateTinh} ref='TinhTextField'>
                                   <option value =''>-- Chọn tỉnh --</option>
                                   {tinh}
-                                  {/*<option value="0">-Tỉnh-</option>
-
-                                  <option value="1">Hồ Chí Minh</option>
-
-                                  <option value="2">Hà Nội</option>
-
-                                  <option value="3">Đà Nẵng</option>
-
-                                  <option value="4">Cần Thơ</option>
-
-                                  <option value="5">Hải Phòng</option>
-
-                                  <option value="6">An Giang</option>
-
-                                  <option value="7">Bà Rịa Vũng Tàu</option>
-
-                                  <option value="8">Bắc Giang</option>
-
-                                  <option value="9">Bắc Kạn</option>
-
-                                  <option value="10">Bạc Liêu</option>
-
-                                  <option value="11">Bắc Ninh</option>
-
-                                  <option value="12">Bến Tre</option>
-
-                                  <option value="13">Bình Định</option>
-
-                                  <option value="14">Bình Dương</option>
-
-                                  <option value="15">Bình Phước</option>
-
-                                  <option value="16">Bình Thuận</option>
-
-                                  <option value="17">Cà Mau</option>
-
-                                  <option value="18">Cao Bằng</option>
-
-                                  <option value="19">Đăk Lăk</option>
-
-                                  <option value="20">Đăk Nông</option>
-
-                                  <option value="21">Điện Biên</option>
-
-                                  <option value="22">Đồng Nai</option>
-
-                                  <option value="23">Đồng Tháp</option>
-
-                                  <option value="24">Gia Lai</option>
-
-                                  <option value="25">Hà Giang</option>
-
-                                  <option value="26">Hà Nam</option>
-
-                                  <option value="27">Hà Tĩnh</option>
-
-                                  <option value="28">Hải Dương</option>
-
-                                  <option value="29">Hậu Giang</option>
-
-                                  <option value="30">Hòa Bình</option>
-
-                                  <option value="31">Hưng Yên</option>
-
-                                  <option value="32">Khánh Hòa</option>
-
-                                  <option value="33">Kiên Giang</option>
-
-                                  <option value="34">Kon Tum</option>
-
-                                  <option value="35">Lai Châu</option>
-
-                                  <option value="36">Lâm Đồng</option>
-
-                                  <option value="37">Lạng Sơn</option>
-
-                                  <option value="38">Lào Cai</option>
-
-                                  <option value="39">Long An</option>
-
-                                  <option value="40">Nam Định</option>
-
-                                  <option value="41">Nghệ An</option>
-
-                                  <option value="42">Ninh Bình</option>
-
-                                  <option value="43">Ninh Thuận</option>
-
-                                  <option value="44">Phú Thọ</option>
-
-                                  <option value="45">Phú Yên</option>
-
-                                  <option value="46">Quảng Bình</option>
-
-                                  <option value="47">Quảng Nam</option>
-
-                                  <option value="48">Quảng Ngãi</option>
-
-                                  <option value="49">Quảng Ninh</option>
-
-                                  <option value="50">Quảng Trị</option>
-
-                                  <option value="51">Sóc Trăng</option>
-
-                                  <option value="52">Sơn La</option>
-
-                                  <option value="53">Tây Ninh</option>
-
-                                  <option value="54">Thái Bình</option>
-
-                                  <option value="55">Thái Nguyên</option>
-
-                                  <option value="56">Thanh Hóa</option>
-
-                                  <option value="57">Thừa Thiên Huế</option>
-
-                                  <option value="58">Tiền Giang</option>
-
-                                  <option value="59">Trà Vinh</option>
-
-                                  <option value="60">Tuyên Quang</option>
-
-                                  <option value="61">Vĩnh Long</option>
-
-                                  <option value="62">Vĩnh Phúc</option>
-
-                                  <option value="63">Yên Bái</option>*/}
 
                                 </select>
                                 <div className=''><span className="control-label text-danger">{this.state.state2.validateTinh}</span></div>
                             </div>
                           </div>
-                          <div className={'form-group has-feedback ' }>
+                          <div className={'form-group has-feedback ' } style={{'display': this.state.state2.styleDoiTuong}}>
                             <label htmlFor="doi-tuong-uu-tien" className="col-md-3 control-label">Đối tượng ưu tiên</label>
                             <div className="col-md-7">
                                 <select className="form-control" id="doi-tuong-uu-tien" value={this.state.state2.svdoituong}
