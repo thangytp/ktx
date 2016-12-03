@@ -190,6 +190,13 @@ class ManageUserStore {
   onEditUserSuccess() {
     ManageUserAction.getUsers();
   }
+  onUpdateInfoKtxSuccess(data){
+    if(data == undefined) {
+      ManageUserAction.getUsersByGiaHanThanhCong();
+    } else {
+      ManageUserAction.getUsersByXetDuyetThanhCong();
+    }
+  }
 
   onImportUserSuccess() {
     ManageUserAction.getUsers();

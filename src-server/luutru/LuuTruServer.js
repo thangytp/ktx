@@ -43,7 +43,7 @@ function LuuTruServer(app){
 
 	app.put('/api/giahanluutru', function(req, res, next){
 		var idStu = req.body.idStu;
-		
+
 	    var svhocluc = req.body.svhocluc;
 	    var svhoancanh = req.body.svhoancanh;
 	    var svloaiphong = req.body.svloaiphong;
@@ -56,7 +56,7 @@ function LuuTruServer(app){
 	    			res.send({message: 'Gia hạn thành công'});
 	    		});
 	    	});
-	    	
+
 	    }
 		catch (e) {
 	        res.status(e).send({ message: 'Gia hạn thất bại' });

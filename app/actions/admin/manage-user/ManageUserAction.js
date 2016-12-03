@@ -24,7 +24,8 @@ class ManageUserAction {
        'updateDiemRenLuyenGiaHanSuccess',
        'updateDiemRenLuyenKtxSuccess',
        'updateXetDuyetXetDuyetSuccess',
-       'updateXetDuyetGiaHanSuccess'
+       'updateXetDuyetGiaHanSuccess',
+       'updateInfoKtxSuccess'
 
     );
   }
@@ -259,6 +260,17 @@ class ManageUserAction {
     })
     .done((data) => {
       this.actions.editUserSuccess();
+    })
+  }
+
+  updateInfoKtx(payload) {
+    $.ajax({
+      url: '/updatethongtinktx/' + payload.userId,
+      type: 'PUT',
+      data: {phongchitiet : payload.phongchitiet, tang : payload.tang, maktx : payload.maktx}
+    })
+    .done((data) => {
+      this.actions.updateInfoKtxSuccess(payload.xetduyet);
     })
   }
 

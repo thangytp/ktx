@@ -3,52 +3,72 @@ import {Link} from 'react-router'
 import {Modal, Button} from 'react-bootstrap';
 import ManageUserAction from '../../../actions/admin/manage-user/ManageUserAction';
 import ManageUserStore from '../../../stores/admin/manage-user/ManageUserStore';
-import ManagePhongAction from '../../../actions/admin/manage-phong/ManagePhongAction';
-import ManagePhongStore from '../../../stores/admin/manage-phong/ManagePhongStore';
+import ManageTangAction from '../../../actions/admin/manage-phong/ManageTangAction';
+import ManageTangStore from '../../../stores/admin/manage-phong/ManageTangStore';
 import ManagePhongChitietAction from '../../../actions/admin/manage-phong/ManagePhongChitietAction';
 import ManagePhongChitietStore from '../../../stores/admin/manage-phong/ManagePhongChitietStore';
 
 const UpdateUserModal = React.createClass({
 
+  getInitialState: function() {
+    return {loai: '', tang: '', listPhongChitiet: []};
+  },
+
   handleUpdateKtx(e) {
 
     e.preventDefault()
     const data = {
-        loai: this.refs.loai.value,
-        gia: this.refs.gia.value,
-        kichco: this.refs.kichco.value,
-        soluong: this.refs.soluong.value
+        userId: this.props.user._id,
+        phongchitiet: this.state.loai,
+        tang: this.state.tang,
+        maktx: this.refs.maktx.value,
+        xetduyet: true
     };
-    // ManagePhongAction.addPhong(data);
+    ManageUserAction.updateInfoKtx(data);
   },
 
   handleChangePhong(e) {
-    this.setState({loai : e.target.value});
+    this.state.loai = e.target.value;
+  },
+
+  handleChangeTang(e) {
+    this.state.tang = e.target.value;
+    var phongchitiet = this.props.phongchitiet;
+    var loaiphong = this.props.user._phong_id;
+
+    var phongByLoai = phongchitiet.filter(function(obj) {
+        return obj._loai._id == loaiphong._id;
+    });
+        phongByLoai = phongByLoai.filter(function(obj) {
+            return obj._tang._id == e.target.value;
+        });
+    this.setState({listPhongChitiet : phongByLoai});
   },
 
   render() {
-    let listPhongChitiet;
+    let listTang;
+    listTang = this.props.tang.map(function(tang, index){
+      return(
+        <option value={tang._id} key={index}>
+          {tang.ten}
+        </option>
+      );
+    });
 
-    if(Object.keys(this.props.user).length !== 0) {
+    // let listPhong;
+    // console.log(this.state.listPhongChitiet);
+    // if(this.state.listPhongChitiet != '') {
+    //   listPhong = this.state.listPhongChitiet.map(function(phong, index){
+    //     return(
+    //       <option value={phong._id} key={index}>
+    //         {phong.ma}
+    //       </option>
+    //     );
+    //   });
+    // } else {
+    //   listPhong = null;
+    // }
 
-      var phongchitiet = this.props.phongchitiet;
-      var loaiphong = this.props.user._phong_id;
-
-      var phongByLoai = phongchitiet.filter(function(obj) {
-          return obj._loai._id == loaiphong._id;
-      });
-
-      console.log(phongByLoai);
-
-      listPhongChitiet = phongByLoai.map(function(phong, index){
-        return(
-  				<option value={phong._id} key={index}>
-  					{phong.ma}
-  				</option>
-  			);
-      });
-
-    }
     return (
       <Modal {...this.props} bsSize="large" aria-labelledby="contained-modal-title-lg">
         <Modal.Header closeButton>
@@ -57,23 +77,28 @@ const UpdateUserModal = React.createClass({
         <Modal.Body>
         <form onSubmit={this.handleUpdateKtx.bind(this)}>
           <div className="form-group">
-            <label for="exampleInputEmail1">Loại Phòng</label>
-            <input type="text" className="form-control" ref="loai" placeholder="Loại Phòng" />
+            <label for="exampleInputEmail1">Chọn Tầng</label>
+            <select className="form-control" onChange={this.handleChangeTang.bind(this)}>
+                <option value='0'>--Chọn--</option>
+                {listTang}
+            </select>
           </div>
           <div className="form-group">
             <label for="exampleInputPassword1">Chọn Phòng</label>
             <select className="form-control" onChange={this.handleChangePhong.bind(this)}>
                 <option value='0'>--Chọn--</option>
-                {listPhongChitiet}
+                {this.state.listPhongChitiet.map(function(phong, index){
+                  return (
+                    <option value={phong._id} key={index}>
+                      {phong.ma}
+                    </option>
+                  );
+                })}
             </select>
           </div>
           <div className="form-group">
-            <label for="exampleInputEmail1">Kích Cỡ</label>
-            <input type="Number" className="form-control" ref="kichco" placeholder="Kích Cỡ" />
-          </div>
-          <div className="form-group">
-            <label for="exampleInputEmail1">Số Lượng</label>
-            <input type="Number" className="form-control" ref="soluong" placeholder="Số Lượng" />
+            <label for="exampleInputEmail1">Mã Ký Túc Xá</label>
+            <input type="text" className="form-control" ref="maktx" placeholder="Mã Ký Túc Xá" />
           </div>
           <button className="btn btn-success btn-large" type="submit">Cập Nhật</button>
         </form>
@@ -93,7 +118,7 @@ class XetDuyetStudent extends React.Component {
   constructor(props)
 	{
 		super(props);
-    this.state = {state1 : ManageUserStore.getState(), state2: ManagePhongStore.getState(), state3: ManagePhongChitietStore.getState()};
+    this.state = {state1 : ManageUserStore.getState(), state2: ManageTangStore.getState(), state3: ManagePhongChitietStore.getState()};
     // this.state = {};
 		this.onChange = this.onChange.bind(this);
     this.state.updateModalShow = false;
@@ -106,16 +131,16 @@ class XetDuyetStudent extends React.Component {
 
   componentDidMount() {
     ManageUserStore.listen(this.onChange);
-    ManagePhongStore.listen(this.onChange);
+    ManageTangStore.listen(this.onChange);
     ManagePhongChitietStore.listen(this.onChange);
     ManageUserAction.getUsersByXetDuyetThanhCong();
-    ManagePhongAction.getPhong();
+    ManageTangAction.getTang();
     ManagePhongChitietAction.getPhong();
   }
 
   componentWillUnmount() {
     ManageUserStore.unlisten(this.onChange);
-    ManagePhongStore.unlisten(this.onChange);
+    ManageTangStore.unlisten(this.onChange);
     ManagePhongChitietStore.unlisten(this.onChange);
   }
 
@@ -125,11 +150,11 @@ class XetDuyetStudent extends React.Component {
   }
 
   onChange(state) {
-    this.setState({state1 : ManageUserStore.getState(), state2: ManagePhongStore.getState(), state3: ManagePhongChitietStore.getState()});
+    this.setState({state1 : ManageUserStore.getState(), state2: ManageTangStore.getState(), state3: ManagePhongChitietStore.getState()});
   }
 
   render() {
-
+    console.log(this.state.state1.usersxd);
     let listUsers = this.state.state1.usersxd.map(function(user, index){
         return (
           <tr>
@@ -138,9 +163,9 @@ class XetDuyetStudent extends React.Component {
            <td>{user.email}</td>
            <td>{user.ma_sinh_vien}</td>
            <td>{user.ma_ktx}</td>
-           <td></td>
-           <td></td>
-           <td></td>
+           <td>{user._tang_id.ten}</td>
+           <td>{user._phong_id.loai}</td>
+           <td>{user._phongchitiet_id.ma}</td>
            <td>{user.so_cmnd}</td>
            <td>{user.dien_thoai}</td>
            <td><button className="btn btn-success" onClick={this.handleUpdateKtx.bind(this, user._id)}>Cập nhật thông tin trong ký túc xá</button></td>
@@ -149,7 +174,7 @@ class XetDuyetStudent extends React.Component {
     }, this);
 
     let updateModalClose = () => this.setState({ updateModalShow: false });
-    const props = {user: this.state.state1.user, phongchitiet: this.state.state3.phongchitiet};
+    const props = {user: this.state.state1.user, tang: this.state.state2.tang, phongchitiet: this.state.state3.phongchitiet};
     return (
       <div>
         <div className="table-responsive">

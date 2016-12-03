@@ -22,7 +22,6 @@ var studentSchema = new mongoose.Schema({
   uu_tien_khac: String,
   so_cmnd: String,
   ma_giuong: String,
-  ten_phong: String,
   ten_giuong: String,
   nam_vao_truong: String,
   phai: String,
@@ -46,7 +45,7 @@ var studentSchema = new mongoose.Schema({
   tamdung_hocvu:    {type: 'Boolean', default: false},
   diem_ren_luyen: Number,
   diem_xet_duyet: Number,
-  dang_o_ktx: {type: 'Boolean', default: false},
+  dang_o_ktx: {type: 'Boolean', default: true},
   gia_han_luu_tru: {type: 'Boolean', default: false},
   xet_duyet_thanh_cong: {type: 'Boolean', default: false},
   gia_han_thanh_cong: {type: 'Boolean', default: false},
@@ -54,11 +53,14 @@ var studentSchema = new mongoose.Schema({
     tong: {type : 'Number'},
     ve_sinh: {type: 'Number'}
   }],
+  _phongchitiet_id: {type: mongoose.Schema.Types.ObjectId, ref: 'Phongchitiet'},
+  _tang_id: {type: mongoose.Schema.Types.ObjectId, ref: 'Tang'},
   _phong_id: {type: mongoose.Schema.Types.ObjectId, ref: 'Phong'},
   _khu_vuc_id: {type: mongoose.Schema.Types.ObjectId, ref: 'Khuvuc'},
   _doi_tuong_id: {type: mongoose.Schema.Types.ObjectId, ref: 'Doituong'},
   _hoc_luc_id: {type: mongoose.Schema.Types.ObjectId, ref: 'Hocluc'},
   _hoan_canh_id: {type: mongoose.Schema.Types.ObjectId, ref: 'Hoancanh'},
-  _tinh_id: {type: mongoose.Schema.Types.ObjectId, ref: 'Tinh'}
+  _tinh_id: {type: mongoose.Schema.Types.ObjectId, ref: 'Tinh'},
+  _dichvu_id: {type: mongoose.Schema.Types.ObjectId, ref: 'Dichvu'}
 });
 module.exports = mongoose.model('Student', studentSchema);

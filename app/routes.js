@@ -12,8 +12,11 @@ import GiaHanStudent from './components/admin/manage-user/GiaHanStudent';
 
 import ChiTieu from './components/admin/manage-chitieu/ChiTieu';
 import UuTien from './components/admin/manage-uutien/UuTien';
+import Tang from './components/admin/manage-phong/Tang';
 import Phong from './components/admin/manage-phong/Phong';
 import PhongChiTiet from './components/admin/manage-phong/PhongChiTiet';
+import Dichvu from './components/admin/manage-dichvu/Dichvu';
+
 
 
 
@@ -63,8 +66,10 @@ export default (
 
             <Route path="/quanly@ktx/chi-tieu" component={ChiTieu}/>
             <Route path="/quanly@ktx/uu-tien" component={UuTien}/>
+            <Route path="/quanly@ktx/tang" component={Tang}/>
             <Route path="/quanly@ktx/loaiphong" component={Phong}/>
             <Route path="/quanly@ktx/phong" component={PhongChiTiet}/>
+            <Route path="/quanly@ktx/dich-vu" component={Dichvu}/>
             <Route path="/quanly@ktx/cotphai-home" component={CotPhaiHome}/>
             <Route path="/quanly@ktx/lienket-site" component={LienKetSite}/>
             <Route path="/quanly@ktx/hien-thi-tin-tuc" component={TinTucHome}/>
