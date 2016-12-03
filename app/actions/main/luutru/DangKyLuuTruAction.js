@@ -6,21 +6,52 @@ class DangKyLuuTruAction {
     		'dangKyLuuTruSuccess',
     		'dangKyLuuTruFail',
 
+            'updateHoLot',
+            'updateTen',
             'updateGioiTinhNam',
             'updateGioiTinhNu',
+            'updateNgaySinh',
+            'updateKhoa',
+            'updateHeDaoTao',
             'updateNamVaoTruong',
     		'updateKhuVuc',
     		'updateTinh',
     		'updateDoiTuong',
+            'updateTonGiao',
+            'updateDoanThe',
+            'updateSoCMND',
+            'updateHoKhau',
+            'updateDienThoaiSV',
+            'updateDienThoaiGiaDinh',
+            'updateEmailThuongDung',
     		'updateHocLuc',
     		'updateHoanCanh',
     		'updateLoaiPhong',
 
+            'updateDVMayGiat',
+            'updateDVTuLanh',
+
+            'updateNhapThongTin',
+            'updateDongY',
+
+            'invalidHoLot',
+            'invalidTen',
+            'invalidKhuVuc',
             'invalidGioiTinh',
+            'invalidNgaySinh',
+            'invalidTinh',
+            'invalidKhoa',
             'invalidNam',
-    		'invalidKhuVuc',
-    		'invalidTinh',
+    		'invalidHeDaoTao',
     		'invalidDoiTuong',
+            'invalidTonGiao',
+            'invalidDoanThe',
+            'invalidSoCMND',
+            'invalidHoKhau',
+            'invalidSVDienThoai',
+            'invalidGiaDinhDienThoai',
+            'invalidDongY',
+
     		'invalidHocluc',
     		'invalidHoanCanh',
             'invalidLoaiPhong',
@@ -31,17 +62,31 @@ class DangKyLuuTruAction {
             'getStudentFail',
 
             'giaHanLuuTruSuccess',
-            'giaHanLuuTruFail'
+            'giaHanLuuTruFail',
+
+            'getLoaiPhongByIdSuccess',
+            'getLoaiPhongByIdFail',
+
+            'quayLai'
 
     	);
 	}
+
+    updateNgaySinh(date){
+        this.actions.updateNgaySinh(date);
+    }
 
 	dangKyLuuTru(payload){
 		$.ajax({
 	      	type: 'POST',
 	      	url: '/api/dangkyluutru',
-	      	data: { userEmail: payload.userEmail, userName: payload.userName, svmssv: payload.svmssv, gioitinh: payload.gioitinh, namvaotruong: payload.namvaotruong, svkhuvuc: payload.svkhuvuc, svtinh: payload.svtinh, 
-            svdoituong: payload.svdoituong, svhocluc: payload.svhocluc, svhoancanh: payload.svhoancanh, svloaiphong: payload.svloaiphong }
+	      	data: { 
+                userEmail: payload.userEmail, svmssv: payload.svmssv, holot: payload.holot, ten: payload.ten, svkhuvuc: payload.svkhuvuc, 
+                gioitinh: payload.gioitinh, ngaySinh: payload.ngaySinh, svtinh: payload.svtinh, svkhoa: payload.svkhoa, namvaotruong: payload.namvaotruong,  
+                svhedaotao: payload.svhedaotao, svdoituong: payload.svdoituong, svtongiao: payload.svtongiao, svdoanthe: payload.svdoanthe, socmnd: payload.socmnd, 
+                hokhau: payload.hokhau, svdienthoai: payload.svdienthoai, giadinhdienthoai: payload.giadinhdienthoai, emailThuongDung: payload.emailThuongDung, 
+                svhocluc: payload.svhocluc, svhoancanh: payload.svhoancanh, svloaiphong: payload.svloaiphong
+            }
 	    })
 	    .done((data) => {
 	        this.actions.dangKyLuuTruSuccess(data.message);
@@ -68,13 +113,26 @@ class DangKyLuuTruAction {
     getStudent(id){
         $.ajax({
             type: 'GET',
-            url: '/getstudentBymssv/' + id
+            url: '/api/getstudentBymssv/' + id
         })
         .done((data) =>{
             this.actions.getStudentSuccess(data);
         })
         .fail((jqXhr) => {
             this.actions.getStudentFail(jqXhr.responseJSON);
+        });
+    }
+
+    getLoaiPhongById(id){
+        $.ajax({
+            type: 'GET',
+            url: '/api/getphongbyid/'+id
+        })
+        .done((data) =>{
+            this.actions.getLoaiPhongByIdSuccess(data);
+        })
+        .fail((jqXhr) => {
+            this.actions.getLoaiPhongByIdFail(jqXhr.responseJSON);
         });
     }
 

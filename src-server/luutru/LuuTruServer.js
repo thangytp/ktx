@@ -1,4 +1,5 @@
 var student = require('../../models/student');
+var Phong = require('../../models/phong');
 
 function LuuTruServer(app){
 	app.post('/api/dangkyluutru', function(req, res, next){
@@ -63,7 +64,7 @@ function LuuTruServer(app){
 
 	});
 
-	app.get('/getstudentBymssv/:id', function(req, res, next){
+	app.get('/api/getstudentBymssv/:id', function(req, res, next){
 		var mssv = req.params.id;
 		student.findOne({ma_sinh_vien: mssv})
 		// .populate('_khu_vuc_id')
@@ -75,6 +76,16 @@ function LuuTruServer(app){
 		.exec(function(err, stuRes){
 			if(err) return next(err);
 			res.send(stuRes);
+		});
+	});
+
+	app.get('/api/getphongbyid/:id', function(req, res, next){
+		var id= req.params.id;
+		Phong.findOne({_id: id}, function(err, phongRes){
+			if(err) return next(err);
+			if(phongRes){
+				res.send(phongRes);
+			}
 		});
 	});
 }

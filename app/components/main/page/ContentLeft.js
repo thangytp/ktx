@@ -11,7 +11,11 @@ class ContentLeft extends React.Component {
     super(props);       
     this.onChange = this.onChange.bind(this);
   }
+  componentWillReceiveProps(nextProps){
+    document.title = nextProps.page.title + ' | Ký túc xá Bách Khoa';
+  }
   componentDidMount() {  
+    document.title = this.props.page.title + ' | Ký túc xá Bách Khoa';
   }
   componentWillUnmount() {
   }
@@ -28,8 +32,8 @@ class ContentLeft extends React.Component {
     return (     
       <div>
         <ol className="breadcrumb no-overflow">
-            <li><Link to="/"><i className="fa fa-home" aria-hidden="true"></i> Trang chủ</Link></li>
-            <li>Quản lý trang</li>
+            <li><Link to="/"><i className="fa fa-home" aria-hidden="true"></i> Trang chủ <i className="fa fa-angle-double-right" aria-hidden="true"></i></Link></li>
+            
         </ol>
         <div className = "panel panel-default panel-blog rounded shadow">
           <div className="panel-body">

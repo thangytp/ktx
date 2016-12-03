@@ -21,6 +21,7 @@ class Home extends React.Component {
 		this.onChange = this.onChange.bind(this);
 	}
 	componentDidMount() {
+		document.title = "Trang chủ | Ký túc xá Bách Khoa"; 
 		TinTucHomeStore.listen(this.onChange);
 		TinTucHomeAction.getListTinTucToDisplayHome();
 	}

@@ -2,6 +2,12 @@ var mongoose = require('mongoose');
 
 
 var studentSchema = new mongoose.Schema({
+  tongiao: String,
+  sdt_sinhvien: Number,
+  sdt_giadinh: Number,
+  ngay_sinh: Date,
+  he_dao_tao_id: {type: mongoose.Schema.Types.ObjectId, ref: 'hedaotao'},
+  khoa_id: {type: mongoose.Schema.Types.ObjectId, ref: 'khoa'},
   fk_doan_the: String,
   ma_ktx: String,
   hoc_ky_nop_hs: String,

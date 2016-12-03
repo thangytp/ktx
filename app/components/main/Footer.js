@@ -37,7 +37,9 @@ class Footer extends React.Component {
                     <div className="col-lg-4 col-md-4 col-sm-12 col-xs-12">
                         <div className="copyright-text">
                             <p>© Ký túc xá Bách Khoa.</p>
-                            <p><i className="fa fa-phone" aria-hidden="true"></i> 08 888 8888</p>
+                            <p><i className="fa fa-map-marker" aria-hidden="true"></i> 497 Hòa Hảo, P7, Q10, TPHCM</p>
+                            <p><i className="fa fa-envelope-o" aria-hidden="true"></i>  ktx@hcmut.edu.vn</p>
+                            <p><i className="fa fa-phone" aria-hidden="true"></i> 08.39573946</p>
                         </div>
                     </div>
 

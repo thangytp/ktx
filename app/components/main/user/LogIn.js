@@ -12,6 +12,7 @@ export default class LogIn extends React.Component {
 		this.onChange = this.onChange.bind(this);
 	}
 	componentDidMount() {
+		document.title = "Đăng nhập | Ký túc xá Bách Khoa"; 
 		console.log(this.state);
 	}
 	componentWillUnmount() {

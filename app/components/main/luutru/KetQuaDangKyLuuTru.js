@@ -13,6 +13,7 @@ export default class KetQuaDangKyLuuTru extends React.Component {
   }
   
   componentDidMount() {  
+      document.title = "Kết quả đăng ký lưu trú | Ký túc xá Bách Khoa"; 
   }
   componentWillUnmount() {
   }
