@@ -20,6 +20,10 @@ class ManagePhongChitietStore {
   onDelPhongChitietSuccess() {
     ManagePhongChitietAction.getPhong();
   }
+
+  onUpdateGiuongDangkySuccess() {
+    ManagePhongChitietAction.getPhong();
+  }
   // onUpdateuser(event)
   // {
   // 	this.user = event.target.value;
