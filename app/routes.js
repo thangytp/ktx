@@ -33,6 +33,9 @@ import QuanLyTinTuc from './components/admin/quanlytintuc/QuanLyTinTuc';
 import Admin from './components/admin/manage-admin/Admin';
 
 
+import KhoaAdmin from './components/admin/khoa/KhoaAdmin';
+import HeDaoTao from './components/admin/hedaotao/HeDaoTao';
+
 import Main from './components/main/Main';
 import Home from './components/main/Home';
 import DangKyLuuTru from './components/main/luutru/DangKyLuuTru';
@@ -83,6 +86,8 @@ export default (
             <Route path="/quanly@ktx/lienket-site" component={LienKetSite}/>
             <Route path="/quanly@ktx/hien-thi-tin-tuc" component={TinTucHome}/>
             <Route path="/quanly@ktx/quan-ly-tin-tuc" component={QuanLyTinTuc}/>
+            <Route path="/quanly@ktx/quan-ly-khoa" component={KhoaAdmin}/>
+            <Route path="/quanly@ktx/quan-ly-he-dao-tao" component={HeDaoTao}/>
 
         </Route>
 

@@ -54,6 +54,7 @@ var LienKetSiteServer = require('./src-server/lienketsite/LienKetSiteServer');
 var CotPhaiHomeServer = require('./src-server/cotphaihome/CotPhaiHomeServer');
 var QuanLyTinTucServer = require('./src-server/quanlytintuc/QuanLyTinTucServer');
 var TinTucHomeServer = require('./src-server/tintuchome/TinTucHomeServer');
+var KhoaServer = require('./src-server/khoa/KhoaServer');
 //==============================================
 
 var Adminserver = require('./src-server/admin/Adminserver');
@@ -124,6 +125,7 @@ LienKetSiteServer(app);
 CotPhaiHomeServer(app);
 QuanLyTinTucServer(app);
 TinTucHomeServer(app);
+KhoaServer(app);
 Adminserver(app, importStudent);
 
 /*

@@ -13,6 +13,7 @@ export default class SignUp extends React.Component {
     this.onChange = this.onChange.bind(this);
   }
   componentWillMount() {
+    document.title = "Đăng ký | Ký túc xá Bách Khoa"; 
     var userEmail = localStorage.getItem('email');
     if(userEmail){
       window.location.href="/";

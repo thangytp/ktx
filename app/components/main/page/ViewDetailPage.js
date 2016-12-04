@@ -21,6 +21,7 @@ class ViewDetailPage extends React.Component {
     }
     else var link = nextProps.params.link + '/' + nextProps.params.link2;
     ViewDetailPageAction.getPageByLink(link);   
+    //document.title = this.state.page ? this.state.page.title + ' | Ký túc xá Bách Khoa' : 'United | Ký túc xá Bách Khoa';
     console.log(link);
   }
   componentDidMount() {  
@@ -30,6 +31,7 @@ class ViewDetailPage extends React.Component {
     }
     else var link = this.props.params.link + '/' + this.props.params.link2;
     ViewDetailPageAction.getPageByLink(link);   
+    //document.title = this.state.page ? this.state.page.title + ' | Ký túc xá Bách Khoa' : 'United | Ký túc xá Bách Khoa';
     console.log(link);
   }
   componentWillUnmount() {

@@ -505,8 +505,17 @@ body.page-sidebar-minimize #sidebar-left .sidebar-menu .submenu ul li:after, bod
 .sidebar-menu > li.active {
   background-color: #3c3c3c; }
 
+body.page-sidebar-minimize #sidebar-left .sidebar-menu > li.active, body.page-sidebar-minimize-auto #sidebar-left .sidebar-menu > li.active {
+  min-width: 75px; }
+
 .sidebar-menu > li.active > a span {
   color: #d0d0d0; }
+
+body.page-sidebar-minimize #sidebar-left:hover .sidebar-menu > li.sidebar-category, body.page-sidebar-minimize #sidebar-left:hover .sidebar-menu > li.active, body.page-sidebar-minimize-auto #sidebar-left:hover .sidebar-menu > li.sidebar-category, body.page-sidebar-minimize-auto #sidebar-left:hover .sidebar-menu > li.active {
+  width: 75px; }
+
+body.page-sidebar-minimize #sidebar-left:hover .sidebar-menu > li.active:hover, body.page-sidebar-minimize-auto #sidebar-left:hover .sidebar-menu > li.active:hover {
+  width: 250px; }
 
 #page-content {
   background-color: #F3F3F4;
@@ -1126,7 +1135,7 @@ a {
   color: #FFF !important; }
 
 .main-navigation ul > li:hover {
-  background-color: #00B1E1 !important; }
+  background-color: #81B71A !important; }
 
 .menu-item-has-children ul li {
   margin-left: 0px;
@@ -1270,6 +1279,15 @@ a {
   margin-bottom: 50px;
   text-align: center;
   text-transform: uppercase; }
+
+.quy-dinh-dang-ky {
+  color: blue; }
+
+.list-number {
+  list-style: decimal; }
+
+.text-red {
+  color: red; }
 
 /*======================css info page==============*/
 .info-page .head4 {
