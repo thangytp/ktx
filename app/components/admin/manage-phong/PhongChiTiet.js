@@ -33,7 +33,7 @@ const AddPhongChitietModal = React.createClass({
     let listPhong = this.props.phong.map(function(phong, index){
       return(
 				<option value={phong._id} key={index}>
-					{phong.loai}
+					{phong.ten}
 				</option>
 			);
     });

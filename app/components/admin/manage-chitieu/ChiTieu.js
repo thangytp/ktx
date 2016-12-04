@@ -63,7 +63,7 @@ const AddChitieuModal = React.createClass({
     let listPhong = this.props.phong.map(function(phong, index){
       return(
 				<option value={phong._id} key={index}>
-					{phong.loai}
+					{phong.ten}
 				</option>
 			);
     });
@@ -341,9 +341,10 @@ const UpdateChitieuModal = React.createClass({
   render() {
 
     let listPhong = this.props.phong.map(function(phong, index){
+      console.log(phong);
       return(
 				<option value={phong._id} key={index}>
-					{phong.loai}
+					{phong.ten}
 				</option>
 			);
     });
@@ -598,13 +599,14 @@ class ChiTieu extends Component {
 
   render() {
     let tabArr = this.state.state1.chitieu.map(function(chitieu, index){
+      console.log(chitieu);
       return (
         <Tab eventKey={index + 1} title={chitieu.nam}>
         <h1>Chỉ Tiêu Ký Túc Xá Năm {chitieu.nam}</h1>
         {chitieu.chitiet.map(function(chitieu){
           return (
             <div>
-              <h3>{'Phòng ' + chitieu._phong_id.loai}</h3>
+              <h3>{chitieu._phong_id.ten}</h3>
               <div className="table-responsive">
                 <table className="table">
                   <thead>

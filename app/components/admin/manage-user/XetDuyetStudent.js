@@ -190,7 +190,7 @@ class XetDuyetStudent extends React.Component {
     console.log(this.state.state1.usersxd);
     let listUsers = this.state.state1.usersxd.map(function(user, index){
       var tentang = user._tang_id ? user._tang_id.ten : '',
-          loaiphong = user._phong_id ? user._phong_id.loai : '',
+          loaiphong = user._phong_id ? user._phong_id.ten : '',
           maphong = user._phongchitiet_id ? user._phongchitiet_id.ma : '';
         return (
           <tr>
