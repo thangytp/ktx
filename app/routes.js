@@ -15,6 +15,7 @@ import UuTien from './components/admin/manage-uutien/UuTien';
 import Tang from './components/admin/manage-phong/Tang';
 import Phong from './components/admin/manage-phong/Phong';
 import PhongChiTiet from './components/admin/manage-phong/PhongChiTiet';
+import Giuong from './components/admin/manage-phong/Giuong';
 import Dichvu from './components/admin/manage-dichvu/Dichvu';
 import Hedaotao from './components/admin/khoa/Hedaotao';
 
@@ -29,6 +30,8 @@ import LienKetSite from './components/admin/lienketsite/LienKetSite';
 import CotPhaiHome from './components/admin/cotphaihome/CotPhaiHome';
 import TinTucHome from './components/admin/tintuchome/TinTucHome';
 import QuanLyTinTuc from './components/admin/quanlytintuc/QuanLyTinTuc';
+import Admin from './components/admin/manage-admin/Admin';
+
 
 import Main from './components/main/Main';
 import Home from './components/main/Home';
@@ -59,6 +62,7 @@ export default (
         <Route component={App}>
             <Route path='/quanly@ktx' component={HomeMenu} onEnter={requireAuth} />
             <Route path='/quanly@ktx/them-page' component={AddPage} onEnter={requireAuth}/>
+            <Route path="/quanly@ktx/quan-ly-admin" component={Admin}/>
             <Route path='/quanly@ktx/quan-ly-hinh-anh' component={Images} onEnter={requireAuth}/>
             <Route path='/quanly@ktx/quan-ly-sinh-vien' component={ManageStudent} onEnter={requireAuth} />
             <Route path='/quanly@ktx/sinh-vien-xet-duyet' component={XetDuyetStudent} onEnter={requireAuth} />
@@ -71,6 +75,7 @@ export default (
             <Route path="/quanly@ktx/tang" component={Tang}/>
             <Route path="/quanly@ktx/loaiphong" component={Phong}/>
             <Route path="/quanly@ktx/phong" component={PhongChiTiet}/>
+            <Route path="/quanly@ktx/giuong" component={Giuong}/>
             <Route path="/quanly@ktx/dich-vu" component={Dichvu}/>
             <Route path="/quanly@ktx/hedaotao" component={Hedaotao}/>
 

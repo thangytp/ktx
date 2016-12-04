@@ -11,7 +11,7 @@ import ManagePhongChitietStore from '../../../stores/admin/manage-phong/ManagePh
 const UpdateUserModal = React.createClass({
 
   getInitialState: function() {
-    return {loai: '', tang: '', listPhongChitiet: []};
+    return {loai: '', tang: '', listPhongChitiet: [], listGiuongChitiet: []};
   },
 
   handleUpdateKtx(e) {
@@ -22,13 +22,31 @@ const UpdateUserModal = React.createClass({
         phongchitiet: this.state.loai,
         tang: this.state.tang,
         maktx: this.refs.maktx.value,
+        giuong: this.state.giuong,
         xetduyet: true
     };
     ManageUserAction.updateInfoKtx(data);
+    const data1 = {
+      tengiuongcu: this.props.user.ma_giuong,
+      tengiuongmoi: this.state.giuong
+    }
+    ManagePhongChitietAction.updateGiuongDangky(data1);
+  },
+
+  handleChangeGiuong(e) {
+    this.state.giuong = e.target.value;
   },
 
   handleChangePhong(e) {
     this.state.loai = e.target.value;
+    var giuongByPhong = this.props.phongchitiet.filter(function(obj) {
+        return obj._id == e.target.value;
+    });
+      giuongByPhong[0].giuong = giuongByPhong[0].giuong.filter(function(obj) {
+          return obj.da_dang_ky == false;
+      });
+    console.log(giuongByPhong[0].giuong);
+    this.setState({listGiuongChitiet : giuongByPhong[0].giuong});
   },
 
   handleChangeTang(e) {
@@ -97,6 +115,21 @@ const UpdateUserModal = React.createClass({
             </select>
           </div>
           <div className="form-group">
+            <label for="exampleInputPassword1">Chọn Giường</label>
+            <select className="form-control" onChange={this.handleChangeGiuong.bind(this)}>
+                <option value='0'>--Chọn--</option>
+                {
+                  this.state.listGiuongChitiet.map(function(giuong, index){
+                  return (
+                    <option value={giuong.ten} key={index}>
+                      {giuong.ten}
+                    </option>
+                  );
+                })
+              }
+            </select>
+          </div>
+          <div className="form-group">
             <label for="exampleInputEmail1">Mã Ký Túc Xá</label>
             <input type="text" className="form-control" ref="maktx" placeholder="Mã Ký Túc Xá" />
           </div>
@@ -156,6 +189,9 @@ class XetDuyetStudent extends React.Component {
   render() {
     console.log(this.state.state1.usersxd);
     let listUsers = this.state.state1.usersxd.map(function(user, index){
+      var tentang = user._tang_id ? user._tang_id.ten : '',
+          loaiphong = user._phong_id ? user._phong_id.loai : '',
+          maphong = user._phongchitiet_id ? user._phongchitiet_id.ma : '';
         return (
           <tr>
            <th scope="row">{index + 1}</th>
@@ -163,9 +199,10 @@ class XetDuyetStudent extends React.Component {
            <td>{user.email}</td>
            <td>{user.ma_sinh_vien}</td>
            <td>{user.ma_ktx}</td>
-           <td>{user._tang_id.ten}</td>
-           <td>{user._phong_id.loai}</td>
-           <td>{user._phongchitiet_id.ma}</td>
+           <td>{tentang}</td>
+           <td>{loaiphong}</td>
+           <td>{maphong}</td>
+           <td>{user.ma_giuong}</td>
            <td>{user.so_cmnd}</td>
            <td>{user.dien_thoai}</td>
            <td><button className="btn btn-success" onClick={this.handleUpdateKtx.bind(this, user._id)}>Cập nhật thông tin trong ký túc xá</button></td>
@@ -189,6 +226,7 @@ class XetDuyetStudent extends React.Component {
                <th>Tầng</th>
                <th>Loại Phong</th>
                <th>Mã Phòng</th>
+               <th>Mã Giường</th>
                <th>CMND</th>
                <th>SDT</th>
                <th></th>
