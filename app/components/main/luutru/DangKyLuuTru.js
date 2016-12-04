@@ -2,6 +2,7 @@ import React from 'react';
 import {Link} from 'react-router';
 import {Modal} from 'react-bootstrap';
 import localStorage from 'localStorage';
+import moment from 'moment';
 import DatePicker from 'react-datepicker';
 
 import ManageUuTienAction from '../../../actions/admin/manage-uutien/ManageUuTienAction';
@@ -13,13 +14,23 @@ import ManagePhongStore from '../../../stores/admin/manage-phong/ManagePhongStor
 import DangKyLuuTruAction from '../../../actions/main/luutru/DangKyLuuTruAction';
 import DangKyLuuTruStore from '../../../stores/main/luutru/DangKyLuuTruStore';
 
+import ManageDichvuAction from '../../../actions/admin/manage-dichvu/ManageDichvuAction';
+import ManageDichvuStore from '../../../stores/admin/manage-dichvu/ManageDichvuStore';
+
+import KhoaAdminAction from '../../../actions/admin/khoa/KhoaAdminAction';
+import KhoaAdminStore from '../../../stores/admin/khoa/KhoaAdminStore';
+import HeDaoTaoAction from '../../../actions/admin/hedaotao/HeDaoTaoAction';
+import HeDaoTaoStore from '../../../stores/admin/hedaotao/HeDaoTaoStore';
+
 import CotPhaiHome from '../CotPhaiHome';
 
 export default class SignUp extends React.Component {
   constructor(props)
   {
     super(props);
-    this.state = {state1: ManageUuTienStore.getState(), state2: DangKyLuuTruStore.getState(), state3: ManagePhongStore.getState()};
+    this.state = {state1: ManageUuTienStore.getState(), state2: DangKyLuuTruStore.getState(), 
+      state3: ManagePhongStore.getState(), state4: ManageDichvuStore.getState(), state5: KhoaAdminStore.getState(),
+      state6: HeDaoTaoStore.getState() };
     this.onChange = this.onChange.bind(this);
   }
    componentDidMount() {
@@ -36,6 +47,9 @@ export default class SignUp extends React.Component {
     ManageUuTienStore.listen(this.onChange);
     DangKyLuuTruStore.listen(this.onChange);
     ManagePhongStore.listen(this.onChange);
+    ManageDichvuStore.listen(this.onChange);
+    KhoaAdminStore.listen(this.onChange);
+    HeDaoTaoStore.listen(this.onChange);
 
     ManageUuTienAction.getKhuvuc();
     ManageUuTienAction.getTinh();
@@ -44,18 +58,32 @@ export default class SignUp extends React.Component {
     ManageUuTienAction.getHoancanh();
 
     ManagePhongAction.getPhong();
+
+    ManageDichvuAction.getDichvu();
+    KhoaAdminAction.getListKhoa();
+    HeDaoTaoAction.getListHeDaoTao();
   }
   componentWillUnmount() {
     ManageUuTienStore.unlisten(this.onChange);
     DangKyLuuTruStore.unlisten(this.onChange);
     ManagePhongStore.unlisten(this.onChange);
+    ManageDichvuStore.unlisten(this.onChange);
+    KhoaAdminStore.unlisten(this.onChange);
+    HeDaoTaoStore.unlisten(this.onChange);
   }
   onChange(state) {
-    this.setState({state1: ManageUuTienStore.getState(), state2: DangKyLuuTruStore.getState(), state3: ManagePhongStore.getState()});
+    this.setState({state1: ManageUuTienStore.getState(), state2: DangKyLuuTruStore.getState(), 
+      state3: ManagePhongStore.getState(), state4: ManageDichvuStore.getState(), state5: KhoaAdminStore.getState(),
+      state6: HeDaoTaoStore.getState() });
   }
 
   handleChangeNgaySinh(date){
     DangKyLuuTruAction.updateNgaySinh(date);
+  }
+
+  updateDV(id){
+
+    DangKyLuuTruAction.updateDV({id: id});
   }
 
   nhapThongTin(event){
@@ -166,7 +194,8 @@ export default class SignUp extends React.Component {
     var ten = this.state.state2.ten;
     var svkhuvuc = this.state.state2.svkhuvuc;
     var gioitinh = this.state.state2.gioitinh;    
-    var ngaySinh = this.state.state2.ngaySinh;
+    var ngaySinh = this.state.state2.ngaySinh._d;
+    console.log(ngaySinh);
     var svtinh = this.state.state2.svtinh;
     var svkhoa = this.state.state2.svkhoa;
     var namvaotruong = this.state.state2.namvaotruong;
@@ -184,7 +213,8 @@ export default class SignUp extends React.Component {
     var svhocluc = this.state.state2.svhocluc;
     var svhoancanh = this.state.state2.svhoancanh;
     var svloaiphong = this.state.state2.svloaiphong;
-
+    var dichvu = this.state.state2.dichvu;
+    // console.log(dichvu);
     
     if(!svhocluc){
         DangKyLuuTruAction.invalidHocluc();
@@ -206,11 +236,11 @@ export default class SignUp extends React.Component {
             gioitinh: gioitinh, ngaySinh: ngaySinh, svtinh: svtinh, svkhoa: svkhoa, namvaotruong: namvaotruong,  
               svhedaotao: svhedaotao, svdoituong: svdoituong, svtongiao: svtongiao, svdoanthe: svdoanthe, socmnd: socmnd, 
               hokhau: hokhau, svdienthoai: svdienthoai, giadinhdienthoai: giadinhdienthoai, emailThuongDung: emailThuongDung, 
-              svhocluc: svhocluc, svhoancanh: svhoancanh, svloaiphong: svloaiphong});
+              svhocluc: svhocluc, svhoancanh: svhoancanh, svloaiphong: svloaiphong, dichvu: dichvu});
         }
         else {
           DangKyLuuTruAction.showLoading();
-          DangKyLuuTruAction.giaHanLuuTru({ idStu: idStu, svhocluc: svhocluc, svhoancanh: svhoancanh, svloaiphong: svloaiphong});
+          DangKyLuuTruAction.giaHanLuuTru({ idStu: idStu, svhocluc: svhocluc, svhoancanh: svhoancanh, svloaiphong: svloaiphong, dichvu: dichvu});
         }
     }
 
@@ -218,6 +248,18 @@ export default class SignUp extends React.Component {
   }
 
   render() {
+
+    let listKhoa = this.state.state5.listKhoa.map((khoa, index)=>{
+        return (
+              <option value={khoa._id} key={index}>{khoa.ten}</option>
+          );
+    });
+
+    let listHeDaoTao = this.state.state6.listHeDaoTao.map((hdt, index)=>{
+        return (
+              <option value={hdt._id} key={index}>{hdt.ten}</option>
+          );
+    });    
 
     let khuVucUuTien = this.state.state1.khuvuc.map((kv, index)=>{
       //if(kv._id === this.state.state2.svkhuvuc){
@@ -254,7 +296,15 @@ export default class SignUp extends React.Component {
 
     let loaiPhong = this.state.state3.phong.map((po, index) =>{
         return (
-              <option value={po._id} key={index}>{po.loai}</option>
+              <option value={po._id} key={index}>{po.ten}</option>
+          );
+    });
+
+    let dichVu = this.state.state4.dichvu.map((dv, index) =>{
+        return (
+              <div className="checkbox" key={index}>
+                <label><input type="checkbox" value={dv._id} onChange={this.updateDV.bind(this, dv._id)}/>{dv.ten + ' - ' + dv.gia}</label>
+              </div>
           );
     });
 
@@ -352,6 +402,7 @@ export default class SignUp extends React.Component {
                                     <label className="control-label col-md-3 col-sm-3" htmlFor="">Ngày sinh<span className="text-danger">(*)</span></label>
                                     <div className="col-md-7 col-sm-7"> 
                                       <DatePicker
+                                          openToDate={moment("1994-09-28")}
                                           dateFormat="YYYY-MM-DD"
                                           selected={this.state.state2.ngaySinh}
                                           onChange={this.handleChangeNgaySinh}
@@ -383,9 +434,8 @@ export default class SignUp extends React.Component {
                                       <select className="form-control" id="khoa" value={this.state.state2.svkhoa}
                                           onChange={DangKyLuuTruAction.updateKhoa} ref='KhoaTextField'>
                                         <option value =''>-- Chọn khoa --</option>
-                                        <option value='bdcn'>Bảo dưỡng CN</option>
-                                        <option value='cnhh'>CN Hóa học</option>
-                                        <option value='cnvl'>CN Vật liệu</option>
+                                        
+                                        {listKhoa}
 
                                       </select>
                                       <div className=''><span className="control-label text-danger">{this.state.state2.validateKhoa}</span></div>
@@ -407,11 +457,7 @@ export default class SignUp extends React.Component {
                                       <select className="form-control" id="he-dao-tao" value={this.state.state2.svhedaotao}
                                           onChange={DangKyLuuTruAction.updateHeDaoTao} ref='HeDaoTaoTextField'>
                                         <option value =''>-- Chọn hệ dào tạo --</option>
-                                        <option value="2">Sau Đại  học</option>
-                                        <option value="3">Đại học Chính quy bằng 2</option>
-                                        <option value="4">Đại học chính qui</option>
-                                        <option value="5">Cao đẳng Bảo dưỡng CN</option>
-                                        <option value="6">Đại học không chính quy</option>
+                                        {listHeDaoTao}
 
                                       </select>
                                       <div className=''><span className="control-label text-danger">{this.state.state2.validateHeDaoTao}</span></div>
@@ -585,12 +631,7 @@ export default class SignUp extends React.Component {
                             <label htmlFor="dich-vu-phong-thuong" className="col-md-3 control-label">Dịch vụ<span className="text-danger">(*)</span></label>
                             <div className="col-md-7">
 
-                                <div className="checkbox">
-                                  <label><input type="checkbox" value={this.state.state2.dvmaygiat} onChange={DangKyLuuTruAction.updateDVMayGiat}/>Máy giặt</label>
-                                </div>
-                                <div className="checkbox">
-                                  <label><input type="checkbox" value={this.state.state2.dvtulanh} onChange={DangKyLuuTruAction.updateDVTuLanh}/>Tủ lạnh</label>
-                                </div>
+                                {dichVu}
                                 
                                 <div className=''><span className="control-label text-danger"></span></div>
                             </div>

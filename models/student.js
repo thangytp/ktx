@@ -6,8 +6,10 @@ var studentSchema = new mongoose.Schema({
   sdt_sinhvien: Number,
   sdt_giadinh: Number,
   ngay_sinh: Date,
-  he_dao_tao_id: {type: mongoose.Schema.Types.ObjectId, ref: 'hedaotao'},
-  khoa_id: {type: mongoose.Schema.Types.ObjectId, ref: 'khoa'},
+  email_khac: String,
+  _he_dao_tao_id: {type: mongoose.Schema.Types.ObjectId, ref: 'hedaotao'},
+  _khoa_id: {type: mongoose.Schema.Types.ObjectId, ref: 'khoa'},
+  dich_vu: [{ _dichvu_id: {type: mongoose.Schema.Types.ObjectId, ref: 'Dichvu'} }],
   fk_doan_the: String,
   ma_ktx: String,
   hoc_ky_nop_hs: String,
@@ -60,7 +62,7 @@ var studentSchema = new mongoose.Schema({
   _doi_tuong_id: {type: mongoose.Schema.Types.ObjectId, ref: 'Doituong'},
   _hoc_luc_id: {type: mongoose.Schema.Types.ObjectId, ref: 'Hocluc'},
   _hoan_canh_id: {type: mongoose.Schema.Types.ObjectId, ref: 'Hoancanh'},
-  _tinh_id: {type: mongoose.Schema.Types.ObjectId, ref: 'Tinh'},
-  _dichvu_id: {type: mongoose.Schema.Types.ObjectId, ref: 'Dichvu'}
+  _tinh_id: {type: mongoose.Schema.Types.ObjectId, ref: 'Tinh'}
+  
 });
 module.exports = mongoose.model('Student', studentSchema);

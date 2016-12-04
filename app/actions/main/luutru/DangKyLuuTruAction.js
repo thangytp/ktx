@@ -28,6 +28,7 @@ class DangKyLuuTruAction {
     		'updateHoanCanh',
     		'updateLoaiPhong',
 
+            'updateDV',
             'updateDVMayGiat',
             'updateDVTuLanh',
 
@@ -72,11 +73,16 @@ class DangKyLuuTruAction {
     	);
 	}
 
+    updateDV(payload){
+        this.actions.updateDV({id: payload.id});
+    }
+
     updateNgaySinh(date){
         this.actions.updateNgaySinh(date);
     }
 
 	dangKyLuuTru(payload){
+        console.log(payload);
 		$.ajax({
 	      	type: 'POST',
 	      	url: '/api/dangkyluutru',
@@ -85,7 +91,7 @@ class DangKyLuuTruAction {
                 gioitinh: payload.gioitinh, ngaySinh: payload.ngaySinh, svtinh: payload.svtinh, svkhoa: payload.svkhoa, namvaotruong: payload.namvaotruong,  
                 svhedaotao: payload.svhedaotao, svdoituong: payload.svdoituong, svtongiao: payload.svtongiao, svdoanthe: payload.svdoanthe, socmnd: payload.socmnd, 
                 hokhau: payload.hokhau, svdienthoai: payload.svdienthoai, giadinhdienthoai: payload.giadinhdienthoai, emailThuongDung: payload.emailThuongDung, 
-                svhocluc: payload.svhocluc, svhoancanh: payload.svhoancanh, svloaiphong: payload.svloaiphong
+                svhocluc: payload.svhocluc, svhoancanh: payload.svhoancanh, svloaiphong: payload.svloaiphong, dichvu: payload.dichvu
             }
 	    })
 	    .done((data) => {
@@ -100,7 +106,9 @@ class DangKyLuuTruAction {
         $.ajax({
             type: 'PUT',
             url: '/api/giahanluutru',
-            data: { idStu: payload.idStu, svhocluc: payload.svhocluc, svhoancanh: payload.svhoancanh, svloaiphong: payload.svloaiphong }
+            data: { idStu: payload.idStu, svhocluc: payload.svhocluc, svhoancanh: payload.svhoancanh, svloaiphong: payload.svloaiphong,
+                dichvu: payload.dichvu
+             }
         })
         .done((data) => {
             this.actions.giaHanLuuTruSuccess(data.message);

@@ -4,30 +4,65 @@ var Phong = require('../../models/phong');
 function LuuTruServer(app){
 	app.post('/api/dangkyluutru', function(req, res, next){
 		var userEmail = req.body.userEmail;
-		var userName = req.body.userName;
+		
 		var mssv = req.body.svmssv;
+		var holot = req.body.holot;
+		var ten = req.body.ten;
+		var svkhuvuc = req.body.svkhuvuc;
 		var gioitinh = req.body.gioitinh;
+		var ngaySinh = req.body.ngaySinh;
+		var svtinh = req.body.svtinh;
+		var svkhoa = req.body.svkhoa;
 		var namvaotruong = req.body.namvaotruong;
-	    var svkhuvuc = req.body.svkhuvuc;
-	    var svtinh = req.body.svtinh;
+	    var svhedaotao = req.body.svhedaotao;
+	    
 	    var svdoituong = req.body.svdoituong;
+	    var svtongiao = req.body.svtongiao;
+	    var svdoanthe = req.body.svdoanthe;
+	    var socmnd = req.body.socmnd;
+	    var hokhau = req.body.hokhau;
+	    var svdienthoai = req.body.svdienthoai;
+	    var giadinhdienthoai = req.body.giadinhdienthoai;
+	    var emailThuongDung = req.body.emailThuongDung;
+
 	    var svhocluc = req.body.svhocluc;
 	    var svhoancanh = req.body.svhoancanh;
 	    var svloaiphong = req.body.svloaiphong;
 
+	    var dichvu = req.body.dichvu;
+
+	    var arrDichVu = [];
+	    for(var i=0; i<dichvu.length; i++){
+	    	arrDichVu.push({'_dichvu_id':dichvu[i]});
+	    }
+
 	    try{
 	    	var newStu = new student({
 	    		email: userEmail,
-	    		ten: userName,
 	    		ma_sinh_vien: mssv,
-	    		phai: gioitinh,
-	    		nam_vao_truong: namvaotruong,
+	    		ho_lot: holot,
+	    		ten: ten,
 	    		_khu_vuc_id: svkhuvuc,
+	    		phai: gioitinh,
+	    		ngay_sinh: ngaySinh,
 	    		_tinh_id: svtinh,
+	    		_khoa_id: svkhoa,
+	    		nam_vao_truong: namvaotruong,
+	    		_he_dao_tao_id: svhedaotao,
+	    		
 	    		_doi_tuong_id: svdoituong,
+	    		tongiao: svtongiao,
+	    		ten_doan_the: svdoanthe,
+	    		so_cmnd: socmnd,
+	    		dia_chi_gia_dinh: hokhau,
+	    		sdt_sinhvien: svdienthoai,
+	    		sdt_giadinh: giadinhdienthoai,
+	    		email_khac: emailThuongDung,
+
 	    		_hoc_luc_id: svhocluc,
 	    		_hoan_canh_id: svhoancanh,
 	    		_phong_id: svloaiphong,
+	    		dich_vu: arrDichVu,
 	    		dang_o_ktx: false
 	    	});
 	    	newStu.save(function(err){
@@ -43,7 +78,7 @@ function LuuTruServer(app){
 
 	app.put('/api/giahanluutru', function(req, res, next){
 		var idStu = req.body.idStu;
-
+		
 	    var svhocluc = req.body.svhocluc;
 	    var svhoancanh = req.body.svhoancanh;
 	    var svloaiphong = req.body.svloaiphong;
@@ -56,7 +91,7 @@ function LuuTruServer(app){
 	    			res.send({message: 'Gia hạn thành công'});
 	    		});
 	    	});
-
+	    	
 	    }
 		catch (e) {
 	        res.status(e).send({ message: 'Gia hạn thất bại' });

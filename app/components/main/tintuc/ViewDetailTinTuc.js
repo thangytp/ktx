@@ -18,11 +18,13 @@ class ViewDetailTinTuc extends React.Component {
   }
 
   componentWillReceiveProps(nextProps){
+    document.title = this.state.tinByLink.title + ' | Ký túc xá Bách Khoa';
     var link = nextProps.params.link;
     QuanLyTinTucAction.getTinTucByLink(link); 
 
   }
   componentDidMount() {  
+    document.title = this.state.tinByLink.title  + ' | Ký túc xá Bách Khoa';
     QuanLyTinTucStore.listen(this.onChange);
     var link = this.props.params.link;
     QuanLyTinTucAction.getTinTucByLink(link); 
@@ -35,6 +37,7 @@ class ViewDetailTinTuc extends React.Component {
 
   onChange(state) {
     this.setState(state);
+    document.title = this.state.tinByLink.title + ' | Ký túc xá Bách Khoa';
   }
   
   render() {    
@@ -49,7 +52,7 @@ class ViewDetailTinTuc extends React.Component {
             <div>
                 <ol className="breadcrumb no-overflow">
                   <li><Link to="/"><i className="fa fa-home" aria-hidden="true"></i> Trang chủ</Link></li>
-                  <li>{this.state.tinByLink.title}</li>
+                  <li><Link to="/tat-ca-tin-tuc">Tin tức</Link></li>
               </ol>
               <div className = "panel panel-default panel-blog rounded shadow">
                     <div className="panel-body">

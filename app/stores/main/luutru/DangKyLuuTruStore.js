@@ -19,7 +19,7 @@ class DangKyLuuTruStore {
         this.idStu = '';
         this.holot = '';
         this.ten = '';
-        this.ngaySinh = moment();
+        this.ngaySinh = moment("1994-09-28");
         this.checkNam = '';
         this.checkNu = '';
         this.gioitinh = '';
@@ -44,8 +44,7 @@ class DangKyLuuTruStore {
     	this.svhoancanh = '';
     	this.svloaiphong = '';
 
-        this.dvmaygiat = 0;
-        this.dvtulanh = 0;
+        this.dichvu = [];
 
         this.validateHoLot = '';
         this.validateTen = '';
@@ -196,6 +195,18 @@ class DangKyLuuTruStore {
         DangKyLuuTruAction.getLoaiPhongById(this.svloaiphong);
 	}
 
+    onUpdateDV(payload){
+        console.log(payload);
+
+        var index = this.dichvu.indexOf(payload.id);
+        console.log(index);
+        if(index>=0){
+            this.dichvu.splice(index, 1);
+        }
+        else this.dichvu.push(payload.id);
+        console.log(this.dichvu);
+    }
+
     onUpdateDVMayGiat(){
         if(this.dvmaygiat){
             this.dvmaygiat = 0;
@@ -214,6 +225,9 @@ class DangKyLuuTruStore {
     onQuayLai(){
         this.styleFormThongTinCaNhan = 'block';
         this.styleFormDangKyLuuTru = 'none';
+
+        this.disableDK = '';
+        this.loading = '';
     }
 
     onInvalidHoLot(){
@@ -741,10 +755,14 @@ class DangKyLuuTruStore {
 
     onGetLoaiPhongByIdSuccess(data){
         console.log(data);
-        if(data.loai == 'Phòng thường'){
+        if(data.loai === 1){
             this.styleDichVu = 'block';
         }
-        else this.styleDichVu = 'none';
+        else {
+            this.styleDichVu = 'none';
+            this.dichvu = [];
+            console.log(this.dichvu);
+        }
     }
     onGetLoaiPhongByIdFail(data){
         this.styleDichVu = 'none';

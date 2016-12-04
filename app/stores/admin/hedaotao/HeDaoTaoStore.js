@@ -1,9 +1,9 @@
 import alt from '../../../alt';
-import KhoaAdminAction from '../../../actions/admin/khoa/KhoaAdminAction';
+import HeDaoTaoAction from '../../../actions/admin/hedaotao/HeDaoTaoAction';
 
-class KhoaAdminStore {
+class HeDaoTaoStore {
   	constructor() {
-    	this.bindActions(KhoaAdminAction);
+    	this.bindActions(HeDaoTaoAction);
 
     	this.id = '';
     	this.ten = '';
@@ -13,53 +13,53 @@ class KhoaAdminStore {
 
     	this.modalIsOpen = false;
 
-    	this.idKhoaToDel = '';
+    	this.idHeDaoTaoToDel = '';
     	this.modalIsOpenDelete = false;
 
-    	this.listKhoa = [];
+    	this.listHeDaoTao = [];
 	}
 
 	onUpdateTen(e){
 		this.ten = e.target.value;
 	}
 
-	onEditKhoa(payload){
+	onEditHeDaoTao(payload){
 		this.id = payload.id;
 		this.ten = payload.ten;
 	}
 
-	onGetListKhoaSuccess(data){
-		this.listKhoa = data;
+	onGetListHeDaoTaoSuccess(data){
+		this.listHeDaoTao = data;
 	}
-	onGetListKhoaFail(data){
+	onGetListHeDaoTaoFail(data){
 		console.log(data);
 	}
 
-	onAddKhoaSuccess(data){
+	onAddHeDaoTaoSuccess(data){
 		this.id = '';
     	this.ten = '';
     	this.classValidate = '';
     	this.validateTitle = '';
 
-    	KhoaAdminAction.getListKhoa();
+    	HeDaoTaoAction.getListHeDaoTao();
     	this.modalIsOpen = false;
 	}
-	onAddKhoaFail(data){
+	onAddHeDaoTaoFail(data){
 		console.log(data);
 	}
 
-	onUpdateKhoaSuccess(data){
+	onUpdateHeDaoTaoSuccess(data){
 		this.id = '';
     	this.ten = '';
 		console.log('cap nhat thanh cong');
-		KhoaAdminAction.getListKhoa();
+		HeDaoTaoAction.getListHeDaoTao();
 	}
-	onUpdateKhoaFail(data){
+	onUpdateHeDaoTaoFail(data){
 		console.log('Cap nhat khoa khong thanh cong');
 	}
 
-	onOpenMoDDeleteKhoa(id){
-		this.idKhoaToDel = id;
+	onOpenMoDDeleteHeDaoTao(id){
+		this.idHeDaoTaoToDel = id;
 		this.modalIsOpenDelete = true;
 	}
 	onCloseModalDelete(){
@@ -73,13 +73,15 @@ class KhoaAdminStore {
 		this.modalIsOpen = false;
 	}
 
-	onDeleteKhoaSuccess(data){
+	onDeleteHeDaoTaoSuccess(data){
 		console.log('delete thanh cong');
-
+		this.idHeDaoTaoToDel = '';
+		this.modalIsOpenDelete = false;
+		HeDaoTaoAction.getListHeDaoTao();
 	}
-	onDeleteKhoaFail(data){
+	onDeleteHeDaoTaoFail(data){
 		console.log('delete that bai');
 	}
 }
 
-export default alt.createStore(KhoaAdminStore);
+export default alt.createStore(HeDaoTaoStore);

@@ -1025,6 +1025,7 @@ module.exports = function(app, importStudent) {
 
       app.post('/addphong', function(req, res){
         var nPhong = new Phong();
+        nPhong.ten = req.body.ten;
         nPhong.loai = req.body.loai;
         nPhong.gia = req.body.gia;
         nPhong.kichco = req.body.kichco;
