@@ -197,7 +197,7 @@ class XetDuyetMoi extends Component {
     });
 
     let contentTab3;
-
+    console.log(this.state.state2.chitieu[0]);
     if(this.state.state2.chitieu[0] === undefined) {
         contentTab3 = null
     } else {
