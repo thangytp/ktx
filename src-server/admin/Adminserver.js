@@ -240,7 +240,7 @@ module.exports = function(app, importStudent) {
     Student
     .find({_phong_id: req.params.phongid, tamdung_hocvu : false, dang_o_ktx: false, diem_ren_luyen : {$gt: req.params.drl}, diem_xet_duyet : { $ne:null },phai : req.params.phai, nam_vao_truong : fYear})
     .sort('-diem_ren_luyen')
-    .limit(req.params.soluong)
+    .limit(parseInt(req.params.soluong))
     .exec(function(err, students){
       if(err) {
         throw err;
@@ -271,7 +271,7 @@ module.exports = function(app, importStudent) {
     Student
     .find({_phong_id: req.params.phongid, tamdung_hocvu : false, dang_o_ktx: true, diem_ren_luyen : {$gt: req.params.drl}, 'diem_ren_luyen_ktx.tong' : {$gt : req.params.drlktx}, 'diem_ren_luyen_ktx.ve_sinh' : {$gt : req.params.dvs}, diem_xet_duyet : { $ne:null }, phai : req.params.phai, nam_vao_truong : fYear})
     .sort('-diem_ren_luyen')
-    .limit(req.params.soluong)
+    .limit(parseInt(req.params.soluong))
     .exec(function(err, students){
       if(err) {
         throw err;
