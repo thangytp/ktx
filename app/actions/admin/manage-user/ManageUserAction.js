@@ -267,7 +267,7 @@ class ManageUserAction {
     $.ajax({
       url: '/updatethongtinktx/' + payload.userId,
       type: 'PUT',
-      data: {phongchitiet : payload.phongchitiet, tang : payload.tang, maktx : payload.maktx}
+      data: {phongchitiet : payload.phongchitiet, tang : payload.tang, maktx : payload.maktx, giuong : payload.giuong}
     })
     .done((data) => {
       this.actions.updateInfoKtxSuccess(payload.xetduyet);

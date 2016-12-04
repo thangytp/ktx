@@ -5,7 +5,8 @@ class ManagePhongChitietAction {
     this.generateActions(
       'addPhongChitietSuccess',
       'getPhongChitietSuccess',
-      'delPhongChitietSuccess'
+      'delPhongChitietSuccess',
+      'updateGiuongDangkySuccess'
     );
   }
 
@@ -39,6 +40,29 @@ class ManagePhongChitietAction {
       this.actions.addPhongChitietSuccess();
     })
   }
+
+  addGiuong(payload) {
+    $.ajax({
+      url: '/addphongchitiet/giuong',
+      type: 'PUT',
+      data: payload
+    })
+    .done((data) => {
+      this.actions.addPhongChitietSuccess();
+    })
+  }
+
+  updateGiuongDangky(payload) {
+    $.ajax({
+      url: '/updategiuongdachon',
+      type: 'PUT',
+      data: payload
+    })
+    .done((data) => {
+      this.actions.updateGiuongDangkySuccess();
+    })
+  }
+
 }
 
 export default alt.createActions(ManagePhongChitietAction);

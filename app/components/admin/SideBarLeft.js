@@ -50,6 +50,12 @@ class SideBarLeft extends React.Component {
                             <span className="text">Quản lý hình ảnh</span>
                         </Link>
                       </li>
+                      <li className="">
+                        <Link to="/quanly@ktx/quan-ly-admin">
+                            <span className="icon"><i className="fa fa-file-image-o"></i></span>
+                            <span className="text">Quản lý admin</span>
+                        </Link>
+                      </li>
                       <li className="submenu">
                           <a href="javascript:void(0);">
                               <span className="icon"><i className="fa fa-graduation-cap"></i></span>
@@ -113,6 +119,9 @@ class SideBarLeft extends React.Component {
                               <li>
                                 <Link to="/quanly@ktx/phong">Phòng</Link>
                               </li>
+                              <li>
+                                <Link to="/quanly@ktx/giuong">Giường</Link>
+                              </li>
                           </ul>
                       </li>
                       <li className="">
@@ -120,6 +129,18 @@ class SideBarLeft extends React.Component {
                             <span className="icon"><i className="fa fa-dropbox"></i></span>
                             <span className="text">Dịch Vụ</span>
                         </Link>
+                      </li>
+                      <li className="submenu">
+                          <a href="javascript:void(0);">
+                              <span className="icon"><i className="fa fa-dropbox"></i></span>
+                              <span className="text">Quản Lý Thông Tin Đăng Ký</span>
+                              <span className="arrow fa-angle-double-right"></span>
+                          </a>
+                          <ul style={{"display":"none"}}>
+                              <li>
+                                <Link to="/quanly@ktx/hedaotao">Hệ Đào Tạo</Link>
+                              </li>
+                          </ul>
                       </li>
                       <li className="submenu">
                           <a href="javascript:void(0);">

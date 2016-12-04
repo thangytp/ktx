@@ -11,22 +11,55 @@ var Tang = require('../../models/tang');
 var Phong = require('../../models/phong');
 var Phongchitiet = require('../../models/phongchitiet');
 var Dichvu = require('../../models/dichvu');
+var Hedaotao = require('../../models/hedaotao');
+var Admin = require('../../models/admin');
+
 
 
 
 var xlstojson = require("xls-to-json-lc");
 var xlsxtojson = require("xlsx-to-json-lc");
-
+var bcrypt   = require('bcrypt-nodejs');
 
 
 module.exports = function(app, importStudent) {
 
+  app.post('/addadmin', function(req, res){
+    var nAdmin = new Admin();
+    nAdmin.email = req.body.email;
+    nAdmin.password = nAdmin.generateHash(req.body.password);
+    nAdmin.type = req.body.type;
+    nAdmin.save(function(err){
+      if(err) throw err;
+      res.send(true);
+    });
+  })
+
+  // Delete Student
+
+  app.delete('/deleteadmin/:adminId', function(req, res){
+    Admin.remove({_id: req.params.adminId}, function(err) {
+      if (err) throw err;
+      res.send(true);
+    });
+  })
+
+  app.get('/getadmin', function(req, res){
+    Admin.find(function(err, admin){
+      if(err) throw err;
+      res.json(admin);
+    });
+  })
+
+
   // Check Login Admin
 
   app.get('/login/:email/:password', function(req, res){
-    Admin.findOne({email : req.params.email, password : req.params.password}, function(err, admin){
+    Admin.findOne({email : req.params.email}, function(err, admin){
       if (err) res.send(err);
-      res.json(admin);
+      if(admin.valiPassword(req.params.password)) {
+        res.json(admin);
+      }
     });
   });
 
@@ -290,7 +323,7 @@ module.exports = function(app, importStudent) {
   })
 
   app.put('/updatethongtinktx/:stuId', function(req, res){
-    Student.findByIdAndUpdate(req.params.stuId, {_tang_id: req.body.tang, ma_ktx : req.body.maktx, _phongchitiet_id : req.body.phongchitiet} , { new: true }, function (err, student) {
+    Student.findByIdAndUpdate(req.params.stuId, {_tang_id: req.body.tang, ma_ktx : req.body.maktx, ma_giuong: req.body.giuong, _phongchitiet_id : req.body.phongchitiet} , { new: true }, function (err, student) {
       if (err) throw err;
       res.send(student);
     });
@@ -1057,6 +1090,15 @@ module.exports = function(app, importStudent) {
       })
 
       // Add Chi Tieu
+      app.put('/updategiuongdachon', function(req, res){
+        Phongchitiet.update({'giuong.ten' : req.body.tengiuongcu}, {'$set':  {'giuong.$.da_dang_ky': false}}, function(err){
+          if(err) res.send(err);
+        });
+        Phongchitiet.update({'giuong.ten' : req.body.tengiuongmoi}, {'$set':  {'giuong.$.da_dang_ky': true}}, function(err){
+          if(err) res.send(err);
+        });
+        res.send(true);
+      })
 
         app.post('/addphongchitiet', function(req, res){
           var nPhongchitiet = new Phongchitiet();
@@ -1067,6 +1109,23 @@ module.exports = function(app, importStudent) {
             if(err) throw err;
             res.send(true);
           });
+        })
+
+        app.put('/addphongchitiet/giuong', function(req, res){
+          Phongchitiet.findOne({_id : req.body.tenphong}, function(err, phongchitiet) {
+            if(err) throw err;
+            if(phongchitiet.giuong) {
+              for(var i = 0; i < phongchitiet.giuong.length; i++) {
+                if(phongchitiet.giuong[i].ten === req.body.tengiuong) {
+                  return false;
+                }
+              };
+            }
+            phongchitiet.update({$push: {'giuong' : {'ten' : req.body.tengiuong}}}, function(err){
+              if(err) throw err;
+              res.send(true);
+            });
+          })
         })
 
         // Delete Student
@@ -1132,5 +1191,32 @@ module.exports = function(app, importStudent) {
                 res.send(true);
               });
             })
+
+            app.get('/gethedaotao', function(req, res){
+              Hedaotao.find(function(err, hedaotao){
+                if(err) throw err;
+                res.json(hedaotao);
+              });
+            })
+
+            // Add Chi Tieu
+
+              app.post('/addhedaotao', function(req, res){
+                var nHedaotao = new Hedaotao();
+                nHedaotao.ten = req.body.ten;
+                nHedaotao.save(function(err){
+                  if(err) throw err;
+                  res.send(true);
+                });
+              })
+
+              // Delete Student
+
+              app.delete('/deletehedaotao/:hedaotaoId', function(req, res){
+                Hedaotao.remove({_id: req.params.hedaotaoId}, function(err) {
+                  if (err) throw err;
+                  res.send(true);
+                });
+              })
 
 }
