@@ -8,7 +8,7 @@ import ManageChiTieuStore from '../../../stores/admin/manage-chitieu/ManageChiTi
 var HocVu = React.createClass({
     uploadFile: function (e) {
         var fd = new FormData();
-        fd.append('file', this.refs.file.getDOMNode().files[0]);
+        fd.append('file', this.refs.file.files[0]);
         ManageUserAction.updateHocVuGiaHan(fd);
         e.preventDefault()
     },
@@ -30,7 +30,7 @@ var DiemRenLuyen = React.createClass({
     },
     uploadFile: function (e) {
         var fd = new FormData();
-        fd.append('file', this.refs.file.getDOMNode().files[0]);
+        fd.append('file', this.refs.file.files[0]);
         ManageUserAction.updateDiemRenLuyenGiaHan({'file' : fd, 'drl' : parseInt(this.refs.diemrl.value)});
         e.preventDefault()
     },
@@ -60,7 +60,7 @@ var DiemRenLuyenKtx = React.createClass({
     },
     uploadFile: function (e) {
         var fd = new FormData();
-        fd.append('file', this.refs.file.getDOMNode().files[0]);
+        fd.append('file', this.refs.file.files[0]);
         ManageUserAction.updateDiemRenLuyenKtx({'file' : fd, 'drlktx' : parseInt(this.refs.diemrlktx.value), 'dvs' : parseInt(this.refs.diemvs.value)});
         e.preventDefault()
     },

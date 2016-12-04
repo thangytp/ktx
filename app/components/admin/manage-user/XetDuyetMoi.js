@@ -8,7 +8,7 @@ import ManageChiTieuStore from '../../../stores/admin/manage-chitieu/ManageChiTi
 var HocVu = React.createClass({
     uploadFile: function (e) {
         var fd = new FormData();
-        fd.append('file', this.refs.file.getDOMNode().files[0]);
+        fd.append('file', this.refs.file.files[0]);
         ManageUserAction.updateHocVuXetDuyet(fd);
         e.preventDefault()
     },
@@ -30,7 +30,7 @@ var DiemRenLuyen = React.createClass({
     },
     uploadFile: function (e) {
         var fd = new FormData();
-        fd.append('file', this.refs.file.getDOMNode().files[0]);
+        fd.append('file', this.refs.file.files[0]);
         ManageUserAction.updateDiemRenLuyenXetDuyet({'file' : fd, 'drl' : parseInt(this.refs.diemrl.value)});
         e.preventDefault()
     },
@@ -205,7 +205,7 @@ class XetDuyetMoi extends Component {
         <Tabs defaultActiveKey={1} id="tienhanhxetduyet">
           {this.state.state2.chitieu[0].chitiet.map(function(chitiet, index){
             return (
-              <Tab eventKey={index + 1} title={'Phòng ' + chitiet._phong_id.loai}>
+              <Tab eventKey={index + 1} title='Phòng'>
                 <ul className="listBtn-xd">
                   <li>
                     <button className="btn btn-large btn-success">Năm 1</button>
