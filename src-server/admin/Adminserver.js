@@ -134,7 +134,8 @@ module.exports = function(app, importStudent) {
                         bk:result[i].bk,
                         dien_thoai:result[i].dien_thoai,
                         email:result[i].email,
-                        ten_doan_the:result[i].ten_doan_the
+                        ten_doan_the:result[i].ten_doan_the,
+                        dang_o_ktx: true
                       });
                       StudentN.save(function (err){if(err)console.log("can't save to db");});
                   }
@@ -239,6 +240,8 @@ module.exports = function(app, importStudent) {
     }
     Student
     .find({_phong_id: req.params.phongid, tamdung_hocvu : false, dang_o_ktx: false, diem_ren_luyen : {$gt: req.params.drl}, diem_xet_duyet : { $ne:null },phai : req.params.phai, nam_vao_truong : fYear})
+    .populate('dich_vu._dichvu_id')
+    .populate('_phong_id')
     .sort('-diem_ren_luyen')
     .limit(req.params.soluong)
     .exec(function(err, students){
@@ -247,13 +250,16 @@ module.exports = function(app, importStudent) {
       }
       else {
         students.forEach(function(student){
-          student.update({$set : {xet_duyet_thanh_cong: true}}, function(err){
+          var tienphong = student._phong_id.gia,
+              tienKTX = 0;
+          student.dich_vu.forEach(function(dichvu){
+            tienKTX += dichvu._dichvu_id.gia;
+          });
+          student.update({$set : {xet_duyet_thanh_cong: true, 'tien_ktx.tien' : tienKTX + tienphong}}, {new: true}, function(err){
             if(err) throw err;
-            console.log(student);
           });
         });
       }
-      console.log(students);
       res.json(students);
     });
 
@@ -270,6 +276,8 @@ module.exports = function(app, importStudent) {
     }
     Student
     .find({_phong_id: req.params.phongid, tamdung_hocvu : false, dang_o_ktx: true, diem_ren_luyen : {$gt: req.params.drl}, 'diem_ren_luyen_ktx.tong' : {$gt : req.params.drlktx}, 'diem_ren_luyen_ktx.ve_sinh' : {$gt : req.params.dvs}, diem_xet_duyet : { $ne:null }, phai : req.params.phai, nam_vao_truong : fYear})
+    .populate('dich_vu._dichvu_id')
+    .populate('_phong_id')
     .sort('-diem_ren_luyen')
     .limit(req.params.soluong)
     .exec(function(err, students){
@@ -278,7 +286,12 @@ module.exports = function(app, importStudent) {
       }
       else {
         students.forEach(function(student){
-          student.update({$set : {gia_han_thanh_cong: true}}, function(err){
+          var tienphong = student._phong_id.gia,
+              tienKTX = 0;
+          student.dich_vu.forEach(function(dichvu){
+            tienKTX += dichvu._dichvu_id.gia;
+          });
+          student.update({$set : {gia_han_thanh_cong: true, 'tien_ktx.tien' : tienKTX + tienphong}}, {new: true}, function(err){
             if(err) throw err;
           });
         });
