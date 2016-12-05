@@ -55,6 +55,10 @@ var studentSchema = new mongoose.Schema({
     tong: {type : 'Number'},
     ve_sinh: {type: 'Number'}
   }],
+  tien_ktx : {
+    tien: 'Number',
+    da_dong: {type: 'Boolean', default: false}
+  },
   _phongchitiet_id: {type: mongoose.Schema.Types.ObjectId, ref: 'Phongchitiet'},
   _tang_id: {type: mongoose.Schema.Types.ObjectId, ref: 'Tang'},
   _phong_id: {type: mongoose.Schema.Types.ObjectId, ref: 'Phong'},
@@ -63,6 +67,6 @@ var studentSchema = new mongoose.Schema({
   _hoc_luc_id: {type: mongoose.Schema.Types.ObjectId, ref: 'Hocluc'},
   _hoan_canh_id: {type: mongoose.Schema.Types.ObjectId, ref: 'Hoancanh'},
   _tinh_id: {type: mongoose.Schema.Types.ObjectId, ref: 'Tinh'}
-  
+
 });
 module.exports = mongoose.model('Student', studentSchema);

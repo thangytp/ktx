@@ -4,7 +4,7 @@ var Phong = require('../../models/phong');
 function LuuTruServer(app){
 	app.post('/api/dangkyluutru', function(req, res, next){
 		var userEmail = req.body.userEmail;
-		
+
 		var mssv = req.body.svmssv;
 		var holot = req.body.holot;
 		var ten = req.body.ten;
@@ -15,7 +15,7 @@ function LuuTruServer(app){
 		var svkhoa = req.body.svkhoa;
 		var namvaotruong = req.body.namvaotruong;
 	    var svhedaotao = req.body.svhedaotao;
-	    
+
 	    var svdoituong = req.body.svdoituong;
 	    var svtongiao = req.body.svtongiao;
 	    var svdoanthe = req.body.svdoanthe;
@@ -32,9 +32,11 @@ function LuuTruServer(app){
 	    var dichvu = req.body.dichvu;
 
 	    var arrDichVu = [];
-	    for(var i=0; i<dichvu.length; i++){
-	    	arrDichVu.push({'_dichvu_id':dichvu[i]});
-	    }
+			if(dichvu){
+		    for(var i=0; i<dichvu.length; i++){
+		    	arrDichVu.push({'_dichvu_id':dichvu[i]});
+		    }
+			}
 
 	    try{
 	    	var newStu = new student({
@@ -49,7 +51,7 @@ function LuuTruServer(app){
 	    		_khoa_id: svkhoa,
 	    		nam_vao_truong: namvaotruong,
 	    		_he_dao_tao_id: svhedaotao,
-	    		
+
 	    		_doi_tuong_id: svdoituong,
 	    		tongiao: svtongiao,
 	    		ten_doan_the: svdoanthe,
@@ -78,7 +80,7 @@ function LuuTruServer(app){
 
 	app.put('/api/giahanluutru', function(req, res, next){
 		var idStu = req.body.idStu;
-		
+
 	    var svhocluc = req.body.svhocluc;
 	    var svhoancanh = req.body.svhoancanh;
 	    var svloaiphong = req.body.svloaiphong;
@@ -91,7 +93,7 @@ function LuuTruServer(app){
 	    			res.send({message: 'Gia hạn thành công'});
 	    		});
 	    	});
-	    	
+
 	    }
 		catch (e) {
 	        res.status(e).send({ message: 'Gia hạn thất bại' });
