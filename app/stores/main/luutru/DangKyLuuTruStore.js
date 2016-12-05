@@ -19,7 +19,7 @@ class DangKyLuuTruStore {
         this.idStu = '';
         this.holot = '';
         this.ten = '';
-        this.ngaySinh = moment("1994-09-28");
+        this.ngaySinh = moment("1994-01-01");
         this.checkNam = '';
         this.checkNu = '';
         this.gioitinh = '';

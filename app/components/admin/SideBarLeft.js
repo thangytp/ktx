@@ -137,8 +137,12 @@ class SideBarLeft extends React.Component {
                               <span className="arrow fa-angle-double-right"></span>
                           </a>
                           <ul style={{"display":"none"}}>
+                              
                               <li>
-                                <Link to="/quanly@ktx/hedaotao">Hệ Đào Tạo</Link>
+                                <Link to="/quanly@ktx/quan-ly-khoa">Quản lý khoa</Link>
+                              </li>
+                              <li>
+                                <Link to="/quanly@ktx/quan-ly-he-dao-tao">Hệ Đào Tạo</Link>
                               </li>
                           </ul>
                       </li>
@@ -169,18 +173,7 @@ class SideBarLeft extends React.Component {
                             <span className="text">Quản lý tin tức</span>
                         </Link>
                       </li>
-                      <li className="">
-                        <Link to="/quanly@ktx/quan-ly-khoa">
-                            <span className="icon"><i className="fa fa-newspaper-o"></i></span>
-                            <span className="text">Quản lý khoa</span>
-                        </Link>
-                      </li>
-                      <li className="">
-                        <Link to="/quanly@ktx/quan-ly-he-dao-tao">
-                            <span className="icon"><i className="fa fa-newspaper-o"></i></span>
-                            <span className="text">Quản lý hệ đào tạo</span>
-                        </Link>
-                      </li>
+                      
                       <li className="submenu">
                           <a href="javascript:void(0);">
                               <span className="icon"><i className="fa fa-cog"></i></span>

@@ -55,6 +55,7 @@ var CotPhaiHomeServer = require('./src-server/cotphaihome/CotPhaiHomeServer');
 var QuanLyTinTucServer = require('./src-server/quanlytintuc/QuanLyTinTucServer');
 var TinTucHomeServer = require('./src-server/tintuchome/TinTucHomeServer');
 var KhoaServer = require('./src-server/khoa/KhoaServer');
+var CaiDatLuuTruServer = require('./src-server/caidatluutru/CaiDatLuuTruServer');
 //==============================================
 
 var Adminserver = require('./src-server/admin/Adminserver');
@@ -126,6 +127,7 @@ CotPhaiHomeServer(app);
 QuanLyTinTucServer(app);
 TinTucHomeServer(app);
 KhoaServer(app);
+CaiDatLuuTruServer(app);
 Adminserver(app, importStudent);
 
 /*
