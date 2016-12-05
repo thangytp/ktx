@@ -243,7 +243,7 @@ module.exports = function(app, importStudent) {
     .populate('dich_vu._dichvu_id')
     .populate('_phong_id')
     .sort('-diem_ren_luyen')
-    .limit(req.params.soluong)
+    .limit(parseInt(req.params.soluong))
     .exec(function(err, students){
       if(err) {
         throw err;
@@ -279,7 +279,7 @@ module.exports = function(app, importStudent) {
     .populate('dich_vu._dichvu_id')
     .populate('_phong_id')
     .sort('-diem_ren_luyen')
-    .limit(req.params.soluong)
+    .limit(parseInt(req.params.soluong))
     .exec(function(err, students){
       if(err) {
         throw err;

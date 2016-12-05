@@ -181,6 +181,21 @@ class SideBarLeft extends React.Component {
                             <span className="text">Quản lý hệ đào tạo</span>
                         </Link>
                       </li>
+                      <li className="submenu">
+                          <a href="javascript:void(0);">
+                              <span className="icon"><i className="fa fa-cog"></i></span>
+                              <span className="text">Cài đặt lưu trú</span>
+                              <span className="arrow fa-angle-double-right"></span>
+                          </a>
+                          <ul style={{"display":"none"}}>
+                              <li>
+                                <Link to="/quanly@ktx/cai-dat-dang-ky-luu-tru">Đăng ký lưu trú</Link>
+                              </li>
+                              <li>
+                                <Link to="/quanly@ktx/cai-dat-xem-xet-duyet-luu-tru">Xét duyệt lưu trú</Link>
+                              </li>
+                          </ul>
+                      </li>
 
                 </ul>
             </aside>
