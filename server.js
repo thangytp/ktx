@@ -111,6 +111,15 @@ app.post('/api/imageupload', upload.single('file'), function (req, res, next) {
     });
   }
 });
+app.post('/api/uploadanhtintuc', upload.single('file'), function (req, res, next) {
+  // req.file is the `avatar` file
+  // req.body will hold the text fields, if there were any
+  // c
+  console.log(req.file);
+  res.send({link:"/uploads/"+req.file.filename});
+
+
+});
 
 var server = require('http').createServer(app);
 var io = require('socket.io')(server);

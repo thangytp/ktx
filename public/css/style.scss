@@ -3,16 +3,20 @@
 // 	// font-family: 'Raleway', sans-serif;
 // 	font-size: 15px !important;
 // }
-@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700');
+// @font-face {
+//     font-family: 'OpenSans-Regular';
+//     src: url('/fonts/OpenSans-Regular.ttf');
+// }
 @import url('https://fonts.googleapis.com/css?family=Exo');
 body{
-    background-color: #eeeeef;
+    background-color: #F8F8F8;
     font-family: "Open Sans", sans-serif !important;
     color: #636E7B;
     -webkit-font-smoothing: antialiased;
     direction: ltr;
     font-size: 13px;
-    line-height: 21px;
+    line-height: 25px;
     letter-spacing: 1px;
     text-transform: none;
     color: #555555 !important;
@@ -39,10 +43,13 @@ ul{
 	font-weight: bold;
 }
 .nP{
-	padding: 0;
+	padding: 0 !important;
+}
+.nPL{
+    padding-left: 0px !important;
 }
 .nMT{
-	margin-top: 0;
+	margin-top: 0 !important;
 }
 .mL15{
   margin-left: 15px;
@@ -1049,6 +1056,11 @@ ul.msg_list li a .message {
         border: 1px solid #8ac04e;
         color: white;
     }
+    .panel-fb > .panel-heading {
+        background-color: #3E7CF7;
+        border: 1px solid #3E7CF7;
+        color: white;
+    }
     .form-body {
         padding: 10px;
     }
@@ -1089,7 +1101,10 @@ ul.msg_list li a .message {
 
 /*====================== css header trang home ===============*/
 .top-bar {
-    background: #81B71A;
+    background: #3E7CF7;
+    .text-wellcome{
+        padding-top: 11px;
+    }
 }
 .top-bar a{
   color: #FFF !important;
@@ -1108,12 +1123,12 @@ ul.msg_list li a .message {
     color: #fff !important;
 }
 .top-bar .cs-user ul li a {
-    background-color: #81B71A !important;
+    background-color: #3E7CF7 !important;
 }
 
 .navbar-default{
   background-color: #fff !important;
-  box-shadow: 0 0 3px 0 rgba(0,0,0,0.3);
+  // box-shadow: 0 0 3px 0 rgba(0,0,0,0.3);
   border-radius: 0px !important;
 }
 .main-header{
@@ -1316,7 +1331,7 @@ a {
 
         img{
             display: block;
-            width: 98%;
+            width: 100%;
             margin: auto;
         }
     }
@@ -1327,6 +1342,35 @@ a {
 .panel-border-success{
     border: 1px solid #8ac04e;
 }
+
+.panel-border-fb{
+    border: 1px solid #3E7CF7;
+}
+
+.panel-item-tintuc{
+    
+    img{
+        height: 150px;
+        display: block;
+        margin: 0 auto;
+        object-fit: cover;
+        width: 100%;
+    }
+    .panel-footer {
+        font-weight: 700;
+        height: 89px;
+        padding: 15px;
+        text-align: center;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        .title-item-tintuc{
+            height: 43px;
+            text-align: center;
+            overflow: hidden;
+        }
+    }
+}
+
 
 /*=============== css chi tiet page ===============*/
 .panel-blog {
@@ -1478,15 +1522,15 @@ a {
 /*======================css footer=================*/
 footer#footer {
   clear: both;
-    background-color: #141414 !important;
-    margin-top: 20px;
+    background-color: #202020 !important;
+    // margin-top: 20px;
 }
 footer#footer {
     position: relative;
     z-index: 0;
 }
 #footer .cs-copyright {
-    background: #0c0c0c !important;
+    background: #202020 !important;
 }
 #footer .cs-copyright {
     padding: 8px 0;
@@ -1495,9 +1539,7 @@ footer#footer .copyright-text p {
     font-size: 12px;
     margin-bottom: 0;
 }
-footer#footer a, footer#footer p {
-    color: #aaaaaa !important;
-}
+
 footer#footer .cs-social-media {
     text-align: right;
 }
@@ -1513,6 +1555,50 @@ footer#footer .cs-social-media ul li {
 }
 footer#footer a:hover{
   color: #207dba !important;
+}
+.col-footer{
+    color: #b1b1b1;
+    .text-intro{
+        text-align: justify;
+    }
+}
+#footer-tien-ich{
+    ul{
+        li{
+            text-transform: uppercase;
+            a{color: #b1b1b1;}
+        }
+    }
+}
+.footer-title{
+    color: #fff;
+    border-bottom: 1px solid #909090;
+    font-size: 14px !important;
+    text-transform: uppercase;
+    padding-bottom: 5px;
+}
+.list-social-icon{
+    padding-left: 0px;
+    li{
+        color: #b1b1b1;
+        display: inline-block;
+        padding-left: 10px;
+        font-size: 20px;
+    }
+    li:first-child{
+        padding-left: 0px;
+    }
+}
+.footer-bottom{
+    background-color: #161616;
+    color: #b1b1b1;
+    font-size: 14px !important;
+    padding: 10px 0px;
+    text-align: center;
+    text-transform: uppercase;
+    .text-copy{
+        font-size: 14px !important;
+    }
 }
 
 /*============= responsive ===========*/

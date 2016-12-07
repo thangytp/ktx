@@ -71,12 +71,16 @@ function QuanLyTinTucServer(app){
 	app.post('/api/addtintuc', function(req, res, next){
 		var title = req.body.title;
 		var content = req.body.content;
+		var description = req.body.description;
+		var img = req.body.img;
 		var dateCreate = req.body.dateCreate;
 		var slug = req.body.slug;
 		
 			var newTinTuc = new tintuc({
 				title: title,
 				content: content,
+				description: description,
+				img: img,
 				dateCreate: dateCreate,
 				slug: slug
 				
@@ -92,13 +96,15 @@ function QuanLyTinTucServer(app){
 		var id = req.body.id;
 		var title = req.body.title;
 		var content = req.body.content;
+		var description = req.body.description;
+		var img = req.body.img;
 		var dateModify = req.body.dateModify;
 		var slug = req.body.slug;
 
 		tintuc.findOne({_id: id}, function(err, tintucRes){
 			if(err) return next(err);
 			
-				tintucRes.update({ $set: {title: title, content: content, dateModify: dateModify, slug: slug } }, function(err, re){
+				tintucRes.update({ $set: {title: title, content: content, description: description, img: img, dateModify: dateModify, slug: slug } }, function(err, re){
 					res.send({message: 'Cập nhật trang thành công!'});
 				});
 			

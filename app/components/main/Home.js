@@ -46,7 +46,7 @@ class Home extends React.Component {
 		     	var htmlToReactParser = new HtmlToReact.Parser(React);
 		     	var reactcontent = htmlToReactParser.parse(content);
 				return(
-						<div className="panel panel-success shadow" key={index}>
+						<div className="panel panel-fb shadow" key={index}>
 							<div className="panel-heading">
 								{tin.title} <span><img className="img-responsive" src="/img/news.gif"/></span>
 							</div>
@@ -134,6 +134,7 @@ class Home extends React.Component {
 			    		<CotPhaiHome />
 			    	</div>
 		    	</section>
+		    	
 		    </div>     
 	    );
   	}
