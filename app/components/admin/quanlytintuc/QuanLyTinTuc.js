@@ -7,6 +7,7 @@ import QuanLyTinTucAction from '../../../actions/admin/quanlytintuc/QuanLyTinTuc
 import QuanLyTinTucStore from '../../../stores/admin/quanlytintuc/QuanLyTinTucStore';
 
 import ListQuanLyTinTuc from './ListQuanLyTinTuc';
+import ImgUpload from '../../../shared/ImgUpload';
 
 class QuanLyTinTuc extends React.Component {
 
@@ -65,6 +66,19 @@ class QuanLyTinTuc extends React.Component {
 		    return slug;
 		}
 
+	upload(event)
+  	{
+      	var imgfile = this.state.fileAvatar;
+      	var imgURL = this.state.imagePreviewUrl;
+        QuanLyTinTucAction.handleUpload();
+        QuanLyTinTucAction.uploadImage(imgfile);
+        console.log(this.state.imageUrl);
+  	}
+   	detele(event)
+  	{
+        console.log(this.state.imageUrl);
+  	}
+
 	// them tin tuc
 	handleSubmitTinTuc(event){
 		event.preventDefault();
@@ -74,6 +88,8 @@ class QuanLyTinTuc extends React.Component {
 		var id = this.state.idTinTuc;
 		var title = this.state.titleTinTuc;
 		var contentLeft = ReactDom.findDOMNode(this.refs.ContentTinTucField).value;
+		var description = this.state.description;
+		var img = this.state.imageUrl;
 		var slug = this.ChangeToSlug(title);
 		var dateCreate = new Date();
 		var dateModify = new Date();
@@ -84,19 +100,22 @@ class QuanLyTinTuc extends React.Component {
 			QuanLyTinTucAction.invalidTitle();
 			this.refs.TitlePageField.focus();
 		}
-		if(!contentLeft){
+		else if(!contentLeft){
 			QuanLyTinTucAction.invalidContent();
 			this.refs.ContentTinTucField.focus();
 		}
-		
+		else if(!description){
+			QuanLyTinTucAction.invalidDes();
+			this.refs.Description.focus();
+		}
 
 		// goi ham add page
 		if(title && contentLeft){
 			if(id==''){
-				QuanLyTinTucAction.addTinTuc({ title: title, contentLeft: contentLeft, dateCreate: dateCreate, slug: slug });
+				QuanLyTinTucAction.addTinTuc({ title: title, contentLeft: contentLeft, description: description, img: img, dateCreate: dateCreate, slug: slug });
 			}
 			else{
-				QuanLyTinTucAction.updateTinTuc({ id: id, title: title, contentLeft: contentLeft, dateModify: dateModify, slug: slug });
+				QuanLyTinTucAction.updateTinTuc({ id: id, title: title, contentLeft: contentLeft, description: description, img: img, dateModify: dateModify, slug: slug });
 			}
 		}
 
@@ -152,6 +171,33 @@ class QuanLyTinTuc extends React.Component {
 					                      		<span className='help-block'>{this.state.helpBlockContent}</span>
 					                    	</div>
 					                  	</div>
+					                  	<div className='form-group '>
+					                    	<label className='col-sm-2 control-label'>Nội dung rút gọn:</label>
+					                      	<div  className ='col-sm-10'>
+					                      		<textarea className="form-control" rows="5" ref ='Description' value={this.state.description} onChange={QuanLyTinTucAction.updateDescription}></textarea>
+					                      		<span className='help-block'>{this.state.helpBlockDescription}</span>
+					                    	</div>
+					                  	</div>
+
+					                  	<div className='form-group has-success'>
+						                   	<label className='col-sm-2 control-label'>Chọn ảnh đại diện</label>
+						                   	<div className ="clear-both"></div>
+						                   	<div  className ='col-sm-10'>
+							                    <div className="avatar-photo">
+							                      	<ImgUpload actions ={QuanLyTinTucAction} />
+							                      	<div className="avatar-edit">
+							                      		<i className="fa fa-camera"></i>
+							                    	</div>
+							                    <img src ={this.state.imagePreviewUrl} height ="200px" width="200px" alt = "avatar"/>
+							                	</div>
+							                	<div>
+							                    	<button type='button' className = 'btn btn-success'onClick = {this.upload.bind(this)} ><i className="fa fa-check"></i></button>
+							                    	<button type='button' className = 'btn btn-danger' onClick = {this.detele.bind(this)} ><i className="fa fa-times"></i></button>
+							                    	<span className='help-block'>{this.state.helpBlockUpload}</span>
+							                	</div>
+							                </div>
+						                </div>
+						                <div className ="clear-both"></div>
 
 					                  	
 									</div>

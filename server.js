@@ -55,6 +55,7 @@ var CotPhaiHomeServer = require('./src-server/cotphaihome/CotPhaiHomeServer');
 var QuanLyTinTucServer = require('./src-server/quanlytintuc/QuanLyTinTucServer');
 var TinTucHomeServer = require('./src-server/tintuchome/TinTucHomeServer');
 var KhoaServer = require('./src-server/khoa/KhoaServer');
+var CaiDatLuuTruServer = require('./src-server/caidatluutru/CaiDatLuuTruServer');
 //==============================================
 
 var Adminserver = require('./src-server/admin/Adminserver');
@@ -110,6 +111,15 @@ app.post('/api/imageupload', upload.single('file'), function (req, res, next) {
     });
   }
 });
+app.post('/api/uploadanhtintuc', upload.single('file'), function (req, res, next) {
+  // req.file is the `avatar` file
+  // req.body will hold the text fields, if there were any
+  // c
+  console.log(req.file);
+  res.send({link:"/uploads/"+req.file.filename});
+
+
+});
 
 var server = require('http').createServer(app);
 var io = require('socket.io')(server);
@@ -126,6 +136,7 @@ CotPhaiHomeServer(app);
 QuanLyTinTucServer(app);
 TinTucHomeServer(app);
 KhoaServer(app);
+CaiDatLuuTruServer(app);
 Adminserver(app, importStudent);
 
 /*

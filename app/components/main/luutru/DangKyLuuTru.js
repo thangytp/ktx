@@ -22,6 +22,9 @@ import KhoaAdminStore from '../../../stores/admin/khoa/KhoaAdminStore';
 import HeDaoTaoAction from '../../../actions/admin/hedaotao/HeDaoTaoAction';
 import HeDaoTaoStore from '../../../stores/admin/hedaotao/HeDaoTaoStore';
 
+import CaiDatLuuTruAction from '../../../actions/admin/caidatluutru/CaiDatLuuTruAction';
+import CaiDatLuuTruStore from '../../../stores/admin/caidatluutru/CaiDatLuuTruStore';
+
 import CotPhaiHome from '../CotPhaiHome';
 
 export default class SignUp extends React.Component {
@@ -30,7 +33,7 @@ export default class SignUp extends React.Component {
     super(props);
     this.state = {state1: ManageUuTienStore.getState(), state2: DangKyLuuTruStore.getState(), 
       state3: ManagePhongStore.getState(), state4: ManageDichvuStore.getState(), state5: KhoaAdminStore.getState(),
-      state6: HeDaoTaoStore.getState() };
+      state6: HeDaoTaoStore.getState(), state7: CaiDatLuuTruStore.getState() };
     this.onChange = this.onChange.bind(this);
   }
    componentDidMount() {
@@ -50,6 +53,7 @@ export default class SignUp extends React.Component {
     ManageDichvuStore.listen(this.onChange);
     KhoaAdminStore.listen(this.onChange);
     HeDaoTaoStore.listen(this.onChange);
+    CaiDatLuuTruStore.listen(this.onChange);
 
     ManageUuTienAction.getKhuvuc();
     ManageUuTienAction.getTinh();
@@ -62,6 +66,8 @@ export default class SignUp extends React.Component {
     ManageDichvuAction.getDichvu();
     KhoaAdminAction.getListKhoa();
     HeDaoTaoAction.getListHeDaoTao();
+
+    CaiDatLuuTruAction.getCaiDatDangKyMoi();
   }
   componentWillUnmount() {
     ManageUuTienStore.unlisten(this.onChange);
@@ -70,11 +76,12 @@ export default class SignUp extends React.Component {
     ManageDichvuStore.unlisten(this.onChange);
     KhoaAdminStore.unlisten(this.onChange);
     HeDaoTaoStore.unlisten(this.onChange);
+    CaiDatLuuTruStore.unlisten(this.onChange);
   }
   onChange(state) {
     this.setState({state1: ManageUuTienStore.getState(), state2: DangKyLuuTruStore.getState(), 
       state3: ManagePhongStore.getState(), state4: ManageDichvuStore.getState(), state5: KhoaAdminStore.getState(),
-      state6: HeDaoTaoStore.getState() });
+      state6: HeDaoTaoStore.getState(), state7: CaiDatLuuTruStore.getState() });
   }
 
   handleChangeNgaySinh(date){
@@ -309,7 +316,71 @@ export default class SignUp extends React.Component {
     });
 
     let daGiaHan = this.state.state2.daGiaHan;
-    if(daGiaHan){
+
+    let presentDate = new Date();
+    if(presentDate < this.state.state7.ngayBatDauDangKyMain || presentDate > this.state.state7.ngayKetThucDangKyMain || 
+      !this.state.state7.ngayBatDauDangKyMain || !this.state.state7.ngayKetThucDangKyMain ){
+        return (
+              <div className="container luu-tru">
+
+                <div className="row">
+                  <div className="col-md-9" >
+                    <ol className="breadcrumb no-overflow">
+                        <li><Link to="/"><i className="fa fa-home" aria-hidden="true"></i> Trang chủ</Link></li>
+                        <li></li>
+                    </ol>
+                    <div className="panel rounded shadow no-overflow">
+                      <div className="panel-heading">
+                          <div className="pull-left"><h3 className="panel-title"></h3></div>
+                          <div className="clearfix"></div>
+                      </div>
+                      <div className="panel-body no-padding">
+                          <h3 className='text-center'>Chưa đến hạn đăng ký lưu trú!</h3>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="col-md-3 col-sm-12">
+                      <CotPhaiHome />
+                  </div>
+
+                </div>
+              </div>
+          );
+    }
+
+    else if( presentDate < this.state.state7.ngayBatDauGiaHanMain || presentDate > this.state.state7.ngayKetThucGiaHanMain || 
+      !this.state.state7.ngayBatDauGiaHanMain || !this.state.state7.ngayKetThucGiaHanMain ){
+        return (
+              <div className="container luu-tru">
+
+                <div className="row">
+                  <div className="col-md-9" >
+                    <ol className="breadcrumb no-overflow">
+                        <li><Link to="/"><i className="fa fa-home" aria-hidden="true"></i> Trang chủ</Link></li>
+                        <li></li>
+                    </ol>
+                    <div className="panel rounded shadow no-overflow">
+                      <div className="panel-heading">
+                          <div className="pull-left"><h3 className="panel-title"></h3></div>
+                          <div className="clearfix"></div>
+                      </div>
+                      <div className="panel-body no-padding">
+                          <h3 className='text-center'>Chưa đến hạn gia hạn lưu trú!</h3>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="col-md-3 col-sm-12">
+                      <CotPhaiHome />
+                  </div>
+
+                </div>
+              </div>
+          );
+    }
+
+    else if(daGiaHan){
       return(
           <div className="container luu-tru">
 

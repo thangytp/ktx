@@ -8,10 +8,17 @@ class QuanLyTinTucStore {
     this.idTinTuc = '';
     this.titleTinTuc = '';
     this.contentLeft = '';
+    this.description = '';
+
+    this.fileAvatar ={};
+    this.imagePreviewUrl='/uploads/LogoBK.png';
+    this.imageUrl='/uploads/LogoBK.png';
+    this.helpBlockUpload = '';
 
     this.helpBlockAddTinTuc = '';
     this.helpBlockTitle = '';
     this.helpBlockContent = '';
+    this.helpBlockDescription = '';
 
     // initial state for list page
     this.listTinTuc = [];
@@ -31,6 +38,32 @@ class QuanLyTinTucStore {
     this.helpBlockAddTinTuc = '';
     this.titleTinTuc = event.target.value;
   }
+  onUpdateDescription(e){
+    this.description = e.target.value;
+  }
+
+  onUpdateImagepreview(imgURL)
+  {
+      this.imagePreviewUrl = imgURL;
+  }
+  onUpdateImagefile(file)
+  {
+      this.fileAvatar = file;
+  }
+
+  onHandleUpload()
+  {
+      this.helpBlockUpload ="Đang tải lên....";
+  }
+  onUploadSuccess(link){
+      this.helpBlockUpload ="Tải lên thành công";
+      this.imageUrl=link;
+      console.log("link:" + link);
+  }
+  onUploadFail(jqXhr){
+      this.helpBlockUpload ="Quá trình tải thất bại";
+      toastr.error(jqXhr.responseJSON.message);
+  }
 
   // =========== validate ============== //
   onInvalidTitle(){
@@ -40,6 +73,9 @@ class QuanLyTinTucStore {
   onInvalidContent(){
       this.helpBlockContent = 'Vui lòng nhập nội dung';
   }
+  onInvalidDes(){
+      this.helpBlockDescription = 'Vui lòng nhập nội dung rút gọn';
+  }
 
   // ====== add page success =========== //
   onAddTinTucSuccess(data){
@@ -48,9 +84,16 @@ class QuanLyTinTucStore {
       this.titleTinTuc = '';
       this.contentLeft = '';
       CKEDITOR.instances.ckedit.setData('');
+      this.description = '';
+
+      this.fileAvatar ={};
+      this.imagePreviewUrl='/uploads/LogoBK.png';
+      this.imageUrl='/uploads/LogoBK.png';
+      this.helpBlockUpload = '';
 
       this.helpBlockTitle = '';
       this.helpBlockContent = '';
+      this.helpBlockDescription = '';
 
       this.modalIsOpenDeleteTinTuc = false;
       this.idTinTucToDelete = '';
@@ -67,6 +110,7 @@ class QuanLyTinTucStore {
   // ========= get list page ==============//
   onGetListTinTucSuccess(data){
     this.listTinTuc = data;
+    console.log(data);
   }
 
   onGetListTinTucFail(jqXhr){
@@ -79,8 +123,16 @@ class QuanLyTinTucStore {
     this.contentLeft = data.content;
     CKEDITOR.instances.ckedit.setData(data.content);
 
+    this.description = data.description;
+
+    this.fileAvatar ={};
+    this.imagePreviewUrl= data.img? data.img : '/uploads/LogoBK.png';
+    this.imageUrl= data.img ? data.img : '/uploads/LogoBK.png';
+    this.helpBlockUpload = '';
+
     this.helpBlockTitle = '';
     this.helpBlockContent = '';
+    this.helpBlockDescription = '';
 
     this.helpBlockAddTinTuc = '';
     this.textButton = 'Lưu';
@@ -120,8 +172,16 @@ class QuanLyTinTucStore {
     this.contentLeft = '';
     CKEDITOR.instances.ckedit.setData('');
 
+    this.description = '';
+
+    this.fileAvatar ={};
+    this.imagePreviewUrl='/uploads/LogoBK.png';
+    this.imageUrl='/uploads/LogoBK.png';
+    this.helpBlockUpload = '';
+
     this.helpBlockTitle = '';
     this.helpBlockContent = '';
+    this.helpBlockDescription = '';
 
     this.helpBlockAddTinTuc = 'Cập nhật trang thành công';
     this.textButton = 'Thêm';

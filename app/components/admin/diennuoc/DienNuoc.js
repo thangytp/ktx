@@ -5,24 +5,24 @@ import {Modal} from 'react-bootstrap';
 import moment from 'moment';
 import DatePicker from 'react-datepicker';
 
-import CaiDatLuuTruAction from '../../../actions/admin/caidatluutru/CaiDatLuuTruAction';
-import CaiDatLuuTruStore from '../../../stores/admin/caidatluutru/CaiDatLuuTruStore';
+import DienNuocAction from '../../../actions/admin/diennuoc/DienNuocAction';
+import DienNuocStore from '../../../stores/admin/diennuoc/DienNuocStore';
 
-class CaiDatDangKyLuuTru extends React.Component {
+class DienNuoc extends React.Component {
 
 	constructor(props)
 	{
 		super(props);
-		this.state = CaiDatLuuTruStore.getState();
+		this.state = DienNuocStore.getState();
 		this.onChange = this.onChange.bind(this);
 	}
 	componentDidMount() {
-		CaiDatLuuTruStore.listen(this.onChange);
-		CaiDatLuuTruAction.getCaiDatDangKyMoi();
+		DienNuocStore.listen(this.onChange);
+		
 	}
 
 	componentWillUnmount() {
-		CaiDatLuuTruStore.unlisten(this.onChange);
+		DienNuocStore.unlisten(this.onChange);
 	}
 
 	onChange(state) {
@@ -30,49 +30,17 @@ class CaiDatDangKyLuuTru extends React.Component {
 	}
 
 
-	handleChangeNgayBatDauDangKy(date){
-	    CaiDatLuuTruAction.updateNgayBatDauDangKy(date);
-	}
-	handleChangeNgayKetThucDangKy(date){
-	    CaiDatLuuTruAction.updateNgayKetThucDangKy(date);
-	}
-
 	luuDangKyLuuTruMoi(e){
 		e.preventDefault();
 		var idNgayBatDauDangKy = this.state.idNgayBatDauDangKy;
 		var ngayBatDauDangKy = this.state.ngayBatDauDangKy._d;
 		var ngayKetThucDangKy = this.state.ngayKetThucDangKy._d;
 		if(idNgayBatDauDangKy){
-			CaiDatLuuTruAction.updateDangKyLuuTruMoi({idNgayBatDauDangKy: idNgayBatDauDangKy, ngayBatDauDangKy: ngayBatDauDangKy, ngayKetThucDangKy: ngayKetThucDangKy});
+			DienNuocAction.updateDangKyLuuTruMoi({idNgayBatDauDangKy: idNgayBatDauDangKy, ngayBatDauDangKy: ngayBatDauDangKy, ngayKetThucDangKy: ngayKetThucDangKy});
 		}
 		else{
-			CaiDatLuuTruAction.luuDangKyLuuTruMoi({ngayBatDauDangKy: ngayBatDauDangKy, ngayKetThucDangKy: ngayKetThucDangKy});
+			DienNuocAction.luuDangKyLuuTruMoi({ngayBatDauDangKy: ngayBatDauDangKy, ngayKetThucDangKy: ngayKetThucDangKy});
 		}
-	}
-
-	handleChangeNgayBatDauGiaHan(date){
-	    CaiDatLuuTruAction.updateNgayBatDauGiaHan(date);
-	}
-	handleChangeNgayKetThucGiaHan(date){
-	    CaiDatLuuTruAction.updateNgayKetThucGiaHan(date);
-	}
-	luuGiaHanLuuTru(e){
-		e.preventDefault();
-		var idNgayBatDauDangKy = this.state.idNgayBatDauDangKy;
-		console.log(idNgayBatDauDangKy);
-		var ngayBatDauGiaHan = this.state.ngayBatDauGiaHan._d;
-		var ngayKetThucGiaHan = this.state.ngayKetThucGiaHan._d;
-
-		if(idNgayBatDauDangKy){
-			CaiDatLuuTruAction.updateGiaHanLuuTru({idNgayBatDauDangKy: idNgayBatDauDangKy, ngayBatDauGiaHan: ngayBatDauGiaHan, ngayKetThucGiaHan: ngayKetThucGiaHan});
-		}
-		else{
-			CaiDatLuuTruAction.luuGiaHanLuuTru({ ngayBatDauGiaHan: ngayBatDauGiaHan, ngayKetThucGiaHan: ngayKetThucGiaHan});
-		}
-	}
-
-	editKhoa(id, ten){
-		KhoaAdminAction.editKhoa({id: id, ten: ten});
 	}
 
 	
@@ -210,4 +178,4 @@ class CaiDatDangKyLuuTru extends React.Component {
   }
 }
 
-export default CaiDatDangKyLuuTru;
+export default DienNuoc;

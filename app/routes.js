@@ -32,7 +32,7 @@ import TinTucHome from './components/admin/tintuchome/TinTucHome';
 import QuanLyTinTuc from './components/admin/quanlytintuc/QuanLyTinTuc';
 import Admin from './components/admin/manage-admin/Admin';
 
-
+import CaiDatDangKyLuuTru from './components/admin/caidatluutru/CaiDatDangKyLuuTru';
 import KhoaAdmin from './components/admin/khoa/KhoaAdmin';
 import HeDaoTao from './components/admin/hedaotao/HeDaoTao';
 
@@ -88,6 +88,7 @@ export default (
             <Route path="/quanly@ktx/quan-ly-tin-tuc" component={QuanLyTinTuc}/>
             <Route path="/quanly@ktx/quan-ly-khoa" component={KhoaAdmin}/>
             <Route path="/quanly@ktx/quan-ly-he-dao-tao" component={HeDaoTao}/>
+            <Route path="/quanly@ktx/cai-dat-dang-ky-luu-tru" component={CaiDatDangKyLuuTru}/>
 
         </Route>
 

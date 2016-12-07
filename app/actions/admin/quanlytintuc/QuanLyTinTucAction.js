@@ -6,6 +6,7 @@ class QuanLyTinTucAction {
        	
 
         'updateTitleTinTuc',
+        'updateDescription',
         
         'addTinTucSuccess',
         'addTinTucFail',
@@ -14,6 +15,7 @@ class QuanLyTinTucAction {
 
         'invalidTitle',
         'invalidContent',
+        'invalidDes',
 
         'getListTinTucSuccess',
         'getListTinTucFail',
@@ -30,9 +32,37 @@ class QuanLyTinTucAction {
         'getListTinTucBottomFail',
 
         'getTinTucByLinkSuccess',
-        'getTinTucByLinkFail'
+        'getTinTucByLinkFail',
+
+        'updateImagepreview',
+        'updateImagefile',
+        'uploadSuccess',
+        'uploadFail',
+        'handleUpload'
     
     );
+  }
+
+  uploadImage(imgfile)
+  {
+
+    var fd = new FormData();
+    fd.append( 'file', imgfile);
+    console.log(fd);
+    $.ajax({
+        url: '/api/uploadanhtintuc',
+        data: fd,
+        processData: false,
+        contentType: false,
+        type: 'POST'
+    })
+    .done((data) => {
+      this.actions.uploadSuccess(data.link);
+
+    })
+    .fail((jqXhr) =>{
+      this.actions.uploadFail(jqXhr.responseJSON.message);
+    });
   }
 
   // add page
@@ -41,7 +71,7 @@ class QuanLyTinTucAction {
       $.ajax({
         url: '/api/addtintuc',
         type: 'POST',
-        data: { title: payload.title, content: payload.contentLeft, dateCreate: payload.dateCreate, slug: payload.slug },
+        data: { title: payload.title, content: payload.contentLeft, description: payload.description, img: payload.img, dateCreate: payload.dateCreate, slug: payload.slug },
       })
       .done((data) =>{
         this.actions.addTinTucSuccess(data);
@@ -59,7 +89,7 @@ class QuanLyTinTucAction {
       $.ajax({
         url: '/api/updatetintuc',
         type: 'PUT',
-        data: { id: payload.id, title: payload.title, content: payload.contentLeft, dateModify: payload.dateModify, slug: payload.slug },
+        data: { id: payload.id, title: payload.title, content: payload.contentLeft, description: payload.description, img: payload.img, dateModify: payload.dateModify, slug: payload.slug },
       })
       .done((data) =>{
         this.actions.updateTinTucSuccess(data);
