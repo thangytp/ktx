@@ -2,6 +2,7 @@ var mongoose = require('mongoose');
 
 
 var studentSchema = new mongoose.Schema({
+  avatar: String,
   role: Number,
   tongiao: String,
   sdt_sinhvien: Number,

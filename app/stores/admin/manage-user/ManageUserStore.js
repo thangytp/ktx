@@ -1,7 +1,7 @@
 import alt from '../../../alt';
 import ManageUserAction from '../../../actions/admin/manage-user/ManageUserAction';
 import localStorage from 'localStorage';
-
+import moment from 'moment';
 
 class ManageUserStore {
   constructor() {
@@ -36,6 +36,36 @@ class ManageUserStore {
     this.inputdrl = null;
     this.inputdrlktx = null;
     this.inputdvs = null;
+
+    this.email = '';
+    this.mssv = '';
+    this.holot = '';
+    this.ten = '';
+    this.ngaySinh = '';
+    this.gioitinh = '';
+    this.svkhoa = '';
+    this.svhedaotao = '';
+
+    this.namvaotruong = new Date().getFullYear();
+    this.svkhuvuc = '';
+    this.svtinh = '';
+    this.svdoituong = '';
+    this.svtongiao = '';
+    this.svdoanthe = '';
+    this.socmnd = '';
+    this.hokhau = '';
+    this.svdienthoai = '';
+    this.giadinhdienthoai = '';
+    this.emailThuongDung = '';
+
+    this.svhocluc = '';
+    this.svhoancanh = '';
+    this.svloaiphong = '';
+
+    this.fileAvatar ={};
+    this.imagePreviewUrl='/uploads/LogoBK.png';
+    this.imageUrl='/uploads/LogoBK.png';
+    this.helpBlockUpload = '';
     // if(localStorage.getItem('deactiveStep2')) {
     //   this.deactiveStep2 = false;
     // } else {
@@ -181,6 +211,38 @@ class ManageUserStore {
 
   onGetUserSuccess(response) {
     this.user = response;
+
+    // set state
+    this.email = response.email;
+    this.mssv = response.ma_sinh_vien;
+    this.holot = response.ho_lot;
+    this.ten = response.ten;
+    this.ngaySinh = moment(response.ngay_sinh);
+  
+    this.gioitinh = response.phai;
+    this.svkhoa = response._khoa_id;
+    this.svhedaotao = response._he_dao_tao_id;
+
+    this.namvaotruong = response.nam_vao_truong;
+    this.svkhuvuc = response._khu_vuc_id;
+    this.svtinh = response._tinh_id;
+    this.svdoituong = response._doi_tuong_id;
+    this.svtongiao = response.tongiao;
+    this.svdoanthe = response.ten_doan_the;
+    this.socmnd = response.so_cmnd;
+    this.hokhau = response.dia_chi_gia_dinh;
+    this.svdienthoai = response.sdt_sinhvien;
+    this.giadinhdienthoai = response.sdt_giadinh;
+    this.emailThuongDung = response.email_khac;
+
+    this.svhocluc = response._hoc_luc_id;
+    this.svhoancanh = response._hoan_canh_id;
+    this.svloaiphong = response._phong_id._id;
+
+    this.fileAvatar ={};
+    this.imagePreviewUrl= response.avatar? response.avatar : '/uploads/LogoBK.png';
+    this.imageUrl=response.avatar? response.avatar : '/uploads/LogoBK.png';
+    this.helpBlockUpload = '';
   }
 
   onDeleteUserSuccess() {
@@ -272,6 +334,90 @@ class ManageUserStore {
   //     this.user ='';
   //     this.password ='';
   // }
+
+  onUpdateImagepreview(imgURL)
+  {
+      this.imagePreviewUrl = imgURL;
+  }
+  onUpdateImagefile(file)
+  {
+      this.fileAvatar = file;
+  }
+
+  onHandleUpload()
+  {
+      this.helpBlockUpload ="Đang tải lên....";
+  }
+  onUploadSuccess(link){
+      this.helpBlockUpload ="Tải lên thành công";
+      this.imageUrl=link;
+      console.log("link:" + link);
+  }
+  onUploadFail(jqXhr){
+      this.helpBlockUpload ="Quá trình tải thất bại";
+      toastr.error(jqXhr.responseJSON.message);
+  }
+
+  onUpdateHoLot(e){
+    this.holot = e.target.value;
+  }
+  onUpdateTen(e){
+    this.ten = e.target.value;
+  }
+  onUpdateGioiTinh(e){
+    this.gioitinh = e.target.value;
+  }
+  onUpdateNgaySinh(date){
+      this.ngaySinh = date;
+  }
+  onUpdateKhoa(e){
+    this.svkhoa = e.target.value;
+  }
+  onUpdateHeDaoTao(e){
+    this.svhedaotao = e.target.value;
+  }
+  onUpdateNamVaoTruong(e){
+    this.namvaotruong = e.target.value;
+  }
+  onUpdateKhuVuc(e){
+    this.svkhuvuc = e.target.value;
+  }
+  onUpdateTinh(e){
+    this.svtinh = e.target.value;
+  }
+  onUpdateDoiTuong(e){
+    this.svdoituong = e.target.value;
+  }
+  onUpdateTonGiao(e){
+    this.svtongiao = e.target.value;
+  }
+  onUpdateDoanThe(e){
+    this.svdoanthe = e.target.value;
+  }
+  onUpdateSoCMND(e){
+    this.socmnd = e.target.value;
+  }
+  onUpdateHoKhau(e){
+    this.hokhau = e.target.value;
+  }
+  onUpdateDienThoaiSV(e){
+    this.svdienthoai = e.target.value;
+  }
+  onUpdateDienThoaiGiaDinh(e){
+    this.giadinhdienthoai = e.target.value;
+  }
+  onUpdateEmailThuongDung(e){
+    this.emailThuongDung = e.target.value;
+  }
+  onUpdateHocLuc(e){
+    this.svhocluc = e.target.value;
+  }
+  onUpdateHoanCanh(e){
+    this.svhoancanh = e.target.value;
+  }
+  onUpdateLoaiPhong(e){
+    this.svloaiphong = e.target.value;
+  }
 }
 
 export default alt.createStore(ManageUserStore);

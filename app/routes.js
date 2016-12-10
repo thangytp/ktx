@@ -9,7 +9,6 @@ import GiaHanCu from './components/admin/manage-user/GiaHanCu';
 import XetDuyetStudent from './components/admin/manage-user/XetDuyetStudent';
 import GiaHanStudent from './components/admin/manage-user/GiaHanStudent';
 
-
 import ChiTieu from './components/admin/manage-chitieu/ChiTieu';
 import UuTien from './components/admin/manage-uutien/UuTien';
 import Tang from './components/admin/manage-phong/Tang';
@@ -17,11 +16,6 @@ import Phong from './components/admin/manage-phong/Phong';
 import PhongChiTiet from './components/admin/manage-phong/PhongChiTiet';
 import Giuong from './components/admin/manage-phong/Giuong';
 import Dichvu from './components/admin/manage-dichvu/Dichvu';
-import Hedaotao from './components/admin/khoa/Hedaotao';
-
-
-
-
 
 import AddItemMenu from './components/admin/menu/AddItemMenu';
 import AddPage from './components/admin/page/AddPage';
@@ -80,7 +74,6 @@ export default (
             <Route path="/quanly@ktx/phong" component={PhongChiTiet}/>
             <Route path="/quanly@ktx/giuong" component={Giuong}/>
             <Route path="/quanly@ktx/dich-vu" component={Dichvu}/>
-            <Route path="/quanly@ktx/hedaotao" component={Hedaotao}/>
 
             <Route path="/quanly@ktx/cotphai-home" component={CotPhaiHome}/>
             <Route path="/quanly@ktx/lienket-site" component={LienKetSite}/>

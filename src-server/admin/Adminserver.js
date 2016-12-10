@@ -26,6 +26,7 @@ module.exports = function(app, importStudent) {
 
   app.post('/addadmin', function(req, res){
     var nAdmin = new Admin();
+    console.log(req.body);
     nAdmin.email = req.body.email;
     nAdmin.password = nAdmin.generateHash(req.body.password);
     nAdmin.type = req.body.type;
