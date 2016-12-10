@@ -58,7 +58,7 @@ class Header extends React.Component {
                 <div className='top-bar'>
                     <div className="container">
                         <div className="row">
-                            <span className="pull-left text-wellcome text-white">Chào mừng bạn đến với website của Ký túc ĐH Bách Khoa TP HCM</span>
+                            <span className="hidden-xs pull-left text-wellcome text-white">Chào mừng bạn đến với website của Ký túc ĐH Bách Khoa TP HCM</span>
                             <div className="cs-user">
 
                                 {NavbarUser}

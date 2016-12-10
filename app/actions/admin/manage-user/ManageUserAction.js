@@ -25,9 +25,62 @@ class ManageUserAction {
        'updateDiemRenLuyenKtxSuccess',
        'updateXetDuyetXetDuyetSuccess',
        'updateXetDuyetGiaHanSuccess',
-       'updateInfoKtxSuccess'
+       'updateInfoKtxSuccess',
+
+        'updateHoLot',
+        'updateTen',
+        'updateGioiTinh',
+        'updateNgaySinh',
+        'updateKhoa',
+        'updateHeDaoTao',
+        'updateNamVaoTruong',
+        'updateKhuVuc',
+        'updateTinh',
+        'updateDoiTuong',
+        'updateTonGiao',
+        'updateDoanThe',
+        'updateSoCMND',
+        'updateHoKhau',
+        'updateDienThoaiSV',
+        'updateDienThoaiGiaDinh',
+        'updateEmailThuongDung',
+        'updateHocLuc',
+        'updateHoanCanh',
+        'updateLoaiPhong',
+
+        'updateImagepreview',
+        'updateImagefile',
+        'uploadSuccess',
+        'uploadFail',
+        'handleUpload'
 
     );
+  }
+
+  uploadImage(imgfile)
+  {
+
+    var fd = new FormData();
+    fd.append( 'file', imgfile);
+    console.log(fd);
+    $.ajax({
+        url: '/api/uploadanhtintuc',
+        data: fd,
+        processData: false,
+        contentType: false,
+        type: 'POST'
+    })
+    .done((data) => {
+      this.actions.uploadSuccess(data.link);
+
+    })
+    .fail((jqXhr) =>{
+      this.actions.uploadFail(jqXhr.responseJSON.message);
+    });
+  }
+
+  updateNgaySinh(date){
+      this.actions.updateNgaySinh(date);
   }
 
   getUsers() {

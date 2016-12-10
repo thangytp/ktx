@@ -126,10 +126,10 @@ class DangKyLuuTruStore {
         this.checkNam = '';
         this.checkNu = 'checked';
     }
-    onUpdateNgaySinh(event){
-        this.ngaySinh = event.target.value;
-        console.log(this.ngaySinh);
-    }
+    // onUpdateNgaySinh(event){
+    //     this.ngaySinh = event.target.value;
+    //     console.log(this.ngaySinh);
+    // }
     onUpdateKhoa(event){
         this.svkhoa = event.target.value;
     }
