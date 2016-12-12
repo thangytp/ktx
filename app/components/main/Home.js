@@ -46,19 +46,26 @@ class Home extends React.Component {
 		     	var htmlToReactParser = new HtmlToReact.Parser(React);
 		     	var reactcontent = htmlToReactParser.parse(content);
 				return(
-						<div className="panel panel-fb shadow" key={index}>
-							<div className="panel-heading">
-								{tin.title} <span><img className="img-responsive" src="/img/news.gif"/></span>
-							</div>
-							<div className="panel-body">
-								<div className="content-news-home">
-									{reactcontent}
-								</div>
-								<div className="link-detail-news">
-									<Link to={'/tin-tuc/'+ tin.linkChitiet}>Chi tiết >></Link>
-								</div>
-							</div>
-						</div>
+						<div className="row nM mT20 item-thongbao clearboth pB10">
+	    					<div className="col-sm-6">
+	    						<Link to={'/tin-tuc/'+ tin.linkChitiet}>
+	    							<img className="img-responsive" src="/uploads/thongbaomoi.jpg"/>
+	    						</Link>
+	    					</div>
+	    					<div className="col-sm-6">
+	    						<div className="title-thongbao">
+	    							<Link to={'/tin-tuc/'+ tin.linkChitiet}>{tin.title}</Link>
+	    						</div>
+	    						<div className="date-thongbao">
+	    							<span>13:00 | 12/12/2016</span>
+	    						</div>
+	    						<div className="content-thongbao">
+	    							{reactcontent}
+	    						</div>
+	    					</div>
+	    				</div>
+						
+
 					);
 			});
 		}
@@ -116,21 +123,23 @@ class Home extends React.Component {
 		    <div className="container">   
 		    	<section id="tin-tuc-moi">
 		    		<div className="col-sm-9">
-			    		<div className = "panel panel-default panel-blog rounded shadow">
-				          	<div className="panel-body">
-				            
-					            <h3 className="page-title"><i className="fa fa-bullhorn" aria-hidden="true"></i> Thông báo mới</h3>
-					            <div className="content-page">
-					                {listTinTucToDisplayHome}
-					            </div>
-					            <h3 className="page-title"><i className="fa fa-newspaper-o" aria-hidden="true"></i> Các tin đã đưa</h3>
-					            <div className="content-page">
-					                <ListTinTucMain />
-					            </div>
-				          	</div>
-				        </div>
+		    			<div className="thongbaomoi white-bg">
+		    				<div className="col-sm-12 mT20 mB20">
+		    					<h3 className="page-title">Thông báo mới</h3>
+		    				</div>
+		    				{listTinTucToDisplayHome}
+
+		    				<div className="col-sm-12 mT20 mB20">
+		    					<h3 className="page-title">Các tin đã đưa</h3>
+		    				</div>
+				            <div className="row nM mt-10">
+				                <ListTinTucMain />
+				            </div>
+		    			</div>
+		    			
+			    		
 			    	</div>
-			    	<div className="col-md-3 col-sm-12">
+			    	<div className="col-md-3 col-sm-12 cotphaihome">
 			    		<CotPhaiHome />
 			    	</div>
 		    	</section>

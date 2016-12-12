@@ -2,6 +2,7 @@ var mongoose = require('mongoose');
 var bcrypt   = require('bcrypt-nodejs');
 
 var adminSchema = new mongoose.Schema({
+  ten: String,
  email: {
     type: String,
     required: true,

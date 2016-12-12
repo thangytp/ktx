@@ -9,6 +9,7 @@ const AddAdminModal = React.createClass({
 
     e.preventDefault()
     const data = {
+        ten: this.refs.ten.value,
         email: this.refs.email.value,
         password: this.refs.password.value,
         type: this.state.type
@@ -30,16 +31,21 @@ const AddAdminModal = React.createClass({
         <Modal.Body>
         <form onSubmit={this.handleAddAdmin.bind(this)}>
           <div className="form-group">
-            <label for="exampleInputEmail1">Email</label>
-            <input type="text" className="form-control" ref="email" placeholder="Email" />
+            <label htmlFor="exampleInputEmail1">Tên</label>
+            <input type="text" className="form-control" ref="ten" placeholder="Tên" />
           </div>
           <div className="form-group">
-            <label for="exampleInputEmail1">Password</label>
+            <label htmlFor="exampleInputEmail1">Email</label>
+            <input type="email" className="form-control" ref="email" placeholder="Email" />
+          </div>
+          <div className="form-group">
+            <label htmlFor="exampleInputEmail1">Password</label>
             <input type="password" className="form-control" ref="password" placeholder="Password" />
           </div>
           <div className="form-group">
-            <label for="exampleInputPassword1">Cấp Độ</label>
+            <label htmlFor="exampleInputPassword1">Vai trò</label>
             <select className="form-control" onChange={this.handleChangeType.bind(this)}>
+                <option value=''>--Chọn--</option>
                 <option value='Admin'>Admin</option>
                 <option value='Super Mod'>Super Mod</option>
                 <option value='Manager'>Manager</option>

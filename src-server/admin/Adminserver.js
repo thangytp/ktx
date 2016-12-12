@@ -27,6 +27,7 @@ module.exports = function(app, importStudent) {
   app.post('/addadmin', function(req, res){
     var nAdmin = new Admin();
     console.log(req.body);
+    nAdmin.ten = req.body.ten;
     nAdmin.email = req.body.email;
     nAdmin.password = nAdmin.generateHash(req.body.password);
     nAdmin.type = req.body.type;
@@ -36,7 +37,7 @@ module.exports = function(app, importStudent) {
     });
   })
 
-  // Delete Student
+  // Delete Admin
 
   app.delete('/deleteadmin/:adminId', function(req, res){
     Admin.remove({_id: req.params.adminId}, function(err) {

@@ -40,32 +40,37 @@ class CotPhaiHome extends React.Component {
   		let listItem = this.state.listItem.map((item, index) =>{
   			if(item.type==='image'){
 				return (
-						<div className="col-sm-12" key={index}>
-							<div className="panel panel-fb rounded shadow no-overflow cotphaihome">
+						<div className="col-sm-12 nP white-bg" key={index}>
+							{/*<div className="panel panel-fb rounded shadow no-overflow cotphaihome">
 	                      		<div className="panel-heading">
 	                      			<h3 className="panel-title text-center text-upper">{item.name}</h3>
 	                      		</div>
 	                      		<div className="panel-body no-padding">
 	                      			<Link to={'/'+item.linkToPage}><img className="responsive" src={item.image}/></Link>
 	                      		</div>
-	                      	</div>
+	                      	</div>*/}
+
+                      		<div className="title-item-right">
+                      			<h3 className="text-left text-upper">{item.name}</h3>
+                      		</div>
+                      		<div className="content-item-right">
+                      			<Link to={'/'+item.linkToPage}><img className="responsive" src={item.image}/></Link>
+                      		</div>
 						</div>
 					);
 			}
 			else {
 				return (
-						<div className="col-sm-12" key={index}>
-							<div className="panel panel-fb rounded shadow no-overflow">
-	                      		<div className="panel-heading">
-	                      			<h3 className="panel-title text-center text-upper">{item.name}</h3>
+						<div className="col-sm-12 nP white-bg" key={index}>
+	                      		<div className="title-item-right">
+	                      			<h3 className="text-left text-upper">{item.name}</h3>
 	                      		</div>
-	                      		<div className="panel-body no-padding">
+	                      		<div className="content-item-right no-border">
 	                      			<YouTube
 								        videoId="IXfVciwlnoU"
 								       	opts={opts}
 								      />
 	                      		</div>
-	                      	</div>
 						</div>
 					)
 			}

@@ -54,13 +54,12 @@ class LienKetSiteMain extends React.Component {
 
 		return(
 			
-					<div className="col-sm-12 col-xs-12 link-site">
+					<div className="col-sm-12 col-xs-12 nP white-bg link-site">
 						
-							<div className="panel panel-fb rounded shadow no-overflow">
-	                      		<div className="panel-heading">
-	                      			<h3 className="panel-title text-center text-upper">Liên kết Site</h3>
+								<div className="title-item-right">
+	                      			<h3 className="text-left text-upper">Liên kết Site</h3>
 	                      		</div>
-	                      		<div className="panel-body no-padding">
+	                      		<div className="">
 									<Slider {...settings}>
 										
 										{	listSiteShow
@@ -68,7 +67,6 @@ class LienKetSiteMain extends React.Component {
 										
 					                </Slider>
 					            </div>
-	                      	</div>
 						
 					</div>
 				
