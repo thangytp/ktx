@@ -60,11 +60,11 @@ class Footer extends React.Component {
 
                             <h4 className="footer-title mT20">Mạng xã hội</h4>
                             <ul className="list-social-icon">
-                                <li className="social-icon"><i className="fa fa-facebook-square" aria-hidden="true"></i></li>
-                                <li className="social-icon"><i className="fa fa-google-plus-square" aria-hidden="true"></i></li>
-                                <li className="social-icon"><i className="fa fa-twitter-square" aria-hidden="true"></i></li>
-                                <li className="social-icon"><i className="fa fa-tumblr-square" aria-hidden="true"></i></li>
-                                <li className="social-icon"><i className="fa fa-youtube-square" aria-hidden="true"></i></li>
+                                <li className="social-icon"><a href="https://www.facebook.com/ktxbk.vn" target="_blank"><i className="fa fa-facebook-square" aria-hidden="true"></i></a></li>
+                                <li className="social-icon"><a href="https://www.facebook.com/ktxbk.vn" target="_blank"><i className="fa fa-google-plus-square" aria-hidden="true"></i></a></li>
+                                <li className="social-icon"><a href="https://www.facebook.com/ktxbk.vn" target="_blank"><i className="fa fa-twitter-square" aria-hidden="true"></i></a></li>
+                                <li className="social-icon"><a href="https://www.facebook.com/ktxbk.vn" target="_blank"><i className="fa fa-tumblr-square" aria-hidden="true"></i></a></li>
+                                <li className="social-icon"><a href="https://www.facebook.com/ktxbk.vn" target="_blank"><i className="fa fa-youtube-square" aria-hidden="true"></i></a></li>
                             </ul>
 
                         </div>
