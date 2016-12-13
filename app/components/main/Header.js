@@ -8,6 +8,7 @@ import HomeMenuAction from '../../actions/admin/menu/HomeMenuAction';
 import HomeMenuStore from '../../stores/admin/menu/HomeMenuStore';
 
 import SubItem from '../admin/menu/SubItem';
+import SubItemMobile from '../admin/menu/SubItemMobile';
 
 class Header extends React.Component {
     constructor(props) {
@@ -30,7 +31,7 @@ class Header extends React.Component {
         let menu = this.state.testListCha.map((cha, index)=> {
             return(
                     <li key={index} className='menu-item-has-children'>
-                        <Link to='#'><span>{cha.title} <i className="fa fa-plus" aria-hidden="true"></i></span></Link>
+                        <Link to='#'><span>{cha.title}</span></Link>
                         <SubItem listCon = {cha.child} num={index}/>
                     </li>
                 );
@@ -48,7 +49,7 @@ class Header extends React.Component {
         else{
           NavbarUser = (
               <ul className="nav navbar-nav navbar-right">
-                <li><Link to="/info-stu"><img className='img-responsive img-user' src={localStorage.getItem('avatar')}></img><span className="user-email">{userEmail}</span></Link></li>
+                <li><Link to="/thong-tin-ca-nhan"><img className='img-responsive img-user' src={localStorage.getItem('avatar')}></img><span className="user-email">{userEmail}</span></Link></li>
                 <li><a href="#" type="button" name="button" onClick ={LogInAction.logout}> <i className="fa fa-sign-out" /> Thoát</a></li>
               </ul>
             )
@@ -83,7 +84,7 @@ class Header extends React.Component {
                                             
                                             {menu}
                                             
-                                            <li className='menu-item-has-children'><a><span>Tiện ích sinh viên <i className="fa fa-plus" aria-hidden="true"></i></span></a>
+                                            <li className='menu-item-has-children'><a><span>Tiện ích sinh viên</span></a>
                                                 <ul>
                                                     <li><Link to="/dang-ky-luu-tru">Đăng ký lưu trú</Link></li>
                                                     <li><Link to="/xem-ket-qua-luu-tru">Xem kết quả đăng ký lưu trú</Link></li>
