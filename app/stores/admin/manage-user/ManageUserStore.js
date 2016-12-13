@@ -66,6 +66,9 @@ class ManageUserStore {
     this.imagePreviewUrl='/uploads/LogoBK.png';
     this.imageUrl='/uploads/LogoBK.png';
     this.helpBlockUpload = '';
+
+    this.modalIsOpenDelete = false;
+    this.idDel = '';
     // if(localStorage.getItem('deactiveStep2')) {
     //   this.deactiveStep2 = false;
     // } else {
@@ -417,6 +420,14 @@ class ManageUserStore {
   }
   onUpdateLoaiPhong(e){
     this.svloaiphong = e.target.value;
+  }
+
+  onOpenMoDDeleteStudent(id){
+    this.idDel = id;
+    this.modalIsOpenDelete = true;
+  }
+  onCloseModalDelete(){
+    this.modalIsOpenDelete = false;
   }
 }
 

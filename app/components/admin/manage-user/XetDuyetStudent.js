@@ -1,6 +1,8 @@
 import React from 'react';
 import {Link} from 'react-router'
 import {Modal, Button} from 'react-bootstrap';
+import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
+
 import ManageUserAction from '../../../actions/admin/manage-user/ManageUserAction';
 import ManageUserStore from '../../../stores/admin/manage-user/ManageUserStore';
 import ManageTangAction from '../../../actions/admin/manage-phong/ManageTangAction';
@@ -90,7 +92,7 @@ const UpdateUserModal = React.createClass({
     return (
       <Modal {...this.props} bsSize="large" aria-labelledby="contained-modal-title-lg">
         <Modal.Header closeButton>
-          <Modal.Title id="contained-modal-title-lg">Modal heading</Modal.Title>
+          <Modal.Title id="contained-modal-title-lg">Cập nhật thông tin phòng/giường</Modal.Title>
         </Modal.Header>
         <Modal.Body>
         <form onSubmit={this.handleUpdateKtx.bind(this)}>
@@ -137,14 +139,35 @@ const UpdateUserModal = React.createClass({
         </form>
         </Modal.Body>
         <Modal.Footer>
-          <Button onClick={this.props.onHide}>Close</Button>
+          <Button onClick={this.props.onHide}>Hủy</Button>
         </Modal.Footer>
       </Modal>
     );
   }
 });
 
+class MySearchField extends React.Component {
+  // It's necessary to implement getValue
+  getValue() {
+    return ReactDOM.findDOMNode(this).value;
+  }
 
+  // It's necessary to implement setValue
+  setValue(value) {
+    ReactDOM.findDOMNode(this).value = value;
+  }
+
+  render() {
+    return (
+      <input
+        className={ `form-control` }
+        type='text'
+        defaultValue={ this.props.defaultValue }
+        placeholder={ this.props.placeholder }
+        onKeyUp={ this.props.search }/>
+    );
+  }
+}
 
 class XetDuyetStudent extends React.Component {
 
@@ -186,6 +209,36 @@ class XetDuyetStudent extends React.Component {
     this.setState({state1 : ManageUserStore.getState(), state2: ManageTangStore.getState(), state3: ManagePhongChitietStore.getState()});
   }
 
+  objectFormatter(data, cell) {
+      return <p>{cell[data]}</p>;
+  }
+
+  buttonFormatter(data, cell) {
+      return <button className="btn btn-success" onClick={this.handleUpdateKtx.bind(this, cell)}>Cập Nhật</button>;
+  }
+
+  onToggleDropDown(onToggleDropDown){
+    // do your stuff here
+    console.log('toggle dropdown');
+    onToggleDropDown();
+  }
+
+  renderSizePerPageDropDown(props){
+    return (
+      <SizePerPageDropDown
+        className='my-size-per-page'
+        btnContextual='btn-warning'
+        variation='dropup'
+        onClick={ () => this.onToggleDropDown(props.onToggleDropDown) }/>
+    );
+  }
+
+  createCustomExportCSVButton(onClick){
+    return (
+      <button style={ { color: 'red' } } onClick={ onClick }>Custom Export CSV Btn</button>
+    );
+  }
+
   render() {
     console.log(this.state.state1.usersxd);
     let listUsers = this.state.state1.usersxd.map(function(user, index){
@@ -212,32 +265,59 @@ class XetDuyetStudent extends React.Component {
 
     let updateModalClose = () => this.setState({ updateModalShow: false });
     const props = {user: this.state.state1.user, tang: this.state.state2.tang, phongchitiet: this.state.state3.phongchitiet};
+    const options = {
+      clearSearch: true,
+      searchField: (props) => (<MySearchField { ...props }/>),
+      sizePerPageDropDown: this.renderSizePerPageDropDown,
+      exportCSVBtn: this.createCustomExportCSVButton
+    };
     return (
-      <div>
-        <div className="table-responsive">
-          <table className="table">
-            <thead>
-             <tr>
-               <th>#</th>
-               <th>Họ Tên</th>
-               <th>Email</th>
-               <th>MSSV</th>
-               <th>Mã KTX</th>
-               <th>Tầng</th>
-               <th>Loại Phong</th>
-               <th>Mã Phòng</th>
-               <th>Mã Giường</th>
-               <th>CMND</th>
-               <th>SDT</th>
-               <th></th>
-               </tr>
-             </thead>
-             <tbody>
-              {listUsers}
-             </tbody>
-          </table>
+      <div className="body-content animated fadeIn">
+        <div className="row">
+          <div className="col-md-12">
+            <ol className="breadcrumb">
+              <li><Link to="/quanly@ktx"><i className="fa fa-home" aria-hidden="true"></i> Trang quản trị</Link></li>
+              <li>Danh sách xét duyệt thành công</li>
+            </ol>
+            {/*<div className="table-responsive">
+              <table className="table">
+                <thead>
+                 <tr>
+                   <th>#</th>
+                   <th>Họ Tên</th>
+                   <th>Email</th>
+                   <th>MSSV</th>
+                   <th>Mã KTX</th>
+                   <th>Tầng</th>
+                   <th>Loại Phong</th>
+                   <th>Mã Phòng</th>
+                   <th>Mã Giường</th>
+                   <th>CMND</th>
+                   <th>SDT</th>
+                   <th></th>
+                   </tr>
+                 </thead>
+                 <tbody>
+                  {listUsers}
+                 </tbody>
+              </table>
+            </div>*/}
+            <BootstrapTable data={this.state.state1.usersxd} striped={true} hover={true} options={ options } search pagination exportCSV>
+                <TableHeaderColumn dataField="ma_sinh_vien" isKey={true} dataAlign="center" dataSort={true}>Mã Sinh Viên</TableHeaderColumn>
+                <TableHeaderColumn dataField="ten" dataSort={true}>Họ Tên</TableHeaderColumn>
+                <TableHeaderColumn dataField="email">Email</TableHeaderColumn>
+                <TableHeaderColumn dataField="ma_ktx">Mã KTX</TableHeaderColumn>
+                <TableHeaderColumn dataField="tentang">Tầng</TableHeaderColumn>
+                <TableHeaderColumn dataField="maphong">Loại Phòng</TableHeaderColumn>
+                <TableHeaderColumn dataField="tenphong">Phòng</TableHeaderColumn>
+                <TableHeaderColumn dataField="so_cmnd">CMND</TableHeaderColumn>
+                <TableHeaderColumn dataField="dien_thoai">SĐT</TableHeaderColumn>
+                <TableHeaderColumn dataField="_id" dataFormat={this.buttonFormatter.bind(this, '_id')}>Cập Nhật Thông Tin Ký Túc Xá</TableHeaderColumn>
+            </BootstrapTable>
+
+            <UpdateUserModal {...props} show={this.state.updateModalShow} onHide={updateModalClose} />
+          </div>
         </div>
-        <UpdateUserModal {...props} show={this.state.updateModalShow} onHide={updateModalClose} />
       </div>
     );
   }

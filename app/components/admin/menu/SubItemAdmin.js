@@ -74,7 +74,9 @@ class SubItemAdmin extends React.Component {
 									{/*pageTitle*/}
 									{' '}
 					          		<span className='list-button'>
-						          		<i className="fa fa-pencil-square-o font20 colorEdit" aria-hidden="true" onClick={this.openMoDEditLinkToPage.bind(this, con._id, this.state.con, idPage, pageTitle)}></i>
+										<i className="fa fa-pencil-square-o font20" aria-hidden="true"></i>
+										{' '}
+						          		<i className="fa fa-link font20 colorEdit" aria-hidden="true" onClick={this.openMoDEditLinkToPage.bind(this, con._id, this.state.con, idPage, pageTitle)}></i>
 						          		{' '}
 						          		<i className="fa fa-plus-square font20 colorAdd" aria-hidden="true" onClick ={this.openMoD.bind(this, con._id)}></i>
 						          		{' '}
@@ -95,7 +97,9 @@ class SubItemAdmin extends React.Component {
 								{' '}
 								{' '}
 									<span className='list-button'>
-						          		<i className="fa fa-pencil-square-o font20 colorEdit" aria-hidden="true" onClick={this.openMoDEditLinkToPage.bind(this, con._id, this.state.con, idPage, pageTitle)}></i>
+										<i className="fa fa-pencil-square-o font20" aria-hidden="true"></i>
+										{' '}
+						          		<i className="fa fa-link font20 colorEdit" aria-hidden="true" onClick={this.openMoDEditLinkToPage.bind(this, con._id, this.state.con, idPage, pageTitle)}></i>
 						          		{' '}
 						          		<i className="fa fa-plus-square font20 colorAdd" aria-hidden="true" onClick ={this.openMoD.bind(this, con._id)}></i>
 						          		{' '}
@@ -120,7 +124,9 @@ class SubItemAdmin extends React.Component {
 								{' '}
 								{' '}
 									<span className='list-button'>
-						          		<i className="fa fa-pencil-square-o font20 colorEdit" aria-hidden="true" onClick={this.openMoDEditLinkToPage.bind(this, con._id, this.state.con, idPage, pageTitle)}></i>
+										<i className="fa fa-pencil-square-o font20" aria-hidden="true"></i>
+										{' '}
+						          		<i className="fa fa-link font20 colorEdit" aria-hidden="true" onClick={this.openMoDEditLinkToPage.bind(this, con._id, this.state.con, idPage, pageTitle)}></i>
 						          		{' '}
 						          		<i className="fa fa-plus-square font20 colorAdd" aria-hidden="true" onClick ={this.openMoD.bind(this, con._id)}></i>
 						          		{' '}
@@ -139,7 +145,9 @@ class SubItemAdmin extends React.Component {
 								{' '}
 								{' '}
 									<span className='list-button'>
-						          		<i className="fa fa-pencil-square-o font20 colorEdit" aria-hidden="true" onClick={this.openMoDEditLinkToPage.bind(this, con._id, this.state.con, idPage, pageTitle)}></i>
+										<i className="fa fa-pencil-square-o font20" aria-hidden="true"></i>
+										{' '}
+						          		<i className="fa fa-link font20 colorEdit" aria-hidden="true" onClick={this.openMoDEditLinkToPage.bind(this, con._id, this.state.con, idPage, pageTitle)}></i>
 						          		{' '}
 						          		<i className="fa fa-plus-square font20 colorAdd" aria-hidden="true" onClick ={this.openMoD.bind(this, con._id)}></i>
 						          		{' '}

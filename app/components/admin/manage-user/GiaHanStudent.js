@@ -72,7 +72,7 @@ const UpdateUserModal = React.createClass({
     return (
       <Modal {...this.props} bsSize="large" aria-labelledby="contained-modal-title-lg">
         <Modal.Header closeButton>
-          <Modal.Title id="contained-modal-title-lg">Modal heading</Modal.Title>
+          <Modal.Title id="contained-modal-title-lg">Cập nhật thông tin phòng/giường</Modal.Title>
         </Modal.Header>
         <Modal.Body>
         <form onSubmit={this.handleUpdateKtx.bind(this)}>
@@ -104,7 +104,7 @@ const UpdateUserModal = React.createClass({
         </form>
         </Modal.Body>
         <Modal.Footer>
-          <Button onClick={this.props.onHide}>Close</Button>
+          <Button onClick={this.props.onHide}>Hủy</Button>
         </Modal.Footer>
       </Modal>
     );
@@ -224,42 +224,50 @@ class GiaHanStudent extends React.Component {
       exportCSVBtn: this.createCustomExportCSVButton
     };
     return (
-      <div>
-        {/* <div className="table-responsive">
-          <table className="table">
-            <thead>
-             <tr>
-               <th>#</th>
-               <th>Họ Tên</th>
-               <th>Email</th>
-               <th>MSSV</th>
-               <th>Mã KTX</th>
-               <th>Tầng</th>
-               <th>Loại Phong</th>
-               <th>Mã Phòng</th>
-               <th>CMND</th>
-               <th>SDT</th>
-               <th></th>
-               </tr>
-             </thead>
-             <tbody>
-              {listUsers}
-             </tbody>
-          </table>
-        </div> */}
-        <BootstrapTable data={this.state.state1.usersgh} striped={true} hover={true} options={ options } search pagination exportCSV>
-            <TableHeaderColumn dataField="ma_sinh_vien" isKey={true} dataAlign="center" dataSort={true}>Mã Sinh Viên</TableHeaderColumn>
-            <TableHeaderColumn dataField="ten" dataSort={true}>Họ Tên</TableHeaderColumn>
-            <TableHeaderColumn dataField="email">Email</TableHeaderColumn>
-            <TableHeaderColumn dataField="ma_ktx">Mã KTX</TableHeaderColumn>
-            <TableHeaderColumn dataField="tentang">Tầng</TableHeaderColumn>
-            <TableHeaderColumn dataField="maphong">Loại Phòng</TableHeaderColumn>
-            <TableHeaderColumn dataField="tenphong">Phòng</TableHeaderColumn>
-            <TableHeaderColumn dataField="so_cmnd">CMND</TableHeaderColumn>
-            <TableHeaderColumn dataField="dien_thoai">SĐT</TableHeaderColumn>
-            <TableHeaderColumn dataField="_id" dataFormat={this.buttonFormatter.bind(this, '_id')}>Cập Nhật Thông Tin Ký Túc Xá</TableHeaderColumn>
-        </BootstrapTable>
-        <UpdateUserModal {...props} show={this.state.updateModalShow} onHide={updateModalClose} />
+      <div className="body-content animated fadeIn">
+        <div className="row">
+          <div className="col-md-12">
+            <ol className="breadcrumb">
+              <li><Link to="/quanly@ktx"><i className="fa fa-home" aria-hidden="true"></i> Trang quản trị</Link></li>
+              <li>Danh sách gia hạn thành công</li>
+            </ol>
+            {/* <div className="table-responsive">
+              <table className="table">
+                <thead>
+                 <tr>
+                   <th>#</th>
+                   <th>Họ Tên</th>
+                   <th>Email</th>
+                   <th>MSSV</th>
+                   <th>Mã KTX</th>
+                   <th>Tầng</th>
+                   <th>Loại Phong</th>
+                   <th>Mã Phòng</th>
+                   <th>CMND</th>
+                   <th>SDT</th>
+                   <th></th>
+                   </tr>
+                 </thead>
+                 <tbody>
+                  {listUsers}
+                 </tbody>
+              </table>
+            </div> */}
+            <BootstrapTable data={this.state.state1.usersgh} striped={true} hover={true} options={ options } search pagination exportCSV>
+                <TableHeaderColumn dataField="ma_sinh_vien" isKey={true} dataAlign="center" dataSort={true}>Mã Sinh Viên</TableHeaderColumn>
+                <TableHeaderColumn dataField="ten" dataSort={true}>Họ Tên</TableHeaderColumn>
+                <TableHeaderColumn dataField="email">Email</TableHeaderColumn>
+                <TableHeaderColumn dataField="ma_ktx">Mã KTX</TableHeaderColumn>
+                <TableHeaderColumn dataField="tentang">Tầng</TableHeaderColumn>
+                <TableHeaderColumn dataField="maphong">Loại Phòng</TableHeaderColumn>
+                <TableHeaderColumn dataField="tenphong">Phòng</TableHeaderColumn>
+                <TableHeaderColumn dataField="so_cmnd">CMND</TableHeaderColumn>
+                <TableHeaderColumn dataField="sdt_sinhvien">SĐT</TableHeaderColumn>
+                <TableHeaderColumn dataField="_id" dataFormat={this.buttonFormatter.bind(this, '_id')}>Cập Nhật Thông Tin Ký Túc Xá</TableHeaderColumn>
+            </BootstrapTable>
+            <UpdateUserModal {...props} show={this.state.updateModalShow} onHide={updateModalClose} />
+          </div>
+        </div>
       </div>
     );
   }

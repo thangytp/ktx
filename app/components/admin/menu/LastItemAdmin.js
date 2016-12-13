@@ -69,7 +69,9 @@ class LastItemAdmin extends React.Component {
 							{' '}
 							{' '}
 								<span className='list-button'>
-						          	<i className="fa fa-pencil-square-o font20 colorEdit" aria-hidden="true" onClick={this.openMoDEditLinkToPage.bind(this, chau._id, this.state.chau, idPage, pageTitle)}></i>
+									<i className="fa fa-pencil-square-o font20" aria-hidden="true"></i>
+									{' '}
+						          	<i className="fa fa-link font20 colorEdit" aria-hidden="true" onClick={this.openMoDEditLinkToPage.bind(this, chau._id, this.state.chau, idPage, pageTitle)}></i>
 						          	{' '}
 						          	<i className="fa fa-arrow-circle-o-down font20 colorDown" aria-hidden="true" onClick={this.moveDownOrder.bind(this, chau._id, this.state.chau)}></i>
 						          	{' '}
@@ -86,7 +88,9 @@ class LastItemAdmin extends React.Component {
 							{' '}
 				          	{' '}
 				          		<span className='list-button'>
-						          	<i className="fa fa-pencil-square-o font20 colorEdit" aria-hidden="true" onClick={this.openMoDEditLinkToPage.bind(this, chau._id, this.state.chau, idPage, pageTitle)}></i>
+				          			<i className="fa fa-pencil-square-o font20" aria-hidden="true"></i>
+				          			{' '}
+						          	<i className="fa fa-link font20 colorEdit" aria-hidden="true" onClick={this.openMoDEditLinkToPage.bind(this, chau._id, this.state.chau, idPage, pageTitle)}></i>
 						          	{' '}
 						          	<i className="fa fa-arrow-circle-o-up font20 colorUp" aria-hidden="true" onClick={this.moveUpOrder.bind(this, chau._id, this.state.chau)}></i>
 						          	{' '}

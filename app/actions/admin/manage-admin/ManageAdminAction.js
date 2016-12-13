@@ -5,8 +5,22 @@ class ManageAdminAction {
     this.generateActions(
       'addAdminSuccess',
       'getAdminSuccess',
-      'delAdminSuccess'
+      'delAdminSuccess',
+
+      'closeModal',
+      'handleGetAdmin',
+
+      'openMoDDeleteAdmin',
+      'closeModalDelete'
     );
+  }
+
+  openMoDDeleteAdmin(id){
+    this.actions.openMoDDeleteAdmin(id);
+  }
+
+  handleGetAdmin(payload){
+    this.actions.handleGetAdmin(payload);
   }
 
   getAdmin() {

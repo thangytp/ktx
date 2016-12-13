@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import {Tabs, Tab, Modal, Button} from 'react-bootstrap';
+import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
+
 import ManagePhongChitietAction from '../../../actions/admin/manage-phong/ManagePhongChitietAction';
 import ManagePhongChitietStore from '../../../stores/admin/manage-phong/ManagePhongChitietStore';
 import ManagePhongAction from '../../../actions/admin/manage-phong/ManagePhongAction';
@@ -58,7 +60,7 @@ const AddGiuongModal = React.createClass({
     return (
       <Modal {...this.props} bsSize="large" aria-labelledby="contained-modal-title-lg">
         <Modal.Header closeButton>
-          <Modal.Title id="contained-modal-title-lg">Modal heading</Modal.Title>
+          <Modal.Title id="contained-modal-title-lg">Thêm giường</Modal.Title>
         </Modal.Header>
         <Modal.Body>
         <form onSubmit={this.handleAddGiuong.bind(this)}>
@@ -90,7 +92,7 @@ const AddGiuongModal = React.createClass({
         </form>
         </Modal.Body>
         <Modal.Footer>
-          <Button onClick={this.props.onHide}>Close</Button>
+          <Button onClick={this.props.onHide}>Hủy</Button>
         </Modal.Footer>
       </Modal>
     );
@@ -130,7 +132,7 @@ class Giuong extends Component {
         phongchitiet.giuong.map(function(giuong, index){
             return(
               <tr>
-              <th scope="row">{index + 1}</th>
+              <td scope="row">{index + 1}</td>
               <td>{phongchitiet.ma}</td>
               <td>{giuong.ten}</td>
               </tr>
@@ -145,6 +147,7 @@ class Giuong extends Component {
 
     const props = {phong : this.state.state1.phong, phongchitiet : this.state.state2.phongchitiet};
 
+
     return (
       <div>
       <Button bsStyle="primary" onClick={()=>this.setState({ addModalShow: true })}>
@@ -153,10 +156,10 @@ class Giuong extends Component {
       <AddGiuongModal {...props} show={this.state.addModalShow} onHide={addModalClose} />
       <h1>Giường Ký Túc Xá</h1>
       <div className="table-responsive">
-        <table className="table">
+        <table className="table white-bg table-striped table-hover table-success">
           <thead>
            <tr>
-             <th>#</th>
+             <th>STT</th>
              <th>Mã Phòng</th>
              <th>Tên Giường</th>
              <th></th>
@@ -167,9 +170,12 @@ class Giuong extends Component {
             {listGiuongChitiet}
            </tbody>
         </table>
+        
       </div>
       </div>
     );
   }
 }
+
+
 export default Giuong;
