@@ -22,7 +22,7 @@ class Navbar extends React.Component {
   }
   componentDidMount() {
     LogInAdminStore.listen(this.onChange);
-    console.log(localStorage.getItem('adminEmail'));
+    var email = localStorage.getItem('adminEmail');
   }
 
   componentDidUpdate() {
@@ -41,6 +41,7 @@ class Navbar extends React.Component {
 
   render() {
     // let style={'text-align':'center'};
+    let ten =localStorage.getItem('adminTen');
     let adminname =localStorage.getItem('adminusername');
     if (adminname)
     {
@@ -83,17 +84,17 @@ class Navbar extends React.Component {
                   <ul className="nav navbar-nav navbar-right">
                     <li className="dropdown navbar-message">
                       <a href="javascript:;" className="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                        <img src="/img/user.png" alt=""/>John Doe
+                        <img src="/img/user.png" alt=""/>{ten}
                         <span className=" fa fa-angle-down"></span>
                       </a>
                       <ul className="dropdown-menu dropdown-usermenu pull-right">
-                        <li><a href="javascript:;"> Profile</a></li>
+                        {/*<li><a href="javascript:;"> Profile</a></li>
                         <li>
                           <a href="javascript:;">
                             <span>Settings</span>
                           </a>
                         </li>
-                        <li><a href="javascript:;">Help</a></li>
+                        <li><a href="javascript:;">Help</a></li>*/}
                         <li><a href="#" onClick={LogInAdminAction.logout}><i className="fa fa-sign-out pull-right"></i> Log Out</a></li>
                       </ul>
                     </li>
@@ -101,9 +102,9 @@ class Navbar extends React.Component {
                     <li role="presentation" className="message-wrap">
                       <a href="javascript:;" className="info-number">
                         <i className="fa fa-envelope-o"></i>
-                        <span className="badge bg-green"> 6</span>
+                        <span className="badge bg-green"></span>
                       </a>
-                      <ul id="menu1" className="dropdown-menu list-unstyled msg_list" role="menu">
+                      {/*<ul id="menu1" className="dropdown-menu list-unstyled msg_list" role="menu">
                         <li>
                           <a>
                             <span className="image"><img src="/img/user.png" alt="Profile Image"/></span>
@@ -160,7 +161,7 @@ class Navbar extends React.Component {
                             </a>
                           </div>
                         </li>
-                      </ul>
+                      </ul>*/}
                     </li>
                   </ul>
                 

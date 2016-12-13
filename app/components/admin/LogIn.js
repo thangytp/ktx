@@ -48,14 +48,20 @@ class LogInAdmin extends React.Component {
 	render(){
   	return(
   		<div className="container login-page">
-  			<h2>Đăng nhập vào hệ thống</h2>
-				<form onSubmit={this.handleSubmit.bind(this)}>
-          <label><input ref="email" type="text" placeholder="Email" className="form-control" /></label><br />
-          <label><input ref="password" type="password" placeholder="Password" className="form-control" /></label><br />
-          <button type="submit" className="btn btn-large btn-primary">Login</button>
-        </form>
-			<span className="succ-login">{this.state.loginSuccessMess}</span>
-			<span className="err-login">{this.state.loginFailMess}</span>
+  			<div className="panel panel-primary rounded shadow no-overflow" style={{"width":"600px", "margin":"0 auto"}}>
+  				<div className="panel-heading">
+                	<h3 className="text-center">Đăng nhập vào hệ thống</h3>
+              	</div>
+  				<div className="panel-body no-padding">
+					<form onSubmit={this.handleSubmit.bind(this)} className="mt-10 pB10">
+			          <label><input ref="email" type="text" placeholder="Email" className="form-control" /></label><br />
+			          <label><input ref="password" type="password" placeholder="Password" className="form-control" /></label><br />
+			          <button type="submit" className="btn btn-large btn-primary">Login</button>
+			        </form>
+			    </div>
+				<span className="succ-login">{this.state.loginSuccessMess}</span>
+				<span className="err-login">{this.state.loginFailMess}</span>
+			</div>
 		</div>
   		);
   }

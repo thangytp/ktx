@@ -48,6 +48,9 @@ ul{
 .text-center{
 	text-align: center;
 }
+.text-white{
+    color: #fff;
+}
 .bold{
 	font-weight: bold;
 }
@@ -1536,6 +1539,9 @@ a {
 
 		}
 	}
+    .avatar{
+        width: 100%;
+    }
 	
 }
 
@@ -1645,6 +1651,7 @@ footer#footer a:hover{
 }
 .col-footer{
     color: #b1b1b1;
+    a{color: #b1b1b1;}
     .text-intro{
         text-align: justify;
     }

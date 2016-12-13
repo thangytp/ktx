@@ -23,7 +23,7 @@ class Footer extends React.Component {
 
 
     return (
-      <footer id="footer">
+      <footer id="footer" className="mt-10">
         <div className="cs-copyright">
             <div className="container">
                 <div className="row">
@@ -55,7 +55,7 @@ class Footer extends React.Component {
                         <div className="col-footer " id="footer-contact">
                             <h4 className="footer-title">Liên hệ</h4>
                             <p><i className="fa fa-map-marker" aria-hidden="true"></i> 497 Hòa Hảo, Phường 7, Quận 10, TPHCM</p>
-                            <p><i className="fa fa-envelope-o" aria-hidden="true"></i>  ktx@hcmut.edu.vn</p>
+                            <p><a href="mailto:ktx@hcmut.edu.vn"><i className="fa fa-envelope-o" aria-hidden="true"></i>  ktx@hcmut.edu.vn</a></p>
                             <p><i className="fa fa-phone" aria-hidden="true"></i> 08.39573946</p>
 
                             <h4 className="footer-title mT20">Mạng xã hội</h4>
