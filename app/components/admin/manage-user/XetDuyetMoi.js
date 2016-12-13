@@ -54,7 +54,7 @@ var DiemRenLuyen = React.createClass({
                       <input id="diemrl" ref='diemrl' type="number" name="number" onChange={this.activeInput.bind(this)} />
                     </div>
                   </div>
-                  <div className="col-sm-12"> 
+                  <div className="col-sm-12">
                     <div className="col-sm-offset-3 ">
                       <input ref="file" type="file" name="file" className="upload-file mL10"/>
                       <input type="button" ref="button" className="btn btn-success mL10" value="Upload" disabled={this.state.activeUploadDrl} onClick={this.uploadFile.bind(this)} />
@@ -485,7 +485,7 @@ class XetDuyetMoi extends Component {
               </table>
             </div>
           </Tab>
-          <Tab eventKey={2} title="Danh sách sinh viên không đủ điểm rèn luyện">
+          <Tab eventKey={2} title="Danh sách sinh viên trong file excel">
           <div className="table-responsive">
             <table className="table">
               <thead>
@@ -592,7 +592,7 @@ class XetDuyetMoi extends Component {
                 <li><Link to="/quanly@ktx"><i className="fa fa-home" aria-hidden="true"></i> Trang quản trị</Link></li>
                 <li>Xét duyệt lưu trú mới</li>
               </ol>
-              
+
               <Tabs defaultActiveKey={1} id="luutrumoi">
                 <Tab eventKey={1} title="Bước 1">
                   {contentHocvu}
@@ -605,7 +605,7 @@ class XetDuyetMoi extends Component {
                   {contentDiemxetduyet}
                 </Tab>
               </Tabs>
-              
+
             </div>
           </div>
       </div>

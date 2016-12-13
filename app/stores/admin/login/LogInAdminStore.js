@@ -18,6 +18,7 @@ class LogInAdminStore {
 
   onLoginSuccess(response)
   {
+    console.log(response);
     localStorage.setItem('adminEmail', response.email);
     localStorage.setItem('adminType', response.type);
     this.loginSuccessMess = 'Dang Nhap Thanh Cong';
