@@ -10,7 +10,7 @@ class SideBarLeft extends React.Component {
     this.onChange = this.onChange.bind(this);
   }
   componentDidMount() {
-      
+
   }
   componentWillUnmount() {
 
@@ -35,29 +35,65 @@ class SideBarLeft extends React.Component {
 
             <aside id="sidebar-left" className="sidebar-circle sidebar-dark">
                 <ul className="sidebar-menu">
-                      <li className="active">
-                        <Link to="/quanly@ktx">
-                            <span className="icon"><i className="fa fa-bars"></i></span>
-                            <span className="text">Quản lý menu</span>
-                        </Link>
-                      </li>
-                      <li>
-                        <Link to="/quanly@ktx/them-page">
-                            <span className="icon"><i className="fa fa-file-o"></i></span>
-                            <span className="text">Quản lý trang</span>
-                        </Link>
-                      </li>
-                      <li className="">
-                        <Link to="/quanly@ktx/quan-ly-hinh-anh">
-                            <span className="icon"><i className="fa fa-file-image-o"></i></span>
-                            <span className="text">Quản lý hình ảnh</span>
-                         </Link>
+                      <li className="submenu">
+                          <a href="javascript:void(0);">
+                              <span className="icon"><i className="fa fa-cog"></i></span>
+                              <span className="text">Trang chủ</span>
+                              <span className="arrow fa-angle-double-right"></span>
+                          </a>
+                          <ul style={{"display":"none"}}>
+                              <li>
+                                <Link to="/quanly@ktx/hien-thi-tin-tuc">Tin tức hiển thị</Link>
+                              </li>
+                              <li>
+                                <Link to="/quanly@ktx/cotphai-home">Cột phải trang Home</Link>
+                              </li>
+                          </ul>
                       </li>
                       <li className="">
                         <Link to="/quanly@ktx/quan-ly-admin">
                             <span className="icon"><i className="fa fa-file-image-o"></i></span>
                             <span className="text">Quản lý admin</span>
                         </Link>
+                      </li>
+                      <li className="submenu">
+                          <a href="javascript:void(0);">
+                              <span className="icon"><i className="fa fa-graduation-cap"></i></span>
+                              <span className="text">Quản lý hệ thống</span>
+                              <span className="arrow fa-angle-double-right"></span>
+                          </a>
+                          <ul style={{"display":"none"}}>
+                              <li className="active">
+                                <Link to="/quanly@ktx">
+                                    <span className="icon"><i className="fa fa-bars"></i></span>
+                                    <span className="text">Quản lý menu</span>
+                                </Link>
+                              </li>
+                              <li>
+                                <Link to="/quanly@ktx/them-page">
+                                    <span className="icon"><i className="fa fa-file-o"></i></span>
+                                    <span className="text">Quản lý trang</span>
+                                </Link>
+                              </li>
+                              <li className="">
+                                <Link to="/quanly@ktx/quan-ly-hinh-anh">
+                                    <span className="icon"><i className="fa fa-file-image-o"></i></span>
+                                    <span className="text">Quản lý hình ảnh</span>
+                                 </Link>
+                              </li>
+                              <li className="">
+                                <Link to="/quanly@ktx/lienket-site">
+                                    <span className="icon"><i className="fa fa-link"></i></span>
+                                    <span className="text">Liên kết site</span>
+                                </Link>
+                              </li>
+                              <li className="">
+                                <Link to="/quanly@ktx/quan-ly-tin-tuc">
+                                    <span className="icon"><i className="fa fa-newspaper-o"></i></span>
+                                    <span className="text">Quản lý tin tức</span>
+                                </Link>
+                              </li>
+                          </ul>
                       </li>
                       <li className="submenu">
                           <a href="javascript:void(0);">
@@ -94,17 +130,41 @@ class SideBarLeft extends React.Component {
                               </li>
                           </ul>
                       </li>
-                      <li className="">
-                        <Link to="/quanly@ktx/chi-tieu">
-                            <span className="icon"><i className="fa fa-list-alt"></i></span>
-                            <span className="text">Chỉ Tiêu</span>
-                        </Link>
-                      </li>
-                      <li className="">
-                        <Link to="/quanly@ktx/uu-tien">
-                            <span className="icon"><i className="fa fa-dropbox"></i></span>
-                            <span className="text">Ưu Tiên</span>
-                        </Link>
+                      <li className="submenu">
+                          <a href="javascript:void(0);">
+                              <span className="icon"><i className="fa fa-check-circle-o"></i></span>
+                              <span className="text">Quản lý lưu trú</span>
+                              <span className="arrow fa-angle-double-right"></span>
+                          </a>
+                          <ul style={{"display":"none"}}>
+                            <li className="">
+                              <Link to="/quanly@ktx/chi-tieu">
+                                  <span className="icon"><i className="fa fa-list-alt"></i></span>
+                                  <span className="text">Chỉ Tiêu</span>
+                              </Link>
+                            </li>
+                            <li className="">
+                              <Link to="/quanly@ktx/uu-tien">
+                                  <span className="icon"><i className="fa fa-dropbox"></i></span>
+                                  <span className="text">Ưu Tiên</span>
+                              </Link>
+                            </li>
+                            <li className="">
+                              <Link to="/quanly@ktx/dich-vu">
+                                  <span className="icon"><i className="fa fa-dropbox"></i></span>
+                                  <span className="text">Dịch Vụ</span>
+                              </Link>
+                            </li>
+                            <li>
+                              <Link to="/quanly@ktx/quan-ly-khoa">Quản lý khoa</Link>
+                            </li>
+                            <li>
+                              <Link to="/quanly@ktx/quan-ly-he-dao-tao">Hệ Đào Tạo</Link>
+                            </li>
+                            <li>
+                              <Link to="/quanly@ktx/cai-dat-dang-ky-luu-tru">Đăng ký lưu trú</Link>
+                            </li>
+                          </ul>
                       </li>
                       <li className="submenu">
                           <a href="javascript:void(0);">
@@ -127,57 +187,7 @@ class SideBarLeft extends React.Component {
                               </li>
                           </ul>
                       </li>
-                      <li className="">
-                        <Link to="/quanly@ktx/dich-vu">
-                            <span className="icon"><i className="fa fa-dropbox"></i></span>
-                            <span className="text">Dịch Vụ</span>
-                        </Link>
-                      </li>
-                      <li className="submenu">
-                          <a href="javascript:void(0);">
-                              <span className="icon"><i className="fa fa-dropbox"></i></span>
-                              <span className="text">Quản Lý Thông Tin Đăng Ký</span>
-                              <span className="arrow fa-angle-double-right"></span>
-                          </a>
-                          <ul style={{"display":"none"}}>
-                              
-                              <li>
-                                <Link to="/quanly@ktx/quan-ly-khoa">Quản lý khoa</Link>
-                              </li>
-                              <li>
-                                <Link to="/quanly@ktx/quan-ly-he-dao-tao">Hệ Đào Tạo</Link>
-                              </li>
-                          </ul>
-                      </li>
-                      <li className="submenu">
-                          <a href="javascript:void(0);">
-                              <span className="icon"><i className="fa fa-cog"></i></span>
-                              <span className="text">Trang chủ</span>
-                              <span className="arrow fa-angle-double-right"></span>
-                          </a>
-                          <ul style={{"display":"none"}}>
-                              <li>
-                                <Link to="/quanly@ktx/hien-thi-tin-tuc">Tin tức hiển thị</Link>
-                              </li>
-                              <li>
-                                <Link to="/quanly@ktx/cotphai-home">Cột phải trang Home</Link>
-                              </li>
-                          </ul>
-                      </li>
-                      <li className="">
-                        <Link to="/quanly@ktx/lienket-site">
-                            <span className="icon"><i className="fa fa-link"></i></span>
-                            <span className="text">Liên kết site</span>
-                        </Link>
-                      </li>
-                      <li className="">
-                        <Link to="/quanly@ktx/quan-ly-tin-tuc">
-                            <span className="icon"><i className="fa fa-newspaper-o"></i></span>
-                            <span className="text">Quản lý tin tức</span>
-                        </Link>
-                      </li>
-                      
-                      <li className="submenu">
+                      {/* <li className="submenu">
                           <a href="javascript:void(0);">
                               <span className="icon"><i className="fa fa-cog"></i></span>
                               <span className="text">Cài đặt lưu trú</span>
@@ -191,7 +201,7 @@ class SideBarLeft extends React.Component {
                                 <Link to="/quanly@ktx/cai-dat-xem-xet-duyet-luu-tru">Xét duyệt lưu trú</Link>
                               </li>
                           </ul>
-                      </li>
+                      </li> */}
 
                 </ul>
             </aside>
@@ -220,7 +230,7 @@ class SideBarLeft extends React.Component {
                             <span className="text">Quản lý hình ảnh</span>
                          </Link>
                       </li>
-                      
+
                       <li className="submenu">
                           <a href="javascript:void(0);">
                               <span className="icon"><i className="fa fa-graduation-cap"></i></span>
@@ -302,7 +312,7 @@ class SideBarLeft extends React.Component {
                               <span className="arrow fa-angle-double-right"></span>
                           </a>
                           <ul style={{"display":"none"}}>
-                              
+
                               <li>
                                 <Link to="/quanly@ktx/quan-ly-khoa">Quản lý khoa</Link>
                               </li>
@@ -338,7 +348,7 @@ class SideBarLeft extends React.Component {
                             <span className="text">Quản lý tin tức</span>
                         </Link>
                       </li>
-                      
+
                       <li className="submenu">
                           <a href="javascript:void(0);">
                               <span className="icon"><i className="fa fa-cog"></i></span>
@@ -382,7 +392,7 @@ class SideBarLeft extends React.Component {
                             <span className="text">Quản lý hình ảnh</span>
                          </Link>
                       </li>
-                      
+
                       <li className="submenu">
                           <a href="javascript:void(0);">
                               <span className="icon"><i className="fa fa-graduation-cap"></i></span>
@@ -464,7 +474,7 @@ class SideBarLeft extends React.Component {
                               <span className="arrow fa-angle-double-right"></span>
                           </a>
                           <ul style={{"display":"none"}}>
-                              
+
                               <li>
                                 <Link to="/quanly@ktx/quan-ly-khoa">Quản lý khoa</Link>
                               </li>
@@ -500,7 +510,7 @@ class SideBarLeft extends React.Component {
                             <span className="text">Quản lý tin tức</span>
                         </Link>
                       </li>
-                      
+
                       <li className="submenu">
                           <a href="javascript:void(0);">
                               <span className="icon"><i className="fa fa-cog"></i></span>
