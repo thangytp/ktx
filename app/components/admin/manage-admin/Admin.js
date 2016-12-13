@@ -95,8 +95,8 @@ class Admin extends Component {
     ManageAdminAction.handleGetAdmin(obj);
   }
   updateAdmin(){
-
-  }
+    //TODO
+   }
 
   onChange(state) {
     this.setState(state);

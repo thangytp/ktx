@@ -6,7 +6,10 @@ import localStorage from 'localStorage';
 class ManageChiTieuStore {
   constructor() {
     this.bindActions(ManageChiTieuAction);
-    this.chitieu = []
+    this.chitieu = [];
+
+    this.idDel = '';
+    this.modalIsOpenDelete = false;
   }
 
   onGetChitieuSuccess(response) {
@@ -23,6 +26,14 @@ class ManageChiTieuStore {
 
   onDelChitieuSuccess() {
     ManageChiTieuAction.getChitieu();
+  }
+
+  onOpenMoDDeleteChitieu(id){
+    this.idDel = id;
+    this.modalIsOpenDelete = true;
+  }
+  onCloseModalDelete(){
+    this.modalIsOpenDelete = false;
   }
   // onUpdateuser(event)
   // {

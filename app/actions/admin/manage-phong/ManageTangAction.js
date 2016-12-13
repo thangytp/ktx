@@ -5,8 +5,22 @@ class ManageTangAction {
     this.generateActions(
       'addTangSuccess',
       'getTangSuccess',
-      'delTangSuccess'
+      'delTangSuccess',
+
+      'openMoDDeleteTang',
+      'closeModalDelete',
+
+      'handleGetTang',
+      'closeModal'
     );
+  }
+
+  openMoDDeleteTang(id){
+    this.actions.openMoDDeleteTang(id);
+  }
+
+  handleGetTang(payload){
+    this.actions.handleGetTang(payload);
   }
 
   getTang() {

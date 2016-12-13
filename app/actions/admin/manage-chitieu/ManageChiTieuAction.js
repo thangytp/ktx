@@ -6,8 +6,15 @@ class ManageChiTieuAction {
       'addChiTieuSuccess',
       'updateChiTieuSuccess',
       'getChitieuSuccess',
-      'delChitieuSuccess'
+      'delChitieuSuccess',
+
+      'closeModalDelete',
+      'openMoDDeleteChitieu'
     );
+  }
+
+  openMoDDeleteChitieu(id){
+    this.actions.openMoDDeleteChitieu(id);
   }
 
   getChitieu() {

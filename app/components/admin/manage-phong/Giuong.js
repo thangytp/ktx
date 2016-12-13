@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {Tabs, Tab, Modal, Button} from 'react-bootstrap';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
+import {Link} from 'react-router';
 
 import ManagePhongChitietAction from '../../../actions/admin/manage-phong/ManagePhongChitietAction';
 import ManagePhongChitietStore from '../../../stores/admin/manage-phong/ManagePhongChitietStore';
@@ -135,6 +136,10 @@ class Giuong extends Component {
               <td scope="row">{index + 1}</td>
               <td>{phongchitiet.ma}</td>
               <td>{giuong.ten}</td>
+              <td>
+                  <button className="btn btn-primary" ><i className="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+                  <button className="btn btn-danger" ><i className="fa fa-trash-o" aria-hidden="true"></i></button>
+              </td>
               </tr>
             )
           })
@@ -149,29 +154,36 @@ class Giuong extends Component {
 
 
     return (
-      <div>
-      <Button bsStyle="primary" onClick={()=>this.setState({ addModalShow: true })}>
-        Thêm Giường
-      </Button>
-      <AddGiuongModal {...props} show={this.state.addModalShow} onHide={addModalClose} />
-      <h1>Giường Ký Túc Xá</h1>
-      <div className="table-responsive">
-        <table className="table white-bg table-striped table-hover table-success">
-          <thead>
-           <tr>
-             <th>STT</th>
-             <th>Mã Phòng</th>
-             <th>Tên Giường</th>
-             <th></th>
-             <th></th>
-             </tr>
-           </thead>
-           <tbody>
-            {listGiuongChitiet}
-           </tbody>
-        </table>
-        
-      </div>
+      <div className="body-content animated fadeIn">
+        <div className="row">
+          <div className="col-md-12">
+            <ol className="breadcrumb">
+              <li><Link to="/quanly@ktx"><i className="fa fa-home" aria-hidden="true"></i> Trang quản trị</Link></li>
+              <li>Giường</li>
+            </ol>
+            <Button bsStyle="primary" onClick={()=>this.setState({ addModalShow: true })}>
+              Thêm Giường
+            </Button>
+            <AddGiuongModal {...props} show={this.state.addModalShow} onHide={addModalClose} />
+            <div className="table-responsive">
+              <table className="table white-bg table-striped table-hover table-success">
+                <thead>
+                 <tr>
+                   <th>STT</th>
+                   <th>Mã Phòng</th>
+                   <th>Tên Giường</th>
+                   <th>Hành động</th>
+                   
+                   </tr>
+                 </thead>
+                 <tbody>
+                  {listGiuongChitiet}
+                 </tbody>
+              </table>
+              
+            </div>
+          </div>
+        </div>
       </div>
     );
   }

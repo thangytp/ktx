@@ -217,7 +217,79 @@ class XetDuyetMoi extends Component {
           {this.state.state2.chitieu[0].chitiet.map(function(chitiet, index){
             return (
               <Tab eventKey={index + 1} title='Phòng'>
-                <ul className="listBtn-xd">
+                <div className="dropdown col-md-2 mt-10">
+                  <button className="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Năm 1
+                  <span className="caret"></span></button>
+                  <ul className="dropdown-menu">
+                    <li>
+                        <a className="" onClick={this.handleXetDuyet.bind(this, chitiet._phong_id, chitiet.nam1.xetduyet.male,'m', chitiet.nam1.xetduyet.diemcoban, 1)}>Nam</a>
+                      </li>
+                      <li>
+                        <a className="" onClick={this.handleXetDuyet.bind(this, chitiet._phong_id, chitiet.nam1.xetduyet.female,'f', chitiet.nam1.xetduyet.diemcoban, 1)}>Nữ</a>
+                      </li>
+                  </ul>
+                </div>
+                <div className="dropdown col-md-2 mt-10">
+                  <button className="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Năm 2
+                  <span className="caret"></span></button>
+                  <ul className="dropdown-menu">
+                    <li>
+                        <a className="" onClick={this.handleXetDuyet.bind(this, chitiet._phong_id, chitiet.nam2.xetduyet.male,'m', chitiet.nam2.xetduyet.diemcoban, 2)}>Nam</a>
+                      </li>
+                      <li>
+                        <a className="" onClick={this.handleXetDuyet.bind(this, chitiet._phong_id, chitiet.nam2.xetduyet.female,'f', chitiet.nam2.xetduyet.diemcoban, 2)}>Nữ</a>
+                      </li>
+                  </ul>
+                </div>
+                <div className="dropdown col-md-2 mt-10">
+                  <button className="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Năm 3
+                  <span className="caret"></span></button>
+                  <ul className="dropdown-menu">
+                    <li>
+                        <a className="" onClick={this.handleXetDuyet.bind(this, chitiet._phong_id, chitiet.nam3.xetduyet.male,'m', chitiet.nam3.xetduyet.diemcoban, 3)}>Nam</a>
+                      </li>
+                      <li>
+                        <a className="" onClick={this.handleXetDuyet.bind(this, chitiet._phong_id, chitiet.nam3.xetduyet.female,'f', chitiet.nam3.xetduyet.diemcoban, 3)}>Nữ</a>
+                      </li>
+                  </ul>
+                </div>
+                <div className="dropdown col-md-2 mt-10">
+                  <button className="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Năm 4
+                  <span className="caret"></span></button>
+                  <ul className="dropdown-menu">
+                    <li>
+                        <a className="" onClick={this.handleXetDuyet.bind(this, chitiet._phong_id, chitiet.nam4.xetduyet.male,'m', chitiet.nam4.xetduyet.diemcoban, 4)}>Nam</a>
+                      </li>
+                      <li>
+                        <a className="" onClick={this.handleXetDuyet.bind(this, chitiet._phong_id, chitiet.nam4.xetduyet.female,'f', chitiet.nam4.xetduyet.diemcoban, 4)}>Nữ</a>
+                      </li>
+                  </ul>
+                </div>
+                <div className="dropdown col-md-2 mt-10">
+                  <button className="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Năm 5
+                  <span className="caret"></span></button>
+                  <ul className="dropdown-menu">
+                    <li>
+                        <a className="" onClick={this.handleXetDuyet.bind(this, chitiet._phong_id, chitiet.nam5.xetduyet.male,'m', chitiet.nam5.xetduyet.diemcoban, 5)}>Nam</a>
+                      </li>
+                      <li>
+                        <a className="" onClick={this.handleXetDuyet.bind(this, chitiet._phong_id, chitiet.nam5.xetduyet.female,'f', chitiet.nam5.xetduyet.diemcoban, 5)}>Nữ</a>
+                      </li>
+                  </ul>
+                </div>
+                <div className="dropdown col-md-2 mt-10">
+                  <button className="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Năm 6
+                  <span className="caret"></span></button>
+                  <ul className="dropdown-menu">
+                    <li>
+                        <a className="" onClick={this.handleXetDuyet.bind(this, chitiet._phong_id, chitiet.nam6.xetduyet.male,'m', chitiet.nam6.xetduyet.diemcoban, 6)}>Nam</a>
+                      </li>
+                      <li>
+                        <a className="" onClick={this.handleXetDuyet.bind(this, chitiet._phong_id, chitiet.nam6.xetduyet.female,'f', chitiet.nam6.xetduyet.diemcoban, 6)}>Nữ</a>
+                      </li>
+                  </ul>
+                </div>
+                {/*<ul className="listBtn-xd">
                   <li>
                     <button className="btn btn-large btn-success">Năm 1</button>
                     <ul className="listBtn-nn">
@@ -284,7 +356,7 @@ class XetDuyetMoi extends Component {
                       </li>
                     </ul>
                   </li>
-                </ul>
+                </ul>*/}
               </Tab>
             )
           }, this)}

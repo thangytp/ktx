@@ -7,6 +7,14 @@ class ManageTangStore {
   constructor() {
     this.bindActions(ManageTangAction);
     this.tang = [];
+    // state delete
+    this.modalIsOpenDelete = false;
+    this.idDel = '';
+
+    // state edit
+    this.modalIsOpen = false;
+    this.idEdit = '';
+    this.tenEdit = '';
   }
 
   onGetTangSuccess(response) {
@@ -19,6 +27,23 @@ class ManageTangStore {
 
   onDelTangSuccess() {
     ManageTangAction.getTang();
+  }
+  openMoDDeleteTang(id){
+    this.idDel = id;
+    this.modalIsOpenDelete = true;
+  }
+  onCloseModalDelete(){
+    this.modalIsOpenDelete = false;
+  }
+
+  onHandleGetTang(payload){
+    this.modalIsOpen = true;
+    this.idEdit = payload._id;
+    this.tenEdit = payload.ten;
+  }
+
+  onCloseModal(){
+    this.modalIsOpen = false;
   }
   // onUpdateuser(event)
   // {

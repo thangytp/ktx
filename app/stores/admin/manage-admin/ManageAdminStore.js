@@ -10,6 +10,7 @@ class ManageAdminStore {
     this.modalIsOpen = false;
 
     // state edit
+    this.idEdit = '';
     this.nameEdit = '';
     this.emailEdit = '';
     this.typeEdit = '';
@@ -31,7 +32,7 @@ class ManageAdminStore {
   }
 
   onHandleGetAdmin(payload){
-    console.log(payload);
+    this.idEdit = payload._id;
     this.modalIsOpen = true;
     this.nameEdit = payload.name? payload.name : '';
     this.emailEdit = payload.email;
