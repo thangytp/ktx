@@ -120,31 +120,36 @@ class Home extends React.Component {
 		
 
 	    return (  
-		    <div className="container">   
-		    	<section id="tin-tuc-moi">
-		    		<div className="col-sm-9">
-		    			<div className="thongbaomoi white-bg">
-		    				<div className="col-sm-12 mT20 mB20">
-		    					<h3 className="page-title">Thông báo mới</h3>
-		    				</div>
-		    				{listTinTucToDisplayHome}
+	    	<div>
+			    <div className="container">   
+			    	<section id="tin-tuc-moi">
+			    		<div className="col-sm-9">
+			    			<div className="thongbaomoi white-bg">
+			    				<div className="col-sm-12 mT20 mB20">
+			    					<h3 className="page-title">Thông báo mới</h3>
+			    				</div>
+			    				{listTinTucToDisplayHome}
 
-		    				<div className="col-sm-12 mT20 mB20">
-		    					<h3 className="page-title">Các tin đã đưa</h3>
-		    				</div>
-				            <div className="row nM mt-10">
-				                <ListTinTucMain />
-				            </div>
-		    			</div>
-		    			
-			    		
-			    	</div>
-			    	<div className="col-md-3 col-sm-12 cotphaihome">
-			    		<CotPhaiHome />
-			    	</div>
-		    	</section>
-		    	
-		    </div>     
+			    				<div className="col-sm-12 mT20 mB20">
+			    					<h3 className="page-title">Các tin đã đưa</h3>
+			    				</div>
+					            <div className="row nM mt-10">
+					                <ListTinTucMain />
+					            </div>
+			    			</div>
+			    			
+				    		
+				    	</div>
+				    	<div className="col-md-3 col-sm-12 cotphaihome">
+				    		<CotPhaiHome />
+				    	</div>
+			    	</section>
+			    	
+			    </div>  
+			    <section id="gg-maps" className="mT20 hidden-xs">
+		            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.6773286000303!2d106.66229871594932!3d10.759332357202917!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752eefca0e6fb9%3A0xec3f3a1620c01884!2zS8O9IHTDumMgeMOhIMSQ4bqhaSBo4buNYyBCw6FjaCBLaG9h!5e0!3m2!1sen!2s!4v1481119477834" width="100%" height="300" frameborder="0" style={{"border":"0"}} allowfullscreen></iframe>
+		        </section> 
+		    </div>
 	    );
   	}
 }

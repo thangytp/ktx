@@ -92,7 +92,7 @@ export default (
             <Route path='/dang-ky-luu-tru' component={DangKyLuuTru}/>
             <Route path='/xem-ket-qua-luu-tru' component={KetQuaDangKyLuuTru}/>
             <Route path='/login' component={LogIn}/>
-            <Route path='/info-stu' component={InfoPage}/>
+            <Route path='/thong-tin-ca-nhan' component={InfoPage}/>
             <Route path='/tin-tuc/:link' component={ViewDetailTinTuc} />
             <Route path=':link/:link2' component={ViewDetailPage}/>
             <Route path=':link/:link2/:link3' component={ViewDetailPage}/>

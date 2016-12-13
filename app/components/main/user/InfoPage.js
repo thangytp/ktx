@@ -23,16 +23,16 @@ export default class InfoPage extends React.Component {
 			    <li><Link to="/">Trang chủ</Link></li>
 			    <li className="active">Thông tin sinh viên</li>
 			</ol>
-  			<div className="row">
-  				<div className="col-sm-3">
-  					<div className="panel panel-success">
+  			<div className="row nM white-bg">
+  				<div className="col-md-3 col-sm-12 mT20">
+  					<div className="panel panel-fb">
 				      	<div className="panel-heading text-center text-upper bold">Sinh viên</div>
-				      	<p>Hiển thị ảnh</p>
+				      	<img src="/uploads/LogoBK.png" className="img-responsive avatar"/>
 				      	<p className="text-center bold">Nguyễn Văn A</p>
 				      	<p className="text-center bold">51300000</p>
 				    </div>
   				</div>
-  				<div className="col-sm-9">
+  				<div className="col-md-9 col-sm-12 mT20">
   					<h4 className="nMT head4"><i className="fa fa-user" aria-hidden="true"></i> Tài khoản</h4>
   					<div className="info1">
   						<p>Họ tên: </p>

@@ -35,6 +35,9 @@ ul {
 .text-center {
   text-align: center; }
 
+.text-white {
+  color: #fff; }
+
 .bold {
   font-weight: bold; }
 
@@ -1395,6 +1398,8 @@ a {
     font-size: 14px;
     font-weight: normal;
     text-transform: none; }
+.info-page .avatar {
+  width: 100%; }
 
 /*====================== css lien ket site =============*/
 .link-site {
@@ -1492,6 +1497,8 @@ footer#footer a:hover {
 
 .col-footer {
   color: #b1b1b1; }
+  .col-footer a {
+    color: #b1b1b1; }
   .col-footer .text-intro {
     text-align: justify; }
 

@@ -10,7 +10,7 @@ import ListItemMenu from './ListItemMenu';
 
 import LastItem from './LastItem';
 
-class SubItem extends React.Component {
+class SubItemMobile extends React.Component {
 
 	constructor(props)
 	{
@@ -37,7 +37,7 @@ class SubItem extends React.Component {
 			if(con.subChild.length != 0){
 				return(
 						<li key = {index} className='menu-item-has-children'>
-							<Link to='#'><span>{con.title}</span></Link>
+							<Link to='#'><span>{con.title} <i className="fa fa-plus pull-right" aria-hidden="true"></i></span></Link>
 							<LastItem listChau = {con.subChild} num={index}/>
 						</li>
 					);
@@ -60,4 +60,4 @@ class SubItem extends React.Component {
 
 }
 
-export default SubItem;
+export default SubItemMobile;
