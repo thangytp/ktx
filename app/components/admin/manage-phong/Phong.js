@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import {Tabs, Tab, Modal, Button} from 'react-bootstrap';
+import {Link} from 'react-router';
+
 import ManagePhongAction from '../../../actions/admin/manage-phong/ManagePhongAction';
 import ManagePhongStore from '../../../stores/admin/manage-phong/ManagePhongStore';
 
@@ -77,8 +79,18 @@ class Phong extends Component {
     ManagePhongStore.unlisten(this.onChange);
   }
 
+  openMoDDeletePhong(id){
+    ManagePhongAction.openMoDDeletePhong(id);
+  }
   handleDelPhong(id) {
     ManagePhongAction.delPhong(id);
+  }
+  handleGetPhong(phong){
+    ManagePhongAction.handleGetPhong(phong);
+  }
+
+  updatePhong(){
+    // TODO
   }
 
   onChange(state) {
@@ -96,7 +108,10 @@ class Phong extends Component {
         <td>{phong.kichco + ' người'}</td>
         <td>{phong.soluong + ' phòng'}</td>
         {/* <td><button className="btn btn-primary" onClick={this.handleGetStudent.bind(this, user._id)}>Edit</button></td> */}
-        <td><button className="btn btn-danger" onClick={this.handleDelPhong.bind(this, phong._id)}>Delete</button></td>
+        <td>
+            <button className="btn btn-primary" onClick={this.handleGetPhong.bind(this, phong)}>Sửa</button>
+            <button className="btn btn-danger" onClick={this.openMoDDeletePhong.bind(this, phong._id)}>Xóa</button>
+        </td>
         </tr>
       )
     }, this);
@@ -105,29 +120,93 @@ class Phong extends Component {
 
 
     return (
-      <div>
-        <Button bsStyle="primary" onClick={()=>this.setState({ addModalShow: true })}>
-          Thêm Loại Phòng Năm Mới
-        </Button>
-        <AddPhongModal show={this.state.addModalShow} onHide={addModalClose} />
-        <h1>Phòng Ký Túc Xá</h1>
-        <div className="table-responsive">
-          <table className="table white-bg table-striped table-hover table-success">
-            <thead>
-              <tr>
-                <th>STT</th>
-                <th>Tên</th>
-                <th>Loại Phòng</th>
-                <th>Gía</th>
-                <th>Kích Cỡ</th>
-                <th>Số Lượng</th>
-                <th>Hành động</th>
-              </tr>
-            </thead>
-            <tbody>
-              {listPhong}
-            </tbody>
-          </table>
+      <div className="body-content animated fadeIn">
+        <div className="row">
+          <div className="col-md-12">
+            <ol className="breadcrumb">
+              <li><Link to="/quanly@ktx"><i className="fa fa-home" aria-hidden="true"></i> Trang quản trị</Link></li>
+              <li>Loại phòng</li>
+            </ol>
+            <Button bsStyle="primary" onClick={()=>this.setState({ addModalShow: true })}>
+              Thêm Loại Phòng Năm Mới
+            </Button>
+            <AddPhongModal show={this.state.addModalShow} onHide={addModalClose} />
+            <div className="table-responsive">
+              <table className="table white-bg table-striped table-hover table-success">
+                <thead>
+                  <tr>
+                    <th>STT</th>
+                    <th>Tên</th>
+                    <th>Loại Phòng</th>
+                    <th>Gía</th>
+                    <th>Kích Cỡ</th>
+                    <th>Số Lượng</th>
+                    <th>Hành động</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {listPhong}
+                </tbody>
+              </table>
+            </div>
+            <Modal show={this.state.modalIsOpen} onHide ={ManagePhongAction.closeModal}>
+                <Modal.Header>
+                  <Modal.Title>
+                    Sửa
+                  </Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                  <div className="form-group">
+                    <label htmlFor="exampleInputEmail1" >Tên phòng</label>
+                    <input type="text" className="form-control" ref="ten" value={this.state.tenEdit}/>
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="loai-phong">Loại Phòng</label>
+                    <input type="number" id="loai-phong" className="form-control" ref="loai" placeholder="Loại Phòng" value={this.state.loaiEdit}/>
+                    <div className="">1: Phòng thường, 2: Phòng dịch vụ tầng 10, 3: Phòng tầng 11, 4: Phòng tầng 12</div>
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="gia">Giá</label>
+                    <input type="number" className="form-control" ref="gia" placeholder="Giá" value={this.state.giaEdit}/>
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="so-nguoi">Số người</label>
+                    <input type="Number" id="so-nguoi" className="form-control" ref="songuoi" placeholder="Số người" value={this.state.kichcoEdit}/>
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="so-luong">Số Lượng</label>
+                    <input type="Number" id="so-luong" className="form-control" ref="soluong" placeholder="Số Lượng" value={this.state.soluongEdit}/>
+                  </div>
+                  
+                </Modal.Body>      
+                <Modal.Footer>
+                    <button
+                        className="btn btn-warning"
+                      onClick={ManagePhongAction.closeModal}><i className="fa fa-times"> Hủy bỏ</i> </button>          
+                    <button
+                        className="btn btn-success"
+                      onClick={this.updatePhong.bind(this)}><i className="fa fa-check"> Lưu</i> </button>          
+                </Modal.Footer>
+            </Modal>
+            <Modal show={this.state.modalIsOpenDelete} onHide ={ManagePhongAction.closeModalDelete}>
+                <Modal.Header>
+                  <Modal.Title>
+                    Xóa
+                  </Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                  <p>Bạn có chắc muốn xóa?</p>
+                </Modal.Body>      
+                <Modal.Footer>
+                    <button
+                        className="btn btn-warning"
+                      onClick={ManagePhongAction.closeModalDelete}><i className="fa fa-times"> Hủy bỏ</i> </button>          
+                    <button
+                        className="btn btn-success"
+                      onClick={this.handleDelPhong.bind(this)}><i className="fa fa-check"> Xóa</i> </button>          
+                </Modal.Footer>
+            </Modal>
+          </div>
         </div>
       </div>
     );

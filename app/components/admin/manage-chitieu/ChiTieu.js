@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import {Tabs, Tab, Modal, Button} from 'react-bootstrap';
+import {Link} from 'react-router'
+
 import ManageChiTieuAction from '../../../actions/admin/manage-chitieu/ManageChiTieuAction';
 import ManageChiTieuStore from '../../../stores/admin/manage-chitieu/ManageChiTieuStore';
 import ManagePhongAction from '../../../actions/admin/manage-phong/ManagePhongAction';
@@ -589,7 +591,11 @@ class ChiTieu extends Component {
     ManagePhongStore.unlisten(this.onChange);
   }
 
+  openMoDDeleteChitieu(id){
+    ManageChiTieuAction.openMoDDeleteChitieu(id);
+  }
   handleDelChitieu(id) {
+    var id = this.state.state1.idDel;
     ManageChiTieuAction.delChitieu(id);
   }
 
@@ -602,7 +608,7 @@ class ChiTieu extends Component {
       console.log(chitieu);
       return (
         <Tab eventKey={index + 1} title={chitieu.nam}>
-        <h1>Chỉ Tiêu Ký Túc Xá Năm {chitieu.nam}</h1>
+        <h3>Chỉ Tiêu Ký Túc Xá Năm {chitieu.nam}</h3>
         {chitieu.chitiet.map(function(chitieu){
           return (
             <div>
@@ -723,8 +729,8 @@ class ChiTieu extends Component {
             </div>
           )
         })}
-
-        <button className="btn btn-large btn-danger" onClick={this.handleDelChitieu.bind(this, chitieu._id)}>Xóa</button>
+        <button className="btn btn-large btn-primary" onClick={this.openMoDDeleteChitieu.bind(this, chitieu._id)}>Sửa</button>
+        <button className="btn btn-large btn-danger" onClick={this.openMoDDeleteChitieu.bind(this, chitieu._id)}>Xóa</button>
 
         </Tab>
       )
@@ -736,19 +742,47 @@ class ChiTieu extends Component {
     const props = {phong : this.state.state2.phong};
 
     return (
-      <div>
-      <Button bsStyle="primary" onClick={()=>this.setState({ addModalShow: true })}>
-        Thêm Chỉ Tiêu Năm Mới
-      </Button>
-      <AddChitieuModal {...props} show={this.state.addModalShow} onHide={addModalClose} />
-      <Button bsStyle="primary" onClick={()=>this.setState({ updateModalShow: true })}>
-        Thêm Chỉ Tiêu Theo Loại Phòng
-      </Button>
-      <UpdateChitieuModal {...props} show={this.state.updateModalShow} onHide={updateModalClose} />
+      <div className="body-content animated fadeIn">
+        <div className="row">
+          <div className="col-md-12">
+            <ol className="breadcrumb">
+              <li><Link to="/quanly@ktx"><i className="fa fa-home" aria-hidden="true"></i> Trang quản trị</Link></li>
+              <li>Chỉ tiêu</li>
+            </ol>
+            <Button bsStyle="primary" onClick={()=>this.setState({ addModalShow: true })}>
+              Thêm Chỉ Tiêu Năm Mới
+            </Button>
+            <AddChitieuModal {...props} show={this.state.addModalShow} onHide={addModalClose} />
+            <Button bsStyle="primary" onClick={()=>this.setState({ updateModalShow: true })}>
+              Thêm Chỉ Tiêu Theo Loại Phòng
+            </Button>
+            <UpdateChitieuModal {...props} show={this.state.updateModalShow} onHide={updateModalClose} />
 
-      <Tabs defaultActiveKey={1} id="chitieu">
-        {tabArr}
-      </Tabs>
+            <Tabs defaultActiveKey={1} id="chitieu">
+              {tabArr}
+            </Tabs>
+
+            {/* modal xoa item va con cua no */}
+            <Modal show={this.state.state1.modalIsOpenDelete} onHide ={ManageChiTieuAction.closeModalDelete}>
+                <Modal.Header>
+                  <Modal.Title>
+                    Xóa
+                  </Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                  <p>Bạn có chắc muốn xóa?</p>
+                </Modal.Body>      
+                <Modal.Footer>
+                    <button
+                        className="btn btn-warning"
+                      onClick={ManageChiTieuAction.closeModalDelete}><i className="fa fa-times"> Hủy bỏ</i> </button>          
+                    <button
+                        className="btn btn-success"
+                      onClick={this.handleDelChitieu.bind(this)}><i className="fa fa-check"> Xóa</i> </button>          
+                </Modal.Footer>
+            </Modal>
+          </div>
+        </div>
       </div>
     );
   }

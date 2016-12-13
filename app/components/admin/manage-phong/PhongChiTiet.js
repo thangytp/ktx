@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {Tabs, Tab, Modal, Button} from 'react-bootstrap';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
+import {Link} from 'react-router';
 
 import ManagePhongAction from '../../../actions/admin/manage-phong/ManagePhongAction';
 import ManagePhongStore from '../../../stores/admin/manage-phong/ManagePhongStore';
@@ -109,6 +110,10 @@ class Phong extends Component {
     ManageTangStore.unlisten(this.onChange);
   }
 
+  handleEditPhongChitiet(id){
+
+  }
+
   handleDelPhonChitiet(id) {
     ManagePhongChitietAction.delPhong(id);
   }
@@ -121,8 +126,11 @@ class Phong extends Component {
       return <p>{cell[data]}</p>;
   }
 
+  buttonFormatterEdit(data, cell) {
+      return <button className="btn btn-primary" onClick={this.handleEditPhongChitiet.bind(this, cell)}><i className="fa fa-pencil-square-o" aria-hidden="true"></i></button>;
+  }
   buttonFormatter(data, cell) {
-      return <button className="btn btn-success" onClick={this.handleDelPhonChitiet.bind(this, cell)}><i className="fa fa-trash-o" aria-hidden="true"></i></button>;
+      return <button className="btn btn-danger" onClick={this.handleDelPhonChitiet.bind(this, cell)}><i className="fa fa-trash-o" aria-hidden="true"></i></button>;
   }
 
   onToggleDropDown(onToggleDropDown){
@@ -183,36 +191,44 @@ class Phong extends Component {
     });
 
     return (
-      <div>
-        <Button bsStyle="primary" onClick={()=>this.setState({ addModalShow: true })}>
-          Thêm Phòng
-        </Button>
-        <AddPhongChitietModal {...props} show={this.state.addModalShow} onHide={addModalClose} />
-        <h1>Phòng Ký Túc Xá</h1>
-        <div className="table-responsive">
-          {/*<table className="table">
-            <thead>
-             <tr>
-               <th>STT</th>
-               <th>Loại Phòng</th>
-               <th>Mã</th>
-               <th>Tầng</th>
-               <th></th>
-               <th></th>
-               </tr>
-             </thead>
-             <tbody>
-              {listPhongChitiet}
-             </tbody>
-          </table>*/}
-          <BootstrapTable data={this.state.state2.phongchitiet} striped={true} hover={true} options={ options } search pagination exportCSV>
-              
-              <TableHeaderColumn dataField="tentang" dataSort={true}>Tầng</TableHeaderColumn>
-              <TableHeaderColumn dataField="loaiphong" isKey={true} dataAlign="" dataSort={true}>Loại phòng</TableHeaderColumn>
-              <TableHeaderColumn dataField="ma" >Mã phòng</TableHeaderColumn>
-
-              <TableHeaderColumn dataField="_id" dataFormat={this.buttonFormatter.bind(this, '_id')} width='60'>Xóa</TableHeaderColumn>
-          </BootstrapTable>
+      <div className="body-content animated fadeIn">
+        <div className="row">
+          <div className="col-md-12">
+            <ol className="breadcrumb">
+              <li><Link to="/quanly@ktx"><i className="fa fa-home" aria-hidden="true"></i> Trang quản trị</Link></li>
+              <li>Phòng</li>
+            </ol>
+            <Button bsStyle="primary" onClick={()=>this.setState({ addModalShow: true })}>
+              Thêm Phòng
+            </Button>
+            <AddPhongChitietModal {...props} show={this.state.addModalShow} onHide={addModalClose} />
+            
+            <div className="table-responsive">
+              {/*<table className="table">
+                <thead>
+                 <tr>
+                   <th>STT</th>
+                   <th>Loại Phòng</th>
+                   <th>Mã</th>
+                   <th>Tầng</th>
+                   <th></th>
+                   <th></th>
+                   </tr>
+                 </thead>
+                 <tbody>
+                  {listPhongChitiet}
+                 </tbody>
+              </table>*/}
+              <BootstrapTable data={this.state.state2.phongchitiet} striped={true} hover={true} options={ options } search pagination exportCSV>
+                  
+                  <TableHeaderColumn dataField="tentang" dataSort={true}>Tầng</TableHeaderColumn>
+                  <TableHeaderColumn dataField="loaiphong" isKey={true} dataAlign="" dataSort={true}>Loại phòng</TableHeaderColumn>
+                  <TableHeaderColumn dataField="ma" >Mã phòng</TableHeaderColumn>
+                  <TableHeaderColumn dataField="_id" dataFormat={this.buttonFormatterEdit.bind(this, '_id')} width='60'>Sửa</TableHeaderColumn>
+                  <TableHeaderColumn dataField="_id" dataFormat={this.buttonFormatter.bind(this, '_id')} width='60'>Xóa</TableHeaderColumn>
+              </BootstrapTable>
+            </div>
+          </div>
         </div>
       </div>
     );

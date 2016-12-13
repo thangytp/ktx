@@ -5,8 +5,22 @@ class ManagePhongAction {
     this.generateActions(
       'addPhongSuccess',
       'getPhongSuccess',
-      'delPhongSuccess'
+      'delPhongSuccess',
+
+      'openMoDDeletePhong',
+      'closeModalDelete',
+
+      'handleGetPhong',
+      'closeModal'
     );
+  }
+
+  openMoDDeletePhong(id){
+    this.actions.openMoDDeletePhong(id);
+  }
+
+  handleGetPhong(payload){
+    this.actions.handleGetPhong(payload);
   }
 
   getPhong() {
