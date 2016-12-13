@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import {Tabs, Tab, Modal, Button} from 'react-bootstrap';
+import {Link} from 'react-router';
+
 import ManageUuTienAction from '../../../actions/admin/manage-uutien/ManageUuTienAction';
 import ManageUuTienStore from '../../../stores/admin/manage-uutien/ManageUuTienStore';
 
@@ -20,7 +22,7 @@ const AddKhuVucModal = React.createClass({
     return (
       <Modal {...this.props} bsSize="large" aria-labelledby="contained-modal-title-lg">
         <Modal.Header closeButton>
-          <Modal.Title id="contained-modal-title-lg">Modal heading</Modal.Title>
+          <Modal.Title id="contained-modal-title-lg">Thêm</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <form onSubmit={this.handleAddKhuVuc.bind(this)}>
@@ -40,7 +42,7 @@ const AddKhuVucModal = React.createClass({
           </form>
         </Modal.Body>
         <Modal.Footer>
-          <Button onClick={this.props.onHide}>Close</Button>
+          <Button onClick={this.props.onHide}>Hủy</Button>
         </Modal.Footer>
       </Modal>
     );
@@ -65,7 +67,7 @@ const EditKhuvucModal = React.createClass({
       return (
         <Modal {...this.props} bsSize="large" aria-labelledby="contained-modal-title-lg">
           <Modal.Header closeButton>
-            <Modal.Title id="contained-modal-title-lg">Modal heading</Modal.Title>
+            <Modal.Title id="contained-modal-title-lg">Sửa</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <form onSubmit={this.handleEditKhuvuc.bind(this)}>
@@ -85,7 +87,7 @@ const EditKhuvucModal = React.createClass({
             </form>
           </Modal.Body>
           <Modal.Footer>
-            <Button onClick={this.props.onHide}>Close</Button>
+            <Button onClick={this.props.onHide}>Hủy</Button>
           </Modal.Footer>
         </Modal>
       );
@@ -109,7 +111,7 @@ const AddTinhModal = React.createClass({
     return (
       <Modal {...this.props} bsSize="large" aria-labelledby="contained-modal-title-lg">
         <Modal.Header closeButton>
-          <Modal.Title id="contained-modal-title-lg">Modal heading</Modal.Title>
+          <Modal.Title id="contained-modal-title-lg">Thêm</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <form onSubmit={this.handleAddTinh.bind(this)}>
@@ -129,7 +131,7 @@ const AddTinhModal = React.createClass({
           </form>
         </Modal.Body>
         <Modal.Footer>
-          <Button onClick={this.props.onHide}>Close</Button>
+          <Button onClick={this.props.onHide}>Hủy</Button>
         </Modal.Footer>
       </Modal>
     );
@@ -154,7 +156,7 @@ const EditTinhModal = React.createClass({
     return (
       <Modal {...this.props} bsSize="large" aria-labelledby="contained-modal-title-lg">
         <Modal.Header closeButton>
-          <Modal.Title id="contained-modal-title-lg">Modal heading</Modal.Title>
+          <Modal.Title id="contained-modal-title-lg">Sửa</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <form onSubmit={this.handleEditTinh.bind(this)}>
@@ -174,7 +176,7 @@ const EditTinhModal = React.createClass({
           </form>
         </Modal.Body>
         <Modal.Footer>
-          <Button onClick={this.props.onHide}>Close</Button>
+          <Button onClick={this.props.onHide}>Hủy</Button>
         </Modal.Footer>
       </Modal>
     );
@@ -197,7 +199,7 @@ const AddDoituongModal = React.createClass({
     return (
       <Modal {...this.props} bsSize="large" aria-labelledby="contained-modal-title-lg">
         <Modal.Header closeButton>
-          <Modal.Title id="contained-modal-title-lg">Modal heading</Modal.Title>
+          <Modal.Title id="contained-modal-title-lg">Thêm</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <form onSubmit={this.handleAddDoituong.bind(this)}>
@@ -217,7 +219,7 @@ const AddDoituongModal = React.createClass({
           </form>
         </Modal.Body>
         <Modal.Footer>
-          <Button onClick={this.props.onHide}>Close</Button>
+          <Button onClick={this.props.onHide}>Hủy</Button>
         </Modal.Footer>
       </Modal>
     );
@@ -242,7 +244,7 @@ const EditDoiTuongModal = React.createClass({
     return (
       <Modal {...this.props} bsSize="large" aria-labelledby="contained-modal-title-lg">
         <Modal.Header closeButton>
-          <Modal.Title id="contained-modal-title-lg">Modal heading</Modal.Title>
+          <Modal.Title id="contained-modal-title-lg">Sửa</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <form onSubmit={this.handleEditDoituong.bind(this)}>
@@ -262,7 +264,7 @@ const EditDoiTuongModal = React.createClass({
           </form>
         </Modal.Body>
         <Modal.Footer>
-          <Button onClick={this.props.onHide}>Close</Button>
+          <Button onClick={this.props.onHide}>Hủy</Button>
         </Modal.Footer>
       </Modal>
     );
@@ -286,7 +288,7 @@ const AddHoclucModal = React.createClass({
     return (
       <Modal {...this.props} bsSize="large" aria-labelledby="contained-modal-title-lg">
         <Modal.Header closeButton>
-          <Modal.Title id="contained-modal-title-lg">Modal heading</Modal.Title>
+          <Modal.Title id="contained-modal-title-lg">Thêm</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <form onSubmit={this.handleAddHocluc.bind(this)}>
@@ -306,7 +308,7 @@ const AddHoclucModal = React.createClass({
           </form>
         </Modal.Body>
         <Modal.Footer>
-          <Button onClick={this.props.onHide}>Close</Button>
+          <Button onClick={this.props.onHide}>Hủy</Button>
         </Modal.Footer>
       </Modal>
     );
@@ -331,7 +333,7 @@ const EditHoclucModal = React.createClass({
     return (
       <Modal {...this.props} bsSize="large" aria-labelledby="contained-modal-title-lg">
         <Modal.Header closeButton>
-          <Modal.Title id="contained-modal-title-lg">Modal heading</Modal.Title>
+          <Modal.Title id="contained-modal-title-lg">Sửa</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <form onSubmit={this.handleEditHocluc.bind(this)}>
@@ -351,7 +353,7 @@ const EditHoclucModal = React.createClass({
           </form>
         </Modal.Body>
         <Modal.Footer>
-          <Button onClick={this.props.onHide}>Close</Button>
+          <Button onClick={this.props.onHide}>Hủy</Button>
         </Modal.Footer>
       </Modal>
     );
@@ -375,7 +377,7 @@ const AddHoancanhModal = React.createClass({
     return (
       <Modal {...this.props} bsSize="large" aria-labelledby="contained-modal-title-lg">
         <Modal.Header closeButton>
-          <Modal.Title id="contained-modal-title-lg">Modal heading</Modal.Title>
+          <Modal.Title id="contained-modal-title-lg">Thêm</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <form onSubmit={this.handleAddHoancanh.bind(this)}>
@@ -395,7 +397,7 @@ const AddHoancanhModal = React.createClass({
           </form>
         </Modal.Body>
         <Modal.Footer>
-          <Button onClick={this.props.onHide}>Close</Button>
+          <Button onClick={this.props.onHide}>Hủy</Button>
         </Modal.Footer>
       </Modal>
     );
@@ -420,7 +422,7 @@ const EditHoancanhModal = React.createClass({
     return (
       <Modal {...this.props} bsSize="large" aria-labelledby="contained-modal-title-lg">
         <Modal.Header closeButton>
-          <Modal.Title id="contained-modal-title-lg">Modal heading</Modal.Title>
+          <Modal.Title id="contained-modal-title-lg">Sửa</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <form onSubmit={this.handleEditHoancanh.bind(this)}>
@@ -440,7 +442,7 @@ const EditHoancanhModal = React.createClass({
           </form>
         </Modal.Body>
         <Modal.Footer>
-          <Button onClick={this.props.onHide}>Close</Button>
+          <Button onClick={this.props.onHide}>Hủy</Button>
         </Modal.Footer>
       </Modal>
     );
@@ -549,12 +551,12 @@ class UuTien extends Component {
     let listkhuvuc = this.state.khuvuc.map(function(khuvuc, khuvucidx){
       return(
         <tr>
-         <th scope="row">{khuvucidx}</th>
+         <td scope="row">{khuvucidx}</td>
          <td>{khuvuc.ten}</td>
          <td>{khuvuc.diem}</td>
          <td>{khuvuc.ma}</td>
-         <td><button className="btn btn-primary" onClick={this.handleGetKhuvuc.bind(this, khuvuc._id)}>Edit</button></td>
-         <td><button className="btn btn-danger" onClick={this.handleDelKhuvuc.bind(this, khuvuc._id)}>Delete</button></td>
+         <td><button className="btn btn-primary" onClick={this.handleGetKhuvuc.bind(this, khuvuc._id)}>Edit</button>
+         <button className="btn btn-danger" onClick={this.handleDelKhuvuc.bind(this, khuvuc._id)}>Delete</button></td>
         </tr>
       )
     }, this);
@@ -562,12 +564,12 @@ class UuTien extends Component {
     let listTinh = this.state.tinh.map(function(tinh, tinhidx){
       return(
         <tr>
-         <th scope="row">{tinhidx}</th>
+         <td scope="row">{tinhidx}</td>
          <td>{tinh.ten}</td>
          <td>{tinh.diem}</td>
          <td>{tinh.ma}</td>
-         <td><button className="btn btn-primary" onClick={this.handleGetTinh.bind(this, tinh._id)}>Edit</button></td>
-         <td><button className="btn btn-danger" onClick={this.handleDelTinh.bind(this, tinh._id)}>Delete</button></td>
+         <td><button className="btn btn-primary" onClick={this.handleGetTinh.bind(this, tinh._id)}>Edit</button>
+         <button className="btn btn-danger" onClick={this.handleDelTinh.bind(this, tinh._id)}>Delete</button></td>
         </tr>
       )
     }, this);
@@ -575,12 +577,12 @@ class UuTien extends Component {
     let listDoituong = this.state.doituong.map(function(doituong, doituongidx){
       return(
         <tr>
-         <th scope="row">{doituongidx}</th>
+         <td scope="row">{doituongidx}</td>
          <td>{doituong.ten}</td>
          <td>{doituong.diem}</td>
          <td>{doituong.ma}</td>
-         <td><button className="btn btn-primary" onClick={this.handleGetDoituong.bind(this, doituong._id)}>Edit</button></td>
-         <td><button className="btn btn-danger" onClick={this.handleDelDoituong.bind(this, doituong._id)}>Delete</button></td>
+         <td><button className="btn btn-primary" onClick={this.handleGetDoituong.bind(this, doituong._id)}>Edit</button>
+         <button className="btn btn-danger" onClick={this.handleDelDoituong.bind(this, doituong._id)}>Delete</button></td>
         </tr>
       )
     }, this);
@@ -588,12 +590,12 @@ class UuTien extends Component {
     let listHocluc = this.state.hocluc.map(function(hocluc, hoclucidx){
       return(
         <tr>
-         <th scope="row">{hoclucidx}</th>
+         <td scope="row">{hoclucidx}</td>
          <td>{hocluc.ten}</td>
          <td>{hocluc.diem}</td>
          <td>{hocluc.ma}</td>
-         <td><button className="btn btn-primary" onClick={this.handleGetHocluc.bind(this, hocluc._id)}>Edit</button></td>
-         <td><button className="btn btn-danger" onClick={this.handleDelHocluc.bind(this, hocluc._id)}>Delete</button></td>
+         <td><button className="btn btn-primary" onClick={this.handleGetHocluc.bind(this, hocluc._id)}>Edit</button>
+         <button className="btn btn-danger" onClick={this.handleDelHocluc.bind(this, hocluc._id)}>Delete</button></td>
         </tr>
       )
     }, this);
@@ -601,133 +603,147 @@ class UuTien extends Component {
     let listHoancanh = this.state.hoancanh.map(function(hoancanh, hoancanhidx){
       return(
         <tr>
-         <th scope="row">{hoancanhidx}</th>
+         <td scope="row">{hoancanhidx}</td>
          <td>{hoancanh.ten}</td>
          <td>{hoancanh.diem}</td>
          <td>{hoancanh.ma}</td>
-         <td><button className="btn btn-primary" onClick={this.handleGetHoancanh.bind(this, hoancanh._id)}>Edit</button></td>
-         <td><button className="btn btn-danger" onClick={this.handleDelHoancanh.bind(this, hoancanh._id)}>Delete</button></td>
+         <td><button className="btn btn-primary" onClick={this.handleGetHoancanh.bind(this, hoancanh._id)}>Edit</button>
+          <button className="btn btn-danger" onClick={this.handleDelHoancanh.bind(this, hoancanh._id)}>Delete</button></td>
         </tr>
       )
     }, this);
 
     return (
+      <div className="body-content animated fadeIn no-overflow">
+              <div className="row">
+                    <div className="col-md-12">
+                      <ol className="breadcrumb no-overflow">
+                          <li><Link to="/quanly@ktx"><i className="fa fa-home" aria-hidden="true"></i> Trang quản trị</Link></li>
+                          <li>Ưu tiên</li>
+                      </ol>
+                          <Tabs defaultActiveKey={1} id="uutien">
+                            <Tab eventKey={1} title="Khu Vực">
+                              <Button bsStyle="primary" onClick={()=>this.setState({ khuvucModalShow: true })}>
+                                Thêm Khu Vực
+                              </Button>
+                              <AddKhuVucModal show={this.state.khuvucModalShow} onHide={khuvucModalClose} />
+                              <EditKhuvucModal {...props} show={this.state.editKhuvucModalShow} onHide={editKhuvucModalClose} />
+                              <div className="table-responsive">
+                                <table className="table table-striped table-hover table-success">
+                                  <thead>
+                                   <tr>
+                                     <th>#</th>
+                                     <th>Tên Khu Vực</th>
+                                     <th>Điểm Ưu Tiên</th>
+                                     <th>Mã Khu Vực</th>
+                                     <th>Hành động</th>
+                                    </tr>
+                                   </thead>
+                                   <tbody>
+                                    {listkhuvuc}
+                                   </tbody>
+                                </table>
+                              </div>
+                            </Tab>
+                            <Tab eventKey={2} title="Tỉnh">
+                              <Button bsStyle="primary" onClick={()=>this.setState({ tinhModalShow: true })}>
+                                Thêm Tỉnh
+                              </Button>
+                              <AddTinhModal show={this.state.tinhModalShow} onHide={tinhModalClose} />
+                              <EditTinhModal {...props} show={this.state.editTinhModalShow} onHide={editTinhModalClose} />
+                              <div className="table-responsive">
+                                <table className="table table-striped table-hover table-success">
+                                  <thead>
+                                   <tr>
+                                     <th>#</th>
+                                     <th>Tên Tỉnh</th>
+                                     <th>Điểm Ưu Tiên</th>
+                                     <th>Mã Tỉnh</th>
+                                     <th>Hành động</th>
+                                     </tr>
+                                   </thead>
+                                   <tbody>
+                                    {listTinh}
+                                   </tbody>
+                                </table>
+                              </div>
+                            </Tab>
+                            <Tab eventKey={3} title="Đối Tượng">
+                              <Button bsStyle="primary" onClick={()=>this.setState({ doituongModalShow: true })}>
+                                Thêm Đối Tượng
+                              </Button>
+                              <AddDoituongModal show={this.state.doituongModalShow} onHide={doituongModalClose} />
+                              <EditDoiTuongModal {...props} show={this.state.editDoituongModalShow} onHide={editTDoituongModalClose} />
 
-      <Tabs defaultActiveKey={1} id="uutien">
-        <Tab eventKey={1} title="Khu Vực">
-          <Button bsStyle="primary" onClick={()=>this.setState({ khuvucModalShow: true })}>
-            Thêm Khu Vực
-          </Button>
-          <AddKhuVucModal show={this.state.khuvucModalShow} onHide={khuvucModalClose} />
-          <EditKhuvucModal {...props} show={this.state.editKhuvucModalShow} onHide={editKhuvucModalClose} />
-          <div className="table-responsive">
-            <table className="table">
-              <thead>
-               <tr>
-                 <th>#</th>
-                 <th>Tên Khu Vực</th>
-                 <th>Điểm Uư Tiên</th>
-                 <th>Mã Khu Vực</th>
-                 </tr>
-               </thead>
-               <tbody>
-                {listkhuvuc}
-               </tbody>
-            </table>
-          </div>
-        </Tab>
-        <Tab eventKey={2} title="Tỉnh">
-          <Button bsStyle="primary" onClick={()=>this.setState({ tinhModalShow: true })}>
-            Thêm Tỉnh
-          </Button>
-          <AddTinhModal show={this.state.tinhModalShow} onHide={tinhModalClose} />
-          <EditTinhModal {...props} show={this.state.editTinhModalShow} onHide={editTinhModalClose} />
-          <div className="table-responsive">
-            <table className="table">
-              <thead>
-               <tr>
-                 <th>#</th>
-                 <th>Tên Tỉnh</th>
-                 <th>Điểm Uư Tiên</th>
-                 <th>Mã Tỉnh</th>
-                 </tr>
-               </thead>
-               <tbody>
-                {listTinh}
-               </tbody>
-            </table>
-          </div>
-        </Tab>
-        <Tab eventKey={3} title="Đối Tượng">
-          <Button bsStyle="primary" onClick={()=>this.setState({ doituongModalShow: true })}>
-            Thêm Đối Tượng
-          </Button>
-          <AddDoituongModal show={this.state.doituongModalShow} onHide={doituongModalClose} />
-          <EditDoiTuongModal {...props} show={this.state.editDoituongModalShow} onHide={editTDoituongModalClose} />
+                              <div className="table-responsive">
+                                <table className="table table-striped table-hover table-success">
+                                  <thead>
+                                   <tr>
+                                     <th>#</th>
+                                     <th>Tên Đối Tượng</th>
+                                     <th>Điểm Ưu Tiên</th>
+                                     <th>Mã Đối Tượng</th>
+                                     <th>Hành động</th>
+                                     </tr>
+                                   </thead>
+                                   <tbody>
+                                    {listDoituong}
+                                   </tbody>
+                                </table>
+                              </div>
+                            </Tab>
+                            <Tab eventKey={4} title="Học Lực">
+                              <Button bsStyle="primary" onClick={()=>this.setState({ hoclucModalShow: true })}>
+                                Thêm Học Lực
+                              </Button>
+                              <AddHoclucModal show={this.state.hoclucModalShow} onHide={hoclucModalClose} />
+                              <EditHoclucModal {...props} show={this.state.editHoclucModalShow} onHide={editHoclucModalClose} />
 
-          <div className="table-responsive">
-            <table className="table">
-              <thead>
-               <tr>
-                 <th>#</th>
-                 <th>Tên Đối Tượng</th>
-                 <th>Điểm Uư Tiên</th>
-                 <th>Mã Đối Tượng</th>
-                 </tr>
-               </thead>
-               <tbody>
-                {listDoituong}
-               </tbody>
-            </table>
-          </div>
-        </Tab>
-        <Tab eventKey={4} title="Học Lực">
-          <Button bsStyle="primary" onClick={()=>this.setState({ hoclucModalShow: true })}>
-            Thêm Học Lực
-          </Button>
-          <AddHoclucModal show={this.state.hoclucModalShow} onHide={hoclucModalClose} />
-          <EditHoclucModal {...props} show={this.state.editHoclucModalShow} onHide={editHoclucModalClose} />
+                              <div className="table-responsive">
+                                <table className="table table-striped table-hover table-success">
+                                  <thead>
+                                   <tr>
+                                     <th>#</th>
+                                     <th>Tên Học Lực</th>
+                                     <th>Điểm Ưu Tiên</th>
+                                     <th>Mã Học Lực</th>
+                                     <th>Hành động</th>
+                                     </tr>
+                                   </thead>
+                                   <tbody>
+                                    {listHocluc}
+                                   </tbody>
+                                </table>
+                              </div>
+                            </Tab>
+                            <Tab eventKey={5} title="Hoàn Cảnh Gia Đình">
+                              <Button bsStyle="primary" onClick={()=>this.setState({ hoancanhModalShow: true })}>
+                                Thêm Hoàn Cảnh Gia Đình
+                              </Button>
+                              <AddHoancanhModal show={this.state.hoancanhModalShow} onHide={hoancanhModalClose} />
+                              <EditHoancanhModal {...props} show={this.state.editHoancanhModalShow} onHide={editHoancanhModalClose} />
 
-          <div className="table-responsive">
-            <table className="table">
-              <thead>
-               <tr>
-                 <th>#</th>
-                 <th>Tên Học Lực</th>
-                 <th>Điểm Uư Tiên</th>
-                 <th>Mã Học Lực</th>
-                 </tr>
-               </thead>
-               <tbody>
-                {listHocluc}
-               </tbody>
-            </table>
-          </div>
-        </Tab>
-        <Tab eventKey={5} title="Hoàn Cảnh Gia Đình">
-          <Button bsStyle="primary" onClick={()=>this.setState({ hoancanhModalShow: true })}>
-            Thêm Hoàn Cảnh Gia Đình
-          </Button>
-          <AddHoancanhModal show={this.state.hoancanhModalShow} onHide={hoancanhModalClose} />
-          <EditHoancanhModal {...props} show={this.state.editHoancanhModalShow} onHide={editHoancanhModalClose} />
-
-          <div className="table-responsive">
-            <table className="table">
-              <thead>
-               <tr>
-                 <th>#</th>
-                 <th>Tên Hoàn Cảnh Gia Đình</th>
-                 <th>Điểm Uư Tiên</th>
-                 <th>Mã Hoàn Cảnh Gia Đình</th>
-                 </tr>
-               </thead>
-               <tbody>
-                {listHoancanh}
-               </tbody>
-            </table>
-          </div>
-        </Tab>
-      </Tabs>
+                              <div className="table-responsive">
+                                <table className="table table-striped table-hover table-success">
+                                  <thead>
+                                   <tr>
+                                     <th>#</th>
+                                     <th>Tên Hoàn Cảnh Gia Đình</th>
+                                     <th>Điểm Ưu Tiên</th>
+                                     <th>Mã Hoàn Cảnh Gia Đình</th>
+                                     <th>Hành động</th>
+                                     </tr>
+                                   </thead>
+                                   <tbody>
+                                    {listHoancanh}
+                                   </tbody>
+                                </table>
+                              </div>
+                            </Tab>
+                          </Tabs>
+                    </div>
+                </div>
+            </div>
     );
   }
 }

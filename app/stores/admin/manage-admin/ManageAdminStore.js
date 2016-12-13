@@ -7,6 +7,15 @@ class ManageAdminStore {
   constructor() {
     this.bindActions(ManageAdminAction);
     this.admin = [];
+    this.modalIsOpen = false;
+
+    // state edit
+    this.nameEdit = '';
+    this.emailEdit = '';
+    this.typeEdit = '';
+    // state delete
+    this.modalIsOpenDelete = false;
+    this.idDel = '';
   }
 
   onGetAdminSuccess(response) {
@@ -19,6 +28,24 @@ class ManageAdminStore {
 
   onDelAdminSuccess() {
     ManageAdminAction.getAdmin();
+  }
+
+  onHandleGetAdmin(payload){
+    console.log(payload);
+    this.modalIsOpen = true;
+    this.nameEdit = payload.name? payload.name : '';
+    this.emailEdit = payload.email;
+    this.typeEdit = payload.type;
+  }
+  onCloseModal(){
+    this.modalIsOpen = false;
+  }
+  onOpenMoDDeleteAdmin(id){
+    this.idDel = id;
+    this.modalIsOpenDelete = true;
+  }
+  onCloseModalDelete(){
+    this.modalIsOpenDelete = false;
   }
   // onUpdateuser(event)
   // {

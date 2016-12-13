@@ -19,7 +19,7 @@ const AddDichvuModal = React.createClass({
     return (
       <Modal {...this.props} bsSize="large" aria-labelledby="contained-modal-title-lg">
         <Modal.Header closeButton>
-          <Modal.Title id="contained-modal-title-lg">Modal heading</Modal.Title>
+          <Modal.Title id="contained-modal-title-lg">Thêm dịch vụ</Modal.Title>
         </Modal.Header>
         <Modal.Body>
         <form onSubmit={this.handleAddDichvu.bind(this)}>
@@ -35,7 +35,7 @@ const AddDichvuModal = React.createClass({
         </form>
         </Modal.Body>
         <Modal.Footer>
-          <Button onClick={this.props.onHide}>Close</Button>
+          <Button onClick={this.props.onHide}>Hủy</Button>
         </Modal.Footer>
       </Modal>
     );
@@ -73,7 +73,7 @@ class Dichvu extends Component {
     let listDichvu = this.state.dichvu.map(function(dichvu, index){
       return (
         <tr>
-        <th scope="row">{index + 1}</th>
+        <td scope="row">{index + 1}</td>
         <td>{dichvu.ten}</td>
         <td>{dichvu.gia}</td>
         {/* <td><button className="btn btn-primary" onClick={this.handleGetStudent.bind(this, user._id)}>Edit</button></td> */}
@@ -93,7 +93,7 @@ class Dichvu extends Component {
       <AddDichvuModal show={this.state.addModalShow} onHide={addModalClose} />
       <h1>Dịch Vụ Ký Túc Xá</h1>
       <div className="table-responsive">
-        <table className="table">
+        <table className="table white-bg table-striped table-hover table-success">
           <thead>
            <tr>
              <th>#</th>

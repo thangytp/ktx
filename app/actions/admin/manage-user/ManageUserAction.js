@@ -52,9 +52,16 @@ class ManageUserAction {
         'updateImagefile',
         'uploadSuccess',
         'uploadFail',
-        'handleUpload'
+        'handleUpload',
+
+        'closeModalDelete',
+        'openMoDDeleteStudent'
 
     );
+  }
+
+  openMoDDeleteStudent(id){
+    this.actions.openMoDDeleteStudent(id);
   }
 
   uploadImage(imgfile)

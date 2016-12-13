@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import {Tabs, Tab} from 'react-bootstrap';
+import {Link} from 'react-router';
+
+
 import ManageUserAction from '../../../actions/admin/manage-user/ManageUserAction';
 import ManageUserStore from '../../../stores/admin/manage-user/ManageUserStore';
 import ManageChiTieuAction from '../../../actions/admin/manage-chitieu/ManageChiTieuAction';
@@ -17,7 +20,7 @@ var HocVu = React.createClass({
             <div>
                <form ref="uploadForm" className="uploader" encType="multipart/form-data" >
                    <input ref="file" type="file" name="file" className="upload-file"/>
-                   <input type="button" ref="button" value="Upload" onClick={this.uploadFile.bind(this)} />
+                   <input type="button" className="btn btn-success" ref="button" value="Upload" onClick={this.uploadFile.bind(this)} />
                </form>
             </div>
         );
@@ -44,10 +47,19 @@ var DiemRenLuyen = React.createClass({
     render: function() {
         return (
             <div>
-               <form ref="uploadForm" className="uploader" encType="multipart/form-data" >
-                   <input ref='diemrl' type="number" name="number" onChange={this.activeInput.bind(this)} />
-                   <input ref="file" type="file" name="file" className="upload-file"/>
-                   <input type="button" ref="button" value="Upload" disabled={this.state.activeUploadDrl} onClick={this.uploadFile.bind(this)} />
+               <form ref="uploadForm" className="uploader form-horizontal pT20" encType="multipart/form-data" >
+                    <div className="col-sm-12 mt-10">
+                      <label className="control-label col-sm-3" htmlFor="diemrl">Mức điểm rèn luyện PĐT</label>
+                      <div className="col-sm-7">
+                        <input id="diemrl" ref='diemrl' type="number" name="number" onChange={this.activeInput.bind(this)} />
+                      </div>
+                    </div>
+                    <div className="col-sm-12"> 
+                      <div className="col-sm-offset-3 ">
+                        <input ref="file" type="file" name="file" className="upload-file mL10"/>
+                        <input type="button" ref="button" className="btn btn-success mL10" value="Upload" disabled={this.state.activeUploadDrl} onClick={this.uploadFile.bind(this)} />
+                      </div>
+                    </div>
                </form>
             </div>
         );
@@ -81,11 +93,25 @@ var DiemRenLuyenKtx = React.createClass({
     render: function() {
         return (
             <div>
-               <form ref="uploadForm" className="uploader" encType="multipart/form-data" >
-                   <input ref='diemrlktx' type="number" name="number1" onChange={this.activeInput1.bind(this)} />
-                   <input ref='diemvs' type="number" name="number2" onChange={this.activeInput2.bind(this)} />
-                   <input ref="file" type="file" name="file" className="upload-file"/>
-                   <input type="button" ref="button" value="Upload" disabled={this.state.activeUploadDrlKtx || this.state.activeUploadDvs} onClick={this.uploadFile.bind(this)} />
+               <form ref="uploadForm" className="uploader form-horizontal mt-10" encType="multipart/form-data" >
+                  <div className="col-sm-12 mt-10">
+                    <label className="control-label col-sm-3" htmlFor="diemrlktx">Mức điểm rèn luyện ký túc xá</label>
+                    <div className="col-sm-7">
+                      <input id="diemrlktx" ref='diemrlktx' type="number" name="number1" onChange={this.activeInput1.bind(this)} />
+                    </div>
+                  </div>
+                  <div className="col-sm-12">
+                    <label className="control-label col-sm-3" htmlFor="diemvs">Mức điểm vệ sinh ký túc xá</label>
+                    <div className="col-sm-7">
+                      <input id="diemvs" ref='diemvs' type="number" name="number2" onChange={this.activeInput2.bind(this)} />
+                    </div>
+                  </div>
+                  <div className="col-sm-12"> 
+                    <div className="col-sm-offset-3 ">
+                      <input ref="file" type="file" name="file" className="upload-file mL10"/>
+                      <input type="button" ref="button" className="btn btn-success mL10" value="Upload" disabled={this.state.activeUploadDrlKtx || this.state.activeUploadDvs} onClick={this.uploadFile.bind(this)} />
+                    </div>
+                  </div>
                </form>
             </div>
         );
@@ -362,7 +388,7 @@ class XetDuyetMoi extends Component {
     if(this.state.state1.activeHocvu === false) {
       contentHocvu = (
         <div className="uploadLuutru">
-          <h1>Vui lòng import file tạm dừng học vụ của phòng đào tạo</h1>
+          <h3>Vui lòng import file tạm dừng học vụ của phòng đào tạo</h3>
           <HocVu/>
         </div>
       );
@@ -453,7 +479,7 @@ class XetDuyetMoi extends Component {
     if(this.state.state1.activeDiemrenluyen === false) {
       contentDiemrenluyen = (
         <div className="uploadLuutru">
-          <h1>Vui lòng import file điểm rèn luyện của phòng đào tạo</h1>
+          <h3>Vui lòng import file điểm rèn luyện của phòng đào tạo</h3>
           <DiemRenLuyen/>
         </div>
       );
@@ -545,7 +571,7 @@ class XetDuyetMoi extends Component {
     if(this.state.state1.activeDiemrenluyenKtx === false) {
       contentDiemrenluyenKtx = (
         <div className="uploadLuutru">
-          <h1>Vui lòng import file điểm rèn luyện ký túc xá</h1>
+          <h3>Vui lòng import file điểm rèn luyện ký túc xá</h3>
           <DiemRenLuyenKtx/>
         </div>
       );
@@ -671,21 +697,33 @@ class XetDuyetMoi extends Component {
       //     {contentDiemxetduyet}
       //   </Tab>
       // </Tabs>
-      <Tabs defaultActiveKey={1} id="luutrumoi">
-        <Tab eventKey={1} title="Bước 1">
-          {contentHocvu}
-        </Tab>
-        <Tab eventKey={2} title="Bước 2">
-          {contentDiemrenluyen}
-        </Tab>
-        <Tab eventKey={3} title="Bước 3">
-          {contentDiemrenluyenKtx}
-        </Tab>
-        <Tab eventKey={4} title="Bước 4">
-          {contentTab3}
-          {contentDiemxetduyet}
-        </Tab>
-      </Tabs>
+      <div className="body-content animated fadeIn">
+          <div className="row">
+            <div className="col-md-12">
+              <ol className="breadcrumb">
+                <li><Link to="/quanly@ktx"><i className="fa fa-home" aria-hidden="true"></i> Trang quản trị</Link></li>
+                <li>Gia hạn lưu trú cũ</li>
+              </ol>
+              
+              <Tabs defaultActiveKey={1} id="luutrumoi">
+                <Tab eventKey={1} title="Bước 1">
+                  {contentHocvu}
+                </Tab>
+                <Tab eventKey={2} title="Bước 2">
+                  {contentDiemrenluyen}
+                </Tab>
+                <Tab eventKey={3} title="Bước 3">
+                  {contentDiemrenluyenKtx}
+                </Tab>
+                <Tab eventKey={4} title="Bước 4">
+                  {contentTab3}
+                  {contentDiemxetduyet}
+                </Tab>
+              </Tabs>
+              
+            </div>
+          </div>
+      </div>
     );
   }
 }

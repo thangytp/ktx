@@ -22,7 +22,7 @@ const AddPhongModal = React.createClass({
     return (
       <Modal {...this.props} bsSize="large" aria-labelledby="contained-modal-title-lg">
         <Modal.Header closeButton>
-          <Modal.Title id="contained-modal-title-lg">Modal heading</Modal.Title>
+          <Modal.Title id="contained-modal-title-lg">Thêm phòng</Modal.Title>
         </Modal.Header>
         <Modal.Body>
         <form onSubmit={this.handleAddPhong.bind(this)}>
@@ -51,7 +51,7 @@ const AddPhongModal = React.createClass({
         </form>
         </Modal.Body>
         <Modal.Footer>
-          <Button onClick={this.props.onHide}>Close</Button>
+          <Button onClick={this.props.onHide}>Hủy</Button>
         </Modal.Footer>
       </Modal>
     );
@@ -89,7 +89,7 @@ class Phong extends Component {
     let listPhong = this.state.phong.map(function(phong, index){
       return (
         <tr>
-        <th scope="row">{index + 1}</th>
+        <td scope="row">{index + 1}</td>
         <td>{phong.ten}</td>
         <td>{phong.loai}</td>
         <td>{phong.gia}</td>
@@ -112,7 +112,7 @@ class Phong extends Component {
         <AddPhongModal show={this.state.addModalShow} onHide={addModalClose} />
         <h1>Phòng Ký Túc Xá</h1>
         <div className="table-responsive">
-          <table className="table">
+          <table className="table white-bg table-striped table-hover table-success">
             <thead>
               <tr>
                 <th>STT</th>

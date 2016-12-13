@@ -278,7 +278,7 @@ const AddChitieuModal = React.createClass({
           </form>
         </Modal.Body>
         <Modal.Footer>
-          <Button onClick={this.props.onHide}>Close</Button>
+          <Button onClick={this.props.onHide}>Hủy</Button>
         </Modal.Footer>
       </Modal>
     );

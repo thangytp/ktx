@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import {Tabs, Tab, Modal, Button} from 'react-bootstrap';
+import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
+
 import ManagePhongAction from '../../../actions/admin/manage-phong/ManagePhongAction';
 import ManagePhongStore from '../../../stores/admin/manage-phong/ManagePhongStore';
 import ManagePhongChitietAction from '../../../actions/admin/manage-phong/ManagePhongChitietAction';
@@ -49,7 +51,7 @@ const AddPhongChitietModal = React.createClass({
     return (
       <Modal {...this.props} bsSize="large" aria-labelledby="contained-modal-title-lg">
         <Modal.Header closeButton>
-          <Modal.Title id="contained-modal-title-lg">Modal heading</Modal.Title>
+          <Modal.Title id="contained-modal-title-lg">Thêm phòng</Modal.Title>
         </Modal.Header>
         <Modal.Body>
         <form onSubmit={this.handleAddPhongChitiet.bind(this)}>
@@ -75,7 +77,7 @@ const AddPhongChitietModal = React.createClass({
         </form>
         </Modal.Body>
         <Modal.Footer>
-          <Button onClick={this.props.onHide}>Close</Button>
+          <Button onClick={this.props.onHide}>Hủy</Button>
         </Modal.Footer>
       </Modal>
     );
@@ -115,12 +117,42 @@ class Phong extends Component {
     this.setState({state1: ManagePhongStore.getState(), state2: ManagePhongChitietStore.getState(), state3: ManageTangStore.getState()});
   }
 
+  objectFormatter(data, cell) {
+      return <p>{cell[data]}</p>;
+  }
+
+  buttonFormatter(data, cell) {
+      return <button className="btn btn-success" onClick={this.handleDelPhonChitiet.bind(this, cell)}><i className="fa fa-trash-o" aria-hidden="true"></i></button>;
+  }
+
+  onToggleDropDown(onToggleDropDown){
+    // do your stuff here
+    console.log('toggle dropdown');
+    onToggleDropDown();
+  }
+
+  renderSizePerPageDropDown(props){
+    return (
+      <SizePerPageDropDown
+        className='my-size-per-page'
+        btnContextual='btn-warning'
+        variation='dropup'
+        onClick={ () => this.onToggleDropDown(props.onToggleDropDown) }/>
+    );
+  }
+
+  createCustomExportCSVButton(onClick){
+    return (
+      <button style={ { color: 'red' } } onClick={ onClick }>Custom Export CSV Btn</button>
+    );
+  }
+
   render() {
     console.log(this.state.state2.phongchitiet);
     let listPhongChitiet = this.state.state2.phongchitiet.map(function(phongchitiet, index){
       return (
         <tr>
-        <th scope="row">{index + 1}</th>
+        <td scope="row">{index + 1}</td>
         <td>{phongchitiet._loai.loai}</td>
         <td>{phongchitiet.ma}</td>
         <td>{phongchitiet._tang.ten}</td>
@@ -134,33 +166,80 @@ class Phong extends Component {
 
     const props = {phong : this.state.state1.phong, tang : this.state.state3.tang};
 
+    const options = {
+      clearSearch: true,
+      searchField: (props) => (<MySearchField { ...props }/>),
+      sizePerPageDropDown: this.renderSizePerPageDropDown,
+      exportCSVBtn: this.createCustomExportCSVButton
+    };
+
+    let listPhongCT = this.state.state2.phongchitiet.map(function(phongchitiet, index){
+
+        phongchitiet['loaiphong'] = phongchitiet._loai ? phongchitiet._loai.loai : '';
+        phongchitiet['tentang'] = phongchitiet._tang ? phongchitiet._tang.ten : '';
+        
+        return phongchitiet;
+
+    });
 
     return (
       <div>
-      <Button bsStyle="primary" onClick={()=>this.setState({ addModalShow: true })}>
-        Thêm Phòng
-      </Button>
-      <AddPhongChitietModal {...props} show={this.state.addModalShow} onHide={addModalClose} />
-      <h1>Phòng Ký Túc Xá</h1>
-      <div className="table-responsive">
-        <table className="table">
-          <thead>
-           <tr>
-             <th>#</th>
-             <th>Loại Phòng</th>
-             <th>Mã</th>
-             <th>Tầng</th>
-             <th></th>
-             <th></th>
-             </tr>
-           </thead>
-           <tbody>
-            {listPhongChitiet}
-           </tbody>
-        </table>
-      </div>
+        <Button bsStyle="primary" onClick={()=>this.setState({ addModalShow: true })}>
+          Thêm Phòng
+        </Button>
+        <AddPhongChitietModal {...props} show={this.state.addModalShow} onHide={addModalClose} />
+        <h1>Phòng Ký Túc Xá</h1>
+        <div className="table-responsive">
+          {/*<table className="table">
+            <thead>
+             <tr>
+               <th>STT</th>
+               <th>Loại Phòng</th>
+               <th>Mã</th>
+               <th>Tầng</th>
+               <th></th>
+               <th></th>
+               </tr>
+             </thead>
+             <tbody>
+              {listPhongChitiet}
+             </tbody>
+          </table>*/}
+          <BootstrapTable data={this.state.state2.phongchitiet} striped={true} hover={true} options={ options } search pagination exportCSV>
+              
+              <TableHeaderColumn dataField="tentang" dataSort={true}>Tầng</TableHeaderColumn>
+              <TableHeaderColumn dataField="loaiphong" isKey={true} dataAlign="" dataSort={true}>Loại phòng</TableHeaderColumn>
+              <TableHeaderColumn dataField="ma" >Mã phòng</TableHeaderColumn>
+
+              <TableHeaderColumn dataField="_id" dataFormat={this.buttonFormatter.bind(this, '_id')} width='60'>Xóa</TableHeaderColumn>
+          </BootstrapTable>
+        </div>
       </div>
     );
   }
 }
+
+class MySearchField extends React.Component {
+  // It's necessary to implement getValue
+  getValue() {
+    return ReactDOM.findDOMNode(this).value;
+  }
+
+  // It's necessary to implement setValue
+  setValue(value) {
+    ReactDOM.findDOMNode(this).value = value;
+  }
+
+  render() {
+    return (
+      <input
+        className={ `form-control` }
+        type='text'
+        defaultValue={ this.props.defaultValue }
+        placeholder={ this.props.placeholder }
+        onKeyUp={ this.props.search }/>
+    );
+  }
+}
+
 export default Phong;

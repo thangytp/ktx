@@ -18,7 +18,7 @@ const AddTangModal = React.createClass({
     return (
       <Modal {...this.props} bsSize="large" aria-labelledby="contained-modal-title-lg">
         <Modal.Header closeButton>
-          <Modal.Title id="contained-modal-title-lg">Modal heading</Modal.Title>
+          <Modal.Title id="contained-modal-title-lg">Thêm tầng</Modal.Title>
         </Modal.Header>
         <Modal.Body>
         <form onSubmit={this.handleAddTang.bind(this)}>
@@ -26,11 +26,11 @@ const AddTangModal = React.createClass({
             <label for="exampleInputEmail1">Tầng</label>
             <input type="Number" className="form-control" ref="loai" placeholder="Tầng" />
           </div>
-          <button className="btn btn-success btn-large" type="submit">Thêm Tầng</button>
+          <button className="btn btn-success btn-large" type="submit">Thêm</button>
         </form>
         </Modal.Body>
         <Modal.Footer>
-          <Button onClick={this.props.onHide}>Close</Button>
+          <Button onClick={this.props.onHide}>Hủy</Button>
         </Modal.Footer>
       </Modal>
     );
@@ -87,10 +87,10 @@ class Tang extends Component {
       <AddTangModal show={this.state.addModalShow} onHide={addModalClose} />
       <h1>Tầng</h1>
       <div className="table-responsive">
-        <table className="table">
+        <table className="table white-bg table-striped table-hover table-success">
           <thead>
            <tr>
-             <th>#</th>
+             <th>STT</th>
              <th>Tầng</th>
              <th></th>
              <th></th>
