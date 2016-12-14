@@ -1,0 +1,31 @@
+.btn-fb {
+    background-color: #3E7CF7;
+    border-color: #3E7CF7;
+    color: white;
+}
+.btn-fb:hover {
+    background-color: #3E7CF7;
+    border-color: #3E7CF7;
+    color: white;
+}
+.search{
+    border-right: none !important;
+    border-top-left-radius: 50% !important; 
+    border-bottom-left-radius: 50% !important;
+}
+.search:focus{
+    border: 1px solid #cccccc !important;
+    border-right: none !important;
+}
+.btn-search{
+    border-left: none !important;
+    border-top-right-radius: 50%;
+    border-bottom-right-radius: 50%;
+}
+.btn-search:hover{
+    background-color: #fff;
+    color: #3E7CF7;
+}
+.nML{
+    margin-left: 0 !important;
+}

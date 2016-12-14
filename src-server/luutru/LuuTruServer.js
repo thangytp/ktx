@@ -116,6 +116,21 @@ function LuuTruServer(app){
 		});
 	});
 
+	app.get('/api/getInfostudent/:id', function(req, res, next){
+		var mssv = req.params.id;
+		student.findOne({ma_sinh_vien: mssv})
+		.populate('_phongchitiet_id')
+		.populate('_khoa_id')
+		.populate('_he_dao_tao_id')
+
+		.exec(function(err, stuR){
+			if(err) return next(err);
+			console.log(stuR);
+			res.send(stuR);
+
+		});
+	});
+
 	app.get('/api/getphongbyid/:id', function(req, res, next){
 		var id= req.params.id;
 		Phong.findOne({_id: id}, function(err, phongRes){

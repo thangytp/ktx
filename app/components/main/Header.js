@@ -90,7 +90,16 @@ class Header extends React.Component {
                                                     <li><Link to="/xem-ket-qua-luu-tru">Xem kết quả đăng ký lưu trú</Link></li>
                                                 </ul>
                                             </li>
-                                            
+                                            <li className="nML">
+                                                <form className="navbar-form" role="search">
+                                                <div className="input-group">
+                                                    <input type="text" className="form-control search" placeholder="Search" name="q"/>
+                                                    <div className="input-group-btn">
+                                                        <button className="btn btn-default btn-search" type="submit"><i className="fa fa-search" aria-hidden="true"></i></button>
+                                                    </div>
+                                                </div>
+                                                </form>
+                                            </li>
                                         </ul>
                                         
                                     </div>
