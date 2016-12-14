@@ -15,6 +15,7 @@ class DangKyLuuTruStore {
         this.titleForm = 'Đăng ký lưu trú';
         this.daDangKyLuuTru = '';
         this.daGiaHan = '';
+        this.displayQuayLaiBtn = '';
 
         this.idStu = '';
         this.holot = '';
@@ -676,6 +677,7 @@ class DangKyLuuTruStore {
             this.styleFormThongTinCaNhan = 'none';
             this.styleFormDangKyLuuTru = 'block';
             this.titleForm = 'Gia hạn lưu trú';
+            this.displayQuayLaiBtn = 'none';
             this.daDangKyLuuTru = data;
             this.idStu = data._id;
             this.gioitinh = data.phai;

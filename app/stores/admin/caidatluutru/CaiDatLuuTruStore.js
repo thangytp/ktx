@@ -98,8 +98,8 @@ class CaiDatLuuTruStore {
 				this.ngayBatDauDangKy = moment(data[0].dangkymoi.ngaybatdaudangky);
 				this.ngayKetThucDangKy = moment(data[0].dangkymoi.ngayketthucdangky);
 
-				this.ngayBatDauDangKyMain = data[0].dangkymoi.ngaybatdaudangky;
-				this.ngayKetThucDangKyMain = data[0].dangkymoi.ngayketthucdangky;
+				this.ngayBatDauDangKyMain = moment(data[0].dangkymoi.ngaybatdaudangky);
+				this.ngayKetThucDangKyMain = moment(data[0].dangkymoi.ngayketthucdangky);
 			}else{
 				this.ngayBatDauDangKy = moment();
 				this.ngayKetThucDangKy = moment();
