@@ -26,6 +26,9 @@ a {
 ul {
   list-style: none; }
 
+.nav > li > a {
+  padding: 10px 12px; }
+
 .clearboth {
   clear: both !important; }
 
@@ -925,6 +928,11 @@ ul.msg_list li a .message {
   -moz-border-radius: 0px;
   -webkit-border-radius: 0px;
   border-radius: 0px; }
+
+.btn-fb {
+  background-color: #3E7CF7;
+  border-color: #3E7CF7;
+  color: white; }
 
 .btn-success {
   background-color: #8CC152;

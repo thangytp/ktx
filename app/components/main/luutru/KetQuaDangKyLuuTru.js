@@ -38,7 +38,8 @@ export default class KetQuaDangKyLuuTru extends React.Component {
                         <div className="clearfix"></div>
                     </div>
                     <div className="panel-body no-padding">
-                        Chào 
+                        <p>Chào Thắng</p>
+                         
                     </div>
                   </div>
                 </div>
