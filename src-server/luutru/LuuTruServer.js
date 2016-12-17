@@ -88,7 +88,7 @@ function LuuTruServer(app){
 	    try{
 	    	student.findOne({_id: idStu}, function(err, stuRes){
 	    		if(err) return next(err);
-	    		stuRes.update({ $set: {_hoc_luc_id: svhocluc, _hoan_canh_id: svhoancanh, _phong_id: svloaiphong, gia_han_luu_tru: true} }, function(err1, re){
+	    		stuRes.update({ $set: {_hoc_luc_id: svhocluc, _hoan_canh_id: svhoancanh, _phong_id: svloaiphong, gia_han_luu_tru: true, da_dong_tien: false} }, function(err1, re){
 	    			if(err1) return next(err1);
 	    			res.send({message: 'Gia hạn thành công'});
 	    		});

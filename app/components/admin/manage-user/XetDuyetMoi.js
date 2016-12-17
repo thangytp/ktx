@@ -376,7 +376,7 @@ class XetDuyetMoi extends Component {
       contentHocvu = (
         <Tabs defaultActiveKey={1} id="xulyhocvu">
           <Tab eventKey={1} title="Danh sách sinh viên">
-            <div className="table-responsive">
+            <div className="table">
               <table className="table">
                 <thead>
                  <tr>
@@ -395,7 +395,7 @@ class XetDuyetMoi extends Component {
             </div>
           </Tab>
           <Tab eventKey={2} title="Danh sách sinh viên tạm dừng học vụ">
-          <div className="table-responsive">
+          <div className="table">
             <table className="table">
               <thead>
                <tr>
@@ -414,7 +414,7 @@ class XetDuyetMoi extends Component {
           </div>
           </Tab>
           <Tab eventKey={3} title="Danh sách sinh viên đạt tiêu chuẩn">
-          <div className="table-responsive">
+          <div className="table">
             <table className="table">
               <thead>
                <tr>
@@ -433,7 +433,7 @@ class XetDuyetMoi extends Component {
           </div>
           </Tab>
           <Tab eventKey={4} title="Danh sách sinh viên bị loại">
-          <div className="table-responsive">
+          <div className="table">
             <table className="table">
               <thead>
                <tr>
@@ -467,7 +467,7 @@ class XetDuyetMoi extends Component {
       contentDiemrenluyen = (
         <Tabs defaultActiveKey={1} id="xulydiemrenluyen">
           <Tab eventKey={1} title="Danh sách sinh viên">
-            <div className="table-responsive">
+            <div className="table">
               <table className="table">
                 <thead>
                  <tr>
@@ -486,7 +486,7 @@ class XetDuyetMoi extends Component {
             </div>
           </Tab>
           <Tab eventKey={2} title="Danh sách sinh viên trong file excel">
-          <div className="table-responsive">
+          <div className="table">
             <table className="table">
               <thead>
                <tr>
@@ -505,7 +505,7 @@ class XetDuyetMoi extends Component {
           </div>
           </Tab>
           <Tab eventKey={3} title="Danh sách sinh viên đạt tiêu chuẩn">
-          <div className="table-responsive">
+          <div className="table">
             <table className="table">
               <thead>
                <tr>
@@ -524,7 +524,7 @@ class XetDuyetMoi extends Component {
           </div>
           </Tab>
           <Tab eventKey={4} title="Danh sách sinh viên bị loại">
-          <div className="table-responsive">
+          <div className="table">
             <table className="table">
               <thead>
                <tr>
@@ -551,7 +551,7 @@ class XetDuyetMoi extends Component {
       contentDiemxetduyet = null;
     } else {
       contentDiemxetduyet = (
-        <div className="table-responsive">
+        <div className="table">
           <table className="table">
             <thead>
              <tr>

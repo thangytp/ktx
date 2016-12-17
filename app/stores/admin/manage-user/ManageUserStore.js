@@ -1,11 +1,13 @@
 import alt from '../../../alt';
 import ManageUserAction from '../../../actions/admin/manage-user/ManageUserAction';
+import ManageTienktxAction from '../../../actions/admin/manage-tienktx/ManageTienktxAction';
 import localStorage from 'localStorage';
 import moment from 'moment';
 
 class ManageUserStore {
   constructor() {
     this.bindActions(ManageUserAction);
+    this.bindActions(ManageTienktxAction);
     this.users = [];
     this.usersehv = [];
     this.usershv = [];
@@ -106,6 +108,8 @@ class ManageUserStore {
 
   getUsersByDiemXetDuyetXetDuyetSuccess(response) {
     this.usersdxd = response;
+    console.log(response);
+    ManageTienktxAction.addTien(response);
   }
   onGetUsersByDiemRenLuyenKtxSuccess(response) {
     this.usersdrlktx = response;
@@ -221,7 +225,7 @@ class ManageUserStore {
     this.holot = response.ho_lot;
     this.ten = response.ten;
     this.ngaySinh = moment(response.ngay_sinh);
-  
+
     this.gioitinh = response.phai;
     this.svkhoa = response._khoa_id;
     this.svhedaotao = response._he_dao_tao_id;

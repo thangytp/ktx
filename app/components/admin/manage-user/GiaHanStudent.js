@@ -22,9 +22,22 @@ const UpdateUserModal = React.createClass({
         userId: this.props.user._id,
         phongchitiet: this.state.loai,
         tang: this.state.tang,
-        maktx: this.refs.maktx.value
+        maktx: this.refs.maktx.value,
+        giuong: this.state.giuong,
+        vaitro: this.state.vaitro,
+        giahan: true
     };
     ManageUserAction.updateInfoKtx(data);
+    const data1 = {
+      userId: this.props.user._id,
+      tengiuongcu: this.props.user.ma_giuong,
+      tengiuongmoi: this.state.giuong
+    }
+    ManagePhongChitietAction.updateGiuongDangky(data1);
+  },
+
+  handleChangeGiuong(e) {
+    this.state.giuong = e.target.value;
   },
 
   handleChangePhong(e) {
@@ -99,6 +112,13 @@ const UpdateUserModal = React.createClass({
           <div className="form-group">
             <label for="exampleInputEmail1">Mã Ký Túc Xá</label>
             <input type="text" className="form-control" ref="maktx" placeholder="Mã Ký Túc Xá" />
+          </div>
+          <div className="form-group">
+            <label for="exampleInputEmail1">Vai Trò</label>
+            <select className="form-control" onChange={this.handleChangeVaitro.bind(this)}>
+                <option value='0' selected >Sinh Viên</option>
+                <option value='1'>Trưởng Phòng</option>
+            </select>
           </div>
           <button className="btn btn-success btn-large" type="submit">Cập Nhật</button>
         </form>
@@ -211,6 +231,10 @@ class GiaHanStudent extends React.Component {
         user['tentang'] = user._tang_id ? user._tang_id.ten : '';
         user['tenphong'] = user._phongchitiet_id ? user._phongchitiet_id.ma : '';
         user['maphong'] = user._phong_id ? user._phong_id.loai : '';
+        var giuong = user._phongchitiet_id.giuong.filter(function(obj) {
+            return obj._sinhvien_id == user._id;
+        });
+        user['magiuong'] = giuong[0].ten;
         return user;
 
     });
@@ -253,7 +277,7 @@ class GiaHanStudent extends React.Component {
                  </tbody>
               </table>
             </div> */}
-            <BootstrapTable data={this.state.state1.usersgh} striped={true} hover={true} options={ options } search pagination exportCSV>
+            <BootstrapTable data={listUsers} striped={true} hover={true} options={ options } search pagination exportCSV>
                 <TableHeaderColumn dataField="ma_sinh_vien" isKey={true} dataAlign="center" dataSort={true}>Mã Sinh Viên</TableHeaderColumn>
                 <TableHeaderColumn dataField="ten" dataSort={true}>Họ Tên</TableHeaderColumn>
                 <TableHeaderColumn dataField="email">Email</TableHeaderColumn>
@@ -261,6 +285,7 @@ class GiaHanStudent extends React.Component {
                 <TableHeaderColumn dataField="tentang">Tầng</TableHeaderColumn>
                 <TableHeaderColumn dataField="maphong">Loại Phòng</TableHeaderColumn>
                 <TableHeaderColumn dataField="tenphong">Phòng</TableHeaderColumn>
+                <TableHeaderColumn dataField="magiuong">Giường</TableHeaderColumn>
                 <TableHeaderColumn dataField="so_cmnd">CMND</TableHeaderColumn>
                 <TableHeaderColumn dataField="sdt_sinhvien">SĐT</TableHeaderColumn>
                 <TableHeaderColumn dataField="_id" dataFormat={this.buttonFormatter.bind(this, '_id')}>Cập Nhật Thông Tin Ký Túc Xá</TableHeaderColumn>
