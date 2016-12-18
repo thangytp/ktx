@@ -38,6 +38,8 @@ import SignUp from './components/main/user/SignUp';
 import LogIn from './components/main/user/LogIn';
 import LogInAdmin from './components/admin/LogIn';
 import InfoPage from './components/main/user/InfoPage';
+import Ticket from './components/main/user/Ticket';
+import ViewDetailTicket from './components/main/user/ViewDetailTicket';
 
 import ViewDetailPage from './components/main/page/ViewDetailPage';
 import ViewDetailTinTuc from './components/main/tintuc/ViewDetailTinTuc';
@@ -93,6 +95,8 @@ export default (
             <Route path='/xem-ket-qua-luu-tru' component={KetQuaDangKyLuuTru}/>
             <Route path='/login' component={LogIn}/>
             <Route path='/thong-tin-ca-nhan' component={InfoPage}/>
+            <Route path='/cau-hoi' component={Ticket}/>
+            <Route path='/cau-hoi/:id' component={ViewDetailTicket}/>
             <Route path='/tin-tuc/:link' component={ViewDetailTinTuc} />
             <Route path=':link/:link2' component={ViewDetailPage}/>
             <Route path=':link/:link2/:link3' component={ViewDetailPage}/>

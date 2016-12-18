@@ -12,7 +12,7 @@ import ManagePhongChitietStore from '../../../stores/admin/manage-phong/ManagePh
 const UpdateUserModal = React.createClass({
 
   getInitialState: function() {
-    return {loai: '', tang: '', listPhongChitiet: []};
+    return {loai: '', tang: '', listPhongChitiet: [], listGiuongChitiet: []};
   },
 
   handleUpdateKtx(e) {
@@ -40,8 +40,20 @@ const UpdateUserModal = React.createClass({
     this.state.giuong = e.target.value;
   },
 
+  handleChangeVaitro(e) {
+    this.state.vaitro = e.target.value;
+  },
+
   handleChangePhong(e) {
     this.state.loai = e.target.value;
+    var giuongByPhong = this.props.phongchitiet.filter(function(obj) {
+        return obj._id == e.target.value;
+    });
+      giuongByPhong[0].giuong = giuongByPhong[0].giuong.filter(function(obj) {
+          return obj.da_dang_ky == false;
+      });
+      console.log(giuongByPhong[0].giuong);
+    this.setState({listGiuongChitiet : giuongByPhong[0].giuong});
   },
 
   handleChangeTang(e) {
@@ -107,6 +119,21 @@ const UpdateUserModal = React.createClass({
                     </option>
                   );
                 })}
+            </select>
+          </div>
+          <div className="form-group">
+            <label for="exampleInputPassword1">Chọn Giường</label>
+            <select className="form-control" onChange={this.handleChangeGiuong.bind(this)}>
+                <option value='0'>--Chọn--</option>
+                {
+                  this.state.listGiuongChitiet.map(function(giuong, index){
+                  return (
+                    <option value={giuong.ten} key={index}>
+                      {giuong.ten}
+                    </option>
+                  );
+                })
+              }
             </select>
           </div>
           <div className="form-group">
@@ -227,14 +254,17 @@ class GiaHanStudent extends React.Component {
   render() {
 
     let listUsers = this.state.state1.usersgh.map(function(user, index){
-
+        console.log(user);
         user['tentang'] = user._tang_id ? user._tang_id.ten : '';
         user['tenphong'] = user._phongchitiet_id ? user._phongchitiet_id.ma : '';
         user['maphong'] = user._phong_id ? user._phong_id.loai : '';
-        var giuong = user._phongchitiet_id.giuong.filter(function(obj) {
-            return obj._sinhvien_id == user._id;
-        });
-        user['magiuong'] = giuong[0].ten;
+        var giuong;
+        if(user._phongchitiet_id){
+          giuong = user._phongchitiet_id.giuong.filter(function(obj) {
+              return obj._sinhvien_id == user._id;
+          });
+        }
+        user['magiuong'] = user._phongchitiet_id ? giuong[0].ten : '';
         return user;
 
     });
@@ -286,6 +316,7 @@ class GiaHanStudent extends React.Component {
                 <TableHeaderColumn dataField="maphong">Loại Phòng</TableHeaderColumn>
                 <TableHeaderColumn dataField="tenphong">Phòng</TableHeaderColumn>
                 <TableHeaderColumn dataField="magiuong">Giường</TableHeaderColumn>
+                <TableHeaderColumn dataField="tien_ktx">Số tiền phải đóng</TableHeaderColumn>
                 <TableHeaderColumn dataField="so_cmnd">CMND</TableHeaderColumn>
                 <TableHeaderColumn dataField="sdt_sinhvien">SĐT</TableHeaderColumn>
                 <TableHeaderColumn dataField="_id" dataFormat={this.buttonFormatter.bind(this, '_id')}>Cập Nhật Thông Tin Ký Túc Xá</TableHeaderColumn>

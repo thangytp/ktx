@@ -301,7 +301,7 @@ class XetDuyetMoi extends Component {
     });
 
     let contentTab3;
-
+    console.log(this.state.state2);
     if(this.state.state2.chitieu[0] === undefined) {
         contentTab3 = null
     } else {
@@ -309,7 +309,7 @@ class XetDuyetMoi extends Component {
         <Tabs defaultActiveKey={1} id="tienhanhgiahan">
           {this.state.state2.chitieu[0].chitiet.map(function(chitiet, index){
             return (
-              <Tab eventKey={index + 1} title={'Phòng ' + chitiet._phong_id.loai}>
+              <Tab eventKey={index + 1} title={'Phòng ' + chitiet._phong_id.ten}>
                 <div className="dropdown col-md-2 mt-10">
                   <button className="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Năm 1
                   <span className="caret"></span></button>

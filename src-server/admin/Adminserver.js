@@ -278,8 +278,9 @@ module.exports = function(app, importStudent) {
     } else {
       fYear = cYear - req.params.nam;
     }
+    console.log(req.params.phongid);
     Student
-    .find({_phong_id: req.params.phongid, tamdung_hocvu : false, dang_o_ktx: true, diem_ren_luyen : {$gt: req.params.drl}, 'diem_ren_luyen_ktx.tong' : {$gt : req.params.drlktx}, 'diem_ren_luyen_ktx.ve_sinh' : {$gt : req.params.dvs}, diem_xet_duyet : { $ne:null }, phai : req.params.phai, nam_vao_truong : fYear})
+    .find({_phong_id: req.params.phongid, tamdung_hocvu : false, dang_o_ktx: true, diem_ren_luyen : {$gt: req.params.drl}, 'diem_ren_luyen_ktx.tong' : {$gt : req.params.drlktx}, 'diem_ren_luyen_ktx.ve_sinh' : {$gt : req.params.dvs}, diem_xet_duyet : { $ne:null },phai : req.params.phai, nam_vao_truong : fYear})
     .populate('dich_vu._dichvu_id')
     .populate('_phong_id')
     .sort('-diem_ren_luyen')
@@ -352,7 +353,7 @@ module.exports = function(app, importStudent) {
     else if(cMonth >= 5 && cMonth <= 7) {
       cSemester = 3;
     }
-    Student.findByIdAndUpdate(req.params.stuId, {_tang_id: req.body.tang, ma_ktx : req.body.maktx, ma_giuong: req.body.giuong, _phongchitiet_id : req.body.phongchitiet, role: parseInt(req.body.vaitro), da_dong_tien: true} , { new: true }, function (err, student) {
+    Student.findByIdAndUpdate(req.params.stuId, {_tang_id: req.body.tang, ma_ktx : req.body.maktx, ma_giuong: req.body.giuong, _phongchitiet_id : req.body.phongchitiet, role: parseInt(req.body.vaitro), dang_o_ktx: true} , { new: true }, function (err, student) {
       if (err) throw err;
       Tienktx.findOneAndUpdate({_sinhvien_id : req.params.stuId, nam: cYear, ki: cSemester}, {da_dong_tien: true}, {new : true}, function(err){
         if(err) throw err;
