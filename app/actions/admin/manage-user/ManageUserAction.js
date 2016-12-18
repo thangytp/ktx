@@ -176,7 +176,6 @@ class ManageUserAction {
       type: 'GET'
     })
     .done((data) => {
-      console.log(data);
       this.actions.getUsersByDiemXetDuyetXetDuyetSuccess(data);
     })
   }

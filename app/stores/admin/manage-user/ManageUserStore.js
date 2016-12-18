@@ -102,13 +102,12 @@ class ManageUserStore {
   }
 
   getUsersByDiemXetDuyetGiaHanSuccess(response) {
-    console.log(response);
     this.usersdxdgh = response;
+    ManageTienktxAction.addTien(response);
   }
 
   getUsersByDiemXetDuyetXetDuyetSuccess(response) {
     this.usersdxd = response;
-    console.log(response);
     ManageTienktxAction.addTien(response);
   }
   onGetUsersByDiemRenLuyenKtxSuccess(response) {

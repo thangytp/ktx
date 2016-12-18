@@ -47,13 +47,13 @@ const UpdateUserModal = React.createClass({
 
   handleChangePhong(e) {
     this.state.loai = e.target.value;
+    console.log(giuongByPhong);
     var giuongByPhong = this.props.phongchitiet.filter(function(obj) {
         return obj._id == e.target.value;
     });
       giuongByPhong[0].giuong = giuongByPhong[0].giuong.filter(function(obj) {
           return obj.da_dang_ky == false;
       });
-    console.log(giuongByPhong[0].giuong);
     this.setState({listGiuongChitiet : giuongByPhong[0].giuong});
   },
 

@@ -244,7 +244,7 @@ input:focus, textarea:focus {
     margin-right: 0px;
 }
 .navbar-toolbar .navbar-right .dropdown > a {
-    
+
 }
 //sidebar left
 #sidebar-left {
@@ -909,7 +909,7 @@ ul.msg_list li a .message {
   .font20{
     font-size: 20px;
   }
-  
+
   .tooltip {
       z-index: 1000;
     }
@@ -1037,6 +1037,7 @@ ul.msg_list li a .message {
 }
 .table tbody tr td {
     background-color: #FBFBFB;
+    vertical-align: middle !important;
 }
 .table.table-striped tbody tr:nth-child(odd) td, .table.table-striped tbody tr:nth-child(odd) th {
     background-color: #f6f6f6;
@@ -1111,7 +1112,7 @@ ul.msg_list li a .message {
     .form-footer [class*="col-"] .btn {
         margin-left: 10px;
     }
-    
+
     .no-padding {
         padding: 0 !important;
     }
@@ -1133,7 +1134,7 @@ ul.msg_list li a .message {
         border-radius: 0px;
     }
 
-  
+
 
 
 /*====================== end css admin ============*/
@@ -1171,7 +1172,7 @@ ul.msg_list li a .message {
   border-radius: 0px !important;
 }
 .main-header{
- 
+
 }
 .main-navigation{
     background-color: #fff;
@@ -1332,7 +1333,7 @@ a {
     margin-top: -6px;
     border-top-left-radius: 0;
     z-index: 1000;
-    
+
     float: left;
     min-width: 160px;
     padding: 5px 0;
@@ -1355,9 +1356,9 @@ a {
 	margin-right: 5px;
 	margin-top: -3px;
 	width: 30px;
-} 
+}
 .user-email{
-	
+
 }
 /*======================css home page==============*/
 #tin-tuc-moi{
@@ -1410,7 +1411,7 @@ a {
 }
 
 .panel-item-tintuc{
-    
+
     img{
         height: 150px;
         display: block;
@@ -1440,7 +1441,7 @@ a {
                 margin-top: 0px;
             }
         }
-    
+
 }
 .title-item-right{
     h3{
@@ -1551,7 +1552,7 @@ a {
     .avatar{
         width: 100%;
     }
-	
+
 }
 
 /*====================== css lien ket site =============*/
