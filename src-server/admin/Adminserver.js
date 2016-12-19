@@ -13,6 +13,8 @@ var Phongchitiet = require('../../models/phongchitiet');
 var Dichvu = require('../../models/dichvu');
 var Hedaotao = require('../../models/hedaotao');
 
+var Tienktx = require('../../models/tienktx');
+
 
 var xlstojson = require("xls-to-json-lc");
 var xlsxtojson = require("xlsx-to-json-lc");
@@ -271,7 +273,7 @@ module.exports = function(app, importStudent) {
           student.dich_vu.forEach(function(dichvu){
             tienKTX += dichvu._dichvu_id.gia;
           });
-          student.update({$set : {xet_duyet_thanh_cong: true, 'tien_ktx.tien' : tienKTX + tienphong}}, {new: true}, function(err){
+          student.update({$set : {xet_duyet_thanh_cong: true, 'tien_ktx' : tienKTX + tienphong}}, {new: true}, function(err){
             if(err) throw err;
           });
         });
@@ -290,8 +292,9 @@ module.exports = function(app, importStudent) {
     } else {
       fYear = cYear - req.params.nam;
     }
+    console.log(req.params.phongid);
     Student
-    .find({_phong_id: req.params.phongid, tamdung_hocvu : false, dang_o_ktx: true, diem_ren_luyen : {$gt: req.params.drl}, 'diem_ren_luyen_ktx.tong' : {$gt : req.params.drlktx}, 'diem_ren_luyen_ktx.ve_sinh' : {$gt : req.params.dvs}, diem_xet_duyet : { $ne:null }, phai : req.params.phai, nam_vao_truong : fYear})
+    .find({_phong_id: req.params.phongid, tamdung_hocvu : false, dang_o_ktx: true, diem_ren_luyen : {$gt: req.params.drl}, 'diem_ren_luyen_ktx.tong' : {$gt : req.params.drlktx}, 'diem_ren_luyen_ktx.ve_sinh' : {$gt : req.params.dvs}, diem_xet_duyet : { $ne:null },phai : req.params.phai, nam_vao_truong : fYear})
     .populate('dich_vu._dichvu_id')
     .populate('_phong_id')
     .sort('-diem_ren_luyen')
@@ -307,7 +310,7 @@ module.exports = function(app, importStudent) {
           student.dich_vu.forEach(function(dichvu){
             tienKTX += dichvu._dichvu_id.gia;
           });
-          student.update({$set : {gia_han_thanh_cong: true, 'tien_ktx.tien' : tienKTX + tienphong}}, {new: true}, function(err){
+          student.update({$set : {gia_han_thanh_cong: true, 'tien_ktx' : tienKTX + tienphong}}, {new: true}, function(err){
             if(err) throw err;
           });
         });
@@ -362,8 +365,23 @@ module.exports = function(app, importStudent) {
   })
 
   app.put('/updatethongtinktx/:stuId', function(req, res){
-    Student.findByIdAndUpdate(req.params.stuId, {_tang_id: req.body.tang, ma_ktx : req.body.maktx, ma_giuong: req.body.giuong, _phongchitiet_id : req.body.phongchitiet} , { new: true }, function (err, student) {
+    var cYear = new Date().getFullYear(),
+        cMonth = new Date().getMonth() + 1,
+        cSemester = 1;
+    if(cMonth >= 8 && cMonth <= 10) {
+      cSemester = 1;
+    }
+    else if(cMonth === 12 && cMonth === 1) {
+      cSemester = 2;
+    }
+    else if(cMonth >= 5 && cMonth <= 7) {
+      cSemester = 3;
+    }
+    Student.findByIdAndUpdate(req.params.stuId, {_tang_id: req.body.tang, ma_ktx : req.body.maktx, ma_giuong: req.body.giuong, _phongchitiet_id : req.body.phongchitiet, role: parseInt(req.body.vaitro), dang_o_ktx: true} , { new: true }, function (err, student) {
       if (err) throw err;
+      Tienktx.findOneAndUpdate({_sinhvien_id : req.params.stuId, nam: cYear, ki: cSemester}, {da_dong_tien: true}, {new : true}, function(err){
+        if(err) throw err;
+      });
       res.send(student);
     });
   })
@@ -1178,11 +1196,11 @@ module.exports = function(app, importStudent) {
 
       // Add Chi Tieu
       app.put('/updategiuongdachon', function(req, res){
-        Phongchitiet.update({'giuong.ten' : req.body.tengiuongcu}, {'$set':  {'giuong.$.da_dang_ky': false}}, function(err){
-          if(err) res.send(err);
+        Phongchitiet.update({'giuong.ten' : req.body.tengiuongcu}, {'$set':  {'giuong.$.da_dang_ky': false, 'giuong.$._sinhvien_id': null}}, function(err){
+          if(err) throw err;
         });
-        Phongchitiet.update({'giuong.ten' : req.body.tengiuongmoi}, {'$set':  {'giuong.$.da_dang_ky': true}}, function(err){
-          if(err) res.send(err);
+        Phongchitiet.update({'giuong.ten' : req.body.tengiuongmoi}, {'$set':  {'giuong.$.da_dang_ky': true, 'giuong.$._sinhvien_id': req.body.userId}}, function(err){
+          if(err) throw err;
         });
         res.send(true);
       })
@@ -1352,4 +1370,29 @@ module.exports = function(app, importStudent) {
           });
         })
 
+              app.post('/addtien', function(req, res){
+                var cYear = new Date().getFullYear(),
+                    cMonth = new Date().getMonth() + 1,
+                    cSemester = 1;
+                if(cMonth >= 8 && cMonth <= 10) {
+                  cSemester = 1;
+                }
+                else if(cMonth === 12 && cMonth === 1) {
+                  cSemester = 2;
+                }
+                else if(cMonth >= 5 && cMonth <= 7) {
+                  cSemester = 3;
+                }
+                req.body.students.forEach(function(student){
+                  var nTienktx = new Tienktx();
+                  nTienktx._sinhvien_id = student._id;
+                  nTienktx.sotien = student.tien_ktx;
+                  nTienktx.ki = cSemester;
+                  nTienktx.nam = cYear;
+                  nTienktx.save(function(err){
+                    if(err) throw err;
+                  });
+                });
+                res.send(true);
+              })
 }

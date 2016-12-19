@@ -54,7 +54,7 @@ var DiemRenLuyen = React.createClass({
                         <input id="diemrl" ref='diemrl' type="number" name="number" onChange={this.activeInput.bind(this)} />
                       </div>
                     </div>
-                    <div className="col-sm-12"> 
+                    <div className="col-sm-12">
                       <div className="col-sm-offset-3 ">
                         <input ref="file" type="file" name="file" className="upload-file mL10"/>
                         <input type="button" ref="button" className="btn btn-success mL10" value="Upload" disabled={this.state.activeUploadDrl} onClick={this.uploadFile.bind(this)} />
@@ -106,7 +106,7 @@ var DiemRenLuyenKtx = React.createClass({
                       <input id="diemvs" ref='diemvs' type="number" name="number2" onChange={this.activeInput2.bind(this)} />
                     </div>
                   </div>
-                  <div className="col-sm-12"> 
+                  <div className="col-sm-12">
                     <div className="col-sm-offset-3 ">
                       <input ref="file" type="file" name="file" className="upload-file mL10"/>
                       <input type="button" ref="button" className="btn btn-success mL10" value="Upload" disabled={this.state.activeUploadDrlKtx || this.state.activeUploadDvs} onClick={this.uploadFile.bind(this)} />
@@ -301,7 +301,7 @@ class XetDuyetMoi extends Component {
     });
 
     let contentTab3;
-
+    console.log(this.state.state2);
     if(this.state.state2.chitieu[0] === undefined) {
         contentTab3 = null
     } else {
@@ -309,7 +309,7 @@ class XetDuyetMoi extends Component {
         <Tabs defaultActiveKey={1} id="tienhanhgiahan">
           {this.state.state2.chitieu[0].chitiet.map(function(chitiet, index){
             return (
-              <Tab eventKey={index + 1} title={'Phòng ' + chitiet._phong_id.loai}>
+              <Tab eventKey={index + 1} title={'Phòng ' + chitiet._phong_id.ten}>
                 <div className="dropdown col-md-2 mt-10">
                   <button className="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Năm 1
                   <span className="caret"></span></button>
@@ -468,7 +468,7 @@ class XetDuyetMoi extends Component {
       contentHocvu = (
         <Tabs defaultActiveKey={1} id="xulyhocvu">
           <Tab eventKey={1} title="Danh sách sinh viên">
-            <div className="table-responsive">
+            <div className="table">
               <table className="table">
                 <thead>
                  <tr>
@@ -487,7 +487,7 @@ class XetDuyetMoi extends Component {
             </div>
           </Tab>
           <Tab eventKey={2} title="Danh sách sinh viên tạm dừng học vụ">
-          <div className="table-responsive">
+          <div className="table">
             <table className="table">
               <thead>
                <tr>
@@ -506,7 +506,7 @@ class XetDuyetMoi extends Component {
           </div>
           </Tab>
           <Tab eventKey={3} title="Danh sách sinh viên đạt tiêu chuẩn">
-          <div className="table-responsive">
+          <div className="table">
             <table className="table">
               <thead>
                <tr>
@@ -525,7 +525,7 @@ class XetDuyetMoi extends Component {
           </div>
           </Tab>
           <Tab eventKey={4} title="Danh sách sinh viên bị loại">
-          <div className="table-responsive">
+          <div className="table">
             <table className="table">
               <thead>
                <tr>
@@ -559,7 +559,7 @@ class XetDuyetMoi extends Component {
       contentDiemrenluyen = (
         <Tabs defaultActiveKey={1} id="xulydiemrenluyen">
           <Tab eventKey={1} title="Danh sách sinh viên">
-            <div className="table-responsive">
+            <div className="table">
               <table className="table">
                 <thead>
                  <tr>
@@ -578,7 +578,7 @@ class XetDuyetMoi extends Component {
             </div>
           </Tab>
           <Tab eventKey={2} title="Danh sách sinh viên không đủ điểm rèn luyện">
-          <div className="table-responsive">
+          <div className="table">
             <table className="table">
               <thead>
                <tr>
@@ -597,7 +597,7 @@ class XetDuyetMoi extends Component {
           </div>
           </Tab>
           <Tab eventKey={3} title="Danh sách sinh viên đạt tiêu chuẩn">
-          <div className="table-responsive">
+          <div className="table">
             <table className="table">
               <thead>
                <tr>
@@ -616,7 +616,7 @@ class XetDuyetMoi extends Component {
           </div>
           </Tab>
           <Tab eventKey={4} title="Danh sách sinh viên bị loại">
-          <div className="table-responsive">
+          <div className="table">
             <table className="table">
               <thead>
                <tr>
@@ -651,7 +651,7 @@ class XetDuyetMoi extends Component {
       contentDiemrenluyenKtx = (
         <Tabs defaultActiveKey={1} id="xulydiemrenluyenktx">
           <Tab eventKey={1} title="Danh sách sinh viên">
-            <div className="table-responsive">
+            <div className="table">
               <table className="table">
                 <thead>
                  <tr>
@@ -670,7 +670,7 @@ class XetDuyetMoi extends Component {
             </div>
           </Tab>
           <Tab eventKey={2} title="Danh sách sinh viên không đủ điểm rèn luyện">
-          <div className="table-responsive">
+          <div className="table">
             <table className="table">
               <thead>
                <tr>
@@ -689,7 +689,7 @@ class XetDuyetMoi extends Component {
           </div>
           </Tab>
           <Tab eventKey={3} title="Danh sách sinh viên đạt tiêu chuẩn">
-          <div className="table-responsive">
+          <div className="table">
             <table className="table">
               <thead>
                <tr>
@@ -708,7 +708,7 @@ class XetDuyetMoi extends Component {
           </div>
           </Tab>
           <Tab eventKey={4} title="Danh sách sinh viên bị loại">
-          <div className="table-responsive">
+          <div className="table">
             <table className="table">
               <thead>
                <tr>
@@ -735,7 +735,7 @@ class XetDuyetMoi extends Component {
       contentDiemxetduyet = null;
     } else {
       contentDiemxetduyet = (
-        <div className="table-responsive">
+        <div className="table">
           <table className="table">
             <thead>
              <tr>
@@ -776,7 +776,7 @@ class XetDuyetMoi extends Component {
                 <li><Link to="/quanly@ktx"><i className="fa fa-home" aria-hidden="true"></i> Trang quản trị</Link></li>
                 <li>Gia hạn lưu trú cũ</li>
               </ol>
-              
+
               <Tabs defaultActiveKey={1} id="luutrumoi">
                 <Tab eventKey={1} title="Bước 1">
                   {contentHocvu}
@@ -792,7 +792,7 @@ class XetDuyetMoi extends Component {
                   {contentDiemxetduyet}
                 </Tab>
               </Tabs>
-              
+
             </div>
           </div>
       </div>

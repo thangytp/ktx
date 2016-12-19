@@ -25,10 +25,12 @@ const UpdateUserModal = React.createClass({
         tang: this.state.tang,
         maktx: this.refs.maktx.value,
         giuong: this.state.giuong,
+        vaitro: this.state.vaitro,
         xetduyet: true
     };
     ManageUserAction.updateInfoKtx(data);
     const data1 = {
+      userId: this.props.user._id,
       tengiuongcu: this.props.user.ma_giuong,
       tengiuongmoi: this.state.giuong
     }
@@ -39,15 +41,19 @@ const UpdateUserModal = React.createClass({
     this.state.giuong = e.target.value;
   },
 
+  handleChangeVaitro(e) {
+    this.state.vaitro = e.target.value;
+  },
+
   handleChangePhong(e) {
     this.state.loai = e.target.value;
+    console.log(giuongByPhong);
     var giuongByPhong = this.props.phongchitiet.filter(function(obj) {
         return obj._id == e.target.value;
     });
       giuongByPhong[0].giuong = giuongByPhong[0].giuong.filter(function(obj) {
           return obj.da_dang_ky == false;
       });
-    console.log(giuongByPhong[0].giuong);
     this.setState({listGiuongChitiet : giuongByPhong[0].giuong});
   },
 
@@ -134,6 +140,13 @@ const UpdateUserModal = React.createClass({
           <div className="form-group">
             <label for="exampleInputEmail1">Mã Ký Túc Xá</label>
             <input type="text" className="form-control" ref="maktx" placeholder="Mã Ký Túc Xá" />
+          </div>
+          <div className="form-group">
+            <label for="exampleInputEmail1">Vai Trò</label>
+            <select className="form-control" onChange={this.handleChangeVaitro.bind(this)}>
+                <option value='0' selected >Sinh Viên</option>
+                <option value='1'>Trưởng Phòng</option>
+            </select>
           </div>
           <button className="btn btn-success btn-large" type="submit">Cập Nhật</button>
         </form>
@@ -240,28 +253,24 @@ class XetDuyetStudent extends React.Component {
   }
 
   render() {
-    console.log(this.state.state1.usersxd);
+
     let listUsers = this.state.state1.usersxd.map(function(user, index){
-      var tentang = user._tang_id ? user._tang_id.ten : '',
-          loaiphong = user._phong_id ? user._phong_id.ten : '',
-          maphong = user._phongchitiet_id ? user._phongchitiet_id.ma : '';
-        return (
-          <tr>
-           <th scope="row">{index + 1}</th>
-           <td>{user.ten}</td>
-           <td>{user.email}</td>
-           <td>{user.ma_sinh_vien}</td>
-           <td>{user.ma_ktx}</td>
-           <td>{tentang}</td>
-           <td>{loaiphong}</td>
-           <td>{maphong}</td>
-           <td>{user.ma_giuong}</td>
-           <td>{user.so_cmnd}</td>
-           <td>{user.dien_thoai}</td>
-           <td><button className="btn btn-success" onClick={this.handleUpdateKtx.bind(this, user._id)}>Cập nhật thông tin trong ký túc xá</button></td>
-          </tr>
-        )
-    }, this);
+
+        user['tentang'] = user._tang_id ? user._tang_id.ten : '';
+        user['tenphong'] = user._phongchitiet_id ? user._phongchitiet_id.ma : '';
+        user['maphong'] = user._phong_id ? user._phong_id.loai : '';
+        var giuong;
+        if(user._phongchitiet_id){
+          giuong = user._phongchitiet_id.giuong.filter(function(obj) {
+              return obj._sinhvien_id == user._id;
+          });
+        }
+        user['magiuong'] = user._phongchitiet_id ? giuong[0].ten : '';
+        return user;
+    });
+
+    console.log(listUsers);
+
 
     let updateModalClose = () => this.setState({ updateModalShow: false });
     const props = {user: this.state.state1.user, tang: this.state.state2.tang, phongchitiet: this.state.state3.phongchitiet};
@@ -279,30 +288,7 @@ class XetDuyetStudent extends React.Component {
               <li><Link to="/quanly@ktx"><i className="fa fa-home" aria-hidden="true"></i> Trang quản trị</Link></li>
               <li>Danh sách xét duyệt thành công</li>
             </ol>
-            {/*<div className="table-responsive">
-              <table className="table">
-                <thead>
-                 <tr>
-                   <th>#</th>
-                   <th>Họ Tên</th>
-                   <th>Email</th>
-                   <th>MSSV</th>
-                   <th>Mã KTX</th>
-                   <th>Tầng</th>
-                   <th>Loại Phong</th>
-                   <th>Mã Phòng</th>
-                   <th>Mã Giường</th>
-                   <th>CMND</th>
-                   <th>SDT</th>
-                   <th></th>
-                   </tr>
-                 </thead>
-                 <tbody>
-                  {listUsers}
-                 </tbody>
-              </table>
-            </div>*/}
-            <BootstrapTable data={this.state.state1.usersxd} striped={true} hover={true} options={ options } search pagination exportCSV>
+            <BootstrapTable data={listUsers} striped={true} hover={true} options={ options } search pagination exportCSV>
                 <TableHeaderColumn dataField="ma_sinh_vien" isKey={true} dataAlign="center" dataSort={true}>Mã Sinh Viên</TableHeaderColumn>
                 <TableHeaderColumn dataField="ten" dataSort={true}>Họ Tên</TableHeaderColumn>
                 <TableHeaderColumn dataField="email">Email</TableHeaderColumn>
@@ -310,6 +296,8 @@ class XetDuyetStudent extends React.Component {
                 <TableHeaderColumn dataField="tentang">Tầng</TableHeaderColumn>
                 <TableHeaderColumn dataField="maphong">Loại Phòng</TableHeaderColumn>
                 <TableHeaderColumn dataField="tenphong">Phòng</TableHeaderColumn>
+                <TableHeaderColumn dataField="magiuong">Giường</TableHeaderColumn>
+                <TableHeaderColumn dataField="tien_ktx">Số tiền phải đóng</TableHeaderColumn>
                 <TableHeaderColumn dataField="so_cmnd">CMND</TableHeaderColumn>
                 <TableHeaderColumn dataField="dien_thoai">SĐT</TableHeaderColumn>
                 <TableHeaderColumn dataField="_id" dataFormat={this.buttonFormatter.bind(this, '_id')}>Cập Nhật Thông Tin Ký Túc Xá</TableHeaderColumn>

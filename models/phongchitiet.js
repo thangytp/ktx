@@ -6,7 +6,8 @@ var phongchitietSchema = new mongoose.Schema({
   ma: 'String',
   giuong: [{
     ten: {type : 'String'},
-    da_dang_ky: {type : 'Boolean', default: false}
+    da_dang_ky: {type : 'Boolean', default: false},
+    _sinhvien_id : {type: mongoose.Schema.Types.ObjectId}
   }]
 });
 module.exports = mongoose.model('Phongchitiet', phongchitietSchema);
