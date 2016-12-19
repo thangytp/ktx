@@ -5,8 +5,24 @@ class ManageDichvuAction {
     this.generateActions(
       'addDichvuSuccess',
       'getDichvuSuccess',
-      'delDichvuSuccess'
+      'delDichvuSuccess',
+      'openMoDDeleteDichvu',
+      'closeModalDeleteDichvu',
+
+      'updateTenDV',
+      'updateGiaDV',
+      'updateDichvuSuccess',
+      'showEditDichvu',
+      'closeModalEdit'
     );
+  }
+
+  openMoDDeleteDichvu(id){
+    this.actions.openMoDDeleteDichvu(id);
+  }
+
+  showEditDichvu(dichvu){
+    this.actions.showEditDichvu(dichvu);
   }
 
   getDichvu() {
@@ -37,6 +53,17 @@ class ManageDichvuAction {
     })
     .done((data) => {
       this.actions.addDichvuSuccess();
+    })
+  }
+
+  updateDichvu(payload) {
+    $.ajax({
+      url: '/api/updatedichvu',
+      type: 'PUT',
+      data: payload
+    })
+    .done((data) => {
+      this.actions.updateDichvuSuccess(data.message);
     })
   }
 }

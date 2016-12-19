@@ -470,19 +470,118 @@ class ManageStudent extends React.Component {
   handleEditUser(e) {
 
     e.preventDefault()
-    const data = {
-        email: this.refs.email.value,
-        id: this.props.user._id,
-        holot: this.refs.holot.value,
-        ten: this.refs.ten.value,
-        khuvuc: this.refs.khuvuc.value,
-        tinh: this.props.user.tinh,
-        doituong: this.props.user.doituong,
-        hocluc: this.props.user.hocluc,
-        hoancanh: this.props.user.hoancanh
-    };
-    console.log(data);
-    // ManageUserAction.editUser(data);
+    var idEdit = this.state.state1.idEdit;
+    var holot = this.state.state1.holot.trim();
+    var ten = this.state.state1.ten.trim();
+    var ngaySinh = this.state.state1.ngaySinh._d;
+    var gioitinh = this.state.state1.gioitinh;
+    var svkhoa = this.state.state1.svkhoa;
+    var svhedaotao = this.state.state1.svhedaotao;
+
+    var namvaotruong = this.state.state1.namvaotruong;
+    var svkhuvuc = this.state.state1.svkhuvuc;
+    var svtinh = this.state.state1.svtinh;
+    var svdoituong = this.state.state1.svdoituong;
+    var svtongiao = this.state.state1.svtongiao;
+    var svdoanthe = this.state.state1.svdoanthe;
+    var socmnd = this.state.state1.socmnd;
+    var hokhau = this.state.state1.hokhau;
+    var svdienthoai = this.state.state1.svdienthoai;
+    var giadinhdienthoai = this.state.state1.giadinhdienthoai;
+    var emailThuongDung = this.state.state1.emailThuongDung;
+
+    var svhocluc = this.state.state1.svhocluc;
+    var svhoancanh = this.state.state1.svhoancanh;
+    var svloaiphong = this.state.state1.svloaiphong;
+
+    var avatar = this.state.state1.imageUrl;
+
+    var access_token = localStorage.getItem('access_token');
+
+    var presentYear = new Date().getFullYear();
+
+    if(!holot){
+        ManageUserAction.invalidHoLot();
+        this.refs.HoLotTextField.focus();
+    }
+    else if(!ten) {
+        ManageUserAction.invalidTen();
+        this.refs.TenTextField.focus();
+    }
+    else if(svkhuvuc==0){
+        ManageUserAction.invalidKhuVuc();
+        this.refs.KhuVucTextField.focus();
+    }
+    else if(gioitinh==0){
+        ManageUserAction.invalidGioiTinh();
+    }
+    else if(!ngaySinh || (presentYear - ngaySinh.getFullYear()) < 18 ){
+        ManageUserAction.invalidNgaySinh();
+    }
+    else if(!svtinh){
+        ManageUserAction.invalidTinh();
+        this.refs.TinhTextField.focus();
+    }
+    else if(!svkhoa){
+        ManageUserAction.invalidKhoa();
+        this.refs.KhoaTextField.focus();
+    }
+    else if (namvaotruong > presentYear || (presentYear - namvaotruong) > 6) {
+        ManageUserAction.invalidNam();
+        this.refs.NamTextField.focus();
+    }
+    else if(!svhedaotao){
+        ManageUserAction.invalidHeDaoTao();
+        this.refs.HeDaoTaoTextField.focus();
+    }
+    else if(!svdoituong){
+        ManageUserAction.invalidDoiTuong();
+        this.refs.DoiTuongTextField.focus();
+    }
+    else if(!svtongiao){
+        ManageUserAction.invalidTonGiao();
+        this.refs.TonGiaoTextField.focus();
+    }
+    else if(!svdoanthe){
+        ManageUserAction.invalidDoanThe();
+        this.refs.DoanTheTextField.focus();
+    }
+    else if(!socmnd){
+        ManageUserAction.invalidSoCMND();
+        this.refs.SoCMNDTextField.focus();
+    }
+    else if(!hokhau){
+        ManageUserAction.invalidHoKhau();
+        this.refs.HoKhauTextField.focus();
+    }
+    else if(!svdienthoai){
+        ManageUserAction.invalidSVDienThoai();
+        this.refs.DienThoaiSVTextField.focus();
+    }
+    else if(!giadinhdienthoai){
+        ManageUserAction.invalidGiaDinhDienThoai();
+        this.refs.DienThoaiGiaDinhTextField.focus();
+    }
+    else if(!svhocluc){
+        ManageUserAction.invalidHocluc();
+        this.refs.HocLucTextField.focus();
+    }
+    else if(!svhoancanh){
+        ManageUserAction.invalidHoanCanh();
+        this.refs.HoanCanhTextField.focus();
+    }
+    else if(!svloaiphong){
+        ManageUserAction.invalidLoaiPhong();
+        this.refs.LoaiPhongTextField.focus();
+    }
+    
+    else{
+      ManageUserAction.editUser({access_token: access_token, id: idEdit, holot: holot, ten: ten, ngaySinh: ngaySinh, gioitinh: gioitinh, svkhoa: svkhoa,
+        svhedaotao: svhedaotao, namvaotruong: namvaotruong, svkhuvuc: svkhuvuc, svtinh: svtinh, svdoituong: svdoituong, svtongiao: svtongiao,
+        svdoanthe: svdoanthe, socmnd: socmnd, hokhau: hokhau, svdienthoai: svdienthoai, giadinhdienthoai: giadinhdienthoai,
+        emailThuongDung: emailThuongDung, svhocluc: svhocluc, svhoancanh: svhoancanh, svloaiphong: svloaiphong, avatar: avatar});
+    }
+
   }
   upload(event)
   {
@@ -497,7 +596,7 @@ class ManageStudent extends React.Component {
   }
 
   closeMDEdit(){
-    this.setState({ editModalShow: false });
+    ManageUserAction.closeModalEdit();
   }
 
   onChange(state) {
@@ -635,25 +734,7 @@ class ManageStudent extends React.Component {
               <li><Link to="/quanly@ktx"><i className="fa fa-home" aria-hidden="true"></i> Trang quản trị</Link></li>
               <li>Danh sách sinh viên</li>
             </ol>
-            {/*<div className="table-responsive">
-              <table className="table">
-                <thead>
-                 <tr>
-                   <th>STT</th>
-                   <th>Họ Tên</th>
-                   <th>Email</th>
-                   <th>MSSV</th>
-                   <th>Mã KTX</th>
-                   <th>CMND</th>
-                   <th>SDT</th>
-                   <th>Hành động</th>
-                   </tr>
-                 </thead>
-                 <tbody>
-                  {listUsers}
-                 </tbody>
-              </table>
-            </div>*/}
+            
             <BootstrapTable data={this.state.state1.users} striped={true} hover={true} options={ options } search pagination exportCSV>
                 <TableHeaderColumn dataField="ma_sinh_vien" isKey={true} dataAlign="center" dataSort={true}>Mã Sinh Viên</TableHeaderColumn>
                 <TableHeaderColumn dataField="ten" dataSort={true}>Họ Tên</TableHeaderColumn>
@@ -674,7 +755,7 @@ class ManageStudent extends React.Component {
 
 
 
-            <Modal bsSize="large" aria-labelledby="contained-modal-title-lg" show={this.state.editModalShow} onHide={editModalClose}>
+            <Modal bsSize="large" aria-labelledby="contained-modal-title-lg" show={this.state.state1.editModalShow} onHide={editModalClose}>
                 <Modal.Header closeButton>
                   <Modal.Title id="contained-modal-title-lg">Sửa thông tin sinh viên</Modal.Title>
                 </Modal.Header>
@@ -693,40 +774,49 @@ class ManageStudent extends React.Component {
                       </div>
                     </div>
                     <div className="form-group">
-                      <label htmlFor="exampleInputHoLot1" className="col-md-3 control-label">Họ lót</label>
+                      <label htmlFor="exampleInputHoLot1" className="col-md-3 control-label">Họ lót<span className="text-danger">(*)</span></label>
                       <div className="col-md-7">
-                        <input type="text" className="form-control" ref="holot" value={this.state.state1.holot} 
+                        <input type="text" className="form-control" ref="HoLotTextField" value={this.state.state1.holot} 
                           onChange={ManageUserAction.updateHoLot} />
+                        <div className=''><span className="control-label text-danger">{this.state.state1.validateHoLot}</span></div>
+
                       </div>
+
                     </div>
                     <div className="form-group">
-                      <label htmlFor="exampleInputTen1" className="col-md-3 control-label">Tên</label>
+                      <label htmlFor="exampleInputTen1" className="col-md-3 control-label">Tên<span className="text-danger">(*)</span></label>
                       <div className="col-md-7">
-                        <input type="text" className="form-control" ref="ten" value={this.state.state1.ten} 
+                        <input type="text" className="form-control" ref="TenTextField" value={this.state.state1.ten} 
                             onChange={ManageUserAction.updateTen} />
+                        <div className=''><span className="control-label text-danger">{this.state.state1.validateTen}</span></div>
+
                       </div>
                     </div>
                     <div className="form-group">
-                      <label htmlFor="exampleInputPassword1" className="col-md-3 control-label">Khu Vực</label>
+                      <label htmlFor="exampleInputPassword1" className="col-md-3 control-label">Khu vực<span className="text-danger">(*)</span></label>
                       <div className="col-md-7">
-                        <select className="form-control" onChange={ManageUserAction.updateKhuVuc} value={this.state.state1.svkhuvuc}>
+                        <select className="form-control" onChange={ManageUserAction.updateKhuVuc} value={this.state.state1.svkhuvuc} ref='KhuVucTextField'>
                           <option value='0'>--Chọn--</option>
                           {listKhuvuc}
                         </select>
+                        <div className=''><span className="control-label text-danger">{this.state.state1.validateKhuVuc}</span></div>
+
                       </div>
                     </div>
                     <div className="form-group">
-                      <label htmlFor="exampleInputPassword1" className="col-md-3 control-label">Giới tính</label>
+                      <label htmlFor="exampleInputPassword1" className="col-md-3 control-label">Giới tính<span className="text-danger">(*)</span></label>
                       <div className="col-md-7">
                         <select className="form-control" ref="gioitinh" onChange={ManageUserAction.updateGioiTinh} value={this.state.state1.gioitinh}>
                             <option value='0'>--Chọn--</option>
                             <option value="m">Nam</option>
                             <option value="f">Nữ</option>
                         </select>
+                        <div className=''><span className="control-label text-danger">{this.state.state1.validateGioiTinh}</span></div>
+
                       </div>
                     </div>
                     <div className="form-group">
-                      <label htmlFor="exampleInputTen1" className="col-md-3 control-label">Ngày sinh</label>
+                      <label htmlFor="exampleInputTen1" className="col-md-3 control-label">Ngày sinh<span className="text-danger">(*)</span></label>
                       <div className="col-md-7">
                         <DatePicker
                             dateFormat="YYYY-MM-DD"
@@ -737,91 +827,111 @@ class ManageStudent extends React.Component {
                             showYearDropdown 
                             scrollableYearDropdown
                                 dropdownMode="select" />
+                        <div className=''><span className="control-label text-danger">{this.state.state1.validateNgaySinh}</span></div>
+
                       </div>
                     </div>
                     <div className="form-group">
-                      <label htmlFor="exampleInputPassword1" className="col-md-3 control-label">Tỉnh</label>
+                      <label htmlFor="exampleInputPassword1" className="col-md-3 control-label">Tỉnh<span className="text-danger">(*)</span></label>
                       <div className="col-md-7">
-                        <select className="form-control" ref="tinh" onChange={ManageUserAction.updateTinh} value={this.state.state1.svtinh}>
+                        <select className="form-control" ref='TinhTextField' onChange={ManageUserAction.updateTinh} value={this.state.state1.svtinh}>
                             <option value='0'>--Chọn--</option>
                             {listTinh}
                         </select>
+                        <div className=''><span className="control-label text-danger">{this.state.state1.validateTinh}</span></div>
+
                       </div>
                     </div>
                     <div className="form-group">
-                      <label htmlFor="exampleInputPassword1" className="col-md-3 control-label">Khoa</label>
+                      <label htmlFor="exampleInputPassword1" className="col-md-3 control-label">Khoa<span className="text-danger">(*)</span></label>
                       <div className="col-md-7">
-                        <select className="form-control" ref="khoa" onChange={ManageUserAction.updateKhoa} value={this.state.state1.svkhoa}>
+                        <select className="form-control" ref="KhoaTextField" onChange={ManageUserAction.updateKhoa} value={this.state.state1.svkhoa}>
                             <option value='0'>--Chọn--</option>
                             {listKhoa}
                         </select>
+                        <div className=''><span className="control-label text-danger">{this.state.state1.validateKhoa}</span></div>
+
                       </div>
                     </div>
                     <div className="form-group">
-                      <label htmlFor="exampleInputPassword1" className="col-md-3 control-label">Hệ đào tạo</label>
+                      <label htmlFor="exampleInputPassword1" className="col-md-3 control-label">Hệ đào tạo<span className="text-danger">(*)</span></label>
                       <div className="col-md-7">
-                        <select className="form-control" ref="hedaotao" onChange={ManageUserAction.updateHeDaoTao} value={this.state.state1.svhedaotao}>
+                        <select className="form-control" ref="HeDaoTaoTextField" onChange={ManageUserAction.updateHeDaoTao} value={this.state.state1.svhedaotao}>
                             <option value='0'>--Chọn--</option>
                             {listHeDaoTao}
                         </select>
+                        <div className=''><span className="control-label text-danger">{this.state.state1.validateHeDaoTao}</span></div>
+
                       </div>
                     </div>
                     <div className={'form-group  ' }>
                       <label htmlFor="nam-vao-truong" className="col-md-3 control-label">Năm vào trường<span className="text-danger">(*)</span></label>
                       <div className="col-md-7">
                           <input type='number' className="form-control" id='nam-vao-truong' value={this.state.state1.namvaotruong}
-                            onChange={ManageUserAction.updateNamVaoTruong} ref='namvaotruong'/>
+                            onChange={ManageUserAction.updateNamVaoTruong} ref='NamTextField'/>
+                          <div className=''><span className="control-label text-danger">{this.state.state1.validateNam}</span></div>
+
                       </div>
                     </div>
                     <div className="form-group">
-                      <label htmlFor="exampleInputPassword1" className="col-md-3 control-label">Dân tộc</label>
+                      <label htmlFor="exampleInputPassword1" className="col-md-3 control-label">Dân tộc<span className="text-danger">(*)</span></label>
                       <div className="col-md-7">
-                        <select className="form-control" onChange={ManageUserAction.updateDoiTuong} value={this.state.state1.svdoituong}>
+                        <select className="form-control" onChange={ManageUserAction.updateDoiTuong} value={this.state.state1.svdoituong} ref='DoiTuongTextField'>
                             <option value='0'>--Chọn--</option>
                             {listDoituong}
                         </select>
+                        <div className=''><span className="control-label text-danger">{this.state.state1.validateDoiTuong}</span></div>
+
                       </div>
                     </div>
                     <div className={'form-group  ' } >
                       <label htmlFor="ton-giao" className="col-md-3 control-label">Tôn giáo<span className="text-danger">(*)</span></label>
                       <div className="col-md-7">
                           <input type='text' className="form-control" id='ton-giao' value={this.state.state1.svtongiao}
-                            onChange={ManageUserAction.updateTonGiao} ref='tongiao'/>
+                            onChange={ManageUserAction.updateTonGiao} ref='TonGiaoTextField'/>
+                          <div className=''><span className="control-label text-danger">{this.state.state1.validateTonGiao}</span></div>
+
                       </div>
                     </div>
                     <div className={'form-group ' } >
                       <label htmlFor="doan-the" className="col-md-3 control-label">Đoàn thể<span className="text-danger">(*)</span></label>
                       <div className="col-md-7">
                           <select className="form-control" id="doan-the" value={this.state.state1.svdoanthe}
-                             onChange={ManageUserAction.updateDoanThe} ref='doanthe'>
+                             onChange={ManageUserAction.updateDoanThe} ref='DoanTheTextField'>
                             <option value =''>-- Chọn đoàn thể --</option>
                             <option value='k'>Không</option>
                             <option value='dangvien'>Đảng viên</option>
                             <option value='doanvien'>Đoàn viên</option>
 
                           </select>
+                          <div className=''><span className="control-label text-danger">{this.state.state1.validateDoanThe}</span></div>
+
                       </div>
                     </div>
                     <div className={'form-group  ' } >
                       <label htmlFor="cmnd" className="col-md-3 control-label">Số CMND<span className="text-danger">(*)</span></label>
                       <div className="col-md-7">
                           <input type='number' className="form-control" id='cmnd' value={this.state.state1.socmnd}
-                            onChange={ManageUserAction.updateSoCMND} ref='socmnd'/>
+                            onChange={ManageUserAction.updateSoCMND} ref='SoCMNDTextField'/>
+                          <div className=''><span className="control-label text-danger">{this.state.state1.validateSoCMND}</span></div>
+
                       </div>
                     </div>
                     <div className={'form-group ' } >
                                           <label htmlFor="ho-khau" className="col-md-3 control-label">Hộ khẩu thường trú<span className="text-danger">(*)</span></label>
                                           <div className="col-md-7">
                                               <input type='text' className="form-control" id='ho-khau' value={this.state.state1.hokhau}
-                                               onChange={ManageUserAction.updateHoKhau} ref='hokhau'/>
+                                               onChange={ManageUserAction.updateHoKhau} ref='HoKhauTextField'/>
+                                              <div className=''><span className="control-label text-danger">{this.state.state1.validateHoKhau}</span></div>
+
                                           </div>
                                         </div>
                     <div className={'form-group ' } >
                       <label htmlFor="dien-thoai-sv" className="col-md-3 control-label">Điện thoại sinh viên<span className="text-danger">(*)</span></label>
                       <div className="col-md-7">
                           <input type='tel' className="form-control" id='dien-thoai-sv' value={this.state.state1.svdienthoai}
-                            onChange={ManageUserAction.updateDienThoaiSV} ref='sdtsinhvien'/>
-                          <div className=''><span className="control-label text-danger">{}</span></div>
+                            onChange={ManageUserAction.updateDienThoaiSV} ref='DienThoaiSVTextField'/>
+                            <div className=''><span className="control-label text-danger">{this.state.state1.validateDienThoaiSV}</span></div>
                       </div>
                     </div>
                   {/*dien thoai gia dinh*/}
@@ -829,8 +939,9 @@ class ManageStudent extends React.Component {
                       <label htmlFor="dien-thoai-gia-dinh" className="col-md-3 control-label">Điện thoại gia đình<span className="text-danger">(*)</span></label>
                       <div className="col-md-7">
                           <input type='tel' className="form-control" id='dien-thoai-gia-dinh' value={this.state.state1.giadinhdienthoai}
-                            onChange={ManageUserAction.updateDienThoaiGiaDinh} ref='sdtgiadinh'/>
-                          <div className=''><span className="control-label text-danger">{}</span></div>
+                            onChange={ManageUserAction.updateDienThoaiGiaDinh} ref='DienThoaiGiaDinhTextField'/>
+                          <div className=''><span className="control-label text-danger">{this.state.state1.validateDienThoaiGiaDinh}</span></div>
+                          
                       </div>
                     </div>
                   {/*dien thoai gia dinh*/}
@@ -845,30 +956,34 @@ class ManageStudent extends React.Component {
                     <div className="form-group">
                       <label htmlFor="exampleInputPassword1" className="col-md-3 control-label">Học Lực</label>
                       <div className="col-md-7">
-                          <select className="form-control" onChange={ManageUserAction.updateHocLuc} value={this.state.state1.svhocluc}>
+                          <select className="form-control" onChange={ManageUserAction.updateHocLuc} value={this.state.state1.svhocluc} ref='HocLucTextField'>
                               <option value='0'>--Chọn--</option>
                               {listHocluc}
                           </select>
+                          <div className=''><span className="control-label text-danger">{this.state.state1.validateHocLuc}</span></div>
+
                       </div>
                     </div>
                     <div className="form-group">
                       <label htmlFor="exampleInputPassword1" className="col-md-3 control-label">Hoàn Cảnh Gia Đình</label>
                       <div className="col-md-7">
-                        <select className="form-control" onChange={ManageUserAction.updateHoanCanh} value={this.state.state1.svhoancanh}>
+                        <select className="form-control" onChange={ManageUserAction.updateHoanCanh} value={this.state.state1.svhoancanh} ref='HoanCanhTextField'>
                             <option value='0'>--Chọn--</option>
                             {listHoancanh}
                         </select>
+                        <div className=''><span className="control-label text-danger">{this.state.state1.validateHoanCanh}</span></div>
+
                       </div>
                     </div>
                     <div className={'form-group  ' }>
                       <label htmlFor="phong-luu-tru" className="col-md-3 control-label">Loại phòng<span className="text-danger">(*)</span></label>
                       <div className="col-md-7">
                           <select className="form-control" id="phong-luu-tru" onChange={ManageUserAction.updateLoaiPhong} 
-                              value={this.state.state1.svloaiphong} ref='loaiphong'>
+                              value={this.state.state1.svloaiphong} ref='LoaiPhongTextField'>
                             <option value=''>-- Chọn loại phòng --</option>
                             {loaiPhong}
                           </select>
-                          <div className=''><span className="control-label text-danger">{}</span></div>
+                          <div className=''><span className="control-label text-danger">{this.state.state1.validateLoaiPhong}</span></div>
                       </div>
                     </div>
                     <div className={'form-group  ' } style={{'display':'none'}}>

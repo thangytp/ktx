@@ -2,6 +2,7 @@ import React from 'react';
 import {Link} from 'react-router';
 import YouTube from 'react-youtube';
 import HtmlToReact from 'html-to-react';
+import moment from 'moment';
 
 //import CotPhaiHomeAction from '../../actions/admin/cotphaihome/CotPhaiHomeAction';
 //import CotPhaiHomeStore from '../../stores/admin/cotphaihome/CotPhaiHomeStore';
@@ -42,22 +43,28 @@ class Home extends React.Component {
 		// console.log(this.state.state2.listTinTucToDisplayHome);
 		if(this.state.a){
 			listTinTucToDisplayHome = this.state.a.map((tin, index) =>{
-				var content ='<div>' + tin.content +'</div>';
+				var content ='<div>' + tin.description +'</div>';
 		     	var htmlToReactParser = new HtmlToReact.Parser(React);
 		     	var reactcontent = htmlToReactParser.parse(content);
+
+		     	let check = tin.dateModify? moment(tin.dateModify) : moment(tin.dateCreate);
+				let time = check._d.getHours() + ':' + (check._d.getMinutes()<10 ? '0'+check._d.getMinutes() : check._d.getMinutes() );
+				let date = (check._d.getDate() > 10) ? check._d.getDate()  : '0' + check._d.getDate();
+				let fullDate = date + '/' + (check._d.getMonth()+1) + '/' + check._d.getFullYear();
+
 				return(
 						<div className="row nM mT20 item-thongbao clearboth pB10">
 	    					<div className="col-sm-6">
-	    						<Link to={'/tin-tuc/'+ tin.linkChitiet}>
-	    							<img className="img-responsive" src="/uploads/thongbaomoi.jpg"/>
+	    						<Link to={'/tin-tuc/'+ tin.slug}>
+	    							<img className="img-responsive" src={tin.img}/>
 	    						</Link>
 	    					</div>
 	    					<div className="col-sm-6">
 	    						<div className="title-thongbao">
-	    							<Link to={'/tin-tuc/'+ tin.linkChitiet}>{tin.title}</Link>
+	    							<Link to={'/tin-tuc/'+ tin.slug}>{tin.title}</Link>
 	    						</div>
 	    						<div className="date-thongbao">
-	    							<span>13:00 | 12/12/2016</span>
+	    							<span>{time + ' | ' + fullDate}</span>
 	    						</div>
 	    						<div className="content-thongbao">
 	    							{reactcontent}

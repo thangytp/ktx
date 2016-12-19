@@ -6,8 +6,24 @@ class ManagePhongChitietAction {
       'addPhongChitietSuccess',
       'getPhongChitietSuccess',
       'delPhongChitietSuccess',
-      'updateGiuongDangkySuccess'
+      'updateGiuongDangkySuccess',
+      'addGiuongChitietSuccess',
+
+      'getPhongChiTietSuccess',
+      'closeModalEdit',
+      'updateLoaiPhong',
+      'updateTang',
+      'updateMa',
+
+      'updatePhongChitietSuccess',
+
+      'closeModalDeletePhongCT',
+      'openMoDDeletePhongCT'
     );
+  }
+
+  openMoDDeletePhongCT(id){
+    this.actions.openMoDDeletePhongCT(id);
   }
 
   getPhong() {
@@ -22,8 +38,9 @@ class ManagePhongChitietAction {
 
   delPhong(payload) {
     $.ajax({
-      url: '/deletephongchitiet/' + payload,
-      type: 'DELETE'
+      url: '/deletephongchitiet',
+      type: 'DELETE',
+      data: payload
     })
     .done((data) => {
       this.actions.delPhongChitietSuccess();
@@ -48,7 +65,7 @@ class ManagePhongChitietAction {
       data: payload
     })
     .done((data) => {
-      this.actions.addPhongChitietSuccess();
+      this.actions.addGiuongChitietSuccess();
     })
   }
 
@@ -60,6 +77,27 @@ class ManagePhongChitietAction {
     })
     .done((data) => {
       this.actions.updateGiuongDangkySuccess();
+    })
+  }
+
+  getPhongChiTiet(id){
+    $.ajax({
+      url: '/api/getphongchitietbyid/'+id,
+      type: 'GET',
+    })
+    .done((data) => {
+      this.actions.getPhongChiTietSuccess(data);
+    })
+  }
+
+  updatePhongChiTiet(payload) {
+    $.ajax({
+      url: '/api/updatephongchitiet',
+      type: 'PUT',
+      data: payload
+    })
+    .done((data) => {
+      this.actions.updatePhongChitietSuccess(data.message);
     })
   }
 

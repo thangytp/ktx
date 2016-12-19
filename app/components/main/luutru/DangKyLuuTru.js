@@ -25,6 +25,8 @@ import HeDaoTaoStore from '../../../stores/admin/hedaotao/HeDaoTaoStore';
 import CaiDatLuuTruAction from '../../../actions/admin/caidatluutru/CaiDatLuuTruAction';
 import CaiDatLuuTruStore from '../../../stores/admin/caidatluutru/CaiDatLuuTruStore';
 
+import LogInStore from '../../../stores/main/user/LogInstore';
+
 import CotPhaiHome from '../CotPhaiHome';
 
 export default class SignUp extends React.Component {
@@ -55,6 +57,7 @@ export default class SignUp extends React.Component {
     HeDaoTaoStore.listen(this.onChange);
     CaiDatLuuTruStore.listen(this.onChange);
 
+
     ManageUuTienAction.getKhuvuc();
     ManageUuTienAction.getTinh();
     ManageUuTienAction.getDoituong();
@@ -77,6 +80,8 @@ export default class SignUp extends React.Component {
     KhoaAdminStore.unlisten(this.onChange);
     HeDaoTaoStore.unlisten(this.onChange);
     CaiDatLuuTruStore.unlisten(this.onChange);
+
+
   }
   onChange(state) {
     this.setState({state1: ManageUuTienStore.getState(), state2: DangKyLuuTruStore.getState(), 
@@ -237,6 +242,7 @@ export default class SignUp extends React.Component {
     }
 
     else {
+      if(userEmail){
         if(!idStu){
           DangKyLuuTruAction.showLoading();
           DangKyLuuTruAction.dangKyLuuTru({ userEmail: userEmail, svmssv: svmssv, holot: holot, ten: ten, svkhuvuc: svkhuvuc, 
@@ -249,6 +255,7 @@ export default class SignUp extends React.Component {
           DangKyLuuTruAction.showLoading();
           DangKyLuuTruAction.giaHanLuuTru({ idStu: idStu, svhocluc: svhocluc, svhoancanh: svhoancanh, svloaiphong: svloaiphong, dichvu: dichvu});
         }
+      }
     }
 
 

@@ -10,6 +10,9 @@ class QuanLyTinTucStore {
     this.contentLeft = '';
     this.description = '';
 
+    this.hienthi = 1;
+    this.checkHienThi = 'checked';
+
     this.fileAvatar ={};
     this.imagePreviewUrl='/uploads/LogoBK.png';
     this.imageUrl='/uploads/LogoBK.png';
@@ -32,6 +35,8 @@ class QuanLyTinTucStore {
     this.listTinTucBottom = [];
 
     this.tinByLink = {};
+
+    this.tinSearch = [];
   }
 
   onUpdateTitleTinTuc(event){
@@ -40,6 +45,17 @@ class QuanLyTinTucStore {
   }
   onUpdateDescription(e){
     this.description = e.target.value;
+  }
+
+  onUpdateHienThi(){
+    if(this.hienthi){
+        this.hienthi = 0;
+        this.checkHienThi = '';
+    }
+    else{
+        this.hienthi = 1;
+        this.checkHienThi = 'checked';
+    }
   }
 
   onUpdateImagepreview(imgURL)
@@ -85,6 +101,8 @@ class QuanLyTinTucStore {
       this.contentLeft = '';
       CKEDITOR.instances.ckedit.setData('');
       this.description = '';
+      this.hienthi = 1;
+      this.checkHienThi = 'checked';
 
       this.fileAvatar ={};
       this.imagePreviewUrl='/uploads/LogoBK.png';
@@ -124,6 +142,11 @@ class QuanLyTinTucStore {
     CKEDITOR.instances.ckedit.setData(data.content);
 
     this.description = data.description;
+    this.hienthi = data.hienthi;
+    if(this.hienthi){
+      this.checkHienThi = 'checked';
+    }
+    else this.checkHienThi = '';
 
     this.fileAvatar ={};
     this.imagePreviewUrl= data.img? data.img : '/uploads/LogoBK.png';
@@ -173,6 +196,8 @@ class QuanLyTinTucStore {
     CKEDITOR.instances.ckedit.setData('');
 
     this.description = '';
+    this.hienthi = 1;
+    this.checkHienThi = 'checked';
 
     this.fileAvatar ={};
     this.imagePreviewUrl='/uploads/LogoBK.png';
@@ -208,6 +233,13 @@ class QuanLyTinTucStore {
   }
   onGetTinTucByLinkFail(data){
     console.log(data);
+  }
+
+  onGetTinTucByTitleSuccess(data){
+     this.tinSearch = data;
+  }
+  onGetTinTucByTitleFail(data){
+    console.log('khong search dc tin tuc');
   }
 
 }

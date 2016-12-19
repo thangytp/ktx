@@ -6,6 +6,8 @@ import {Modal} from 'react-bootstrap';
 import QuanLyTinTucAction from '../../../actions/admin/quanlytintuc/QuanLyTinTucAction';
 import QuanLyTinTucStore from '../../../stores/admin/quanlytintuc/QuanLyTinTucStore';
 
+import LogInAdminStore from '../../../stores/admin/login/LogInAdminStore';
+
 import ListQuanLyTinTuc from './ListQuanLyTinTuc';
 import ImgUpload from '../../../shared/ImgUpload';
 
@@ -14,11 +16,13 @@ class QuanLyTinTuc extends React.Component {
 	constructor(props)
 	{
 		super(props);
-		this.state = QuanLyTinTucStore.getState();
+		this.state = {state1: QuanLyTinTucStore.getState(), state2: LogInAdminStore.getState() };
 		this.onChange = this.onChange.bind(this);
 	}
 	componentDidMount() {
 		QuanLyTinTucStore.listen(this.onChange);
+		LogInAdminStore.listen(this.onChange);
+
 		CKEDITOR.replace( 'ckedit', {
 		allowedContent : true,
 		pasteFromWordRemoveFontStyles : false,
@@ -29,10 +33,11 @@ class QuanLyTinTuc extends React.Component {
 
 	componentWillUnmount() {
 		QuanLyTinTucStore.unlisten(this.onChange);
+		LogInAdminStore.unlisten(this.onChange);
 	}
 
 	onChange(state) {
-		this.setState(state);  
+		this.setState({state1: QuanLyTinTucStore.getState(), state2: LogInAdminStore.getState() });  
 	}
 
 	ChangeToSlug(title)
@@ -68,15 +73,15 @@ class QuanLyTinTuc extends React.Component {
 
 	upload(event)
   	{
-      	var imgfile = this.state.fileAvatar;
-      	var imgURL = this.state.imagePreviewUrl;
+      	var imgfile = this.state.state1.fileAvatar;
+      	var imgURL = this.state.state1.imagePreviewUrl;
         QuanLyTinTucAction.handleUpload();
         QuanLyTinTucAction.uploadImage(imgfile);
-        console.log(this.state.imageUrl);
+        console.log(this.state.state1.imageUrl);
   	}
    	detele(event)
   	{
-        console.log(this.state.imageUrl);
+        console.log(this.state.state1.imageUrl);
   	}
 
 	// them tin tuc
@@ -85,17 +90,18 @@ class QuanLyTinTuc extends React.Component {
 		for ( var instance in CKEDITOR.instances )
         	CKEDITOR.instances[instance].updateElement();
 
-		var id = this.state.idTinTuc;
-		var title = this.state.titleTinTuc;
+		var id = this.state.state1.idTinTuc;
+		var title = this.state.state1.titleTinTuc;
 		var contentLeft = ReactDom.findDOMNode(this.refs.ContentTinTucField).value;
-		var description = this.state.description;
-		var img = this.state.imageUrl;
+		var description = this.state.state1.description;
+		var img = this.state.state1.imageUrl;
 		var slug = this.ChangeToSlug(title);
 		var dateCreate = new Date();
 		var dateModify = new Date();
-		console.log(dateCreate);
+		var hienthi = this.state.state1.hienthi;
 
-
+		var access_token = localStorage.getItem('access_token');
+		console.log(access_token);
 		if(!title){
 			QuanLyTinTucAction.invalidTitle();
 			this.refs.TitlePageField.focus();
@@ -112,10 +118,10 @@ class QuanLyTinTuc extends React.Component {
 		// goi ham add page
 		if(title && contentLeft){
 			if(id==''){
-				QuanLyTinTucAction.addTinTuc({ title: title, contentLeft: contentLeft, description: description, img: img, dateCreate: dateCreate, slug: slug });
+				QuanLyTinTucAction.addTinTuc({access_token: access_token, title: title, contentLeft: contentLeft, description: description, img: img, dateCreate: dateCreate, slug: slug, hienthi: hienthi });
 			}
 			else{
-				QuanLyTinTucAction.updateTinTuc({ id: id, title: title, contentLeft: contentLeft, description: description, img: img, dateModify: dateModify, slug: slug });
+				QuanLyTinTucAction.updateTinTuc({access_token: access_token, id: id, title: title, contentLeft: contentLeft, description: description, img: img, dateModify: dateModify, slug: slug, hienthi: hienthi });
 			}
 		}
 
@@ -123,9 +129,11 @@ class QuanLyTinTuc extends React.Component {
 
 	deleteTinTuc(e){
 		e.preventDefault();
-		var id = this.state.idTinTucToDelete;
+		var access_token = localStorage.getItem('access_token');
+		console.log(access_token);
+		var id = this.state.state1.idTinTucToDelete;
 		if(id){
-			QuanLyTinTucAction.deleteTinTuc(id);
+			QuanLyTinTucAction.deleteTinTuc({access_token: access_token, id: id});
 		}
 	}
 
@@ -158,28 +166,28 @@ class QuanLyTinTuc extends React.Component {
 									  	<div className="form-group">
 										    <label className="control-label col-sm-2" htmlFor="name-item">Tiêu đề:</label>
 										    <div className="col-sm-10">
-									      		<input type="text" className="form-control" id="name-item" placeholder="Nhập tên trang" 
-									      			ref="TitlePageField" value={this.state.titleTinTuc} onChange={QuanLyTinTucAction.updateTitleTinTuc}/>
-									      		<span className='help-block'>{this.state.helpBlockTitle}</span>
+									      		<input type="text" className="form-control" id="name-item" placeholder="Nhập tiêu đề" 
+									      			ref="TitlePageField" value={this.state.state1.titleTinTuc} onChange={QuanLyTinTucAction.updateTitleTinTuc}/>
+									      		<span className='help-block'>{this.state.state1.helpBlockTitle}</span>
 									    	</div>
 									  	</div>
 									  	
 										<div className='form-group '>
 					                    	<label className='col-sm-2 control-label'>Nội dung:</label>
 					                      	<div  className ='col-sm-10'>
-					                      		<textarea id ='ckedit' value ="" ref ='ContentTinTucField' value={this.state.contentPage} ></textarea>
-					                      		<span className='help-block'>{this.state.helpBlockContent}</span>
+					                      		<textarea id ='ckedit' value ="" ref ='ContentTinTucField' value={this.state.state1.contentPage} ></textarea>
+					                      		<span className='help-block'>{this.state.state1.helpBlockContent}</span>
 					                    	</div>
 					                  	</div>
 					                  	<div className='form-group '>
 					                    	<label className='col-sm-2 control-label'>Nội dung rút gọn:</label>
 					                      	<div  className ='col-sm-10'>
-					                      		<textarea className="form-control" rows="5" ref ='Description' value={this.state.description} onChange={QuanLyTinTucAction.updateDescription}></textarea>
-					                      		<span className='help-block'>{this.state.helpBlockDescription}</span>
+					                      		<textarea className="form-control" rows="5" ref ='Description' value={this.state.state1.description} onChange={QuanLyTinTucAction.updateDescription}></textarea>
+					                      		<span className='help-block'>{this.state.state1.helpBlockDescription}</span>
 					                    	</div>
 					                  	</div>
 
-					                  	<div className='form-group has-success'>
+					                  	<div className='form-group'>
 						                   	<label className='col-sm-2 control-label'>Chọn ảnh đại diện</label>
 						                   	<div className ="clear-both"></div>
 						                   	<div  className ='col-sm-10'>
@@ -188,23 +196,31 @@ class QuanLyTinTuc extends React.Component {
 							                      	<div className="avatar-edit">
 							                      		<i className="fa fa-camera"></i>
 							                    	</div>
-							                    <img src ={this.state.imagePreviewUrl} height ="200px" width="200px" alt = "avatar"/>
+							                    <img src ={this.state.state1.imagePreviewUrl} height ="200px" width="200px" alt = "avatar"/>
 							                	</div>
 							                	<div>
 							                    	<button type='button' className = 'btn btn-success'onClick = {this.upload.bind(this)} ><i className="fa fa-check"></i></button>
 							                    	<button type='button' className = 'btn btn-danger' onClick = {this.detele.bind(this)} ><i className="fa fa-times"></i></button>
-							                    	<span className='help-block'>{this.state.helpBlockUpload}</span>
+							                    	<span className='help-block'>{this.state.state1.helpBlockUpload}</span>
 							                	</div>
 							                </div>
 						                </div>
 						                <div className ="clear-both"></div>
-
+						                <div className="form-group">
+										   
+										    <div className="col-sm-10 col-sm-offset-2">
+									      		<label>
+										  			<input type="checkbox" value={this.state.state1.hienthi} checked={this.state.state1.checkHienThi} onChange={QuanLyTinTucAction.updateHienThi}/>
+										  			Hiển thị là thông báo mới?
+										  		</label>
+									    	</div>
+									  	</div>
 					                  	
 									</div>
 									<div className="form-footer">
 									  	<div className="form-group"> 
 									    	<div className="col-sm-offset-2">
-									      		<button type="submit" className="btn btn-success">{this.state.textButton}</button><span className='help-block'> {this.state.helpBlockAddTinTuc}</span>
+									      		<button type="submit" className="btn btn-success">{this.state.state1.textButton}</button><span className='help-block'> {this.state.state1.helpBlockAddTinTuc}</span>
 									    	</div>
 									  	</div>
 									</div>
@@ -219,7 +235,7 @@ class QuanLyTinTuc extends React.Component {
 
 
             {/* modal xoa item */}
-              <Modal show={this.state.modalIsOpenDeleteTinTuc} onHide ={QuanLyTinTucAction.closeModalDeleteTinTuc}>
+              <Modal show={this.state.state1.modalIsOpenDeleteTinTuc} onHide ={QuanLyTinTucAction.closeModalDeleteTinTuc}>
                   <Modal.Header>
                     <Modal.Title>
                       Xóa

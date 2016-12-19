@@ -1,5 +1,5 @@
 import React from 'react';
-import {Link} from 'react-router';
+import {Link, browserHistory} from 'react-router';
 import {Modal} from 'react-bootstrap';
 import localStorage from 'localStorage';
 import LogInAction from '../../actions/main/user/LogInAction';
@@ -22,9 +22,25 @@ class Header extends React.Component {
         HomeMenuStore.listen(this.onChange);
         HomeMenuAction.testGetListCha();
     }
+    componentWillUnmount() {
+        HomeMenuStore.unlisten(this.onChange);
+    }
 
     onChange(state) {
         this.setState(state);
+    }
+
+    // search tin tuc
+    handleFind(event){
+        event.preventDefault();
+        var textFind = this.state.textFind;
+        console.log(textFind);
+        if(textFind.length == 0){
+            browserHistory.push('/tat-ca-tin-tuc');
+        }
+        else{
+            browserHistory.push('/tim-kiem/'+textFind);
+        }
     }
   
     render() {   
@@ -91,13 +107,13 @@ class Header extends React.Component {
                                                 </ul>
                                             </li>
                                             <li className="nML">
-                                                <form className="navbar-form" role="search">
-                                                <div className="input-group">
-                                                    <input type="text" className="form-control search" placeholder="Search" name="q"/>
-                                                    <div className="input-group-btn">
-                                                        <button className="btn btn-default btn-search" type="submit"><i className="fa fa-search" aria-hidden="true"></i></button>
+                                                <form className="navbar-form" role="search" onSubmit={this.handleFind.bind(this)}>
+                                                    <div className="input-group">
+                                                        <input type="text" className="form-control search" placeholder="Search" value={this.state.textFind} onChange={HomeMenuAction.updateTextFind}/>
+                                                        <div className="input-group-btn">
+                                                            <button className="btn btn-default btn-search"><i className="fa fa-search" aria-hidden="true"></i></button>
+                                                        </div>
                                                     </div>
-                                                </div>
                                                 </form>
                                             </li>
                                         </ul>

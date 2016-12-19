@@ -3,7 +3,7 @@ var bcrypt   = require('bcrypt-nodejs');
 
 var adminSchema = new mongoose.Schema({
   ten: String,
- email: {
+  email: {
     type: String,
     required: true,
     unique: true
@@ -12,7 +12,8 @@ var adminSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  type: 'String'
+  type: 'String',
+  access_token: String
 });
 
 adminSchema.methods.generateHash = function(password){

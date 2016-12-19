@@ -8,6 +8,8 @@ class LogInAdminStore {
     this.loginSuccessMess = '';
     this.loginFailMess = '';
     this.logout = false;
+
+    this.access_token = '';
   }
 
   onLogout()
@@ -21,8 +23,14 @@ class LogInAdminStore {
     localStorage.setItem("adminTen", response.ten);
     localStorage.setItem('adminEmail', response.email);
     localStorage.setItem('adminType', response.type);
+    localStorage.setItem('access_token', response.access_token);
+    
+    this.access_token = response.access_token;
     this.loginSuccessMess = 'Dang Nhap Thanh Cong';
-    window.location.reload();
+    //window.location.reload();
+    setTimeout(function() {
+      history.go(-1);
+    }, 500);
   }
 
   onLoginFail(message)

@@ -8,9 +8,9 @@ import ManagePhongStore from '../../../stores/admin/manage-phong/ManagePhongStor
 const AddPhongModal = React.createClass({
 
   handleAddPhong(e) {
-
-    e.preventDefault()
+    e.preventDefault();
     const data = {
+        access_token: localStorage.getItem('access_token'),
         ten: this.refs.ten.value,
         loai: this.refs.loai.value,
         gia: this.refs.gia.value,
@@ -82,15 +82,30 @@ class Phong extends Component {
   openMoDDeletePhong(id){
     ManagePhongAction.openMoDDeletePhong(id);
   }
-  handleDelPhong(id) {
-    ManagePhongAction.delPhong(id);
+  handleDelPhong(e) {
+    var id = this.state.idDel;
+    var access_token = localStorage.getItem('access_token');
+    ManagePhongAction.delPhong({access_token: access_token, id: id});
   }
   handleGetPhong(phong){
     ManagePhongAction.handleGetPhong(phong);
   }
 
   updatePhong(){
-    // TODO
+    var access_token = localStorage.getItem('access_token');
+    var idEdit = this.state.idEdit;
+    var tenEdit = this.state.tenEdit.trim();
+    var loaiEdit = this.state.loaiEdit;
+    var giaEdit = this.state.giaEdit;
+    var kichcoEdit = this.state.kichcoEdit;
+    var soluongEdit = this.state.soluongEdit;
+
+    if(access_token){
+      if(idEdit){
+        ManagePhongAction.updatePhong({access_token: access_token, idEdit: idEdit, tenEdit: tenEdit, loaiEdit: loaiEdit,
+          giaEdit: giaEdit, kichcoEdit: kichcoEdit, soluongEdit: soluongEdit});
+      }
+    }
   }
 
   onChange(state) {
@@ -107,7 +122,6 @@ class Phong extends Component {
         <td>{phong.gia}</td>
         <td>{phong.kichco + ' người'}</td>
         <td>{phong.soluong + ' phòng'}</td>
-        {/* <td><button className="btn btn-primary" onClick={this.handleGetStudent.bind(this, user._id)}>Edit</button></td> */}
         <td>
             <button className="btn btn-primary" onClick={this.handleGetPhong.bind(this, phong)}>Sửa</button>
             <button className="btn btn-danger" onClick={this.openMoDDeletePhong.bind(this, phong._id)}>Xóa</button>
@@ -158,24 +172,29 @@ class Phong extends Component {
                 <Modal.Body>
                   <div className="form-group">
                     <label htmlFor="exampleInputEmail1" >Tên phòng</label>
-                    <input type="text" className="form-control" ref="ten" value={this.state.tenEdit}/>
+                    <input type="text" className="form-control" ref="ten" value={this.state.tenEdit} 
+                        onChange={ManagePhongAction.updateTenLoaiPhong}/>
                   </div>
                   <div className="form-group">
                     <label htmlFor="loai-phong">Loại Phòng</label>
-                    <input type="number" id="loai-phong" className="form-control" ref="loai" placeholder="Loại Phòng" value={this.state.loaiEdit}/>
+                    <input type="number" id="loai-phong" className="form-control" ref="loai" placeholder="Loại Phòng" 
+                        onChange={ManagePhongAction.updateLoaiPhong} value={this.state.loaiEdit}/>
                     <div className="">1: Phòng thường, 2: Phòng dịch vụ tầng 10, 3: Phòng tầng 11, 4: Phòng tầng 12</div>
                   </div>
                   <div className="form-group">
                     <label htmlFor="gia">Giá</label>
-                    <input type="number" className="form-control" ref="gia" placeholder="Giá" value={this.state.giaEdit}/>
+                    <input type="number" className="form-control" ref="gia" placeholder="Giá" value={this.state.giaEdit}
+                        onChange={ManagePhongAction.updateGiaLoaiPhong}/>
                   </div>
                   <div className="form-group">
                     <label htmlFor="so-nguoi">Số người</label>
-                    <input type="Number" id="so-nguoi" className="form-control" ref="songuoi" placeholder="Số người" value={this.state.kichcoEdit}/>
+                    <input type="Number" id="so-nguoi" className="form-control" ref="songuoi" placeholder="Số người" 
+                        onChange={ManagePhongAction.updateSoNguoi} value={this.state.kichcoEdit}/>
                   </div>
                   <div className="form-group">
                     <label htmlFor="so-luong">Số Lượng</label>
-                    <input type="Number" id="so-luong" className="form-control" ref="soluong" placeholder="Số Lượng" value={this.state.soluongEdit}/>
+                    <input type="Number" id="so-luong" className="form-control" ref="soluong" placeholder="Số Lượng" 
+                        onChange={ManagePhongAction.updateSoLuong} value={this.state.soluongEdit}/>
                   </div>
                   
                 </Modal.Body>      
@@ -185,7 +204,8 @@ class Phong extends Component {
                       onClick={ManagePhongAction.closeModal}><i className="fa fa-times"> Hủy bỏ</i> </button>          
                     <button
                         className="btn btn-success"
-                      onClick={this.updatePhong.bind(this)}><i className="fa fa-check"> Lưu</i> </button>          
+                      onClick={this.updatePhong.bind(this)}><i className="fa fa-check"> Lưu</i> </button>  
+                    <div >{this.state.messUpdate}</div>        
                 </Modal.Footer>
             </Modal>
             <Modal show={this.state.modalIsOpenDelete} onHide ={ManagePhongAction.closeModalDelete}>
