@@ -62,7 +62,9 @@ class HomeMenuAction {
         'editLinkToPageSuccess',
         'editLinkToPageFail',
 
-        'searchPageSuccess'
+        'searchPageSuccess',
+
+        'updateTextFind'
       
     );
   }

@@ -41,7 +41,7 @@ class Navbar extends React.Component {
 
   render() {
     // let style={'text-align':'center'};
-    let ten =localStorage.getItem('adminTen');
+    let ten =localStorage.getItem('adminTen')? localStorage.getItem('adminTen') : localStorage.getItem('adminEmail');
     let adminname =localStorage.getItem('adminusername');
     if (adminname)
     {

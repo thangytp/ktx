@@ -1,5 +1,6 @@
 var tintuc = require('../../models/tintuc');
 var tintuchome = require('../../models/tintuchome');
+var Admin = require('../../models/admin');
 
 function QuanLyTinTucServer(app){
 
@@ -66,33 +67,52 @@ function QuanLyTinTucServer(app){
 			res.send(tintucRes);
 		});
 	});
+	// get tin tuc by title
+	app.get('/api/gettintucbytitle/:text', function(req, res, next){
+		var text  = req.params.text;
+		tintuc.find({title: { $regex: new RegExp(text, "i") } })
+		.exec(function(err, tintucRes){
+			if(err) return next(err);
+			res.send(tintucRes);
+		});
+	});
 
 	// add page
 	app.post('/api/addtintuc', function(req, res, next){
+		var access_token = req.body.access_token;
 		var title = req.body.title;
 		var content = req.body.content;
 		var description = req.body.description;
 		var img = req.body.img;
 		var dateCreate = req.body.dateCreate;
 		var slug = req.body.slug;
-		
-			var newTinTuc = new tintuc({
-				title: title,
-				content: content,
-				description: description,
-				img: img,
-				dateCreate: dateCreate,
-				slug: slug
+		var hienthi = req.body.hienthi;
+
+		Admin.findOne({access_token: access_token}, function(err, admin){
+			if(err) return next(err);
+			if(admin){
+				var newTinTuc = new tintuc({
+					title: title,
+					content: content,
+					description: description,
+					img: img,
+					dateCreate: dateCreate,
+					slug: slug,
+					hienthi: hienthi
 				
-			});
-			newTinTuc.save(function(err){
-				if(err) return next(err);
-				res.send({message: 'Thêm tin thành công!'});
-			});
+				});
+				newTinTuc.save(function(err){
+					if(err) return next(err);
+					res.send({message: 'Thêm tin thành công!'});
+				});
+			}
+		});	
 	});
 
 	// update page
 	app.put('/api/updatetintuc', function(req, res, next){
+		var access_token = req.body.access_token;
+
 		var id = req.body.id;
 		var title = req.body.title;
 		var content = req.body.content;
@@ -100,31 +120,42 @@ function QuanLyTinTucServer(app){
 		var img = req.body.img;
 		var dateModify = req.body.dateModify;
 		var slug = req.body.slug;
+		var hienthi = req.body.hienthi;
 
-		tintuc.findOne({_id: id}, function(err, tintucRes){
+		Admin.findOne({access_token: access_token}, function(err, admin){
 			if(err) return next(err);
-			
-				tintucRes.update({ $set: {title: title, content: content, description: description, img: img, dateModify: dateModify, slug: slug } }, function(err, re){
-					res.send({message: 'Cập nhật trang thành công!'});
+			if(admin){
+				tintuc.findOne({_id: id}, function(err, tintucRes){
+					if(err) return next(err);
+					
+						tintucRes.update({ $set: {title: title, content: content, description: description, img: img, dateModify: dateModify, slug: slug, hienthi: hienthi } }, function(err, re){
+							res.send({message: 'Cập nhật trang thành công!'});
+						});
+					
 				});
-			
+			}
 		});
 
 	});
 
-	//============= xoa trang
+	//============= xoa tin tuc
 	app.delete('/api/deletetintuc', function(req, res, next){
+		var access_token = req.body.access_token;
 		var id= req.body.id;
-		tintuc.remove({_id: id}, function(err, re){
+		Admin.findOne({access_token: access_token}, function(err, admin){
 			if(err) return next(err);
-			res.send(re.result);
+			if(admin){
+				tintuc.remove({_id: id}, function(err, re){
+					if(err) return next(err);
+					res.send(re.result);
+				});
+			}
 		});
 	});
 
 	// get list page by name
 	app.get('/api/searchtintuc/:name', function(req, res, next){
 		var name = req.params.name;
-		console.log(name);
 		tintuc.find({title: { $regex: new RegExp(name, "i") } })
 		.exec(function(err, tintucs){
 			if(err) return next(err);

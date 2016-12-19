@@ -52,6 +52,8 @@ class HomeMenuStore {
     this.disabledButton = '';
 
     this.idtest = 111;
+
+    this.textFind = '';
   }
 
   onUpdateItemMenuName(event){
@@ -64,6 +66,8 @@ class HomeMenuStore {
   onUpdateParent(event){
     this.parent = event.target.value;
   }
+
+
 
   onAddItemMenuSuccess(mess){
     this.itemMenuName='';
@@ -285,6 +289,10 @@ class HomeMenuStore {
       this.disableButtonAddPage = 'disabled';
     }
     console.log(data);
+  }
+
+  onUpdateTextFind(event){
+    this.textFind = event.target.value;
   }
   
 }

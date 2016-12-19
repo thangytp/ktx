@@ -41,6 +41,7 @@ import InfoPage from './components/main/user/InfoPage';
 
 import ViewDetailPage from './components/main/page/ViewDetailPage';
 import ViewDetailTinTuc from './components/main/tintuc/ViewDetailTinTuc';
+import Search from './components/main/tintuc/Search';
 
 import localStorage from 'localStorage';
 
@@ -59,29 +60,29 @@ export default (
         <Route component={App}>
             <Route path='/quanly@ktx' component={HomeMenu} onEnter={requireAuth} />
             <Route path='/quanly@ktx/them-page' component={AddPage} onEnter={requireAuth}/>
-            <Route path="/quanly@ktx/quan-ly-admin" component={Admin}/>
+            <Route path="/quanly@ktx/quan-ly-admin" component={Admin} onEnter={requireAuth}/>
             <Route path='/quanly@ktx/quan-ly-hinh-anh' component={Images} onEnter={requireAuth}/>
             <Route path='/quanly@ktx/quan-ly-sinh-vien' component={ManageStudent} onEnter={requireAuth} />
             <Route path='/quanly@ktx/sinh-vien-xet-duyet' component={XetDuyetStudent} onEnter={requireAuth} />
             <Route path='/quanly@ktx/sinh-vien-gia-han' component={GiaHanStudent} onEnter={requireAuth} />
-            <Route path="/quanly@ktx/xet-duyet-luu-tru-moi" component={XetDuyetMoi}/>
-            <Route path="/quanly@ktx/gia-han-luu-tru-cu" component={GiaHanCu}/>
+            <Route path="/quanly@ktx/xet-duyet-luu-tru-moi" component={XetDuyetMoi} onEnter={requireAuth}/>
+            <Route path="/quanly@ktx/gia-han-luu-tru-cu" component={GiaHanCu} onEnter={requireAuth}/>
 
-            <Route path="/quanly@ktx/chi-tieu" component={ChiTieu}/>
-            <Route path="/quanly@ktx/uu-tien" component={UuTien}/>
-            <Route path="/quanly@ktx/tang" component={Tang}/>
-            <Route path="/quanly@ktx/loaiphong" component={Phong}/>
-            <Route path="/quanly@ktx/phong" component={PhongChiTiet}/>
-            <Route path="/quanly@ktx/giuong" component={Giuong}/>
-            <Route path="/quanly@ktx/dich-vu" component={Dichvu}/>
+            <Route path="/quanly@ktx/chi-tieu" component={ChiTieu} onEnter={requireAuth}/>
+            <Route path="/quanly@ktx/uu-tien" component={UuTien} onEnter={requireAuth}/>
+            <Route path="/quanly@ktx/tang" component={Tang} onEnter={requireAuth}/>
+            <Route path="/quanly@ktx/loaiphong" component={Phong} onEnter={requireAuth}/>
+            <Route path="/quanly@ktx/phong" component={PhongChiTiet} onEnter={requireAuth}/>
+            <Route path="/quanly@ktx/giuong" component={Giuong} onEnter={requireAuth}/>
+            <Route path="/quanly@ktx/dich-vu" component={Dichvu} onEnter={requireAuth}/>
 
-            <Route path="/quanly@ktx/cotphai-home" component={CotPhaiHome}/>
-            <Route path="/quanly@ktx/lienket-site" component={LienKetSite}/>
-            <Route path="/quanly@ktx/hien-thi-tin-tuc" component={TinTucHome}/>
-            <Route path="/quanly@ktx/quan-ly-tin-tuc" component={QuanLyTinTuc}/>
-            <Route path="/quanly@ktx/quan-ly-khoa" component={KhoaAdmin}/>
-            <Route path="/quanly@ktx/quan-ly-he-dao-tao" component={HeDaoTao}/>
-            <Route path="/quanly@ktx/cai-dat-dang-ky-luu-tru" component={CaiDatDangKyLuuTru}/>
+            <Route path="/quanly@ktx/cotphai-home" component={CotPhaiHome} onEnter={requireAuth}/>
+            <Route path="/quanly@ktx/lienket-site" component={LienKetSite} onEnter={requireAuth}/>
+            <Route path="/quanly@ktx/hien-thi-tin-tuc" component={TinTucHome} onEnter={requireAuth}/>
+            <Route path="/quanly@ktx/quan-ly-tin-tuc" component={QuanLyTinTuc} onEnter={requireAuth}/>
+            <Route path="/quanly@ktx/quan-ly-khoa" component={KhoaAdmin} onEnter={requireAuth}/>
+            <Route path="/quanly@ktx/quan-ly-he-dao-tao" component={HeDaoTao} onEnter={requireAuth}/>
+            <Route path="/quanly@ktx/cai-dat-dang-ky-luu-tru" component={CaiDatDangKyLuuTru} onEnter={requireAuth}/>
 
         </Route>
 
@@ -89,6 +90,7 @@ export default (
 
         <Route component={Main}>
             <Route path='/' component={Home}/>
+            <Route path='/tim-kiem/:text' component= {Search}/>
             <Route path='/dang-ky-luu-tru' component={DangKyLuuTru}/>
             <Route path='/xem-ket-qua-luu-tru' component={KetQuaDangKyLuuTru}/>
             <Route path='/login' component={LogIn}/>

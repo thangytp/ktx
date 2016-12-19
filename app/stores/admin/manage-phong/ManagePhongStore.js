@@ -8,6 +8,8 @@ class ManagePhongStore {
     this.bindActions(ManagePhongAction);
     this.phong = [];
 
+    this.addModalShow = false;
+
     // state delete
     this.modalIsOpenDelete = false;
     this.idDel = '';
@@ -20,6 +22,7 @@ class ManagePhongStore {
     this.giaEdit = '';
     this.kichcoEdit = '';
     this.soluongEdit = '';
+    this.messUpdate = '';
   }
 
   onGetPhongSuccess(response) {
@@ -28,10 +31,14 @@ class ManagePhongStore {
 
   onAddPhongSuccess() {
     ManagePhongAction.getPhong();
+    this.addModalShow = false;
+
   }
 
   onDelPhongSuccess() {
     ManagePhongAction.getPhong();
+    this.idDel = '';
+    this.modalIsOpenDelete = false;
   }
 
   openMoDDeletePhong(id){
@@ -43,6 +50,8 @@ class ManagePhongStore {
   }
 
   onHandleGetPhong(payload){
+    this.messUpdate = '';
+
     this.modalIsOpen = true;
     this.idEdit = payload._id;
     this.tenEdit = payload.ten;
@@ -55,22 +64,35 @@ class ManagePhongStore {
   onCloseModal(){
     this.modalIsOpen = false;
   }
-  // onUpdateuser(event)
-  // {
-  // 	this.user = event.target.value;
-  //    this.helpBlock='';
-  // }
-  // onUpdatepassword(event)
-  // {
-  // 	this.password = event.target.value;
-  //   this.helpBlock='';
-  // }
-  // onSetOpenModal(boolean)
-  // {
-  //     this.LoginModalisOpen = boolean;
-  //     this.user ='';
-  //     this.password ='';
-  // }
+  
+  onUpdatePhongSuccess(data){
+    this.messUpdate = data;
+    console.log(data);
+    this.modalIsOpen = false;
+    this.idEdit = '';
+    this.tenEdit = '';
+    this.loaiEdit = 0;
+    this.giaEdit = 0;
+    this.kichcoEdit = 0;
+    this.soluongEdit = 0;
+    ManagePhongAction.getPhong();
+  }
+
+  onUpdateTenLoaiPhong(e){
+    this.tenEdit = e.target.value;
+  }
+  onUpdateLoaiPhong(e){
+    this.loaiEdit = e.target.value;
+  }
+  onUpdateGiaLoaiPhong(e){
+    this.giaEdit = e.target.value;
+  }
+  onUpdateSoNguoi(e){
+    this.kichcoEdit = e.target.value;
+  }
+  onUpdateSoLuong(e){
+    this.soluongEdit = e.target.value;
+  }
 }
 
 export default alt.createStore(ManagePhongStore);

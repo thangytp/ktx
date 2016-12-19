@@ -7,6 +7,7 @@ class QuanLyTinTucAction {
 
         'updateTitleTinTuc',
         'updateDescription',
+        'updateHienThi',
         
         'addTinTucSuccess',
         'addTinTucFail',
@@ -38,7 +39,10 @@ class QuanLyTinTucAction {
         'updateImagefile',
         'uploadSuccess',
         'uploadFail',
-        'handleUpload'
+        'handleUpload',
+
+        'getTinTucByTitleSuccess',
+        'getTinTucByTitleFail'
     
     );
   }
@@ -71,7 +75,8 @@ class QuanLyTinTucAction {
       $.ajax({
         url: '/api/addtintuc',
         type: 'POST',
-        data: { title: payload.title, content: payload.contentLeft, description: payload.description, img: payload.img, dateCreate: payload.dateCreate, slug: payload.slug },
+        data: {access_token: payload.access_token, title: payload.title, content: payload.contentLeft, description: payload.description, img: payload.img, 
+            dateCreate: payload.dateCreate, slug: payload.slug, hienthi: payload.hienthi },
       })
       .done((data) =>{
         this.actions.addTinTucSuccess(data);
@@ -89,7 +94,8 @@ class QuanLyTinTucAction {
       $.ajax({
         url: '/api/updatetintuc',
         type: 'PUT',
-        data: { id: payload.id, title: payload.title, content: payload.contentLeft, description: payload.description, img: payload.img, dateModify: payload.dateModify, slug: payload.slug },
+        data: {access_token: payload.access_token, id: payload.id, title: payload.title, content: payload.contentLeft, description: payload.description, img: payload.img, 
+            dateModify: payload.dateModify, slug: payload.slug, hienthi: payload.hienthi },
       })
       .done((data) =>{
         this.actions.updateTinTucSuccess(data);
@@ -131,11 +137,11 @@ class QuanLyTinTucAction {
   openMoDDeleteTinTuc(id){
     this.actions.openMoDDeleteTinTuc(id);
   }
-  deleteTinTuc(id){
+  deleteTinTuc(payload){
     $.ajax({
       type: 'DELETE',
       url: '/api/deletetintuc',
-      data: {id: id}
+      data: payload
     })
     .done((data) => {
         this.actions.deleteTinTucSucess(data);
@@ -168,6 +174,18 @@ class QuanLyTinTucAction {
     })
     .fail((jqXhr) => {
       this.actions.getTinTucByLinkFail(jqXhr.responseJSON.message);
+    });
+  }
+
+  // get tin tuc by title
+  getTinTucByTitle(text){
+    $.ajax({
+    url: '/api/gettintucbytitle/'+text})
+    .done((data) => {
+      this.actions.getTinTucByTitleSuccess(data);
+    })
+    .fail((jqXhr) => {
+      this.actions.getTinTucByTitleFail(jqXhr.responseJSON.message);
     });
   }
 

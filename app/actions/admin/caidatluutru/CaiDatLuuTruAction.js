@@ -93,7 +93,7 @@ class CaiDatLuuTruAction {
              }
         })
         .done((data) => {
-            this.actions.updateGiaHanLuuTruSuccess(data);
+            this.actions.updateGiaHanLuuTruSuccess(data.message);
         })
         .fail((jqXhr) => {
             this.actions.updateGiaHanLuuTruFail(jqXhr.responseJSON);

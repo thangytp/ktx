@@ -37,6 +37,8 @@ class ManageUserStore {
     this.inputdrlktx = null;
     this.inputdvs = null;
 
+    this.editModalShow = false;
+    this.idEdit = '';
     this.email = '';
     this.mssv = '';
     this.holot = '';
@@ -69,6 +71,29 @@ class ManageUserStore {
 
     this.modalIsOpenDelete = false;
     this.idDel = '';
+
+    this.validateHoLot = '';
+    this.validateTen = '';
+    this.validateKhuVuc = '';
+    this.validateGioiTinh = '';
+    this.validateNgaySinh = '';
+    this.validateTinh = '';
+    this.validateKhoa = '';
+    this.validateNam = '';
+    this.validateHeDaoTao = '';
+    this.validateDoiTuong = '';
+    this.validateTonGiao = '';
+    this.validateDoanThe = '';
+    this.validateSoCMND = '';
+    this.validateHoKhau = '';
+    this.validateDienThoaiSV = '';
+    this.validateDienThoaiGiaDinh = '';
+    this.validateEmailThuongDung = '';
+    this.validateDongY = '';
+
+    this.validateHocLuc = '';
+    this.validateHoanCanh = '';
+    this.validateLoaiPhong = '';
     // if(localStorage.getItem('deactiveStep2')) {
     //   this.deactiveStep2 = false;
     // } else {
@@ -216,6 +241,8 @@ class ManageUserStore {
     this.user = response;
 
     // set state
+    this.editModalShow = true;
+    this.idEdit = response._id;
     this.email = response.email;
     this.mssv = response.ma_sinh_vien;
     this.holot = response.ho_lot;
@@ -250,10 +277,12 @@ class ManageUserStore {
 
   onDeleteUserSuccess() {
     ManageUserAction.getUsers();
+    this.modalIsOpenDelete = false;
   }
 
   onEditUserSuccess() {
     ManageUserAction.getUsers();
+    this.editModalShow = false;
   }
   onUpdateInfoKtxSuccess(data){
     if(data == undefined) {
@@ -429,6 +458,422 @@ class ManageUserStore {
   onCloseModalDelete(){
     this.modalIsOpenDelete = false;
   }
+
+  onInvalidHoLot(){
+        this.validateHoLot = 'Vui lòng nhập họ và tên lót';
+        this.validateTen = '';
+        this.validateKhuVuc = '';
+        this.validateGioiTinh = '';
+        this.validateNgaySinh = '';
+        this.validateTinh = '';
+        this.validateKhoa = '';
+        this.validateNam = '';
+        this.validateHeDaoTao = '';
+        this.validateDoiTuong = '';
+        this.validateTonGiao = '';
+        this.validateDoanThe = '';
+        this.validateSoCMND = '';
+        this.validateHoKhau = '';
+        this.validateDienThoaiSV = '';
+        this.validateDienThoaiGiaDinh = '';
+        this.validateEmailThuongDung = '';
+        
+        this.validateHocLuc = '';
+        this.validateHoanCanh = '';
+        this.validateLoaiPhong = '';
+    }
+    onInvalidTen(){
+        this.validateHoLot = '';
+        this.validateTen = 'Vui lòng nhập tên';
+        this.validateKhuVuc = '';
+        this.validateGioiTinh = '';
+        this.validateNgaySinh = '';
+        this.validateTinh = '';
+        this.validateKhoa = '';
+        this.validateNam = '';
+        this.validateHeDaoTao = '';
+        this.validateDoiTuong = '';
+        this.validateTonGiao = '';
+        this.validateDoanThe = '';
+        this.validateSoCMND = '';
+        this.validateHoKhau = '';
+        this.validateDienThoaiSV = '';
+        this.validateDienThoaiGiaDinh = '';
+        this.validateEmailThuongDung = '';
+        
+        this.validateHocLuc = '';
+        this.validateHoanCanh = '';
+        this.validateLoaiPhong = '';
+    }
+    onInvalidKhuVuc(){
+        this.validateKhuVuc = 'Vui lòng chọn khu vực';
+        this.validateHoLot = '';
+        this.validateTen = '';
+        
+        this.validateGioiTinh = '';
+        this.validateNgaySinh = '';
+        this.validateTinh = '';
+        this.validateKhoa = '';
+        this.validateNam = '';
+        this.validateHeDaoTao = '';
+        this.validateDoiTuong = '';
+        this.validateTonGiao = '';
+        this.validateDoanThe = '';
+        this.validateSoCMND = '';
+        this.validateHoKhau = '';
+        this.validateDienThoaiSV = '';
+        this.validateDienThoaiGiaDinh = '';
+        this.validateEmailThuongDung = '';
+        
+        this.validateHocLuc = '';
+        this.validateHoanCanh = '';
+        this.validateLoaiPhong = '';
+    }
+    onInvalidGioiTinh(){
+        this.validateGioiTinh = 'Vui lòng chọn giới tính của bạn';
+        this.validateHoLot = '';
+        this.validateTen = '';
+        this.validateKhuVuc = '';
+        
+        this.validateNgaySinh = '';
+        this.validateTinh = '';
+        this.validateKhoa = '';
+        this.validateNam = '';
+        this.validateHeDaoTao = '';
+        this.validateDoiTuong = '';
+        this.validateTonGiao = '';
+        this.validateDoanThe = '';
+        this.validateSoCMND = '';
+        this.validateHoKhau = '';
+        this.validateDienThoaiSV = '';
+        this.validateDienThoaiGiaDinh = '';
+        this.validateEmailThuongDung = '';
+        
+        this.validateHocLuc = '';
+        this.validateHoanCanh = '';
+        this.validateLoaiPhong = '';
+    }
+    onInvalidNgaySinh(){
+        this.validateHoLot = '';
+        this.validateTen = '';
+        this.validateKhuVuc = '';
+        this.validateGioiTinh = '';
+        this.validateNgaySinh = 'Ngày sinh không hợp lệ';
+        this.validateTinh = '';
+        this.validateKhoa = '';
+        this.validateNam = '';
+        this.validateHeDaoTao = '';
+        this.validateDoiTuong = '';
+        this.validateTonGiao = '';
+        this.validateDoanThe = '';
+        this.validateSoCMND = '';
+        this.validateHoKhau = '';
+        this.validateDienThoaiSV = '';
+        this.validateDienThoaiGiaDinh = '';
+        this.validateEmailThuongDung = '';
+        
+        this.validateHocLuc = '';
+        this.validateHoanCanh = '';
+        this.validateLoaiPhong = '';
+    }
+    onInvalidTinh(){
+        this.validateTinh = 'Vui lòng chọn tỉnh';
+        this.validateHoLot = '';
+        this.validateTen = '';
+        this.validateKhuVuc = '';
+        this.validateGioiTinh = '';
+        this.validateNgaySinh = '';
+        
+        this.validateKhoa = '';
+        this.validateNam = '';
+        this.validateHeDaoTao = '';
+        this.validateDoiTuong = '';
+        this.validateTonGiao = '';
+        this.validateDoanThe = '';
+        this.validateSoCMND = '';
+        this.validateHoKhau = '';
+        this.validateDienThoaiSV = '';
+        this.validateDienThoaiGiaDinh = '';
+        this.validateEmailThuongDung = '';
+        
+        this.validateHocLuc = '';
+        this.validateHoanCanh = '';
+        this.validateLoaiPhong = '';
+    }
+    onInvalidKhoa(){
+        this.validateHoLot = '';
+        this.validateTen = '';
+        this.validateKhuVuc = '';
+        this.validateGioiTinh = '';
+        this.validateNgaySinh = '';
+        this.validateTinh = '';
+        this.validateKhoa = 'Vui lòng chọn khoa';
+        this.validateNam = '';
+        this.validateHeDaoTao = '';
+        this.validateDoiTuong = '';
+        this.validateTonGiao = '';
+        this.validateDoanThe = '';
+        this.validateSoCMND = '';
+        this.validateHoKhau = '';
+        this.validateDienThoaiSV = '';
+        this.validateDienThoaiGiaDinh = '';
+        this.validateEmailThuongDung = '';
+        
+        this.validateHocLuc = '';
+        this.validateHoanCanh = '';
+        this.validateLoaiPhong = '';
+    }
+
+  onInvalidNam(){
+    this.validateNam = 'Vui lòng nhập năm hợp lệ. VD: 2016';
+        this.validateHoLot = '';
+        this.validateTen = '';
+        this.validateKhuVuc = '';
+        this.validateGioiTinh = '';
+        this.validateNgaySinh = '';
+        this.validateTinh = '';
+        this.validateKhoa = '';
+        
+        this.validateHeDaoTao = '';
+        this.validateDoiTuong = '';
+        this.validateTonGiao = '';
+        this.validateDoanThe = '';
+        this.validateSoCMND = '';
+        this.validateHoKhau = '';
+        this.validateDienThoaiSV = '';
+        this.validateDienThoaiGiaDinh = '';
+        this.validateEmailThuongDung = '';
+        
+        this.validateHocLuc = '';
+        this.validateHoanCanh = '';
+        this.validateLoaiPhong = '';
+  }
+    onInvalidHeDaoTao(){
+        this.validateHoLot = '';
+        this.validateTen = '';
+        this.validateKhuVuc = '';
+        this.validateGioiTinh = '';
+        this.validateNgaySinh = '';
+        this.validateTinh = '';
+        this.validateKhoa = '';
+        this.validateNam = '';
+        this.validateHeDaoTao = 'Chọn hệ đào tạo';
+        this.validateDoiTuong = '';
+        this.validateTonGiao = '';
+        this.validateDoanThe = '';
+        this.validateSoCMND = '';
+        this.validateHoKhau = '';
+        this.validateDienThoaiSV = '';
+        this.validateDienThoaiGiaDinh = '';
+        this.validateEmailThuongDung = '';
+        
+        this.validateHocLuc = '';
+        this.validateHoanCanh = '';
+        this.validateLoaiPhong = '';
+    }
+
+  onInvalidDoiTuong(){
+    this.validateDoiTuong = 'Vui lòng chọn đối tượng ưu tiên';
+        this.validateHoLot = '';
+        this.validateTen = '';
+        this.validateKhuVuc = '';
+        this.validateGioiTinh = '';
+        this.validateNgaySinh = '';
+        this.validateTinh = '';
+        this.validateKhoa = '';
+        this.validateNam = '';
+        this.validateHeDaoTao = '';
+        
+        this.validateTonGiao = '';
+        this.validateDoanThe = '';
+        this.validateSoCMND = '';
+        this.validateHoKhau = '';
+        this.validateDienThoaiSV = '';
+        this.validateDienThoaiGiaDinh = '';
+        this.validateEmailThuongDung = '';
+        
+        this.validateHocLuc = '';
+        this.validateHoanCanh = '';
+        this.validateLoaiPhong = '';
+  }
+    onInvalidTonGiao(){
+        this.validateHoLot = '';
+        this.validateTen = '';
+        this.validateKhuVuc = '';
+        this.validateGioiTinh = '';
+        this.validateNgaySinh = '';
+        this.validateTinh = '';
+        this.validateKhoa = '';
+        this.validateNam = '';
+        this.validateHeDaoTao = '';
+        this.validateDoiTuong = '';
+        this.validateTonGiao = 'Vui lòng nhập tôn giáo';
+        this.validateDoanThe = '';
+        this.validateSoCMND = '';
+        this.validateHoKhau = '';
+        this.validateDienThoaiSV = '';
+        this.validateDienThoaiGiaDinh = '';
+        this.validateEmailThuongDung = '';
+        
+        this.validateHocLuc = '';
+        this.validateHoanCanh = '';
+        this.validateLoaiPhong = '';
+    }
+    onInvalidDoanThe(){
+        this.validateHoLot = '';
+        this.validateTen = '';
+        this.validateKhuVuc = '';
+        this.validateGioiTinh = '';
+        this.validateNgaySinh = '';
+        this.validateTinh = '';
+        this.validateKhoa = '';
+        this.validateNam = '';
+        this.validateHeDaoTao = '';
+        this.validateDoiTuong = '';
+        this.validateTonGiao = '';
+        this.validateDoanThe = 'Vui lòng chọn đoàn thể';
+        this.validateSoCMND = '';
+        this.validateHoKhau = '';
+        this.validateDienThoaiSV = '';
+        this.validateDienThoaiGiaDinh = '';
+        this.validateEmailThuongDung = '';
+        
+        this.validateHocLuc = '';
+        this.validateHoanCanh = '';
+        this.validateLoaiPhong = '';
+    }
+    onInvalidSoCMND(){
+        this.validateHoLot = '';
+        this.validateTen = '';
+        this.validateKhuVuc = '';
+        this.validateGioiTinh = '';
+        this.validateNgaySinh = '';
+        this.validateTinh = '';
+        this.validateKhoa = '';
+        this.validateNam = '';
+        this.validateHeDaoTao = '';
+        this.validateDoiTuong = '';
+        this.validateTonGiao = '';
+        this.validateDoanThe = '';
+        this.validateSoCMND = 'Nhập số chứng minh nhân dân';
+        this.validateHoKhau = '';
+        this.validateDienThoaiSV = '';
+        this.validateDienThoaiGiaDinh = '';
+        this.validateEmailThuongDung = '';
+        
+        this.validateHocLuc = '';
+        this.validateHoanCanh = '';
+        this.validateLoaiPhong = '';
+    }
+    onInvalidHoKhau(){
+        this.validateHoLot = '';
+        this.validateTen = '';
+        this.validateKhuVuc = '';
+        this.validateGioiTinh = '';
+        this.validateNgaySinh = '';
+        this.validateTinh = '';
+        this.validateKhoa = '';
+        this.validateNam = '';
+        this.validateHeDaoTao = '';
+        this.validateDoiTuong = '';
+        this.validateTonGiao = '';
+        this.validateDoanThe = '';
+        this.validateSoCMND = '';
+        this.validateHoKhau = 'Nhập hộ khẩu';
+        this.validateDienThoaiSV = '';
+        this.validateDienThoaiGiaDinh = '';
+        this.validateEmailThuongDung = '';
+        
+        this.validateHocLuc = '';
+        this.validateHoanCanh = '';
+        this.validateLoaiPhong = '';
+    }
+    onInvalidSVDienThoai(){
+        this.validateHoLot = '';
+        this.validateTen = '';
+        this.validateKhuVuc = '';
+        this.validateGioiTinh = '';
+        this.validateNgaySinh = '';
+        this.validateTinh = '';
+        this.validateKhoa = '';
+        this.validateNam = '';
+        this.validateHeDaoTao = '';
+        this.validateDoiTuong = '';
+        this.validateTonGiao = '';
+        this.validateDoanThe = '';
+        this.validateSoCMND = '';
+        this.validateHoKhau = '';
+        this.validateDienThoaiSV = 'Nhập số điện thoại sinh viên';
+        this.validateDienThoaiGiaDinh = '';
+        this.validateEmailThuongDung = '';
+        this.validateDongY = '';
+        
+        this.validateHocLuc = '';
+        this.validateHoanCanh = '';
+        this.validateLoaiPhong = '';
+    }
+    onInvalidGiaDinhDienThoai(){
+        this.validateHoLot = '';
+        this.validateTen = '';
+        this.validateKhuVuc = '';
+        this.validateGioiTinh = '';
+        this.validateNgaySinh = '';
+        this.validateTinh = '';
+        this.validateKhoa = '';
+        this.validateNam = '';
+        this.validateHeDaoTao = '';
+        this.validateDoiTuong = '';
+        this.validateTonGiao = '';
+        this.validateDoanThe = '';
+        this.validateSoCMND = '';
+        this.validateHoKhau = '';
+        this.validateDienThoaiSV = '';
+        this.validateDienThoaiGiaDinh = 'Nhập số điện thoại của gia đình';
+        this.validateEmailThuongDung = '';
+        this.validateDongY = '';
+        
+        this.validateHocLuc = '';
+        this.validateHoanCanh = '';
+        this.validateLoaiPhong = '';
+    }
+
+    onInvalidHocluc(){
+      this.validateHocLuc = 'Vui lòng chọn học lực';
+          this.validateGioiTinh = '';
+      this.validateNam = '';
+        this.validateKhuVuc = '';
+        this.validateTinh = '';
+        this.validateDoiTuong = '';
+        this.validateHoanCanh = '';
+          this.validateLoaiPhong = '';
+          this.validateDongY = '';
+    }
+    onInvalidHoanCanh(){
+      this.validateHoanCanh = 'Vui lòng chọn hoàn cảnh gia đình';
+          this.validateGioiTinh = '';
+      this.validateNam = '';
+        this.validateKhuVuc = '';
+        this.validateTinh = '';
+        this.validateDoiTuong = '';
+        this.validateHocLuc = '';
+          this.validateLoaiPhong = '';
+          this.validateDongY = '';
+    }
+    onInvalidLoaiPhong(){
+        this.validateGioiTinh = '';
+        this.validateNam = '';
+        this.validateKhuVuc = '';
+        this.validateTinh = '';
+        this.validateDoiTuong = '';
+        this.validateDongY = '';
+        this.validateHocLuc = '';
+        this.validateHoanCanh = '';
+        this.validateLoaiPhong = 'Vui lòng chọn loại phòng';
+    }
+
+    onCloseModalEdit(){
+      this.editModalShow = false;
+    }
 }
 
 export default alt.createStore(ManageUserStore);

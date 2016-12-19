@@ -12,9 +12,6 @@ var Phong = require('../../models/phong');
 var Phongchitiet = require('../../models/phongchitiet');
 var Dichvu = require('../../models/dichvu');
 var Hedaotao = require('../../models/hedaotao');
-var Admin = require('../../models/admin');
-
-
 
 
 var xlstojson = require("xls-to-json-lc");
@@ -23,6 +20,12 @@ var bcrypt   = require('bcrypt-nodejs');
 
 
 module.exports = function(app, importStudent) {
+
+  function randomString(length, chars) {
+    var result = '';
+    for (var i = length; i > 0; --i) result += chars[Math.round(Math.random() * (chars.length - 1))];
+    return result;
+  }
 
   app.post('/addadmin', function(req, res){
     var nAdmin = new Admin();
@@ -60,7 +63,18 @@ module.exports = function(app, importStudent) {
     Admin.findOne({email : req.params.email}, function(err, admin){
       if (err) res.send(err);
       if(admin.valiPassword(req.params.password)) {
-        res.json(admin);
+        var access_token = randomString(128, '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ');
+        admin.update({ $set: {access_token: access_token } }, function(err, re){
+            if(err) throw err;
+            else{
+              Admin.findOne({access_token: access_token}, function(err, adminRes){
+                res.json(adminRes);
+              });
+              
+            }
+            
+        });
+        
       }
     });
   });
@@ -330,10 +344,20 @@ module.exports = function(app, importStudent) {
   // Update Student
 
   app.put('/editstudent/:stuId', function(req, res){
-    console.log(req.body);
-    Student.findByIdAndUpdate(req.params.stuId, {email: req.body.email, _khu_vuc_id : req.body.khuvuc, _tinh_id : req.body.tinh, _doi_tuong_id : req.body.doituong, _hoc_luc_id : req.body.hocluc, _hoan_canh_id : req.body.hoancanh} , { new: true }, function (err, student) {
-      if (err) throw err;
-      res.send(student);
+    var access_token = req.body.access_token;
+    Admin.findOne({access_token: access_token}, function(err, admin){
+      if(err) return next(err);
+      if(admin){
+        Student.findByIdAndUpdate(req.params.stuId, { ho_lot: req.body.holot, ten: req.body.ten, ngay_sinh: req.body.ngaySinh, 
+          phai: req.body.gioitinh, _khoa_id: req.body.svkhoa, _he_dao_tao_id: req.body.svhedaotao, nam_vao_truong: req.body.namvaotruong,
+          _khu_vuc_id: req.body.svkhuvuc, _tinh_id: req.body.svtinh, _doi_tuong_id: req.body.svdoituong, tongiao: req.body.svtongiao, ten_doan_the: req.body.svdoanthe,
+          so_cmnd: req.body.socmnd, dia_chi_gia_dinh: req.body.hokhau, sdt_sinhvien: req.body.svdienthoai, sdt_giadinh: req.body.giadinhdienthoai,
+          email_khac: req.body.emailThuongDung, _hoc_luc_id: req.body.svhocluc, _hoan_canh_id: req.body.svhoancanh, _phong_id: req.body.svloaiphong,
+          avatar: req.body.avatar} , { new: true }, function (err, student) {
+          if (err) throw err;
+          res.send(student);
+        });
+      }
     });
   })
 
@@ -1069,27 +1093,64 @@ module.exports = function(app, importStudent) {
       });
     })
 
-    // Add Chi Tieu
+    // Add loai phong
 
       app.post('/addphong', function(req, res){
-        var nPhong = new Phong();
-        nPhong.ten = req.body.ten;
-        nPhong.loai = req.body.loai;
-        nPhong.gia = req.body.gia;
-        nPhong.kichco = req.body.kichco;
-        nPhong.soluong = req.body.soluong;
-        nPhong.save(function(err){
-          if(err) throw err;
-          res.send(true);
+        var access_token = req.body.access_token;
+        Admin.findOne({access_token: access_token}, function(err, admin){
+          if(err) return next(err);
+          if(admin){
+            var nPhong = new Phong();
+            nPhong.ten = req.body.ten;
+            nPhong.loai = req.body.loai;
+            nPhong.gia = req.body.gia;
+            nPhong.kichco = req.body.kichco;
+            nPhong.soluong = req.body.soluong;
+            nPhong.save(function(err){
+              if(err) throw err;
+              res.send(true);
+            });
+          }
+        });
+      })
+
+      //update loai phong
+      app.put('/api/updatephong', function(req, res, next){
+        var access_token = req.body.access_token;
+        Admin.findOne({access_token: access_token}, function(err, admin){
+          if(err) return next(err);
+          if(admin){
+              var id = req.body.idEdit;
+              var ten = req.body.tenEdit;
+              var loai = req.body.loaiEdit;
+              var gia = req.body.giaEdit;
+              var kichco = req.body.kichcoEdit;
+              var soluong = req.body.soluongEdit;
+              Phong.findOne({_id: id}, function(err, phongRes){
+                  if(err) return next(err);
+                  if(phongRes){
+                    phongRes.update({$set: {ten: ten, loai: loai, gia: gia, kichco: kichco, soluong: soluong} }, function(err1, re){
+                        if(err1) return next(err1);
+                        res.send({message: 'Cập nhật loại phòng thành công!'});
+                    });
+                  }
+              });
+          }
         });
       })
 
       // Delete Student
 
-      app.delete('/deletephong/:phongId', function(req, res){
-        Phong.remove({_id: req.params.phongId}, function(err) {
-          if (err) throw err;
-          res.send(true);
+      app.delete('/deletephong', function(req, res){
+        var access_token = req.body.access_token;
+        Admin.findOne({access_token: access_token}, function(err, admin){
+          if(err) return next(err);
+          if(admin){
+            Phong.remove({_id: req.body.id}, function(err) {
+              if (err) throw err;
+              res.send(true);
+            });
+          }
         });
       })
 
@@ -1098,6 +1159,17 @@ module.exports = function(app, importStudent) {
         .find()
         .populate('_loai')
         .populate('_tang')
+        .exec(function(err, phong){
+          if(err) throw err;
+          res.json(phong);
+        });
+      })
+
+      //get phong chi tiet by id
+      app.get('/api/getphongchitietbyid/:id', function(req, res){
+        Phongchitiet
+        .findOne({_id: req.params.id})
+        
         .exec(function(err, phong){
           if(err) throw err;
           res.json(phong);
@@ -1126,6 +1198,24 @@ module.exports = function(app, importStudent) {
           });
         })
 
+        app.put('/api/updatephongchitiet', function(req, res, next){
+          var access_token = req.body.access_token;
+          Admin.findOne({access_token: access_token}, function(err, admin){
+              if(err) return next(err);
+              if(admin){
+                  Phongchitiet.findOne({_id: req.body.id}, function(err, phong){
+                      if(err) return next(err);
+                      if(phong){
+                          phong.update({$set: {_loai: req.body._loai, ma: req.body.ma, _tang: req.body._tang} }, function(err1, re){
+                              if(err) return next(err1);
+                              res.send({message: 'Cập nhật thành công!'});
+                          });
+                      }
+                  });
+              }
+          });
+        })
+
         app.put('/addphongchitiet/giuong', function(req, res){
           Phongchitiet.findOne({_id : req.body.tenphong}, function(err, phongchitiet) {
             if(err) throw err;
@@ -1145,10 +1235,16 @@ module.exports = function(app, importStudent) {
 
         // Delete Student
 
-        app.delete('/deletephongchitiet/:phongchitietId', function(req, res){
-          Phongchitiet.remove({_id: req.params.phongchitietId}, function(err) {
-            if (err) throw err;
-            res.send(true);
+        app.delete('/deletephongchitiet', function(req, res){
+          var access_token = req.body.access_token;
+          Admin.findOne({access_token: access_token}, function(err, admin){
+              if(err) return next(err);
+              if(admin){
+                Phongchitiet.remove({_id: req.body.id}, function(err) {
+                  if (err) throw err;
+                  res.send(true);
+                });
+              }
           });
         })
 
@@ -1161,77 +1257,99 @@ module.exports = function(app, importStudent) {
 
         // Add Chi Tieu
 
-          app.post('/addtang', function(req, res){
-            var nTang = new Tang();
-            nTang.ten = req.body.ten;
-            nTang.save(function(err){
-              if(err) throw err;
-              res.send(true);
-            });
-          })
+        app.post('/addtang', function(req, res){
+          var nTang = new Tang();
+          nTang.ten = req.body.ten;
+          nTang.save(function(err){
+            if(err) throw err;
+            res.send(true);
+          });
+        })
 
-          // Delete Student
+        // Delete Student
 
-          app.delete('/deletetang/:tangId', function(req, res){
-            Tang.remove({_id: req.params.tangId}, function(err) {
-              if (err) throw err;
-              res.send(true);
-            });
-          })
+        app.delete('/deletetang/:tangId', function(req, res){
+          Tang.remove({_id: req.params.tangId}, function(err) {
+            if (err) throw err;
+            res.send(true);
+          });
+        })
 
-          app.get('/getdichvu', function(req, res){
-            Dichvu.find(function(err, dichvu){
-              if(err) throw err;
-              res.json(dichvu);
-            });
-          })
+        app.get('/getdichvu', function(req, res){
+          Dichvu.find(function(err, dichvu){
+            if(err) throw err;
+            res.json(dichvu);
+          });
+        })
 
-          // Add Chi Tieu
+        // Add dich vu
 
-            app.post('/adddichvu', function(req, res){
-              var nDichvu = new Dichvu();
-              nDichvu.ten = req.body.ten;
-              nDichvu.gia = req.body.gia;
-              nDichvu.save(function(err){
-                if(err) throw err;
-                res.send(true);
-              });
-            })
+        app.post('/adddichvu', function(req, res){
+          var nDichvu = new Dichvu();
+          nDichvu.ten = req.body.ten;
+          nDichvu.gia = req.body.gia;
+          nDichvu.save(function(err){
+            if(err) throw err;
+            res.send(true);
+          });
+        })
 
-            // Delete Student
-
-            app.delete('/deletedichvu/:dichvuId', function(req, res){
-              Dichvu.remove({_id: req.params.dichvuId}, function(err) {
-                if (err) throw err;
-                res.send(true);
-              });
-            })
-
-            app.get('/gethedaotao', function(req, res){
-              Hedaotao.find(function(err, hedaotao){
-                if(err) throw err;
-                res.json(hedaotao);
-              });
-            })
-
-            // Add Chi Tieu
-
-              app.post('/addhedaotao', function(req, res){
-                var nHedaotao = new Hedaotao();
-                nHedaotao.ten = req.body.ten;
-                nHedaotao.save(function(err){
-                  if(err) throw err;
-                  res.send(true);
+        //update dich vu
+        app.put('/api/updatedichvu', function(req, res, next){
+          var access_token = req.body.access_token;
+          Admin.findOne({access_token: access_token}, function(err, admin){
+            if(err) return next(err);
+            if(admin){
+                var id = req.body.idEdit;
+                var tendv = req.body.tendv;
+                var giadv = req.body.giadv;
+                Dichvu.findOne({_id: id}, function(err, dichvu){
+                  if(err) return next(err);
+                  if(dichvu){
+                    dichvu.update({$set: {ten: tendv, gia: giadv} }, function(err1, re){
+                      if(err1) return next(err1);
+                      res.send({message: 'Cập nhật dịch vụ thành công!'});
+                    });
+                  }
                 });
-              })
+            }
+          });
+        })
 
-              // Delete Student
+        // Delete dich vu
 
-              app.delete('/deletehedaotao/:hedaotaoId', function(req, res){
-                Hedaotao.remove({_id: req.params.hedaotaoId}, function(err) {
-                  if (err) throw err;
-                  res.send(true);
-                });
-              })
+        app.delete('/deletedichvu/:dichvuId', function(req, res){
+          Dichvu.remove({_id: req.params.dichvuId}, function(err) {
+            if (err) throw err;
+            res.send(true);
+          });
+        })
+
+        app.get('/gethedaotao', function(req, res){
+          Hedaotao.find(function(err, hedaotao){
+            if(err) throw err;
+            res.json(hedaotao);
+          });
+        })
+
+      // Add hedaotao
+
+        app.post('/addhedaotao', function(req, res){
+          var nHedaotao = new Hedaotao();
+          nHedaotao.ten = req.body.ten;
+          nHedaotao.save(function(err){
+            if(err) throw err;
+            res.send(true);
+          });
+        })
+
+        // Delete hedaotao
+
+        app.delete('/deletehedaotao/:hedaotaoId', function(req, res){
+          Hedaotao.remove({_id: req.params.hedaotaoId}, function(err) {
+            if (err) throw err;
+            res.send(true);
+          });
+        })
 
 }

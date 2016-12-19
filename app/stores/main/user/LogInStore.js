@@ -16,21 +16,18 @@ class LogInStore {
     localStorage.removeItem('avatar');
     this.loginSuccessMess = '';
     this.loginFailMess = '';
-  // 	this.user ='';
-  //   this.password ='';
-  //   this.helpBlock='';
+  
     setTimeout(function() {
       window.location.reload();
     }, 500);
   }
   onLoginSuccess(response)
   {
- //  	console.log(data);
-    // localStorage.setItem('userid', data._id);
     localStorage.setItem('email', response.profileObj.email);
     localStorage.setItem('avatar', response.profileObj.imageUrl);
     localStorage.setItem('name', response.profileObj.name);
-    console.log(response.profileObj.name);
+    localStorage.setItem('accessToken', response.accessToken);
+    
     this.loginSuccessMess='Đăng nhập thành công';
   	setTimeout(function() {
       history.go(-1);

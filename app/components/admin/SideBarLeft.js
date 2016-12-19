@@ -10,7 +10,7 @@ class SideBarLeft extends React.Component {
     this.onChange = this.onChange.bind(this);
   }
   componentDidMount() {
-
+    let adminType = localStorage.getItem('adminType');
   }
   componentWillUnmount() {
 
@@ -27,10 +27,11 @@ class SideBarLeft extends React.Component {
       adminname = adminname.toString();
     }
     let avatar = localStorage.getItem('adminavatar');
-    let style= {"border": "0"}
+    let style= {"border": "0"};
 
     let adminType = localStorage.getItem('adminType');
-    if(adminType==="Admin"){
+    console.log(adminType);
+    if(adminType=="Admin"){
       return(
 
             <aside id="sidebar-left" className="sidebar-circle sidebar-dark">
