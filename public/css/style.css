@@ -970,7 +970,8 @@ ul.msg_list li a .message {
   color: white; }
 
 .table tbody tr td {
-  background-color: #FBFBFB; }
+  background-color: #FBFBFB;
+  vertical-align: middle !important; }
 
 .table.table-striped tbody tr:nth-child(odd) td, .table.table-striped tbody tr:nth-child(odd) th {
   background-color: #f6f6f6; }
@@ -1261,7 +1262,18 @@ a {
   margin-top: -3px;
   width: 30px; }
 
+.dropdown-submenu {
+  position: relative; }
+
+.dropdown-submenu .dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -1px; }
+
 /*======================css home page==============*/
+.cs-user li {
+  float: left; }
+
 #tin-tuc-moi .title-tin-tuc {
   border-bottom: 1px solid #EEEEEF; }
 
@@ -1278,6 +1290,8 @@ a {
 .item-thongbao {
   border-bottom: 1px solid #F8F8F8;
   margin-bottom: 10px; }
+  .item-thongbao .date-thongbao {
+    font-style: italic; }
 
 .title-thongbao {
   font-weight: 600;
@@ -1340,6 +1354,11 @@ a {
     width: 100%; }
 
 /*=============== css chi tiet page ===============*/
+.time-news {
+  margin-bottom: 10px;
+  border-bottom: 1px solid #ccc;
+  font-style: italic; }
+
 .panel-blog {
   padding: 20px; }
 
@@ -1687,13 +1706,22 @@ footer#footer a:hover {
   body.page-sidebar-left-show #sidebar-left:after {
     left: 0px; } }
 @media (max-width: 768px) {
+  .ktx-nav-desktop {
+    display: none; }
+
   #sidebar-left:after {
-    left: -220px; } }
+    left: -220px; }
+
+  .panel-blog {
+    padding: 0px; }
+
+  .mobilePT10 {
+    padding-top: 10px; } }
 @media (max-width: 800px) {
   .footer-content {
     text-align: center; } }
 ::-webkit-scrollbar {
-  width: 9px;
+  width: 12px;
   height: 9px; }
 
 ::-webkit-scrollbar-corner {

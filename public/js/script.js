@@ -51,3 +51,19 @@
             $(this).addClass("active");
         });
     });
+$(document).ready(function(){
+  $('.dropdown-submenu a.test').on("click", function(e){
+    $(this).next('ul').css('display','block');
+    var dcss = $(this).next('ul').css('display');
+
+    if(dcss == 'none'){
+        $(this).next('ul').css('display','block');
+    }
+    else $(this).next('ul').css('display','none');
+    
+    e.stopPropagation();
+    e.preventDefault();
+  });
+});
+
+    
