@@ -1392,7 +1392,22 @@ a {
 .user-email{
 
 }
+
+.dropdown-submenu {
+    position: relative;
+}
+
+.dropdown-submenu .dropdown-menu {
+    top: 0;
+    left: 100%;
+    margin-top: -1px;
+}
 /*======================css home page==============*/
+.cs-user{
+    li{
+        float: left;
+    }
+}
 #tin-tuc-moi{
     .title-tin-tuc{
         border-bottom: 1px solid #EEEEEF;
@@ -1413,6 +1428,9 @@ a {
 .item-thongbao{
     border-bottom: 1px solid #F8F8F8;
     margin-bottom: 10px;
+    .date-thongbao{
+        font-style: italic;
+    }
 }
 .title-thongbao{
     font-weight: 600;
@@ -1502,6 +1520,11 @@ a {
 
 
 /*=============== css chi tiet page ===============*/
+.time-news{
+    margin-bottom: 10px;
+    border-bottom: 1px solid #ccc;
+    font-style: italic;
+}
 .panel-blog {
     padding: 20px;
 }
@@ -1952,9 +1975,18 @@ footer#footer a:hover{
   }
 }
 @media (max-width: 768px){
-  #sidebar-left:after {
-      left: -220px;
-  }
+    .ktx-nav-desktop{
+        display: none;
+    }
+    #sidebar-left:after {
+        left: -220px;
+    }
+    .panel-blog {
+        padding: 0px;
+    }
+    .mobilePT10{
+        padding-top: 10px;
+    }
 }
 @media (max-width: 800px){
   .footer-content {
@@ -1964,7 +1996,7 @@ footer#footer a:hover{
 
 
 ::-webkit-scrollbar {
-    width: 9px;
+    width: 12px;
     height: 9px;
 }
 ::-webkit-scrollbar-corner {

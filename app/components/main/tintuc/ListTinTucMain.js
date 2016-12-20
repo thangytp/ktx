@@ -34,8 +34,8 @@ class ListTinTucMain extends React.Component {
 		if(this.state.listTinTucBottom.length>0){
 			listTinTucBottom = this.state.listTinTucBottom.map((tintuc, index) => {
 				let check = tintuc.dateModify? moment(tintuc.dateModify) : moment(tintuc.dateCreate);
-				console.log(check);
-				let time = check._d.getHours() + ':' + check._d.getMinutes();
+
+				let time = check._d.getHours() + ':' + ( check._d.getMinutes()>10 ? check._d.getMinutes() : '0'+check._d.getMinutes() );
 				let date = (check._d.getDate() > 10) ? check._d.getDate()  : '0' + check._d.getDate();
 				let fullDate = date + '/' + (check._d.getMonth()+1) + '/' + check._d.getFullYear();
 				return(

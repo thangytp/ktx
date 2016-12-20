@@ -130,9 +130,9 @@ class Home extends React.Component {
 	    	<div>
 			    <div className="container">   
 			    	<section id="tin-tuc-moi">
-			    		<div className="col-sm-9">
+			    		<div className="col-md-9 col-sm-12">
 			    			<div className="thongbaomoi white-bg">
-			    				<div className="col-sm-12 mT20 mB20">
+			    				<div className="col-sm-12 mT20 mB20 mobilePT10">
 			    					<h3 className="page-title">Thông báo mới</h3>
 			    				</div>
 			    				{listTinTucToDisplayHome}

@@ -63,3 +63,6 @@ this.activeTarget=b,this.clear();var c=this.selector+'[data-target="'+b+'"],'+th
             $(this).addClass("active");
         });
     });
+
+
+    
