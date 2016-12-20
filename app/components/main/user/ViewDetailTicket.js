@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import {Tabs, Tab, Modal, Button, Panel} from 'react-bootstrap';
+import {Tabs, Tab, Modal, Button, ListGroup, ListGroupItem} from 'react-bootstrap';
 import {Link} from 'react-router';
+import moment from 'moment';
 
 import ManageTicketAction from '../../../actions/ticket/ManageTicketAction';
 import ManageTicketStore from '../../../stores/ticket/ManageTicketStore';
@@ -25,6 +26,11 @@ class Ticket extends React.Component {
 		ManageTicketStore.listen(this.onChange);
 		ManageTicketAction.getTicketById(this.props.params.id);
   }
+
+	componentDidUpdate() {
+    ManageTicketAction.getTicketById(this.props.params.id);
+  }
+
   componentWillUnmount() {
 		ManageTicketStore.unlisten(this.onChange);
   }
@@ -46,14 +52,30 @@ class Ticket extends React.Component {
   }
   render(){
 		let listAnswers;
+		let ticketOpenDate;
+		let ticketCloseDate;
+    let lastAnswer;
     if(this.state.ticket.tinnhan) {
-      listAnswers = this.state.ticket.tinnhan.map(function(tinnhan, index){
-        return (
-          <div>
-            <label>{tinnhan.nguoipost}</label>
-            <Panel>{tinnhan.noidung}</Panel>
-          </div>
-        )
+			var length = this.state.ticket.tinnhan.length;
+      lastAnswer = this.state.ticket.tinnhan[length - 1].nguoipost;
+      ticketOpenDate = (moment(this.state.ticket.thoigiantao).format("DD/MM/YYYY"));
+			ticketCloseDate = (moment(this.state.ticket.thoigiandong).format("DD/MM/YYYY"));
+			listAnswers = this.state.ticket.tinnhan.map(function(tinnhan, index){
+        if(index % 2 === 0) {
+          return (
+            <div className="answer-odd">
+              <label className="btn-success">{tinnhan.nguoipost}</label>
+              <p>{tinnhan.noidung}</p>
+            </div>
+          )
+        } else {
+          return (
+            <div className="answer-even">
+              <label className="btn-primary">{tinnhan.nguoipost}</label>
+              <p>{tinnhan.noidung}</p>
+            </div>
+          )
+        }
       });
     } else {
       listAnswers = '';
@@ -63,22 +85,39 @@ class Ticket extends React.Component {
 			<div className="container info-page">
 				<ol className="breadcrumb">
 						<li><Link to="/">Trang chủ</Link></li>
-						<li className="active">Báo hỏng vật dụng</li>
+						<li><Link to="/cau-hoi">Báo Hỏng Vật Dụng</Link></li>
+						<li className="active">Chi Tiết</li>
 				</ol>
-				<div className="row nM white-bg">
-          {listAnswers}
-          <form className="form-horizontal" encType="multipart/form-data" onSubmit={this.handleAnswerTicket.bind(this)}>
-  						<div className='form-group '>
-									<div  className ='col-sm-12'>
-										<textarea id ='ckedit'  rows="10" cols="100" ref ='noidung' ></textarea>
-								</div>
-							</div>
-  						<div className='form-group'>
-  							<div  className ='col-sm-offset-2'>
-  								<button className="btn btn-success btn-large" type="submit">Trả Lời</button>
-  							</div>
-  						</div>
-  				</form>
+				<div className="row nM white-bg answer-admin">
+				<div className ='col-md-6'>
+	        <ListGroup>
+	          <ListGroupItem>{'Người Tạo: '+this.state.ticket.nguoitao}</ListGroupItem>
+	          <ListGroupItem>{'Tiêu Đề: '+this.state.ticket.tieude}</ListGroupItem>
+	          <ListGroupItem>{'Trạng Thái: '+this.state.ticket.trangthai}</ListGroupItem>
+	        </ListGroup>
+	      </div>
+	        <div className ='col-md-6'>
+	          <ListGroup>
+	            <ListGroupItem>{'Ngày Tạo: '+ticketOpenDate}</ListGroupItem>
+	            <ListGroupItem>{'Người trả lời mới nhất: '+ lastAnswer}</ListGroupItem>
+	            <ListGroupItem>{'Ngày Đóng: '+ticketCloseDate}</ListGroupItem>
+	          </ListGroup>
+	        </div>
+	        <div className ='col-md-12'>
+	          {listAnswers}
+	        </div>
+	        <div className ='col-md-12'>
+	        <form className="form-horizontal" encType="multipart/form-data" onSubmit={this.handleAnswerTicket.bind(this)}>
+	            <div className='form-group '>
+	                <div className ='col-sm-12'>
+	                  <textarea id ='ckedit' className="ckedit-answer" ref ='noidung' required></textarea>
+	              </div>
+	            </div>
+	            <div className='form-group'>
+	                <button className="btn btn-success btn-large" type="submit">Trả Lời</button>
+	            </div>
+	        </form>
+	        </div>
 				</div>
 			</div>
 			);

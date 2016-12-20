@@ -45,6 +45,10 @@ import ViewDetailPage from './components/main/page/ViewDetailPage';
 import ViewDetailTinTuc from './components/main/tintuc/ViewDetailTinTuc';
 import Search from './components/main/tintuc/Search';
 
+import Quanlycauhoi from './components/admin/ticket/Quanlycauhoi';
+import Xemchitietcauhoi from './components/admin/ticket/Xemchitietcauhoi';
+
+
 import localStorage from 'localStorage';
 
 
@@ -85,6 +89,8 @@ export default (
             <Route path="/quanly@ktx/quan-ly-khoa" component={KhoaAdmin} onEnter={requireAuth}/>
             <Route path="/quanly@ktx/quan-ly-he-dao-tao" component={HeDaoTao} onEnter={requireAuth}/>
             <Route path="/quanly@ktx/cai-dat-dang-ky-luu-tru" component={CaiDatDangKyLuuTru} onEnter={requireAuth}/>
+            <Route path="/quanly@ktx/quan-ly-cau-hoi" component={Quanlycauhoi}/>
+            <Route path="/quanly@ktx/quan-ly-cau-hoi/:id" component={Xemchitietcauhoi}/>
 
         </Route>
 

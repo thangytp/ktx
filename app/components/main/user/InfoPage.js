@@ -12,13 +12,13 @@ export default class InfoPage extends React.Component {
     this.state = InfoPageStore.getState();
     this.onChange = this.onChange.bind(this);
   }
-  componentDidMount() {  
+  componentDidMount() {
     let userEmail = localStorage.getItem('email');
     console.log(userEmail);
     if(!userEmail){
       window.location.href="/login";
     }
-    else { 
+    else {
       var mssv = userEmail.split('@');
       var svmssv = mssv[0];
       InfoPageAction.getStudent(svmssv);
@@ -31,7 +31,7 @@ export default class InfoPage extends React.Component {
   }
   onChange(state) {
     this.setState(state);
-  } 
+  }
   render(){
 
     // neu dang o ktx thi hien thong tin
@@ -54,7 +54,7 @@ export default class InfoPage extends React.Component {
     				      	<img src={this.state.stu.avatar? this.state.stu.avatar : "/uploads/LogoBK.png"} className="img-responsive avatar"/>
     				      	<p className="text-center bold">{this.state.stu.ho_lot + " " + this.state.stu.ten}</p>
     				      	<p className="text-center bold">{this.state.stu.ma_sinh_vien}</p>
-                    <div className="col-sm-12 text-center"><button className="btn btn-fb">Báo hỏng vật dụng</button></div>
+                    <div className="col-sm-12 text-center"><button className="btn btn-fb"><Link to="/cau-hoi">Báo Hỏng Vật Dụng</Link></button></div>
     				    </div>
       				</div>
       				<div className="col-md-9 col-sm-12 mT20">
@@ -63,7 +63,7 @@ export default class InfoPage extends React.Component {
       						<p>Họ tên: {this.state.holot + " " + this.state.ten}</p>
       						<p>MSSV: {this.state.stu.ma_sinh_vien}</p>
       						<p>Khoa: {this.state.stu._khoa_id ? this.state.stu._khoa_id.ten : ''}</p>
-      						
+
       						<p>Ngày sinh: {ngaySinh.getDate() + "/" + (ngaySinh.getMonth() + 1) + "/" + ngaySinh.getFullYear()}</p>
       						<p>Giới tính: {gioiTinh}</p>
       						<p>Số CMND: {this.state.stu.so_cmnd}</p>
@@ -79,7 +79,7 @@ export default class InfoPage extends React.Component {
       					<div className="info3">
       						<p>Phòng: {this.state.stu._phongchitiet_id ? this.state.stu._phongchitiet_id.ma : ''}</p>
       						<p>Vị trí giường: TT101{this.state.stu._phongchitiet_id ? this.state.stu._phongchitiet_id.giuong.ten : ''}</p>
-      						
+
       					</div>
       				</div>
       			</div>
