@@ -8,16 +8,25 @@ import moment from 'moment';
 import QuanLyTinTucAction from '../../../actions/admin/quanlytintuc/QuanLyTinTucAction';
 import QuanLyTinTucStore from '../../../stores/admin/quanlytintuc/QuanLyTinTucStore';
 
-class ListTinTucMain extends React.Component {
+import CotPhaiHome from '../CotPhaiHome';
+
+class Search extends React.Component {
 	constructor(props)
 	{
 		super(props);
 		this.state = QuanLyTinTucStore.getState();
 		this.onChange = this.onChange.bind(this);
 	}
+	componentWillReceiveProps(nextProps){
+	    document.title = "Tìm kiếm " + this.props.params.text + ' | Ký túc xá Bách Khoa';
+	    var text = nextProps.params.text;
+	    QuanLyTinTucAction.getTinTucByTitle(text); 
+
+	}
 	componentDidMount() {
+	    document.title = "Tìm kiếm " + this.props.params.text + ' | Ký túc xá Bách Khoa';
 		QuanLyTinTucStore.listen(this.onChange);
-		QuanLyTinTucAction.getListTinTucBottom();
+		QuanLyTinTucAction.getTinTucByTitle(this.props.params.text);
 	}
 
 	componentWillUnmount() {
@@ -30,57 +39,67 @@ class ListTinTucMain extends React.Component {
 
 	render() {  
 
-		let listTinTucBottom;
-		if(this.state.listTinTucBottom.length>0){
-			listTinTucBottom = this.state.listTinTucBottom.map((tintuc, index) => {
+		let listTinTucSearch;
+		if(this.state.tinSearch.length>0){
+			listTinTucSearch = this.state.tinSearch.map((tintuc, index) => {
 				let check = tintuc.dateModify? moment(tintuc.dateModify) : moment(tintuc.dateCreate);
 				console.log(check);
 				let time = check._d.getHours() + ':' + check._d.getMinutes();
 				let date = (check._d.getDate() > 10) ? check._d.getDate()  : '0' + check._d.getDate();
 				let fullDate = date + '/' + (check._d.getMonth()+1) + '/' + check._d.getFullYear();
 				return(
-						<div className="item-tin-tuc col-sm-4" key={index}>
-							
-								<div className="panel panel-item-tintuc panel-success shadow" key={index}>
-									
-									<div className="panel-body nP">
+						<div className="item-search-tin-tuc col-sm-12 nP mB20" key={index}>
+								
+									<div className="col-sm-3">
 										<Link to={'/tin-tuc/'+tintuc.slug} data-toggle="tooltip" data-placement="bottom" title={tintuc.title}>
 											<img className="img-responsive" src={tintuc.img}/>
 										</Link>	
 									</div>
-									<div className="panel-footer">
-										<div className="title-item-tintuc">
+									<div className="col-sm-9">
+										<div className="title-item-tintuc col-sm-12">
 											<Link to={'/tin-tuc/'+tintuc.slug} data-toggle="tooltip" data-placement="bottom" title={tintuc.title}>
 												<span className="">{tintuc.title}</span>
 											</Link>	
 										</div>
 
-										<div className="date-item-tintuc">
+										<div className="date-item-tintuc col-sm-12">
 											{time + ' | ' + fullDate}
 										</div>
 									</div>
-								</div>
-							
 							
 						</div>
 					);
 			});
 		}
 		else {
-			listTinTucBottom = (
+			listTinTucSearch = (
 						<div></div>
 					);
 			
 		}
 
 		return(
-			
-				<div >
-					{listTinTucBottom}
-				</div>    
+				<div className="container">   
+          
+		            <div className="col-sm-9">
+		            	<ol className="breadcrumb no-overflow">
+			                <li><Link to="/"><i className="fa fa-home" aria-hidden="true"></i> Trang chủ</Link></li>
+			                <li><Link to="/tat-ca-tin-tuc">Tìm kiếm tin tức</Link></li>
+			            </ol>
+			            <div className = "panel panel-default panel-blog rounded shadow nP">
+                    		<div className="panel-body">
+		                		{listTinTucSearch}
+		                	</div>
+              			</div>
+		            </div>
+		            <div className="col-md-3 col-sm-12">
+		              <CotPhaiHome />
+		            </div>
+		          
+		        </div>   
 			
 		);
 	}
 }
 
-export default ListTinTucMain;
+export default Search;

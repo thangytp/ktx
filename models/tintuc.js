@@ -8,6 +8,7 @@ var tintucSchema = new mongoose.Schema({
  	slug: String,
  	dateCreate: Date,
  	dateModify: Date,
- 	status: Number
+ 	status: Number,
+ 	hienthi: Number
 });
 module.exports = mongoose.model('tintuc', tintucSchema);

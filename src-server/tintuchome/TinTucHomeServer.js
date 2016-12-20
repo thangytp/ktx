@@ -34,7 +34,7 @@ function TinTucHomeServer(app){
 	// get list tin tuc hienthi=1
 	app.get('/api/getListTinTucToDisplayHome', function(req, res, next){
 		try{
-			tintuchome.find({hienthi: 1})
+			tintuc.find({hienthi: 1})
 			.sort({_id: 1})
 			.exec(function(err, listTinTuc){
 				if(err) return next(err);

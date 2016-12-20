@@ -111,15 +111,33 @@ class Phong extends Component {
   }
 
   handleEditPhongChitiet(id){
-
+    ManagePhongChitietAction.getPhongChiTiet(id);
+  }
+  openMoDDeletePhongCT(id){
+    ManagePhongChitietAction.openMoDDeletePhongCT(id);
   }
 
-  handleDelPhonChitiet(id) {
-    ManagePhongChitietAction.delPhong(id);
+  handleDelPhongChitiet(e) {
+    var access_token = localStorage.getItem('access_token');
+    var id = this.state.state2.idDel;
+    ManagePhongChitietAction.delPhong({access_token: access_token, id : id});
   }
 
   onChange(state) {
     this.setState({state1: ManagePhongStore.getState(), state2: ManagePhongChitietStore.getState(), state3: ManageTangStore.getState()});
+  }
+  updatePhongChiTiet(e){
+    var access_token = localStorage.getItem('access_token');
+    var id = this.state.state2.idPhongChiTietEdit;
+    var _loai = this.state.state2._loai;
+    var ma = this.state.state2.maphong;
+    var _tang = this.state.state2._tang;
+
+    if(access_token){
+      if(id){
+          ManagePhongChitietAction.updatePhongChiTiet({id: id, _loai: _loai, ma: ma, _tang: _tang, access_token: access_token});
+      }
+    }
   }
 
   objectFormatter(data, cell) {
@@ -130,7 +148,7 @@ class Phong extends Component {
       return <button className="btn btn-primary" onClick={this.handleEditPhongChitiet.bind(this, cell)}><i className="fa fa-pencil-square-o" aria-hidden="true"></i></button>;
   }
   buttonFormatter(data, cell) {
-      return <button className="btn btn-danger" onClick={this.handleDelPhonChitiet.bind(this, cell)}><i className="fa fa-trash-o" aria-hidden="true"></i></button>;
+      return <button className="btn btn-danger" onClick={this.openMoDDeletePhongCT.bind(this, cell)}><i className="fa fa-trash-o" aria-hidden="true"></i></button>;
   }
 
   onToggleDropDown(onToggleDropDown){
@@ -156,7 +174,6 @@ class Phong extends Component {
   }
 
   render() {
-    console.log(this.state.state2.phongchitiet);
     let listPhongChitiet = this.state.state2.phongchitiet.map(function(phongchitiet, index){
       return (
         <tr>
@@ -165,7 +182,7 @@ class Phong extends Component {
         <td>{phongchitiet.ma}</td>
         <td>{phongchitiet._tang.ten}</td>
         {/* <td><button className="btn btn-primary" onClick={this.handleGetStudent.bind(this, user._id)}>Edit</button></td> */}
-        <td><button className="btn btn-danger" onClick={this.handleDelPhonChitiet.bind(this, phongchitiet._id)}>Delete</button></td>
+        <td><button className="btn btn-danger" onClick={this.handleDelPhongChitiet.bind(this, phongchitiet._id)}>Delete</button></td>
         </tr>
       )
     }, this);
@@ -190,6 +207,22 @@ class Phong extends Component {
 
     });
 
+    let listPhong = this.state.state1.phong.map(function(phong, index){
+      return(
+        <option value={phong._id} key={index}>
+          {phong.ten}
+        </option>
+      );
+    });
+
+    let listTang = this.state.state3.tang.map(function(tang, index){
+      return(
+        <option value={tang._id} key={index}>
+          {tang.ten}
+        </option>
+      );
+    });
+
     return (
       <div className="body-content animated fadeIn">
         <div className="row">
@@ -198,38 +231,84 @@ class Phong extends Component {
               <li><Link to="/quanly@ktx"><i className="fa fa-home" aria-hidden="true"></i> Trang quản trị</Link></li>
               <li>Phòng</li>
             </ol>
-            <Button bsStyle="primary" onClick={()=>this.setState({ addModalShow: true })}>
-              Thêm Phòng
-            </Button>
-            <AddPhongChitietModal {...props} show={this.state.addModalShow} onHide={addModalClose} />
             
-            <div className="table-responsive">
-              {/*<table className="table">
-                <thead>
-                 <tr>
-                   <th>STT</th>
-                   <th>Loại Phòng</th>
-                   <th>Mã</th>
-                   <th>Tầng</th>
-                   <th></th>
-                   <th></th>
-                   </tr>
-                 </thead>
-                 <tbody>
-                  {listPhongChitiet}
-                 </tbody>
-              </table>*/}
-              <BootstrapTable data={this.state.state2.phongchitiet} striped={true} hover={true} options={ options } search pagination exportCSV>
-                  
-                  <TableHeaderColumn dataField="tentang" dataSort={true}>Tầng</TableHeaderColumn>
-                  <TableHeaderColumn dataField="loaiphong" isKey={true} dataAlign="" dataSort={true}>Loại phòng</TableHeaderColumn>
-                  <TableHeaderColumn dataField="ma" >Mã phòng</TableHeaderColumn>
-                  <TableHeaderColumn dataField="_id" dataFormat={this.buttonFormatterEdit.bind(this, '_id')} width='60'>Sửa</TableHeaderColumn>
-                  <TableHeaderColumn dataField="_id" dataFormat={this.buttonFormatter.bind(this, '_id')} width='60'>Xóa</TableHeaderColumn>
-              </BootstrapTable>
-            </div>
+              <Button bsStyle="primary" onClick={()=>this.setState({ addModalShow: true })}>
+                Thêm Phòng
+              </Button>
+              <AddPhongChitietModal {...props} show={this.state.addModalShow} onHide={addModalClose} />
+              
+              <div className="table-responsive">
+                
+                <BootstrapTable data={this.state.state2.phongchitiet} striped={true} hover={true} options={ options } search pagination exportCSV>
+                    
+                    <TableHeaderColumn dataField="tentang" dataSort={true}>Tầng</TableHeaderColumn>
+                    <TableHeaderColumn dataField="loaiphong" isKey={true} dataAlign="" dataSort={true}>Loại phòng</TableHeaderColumn>
+                    <TableHeaderColumn dataField="ma" >Mã phòng</TableHeaderColumn>
+                    <TableHeaderColumn dataField="_id" dataFormat={this.buttonFormatterEdit.bind(this, '_id')} width='60'>Sửa</TableHeaderColumn>
+                    <TableHeaderColumn dataField="_id" dataFormat={this.buttonFormatter.bind(this, '_id')} width='60'>Xóa</TableHeaderColumn>
+                </BootstrapTable>
+              </div>
+            
           </div>
         </div>
+
+        <Modal show={this.state.state2.modalEdit} onHide ={ManagePhongChitietAction.closeModalEdit}>
+            <Modal.Header closeButton>
+              <Modal.Title id="contained-modal-title-lg">Sửa</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              
+                <div className="form-group">
+                  <label htmlFor="exampleInputPassword1">Loại Phòng</label>
+                  <select className="form-control" onChange={ManagePhongChitietAction.updateLoaiPhong} value = {this.state.state2._loai}>
+                      <option value='0'>--Chọn--</option>
+                      {listPhong}
+                  </select>
+                </div>
+                <div className="form-group">
+                  <label htmlFor="exampleInputEmail1">Mã</label>
+                  <input type="text" className="form-control" ref="ma" placeholder="Mã Phòng" 
+                    value = {this.state.state2.maphong} onChange={ManagePhongChitietAction.updateMa}/>
+                </div>
+                <div className="form-group">
+                  <label htmlFor="exampleInputPassword1">Tầng</label>
+                  <select className="form-control" onChange={ManagePhongChitietAction.updateTang} value = {this.state.state2._tang}>
+                      <option value='0'>--Chọn--</option>
+                      {listTang}
+                  </select>
+                </div>
+              
+            </Modal.Body>
+            <Modal.Footer>
+              <button
+                  className="btn btn-warning"
+                onClick={ManagePhongChitietAction.closeModalEdit}><i className="fa fa-times"> Hủy bỏ</i> </button>          
+              <button
+                  className="btn btn-success"
+                onClick={this.updatePhongChiTiet.bind(this)}><i className="fa fa-check"> Lưu</i> </button> 
+                <div className="" >{this.state.state2.messUpdate}</div>
+            </Modal.Footer>
+          </Modal>
+          {/* modal xoa item */}
+          <Modal show={this.state.state2.modalIsOpenDeletePhongCT} onHide ={ManagePhongChitietAction.closeModalDeletePhongCT}>
+              <Modal.Header>
+                <Modal.Title>
+                  Xóa
+                </Modal.Title>
+              </Modal.Header>
+              <Modal.Body>
+                <p>Bạn có chắc muốn xóa tin này?</p>
+              </Modal.Body>      
+              <Modal.Footer>
+                  <button
+                      className="btn btn-warning"
+                    onClick={ManagePhongChitietAction.closeModalDeletePhongCT}><i className="fa fa-times"> Hủy bỏ</i> </button>          
+                  <button
+                      className="btn btn-success"
+                    onClick={this.handleDelPhongChitiet.bind(this)}><i className="fa fa-check"> Xóa</i> </button>          
+              </Modal.Footer>
+          </Modal>
+
       </div>
     );
   }

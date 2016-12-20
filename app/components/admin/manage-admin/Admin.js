@@ -4,6 +4,7 @@ import {Link} from 'react-router';
 
 import ManageAdminAction from '../../../actions/admin/manage-admin/ManageAdminAction';
 import ManageAdminStore from '../../../stores/admin/manage-admin/ManageAdminStore';
+import LogInAdminStore from '../../../stores/admin/login/LogInAdminStore';
 
 const AddAdminModal = React.createClass({
 

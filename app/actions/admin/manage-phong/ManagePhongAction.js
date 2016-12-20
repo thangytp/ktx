@@ -11,7 +11,13 @@ class ManagePhongAction {
       'closeModalDelete',
 
       'handleGetPhong',
-      'closeModal'
+      'closeModal',
+      'updateTenLoaiPhong',
+      'updateLoaiPhong',
+      'updateGiaLoaiPhong',
+      'updateSoNguoi',
+      'updateSoLuong',
+      'updatePhongSuccess'
     );
   }
 
@@ -35,8 +41,9 @@ class ManagePhongAction {
 
   delPhong(payload) {
     $.ajax({
-      url: '/deletephong/' + payload,
-      type: 'DELETE'
+      url: '/deletephong',
+      type: 'DELETE',
+      data: payload
     })
     .done((data) => {
       this.actions.delPhongSuccess();
@@ -51,6 +58,17 @@ class ManagePhongAction {
     })
     .done((data) => {
       this.actions.addPhongSuccess();
+    })
+  }
+
+  updatePhong(payload) {
+    $.ajax({
+      url: '/api/updatephong',
+      type: 'PUT',
+      data: payload
+    })
+    .done((data) => {
+      this.actions.updatePhongSuccess(data.message);
     })
   }
 }

@@ -7,6 +7,18 @@ class ManagePhongChitietStore {
   constructor() {
     this.bindActions(ManagePhongChitietAction);
     this.phongchitiet = [];
+
+    this.addModalShow= false;
+
+    this.modalEdit = false;
+    this.idPhongChiTietEdit = '';
+    this.maphong = '';
+    this._loai = '';
+    this._tang = '';
+    this.messUpdate = '';
+
+    this.modalIsOpenDeletePhongCT = false;
+    this.idDel = '';
   }
 
   onGetPhongChitietSuccess(response) {
@@ -14,32 +26,58 @@ class ManagePhongChitietStore {
   }
 
   onAddPhongChitietSuccess() {
+    this.addModalShow= false;
     ManagePhongChitietAction.getPhong();
+
   }
 
   onDelPhongChitietSuccess() {
     ManagePhongChitietAction.getPhong();
+    this.modalIsOpenDeletePhongCT = false;
   }
 
   onUpdateGiuongDangkySuccess() {
     ManagePhongChitietAction.getPhong();
   }
-  // onUpdateuser(event)
-  // {
-  // 	this.user = event.target.value;
-  //    this.helpBlock='';
-  // }
-  // onUpdatepassword(event)
-  // {
-  // 	this.password = event.target.value;
-  //   this.helpBlock='';
-  // }
-  // onSetOpenModal(boolean)
-  // {
-  //     this.LoginModalisOpen = boolean;
-  //     this.user ='';
-  //     this.password ='';
-  // }
+  onGetPhongChiTietSuccess(data){
+    this.messUpdate = '';
+    this.modalEdit = true;
+
+    this.idPhongChiTietEdit = data._id;
+    this._loai = data._loai;
+    this.maphong = data.ma;
+    this._tang = data._tang;
+  }
+  onUpdateLoaiPhong(e){
+    this._loai = e.target.value;
+  }
+  onUpdateMa(e){
+    this.maphong = e.target.value;
+  }
+  onUpdateTang(e){
+    this._tang = e.target.value;
+  }
+
+  onCloseModalEdit(){
+    this.modalEdit = false;
+  }
+  onUpdatePhongChitietSuccess(data){
+    this.messUpdate = data;
+    this.modalEdit = false;
+    this.idPhongChiTietEdit = '';
+    this.maphong = '';
+    this._loai = '';
+    this._tang = '';
+    ManagePhongChitietAction.getPhong();
+  }
+
+  onCloseModalDeletePhongCT(){
+    this.modalIsOpenDeletePhongCT = false;
+  }
+  onOpenMoDDeletePhongCT(id){
+    this.modalIsOpenDeletePhongCT = true;
+    this.idDel = id;
+  }
 }
 
 export default alt.createStore(ManagePhongChitietStore);

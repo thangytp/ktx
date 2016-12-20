@@ -37,7 +37,7 @@ function CaiDatLuuTruServer(app){
 				if(err) return next(err);
 				caidatRes.update({ $set: { dangkymoi : {ngaybatdaudangky: ngayBatDauDangKy, ngayketthucdangky: ngayKetThucDangKy} } }, function(err1, re){
 					if(err1) return next(err);
-					res.send(re);
+					res.send({ message: 'Lưu thành công.' });
 				});
 			});
 
@@ -73,7 +73,7 @@ function CaiDatLuuTruServer(app){
 				if(err) return next(err);
 				caidatRes.update({ $set: { giahan : {ngaybatdaugiahan: ngayBatDauGiaHan, ngayketthucgiahan: ngayKetThucGiaHan} } }, function(err1, re){
 					if(err1) return next(err);
-					res.send(re);
+					res.send({ message: 'Lưu thành công.' });
 				});
 			});
 				

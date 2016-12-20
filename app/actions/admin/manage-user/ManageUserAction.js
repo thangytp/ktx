@@ -54,6 +54,28 @@ class ManageUserAction {
         'uploadFail',
         'handleUpload',
 
+        'invalidHoLot',
+        'invalidTen',
+        'invalidKhuVuc',
+        'invalidGioiTinh',
+        'invalidNgaySinh',
+        'invalidTinh',
+        'invalidKhoa',
+        'invalidNam',
+        'invalidHeDaoTao',
+        'invalidDoiTuong',
+        'invalidTonGiao',
+        'invalidDoanThe',
+        'invalidSoCMND',
+        'invalidHoKhau',
+        'invalidSVDienThoai',
+        'invalidGiaDinhDienThoai',
+
+        'invalidHocluc',
+        'invalidHoanCanh',
+        'invalidLoaiPhong',
+        'closeModalEdit',
+
         'closeModalDelete',
         'openMoDDeleteStudent'
 
@@ -325,7 +347,7 @@ class ManageUserAction {
     $.ajax({
       url: '/editstudent/' + payload.id,
       type: 'PUT',
-      data: {email : payload.email, khuvuc : payload.khuvuc, tinh : payload.tinh, doituong : payload.doituong, hocluc : payload.hocluc, hoancanh : payload.hoancanh}
+      data: payload
     })
     .done((data) => {
       this.actions.editUserSuccess();
