@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import {Tabs, Tab, Modal, Button} from 'react-bootstrap';
 import {Link} from 'react-router';
+import moment from 'moment';
 
 import ManageTicketAction from '../../../actions/ticket/ManageTicketAction';
 import ManageTicketStore from '../../../stores/ticket/ManageTicketStore';
+import ManageUserAction from '../../../actions/admin/manage-user/ManageUserAction';
+import ManageUserStore from '../../../stores/admin/manage-user/ManageUserStore';
 
 const AddTangModal = React.createClass({
 
@@ -13,7 +16,8 @@ const AddTangModal = React.createClass({
     const data = {
         tieude: this.refs.tieude.value,
 				noidung: this.refs.noidung.value,
-				nguoitao: localStorage.getItem('email')
+				nguoitao: localStorage.getItem('email'),
+        phong: this.props._phongchitiet_id.ma
     };
     ManageTicketAction.addTicket(data);
   },
@@ -30,19 +34,19 @@ const AddTangModal = React.createClass({
 								<label className="col-sm-2" htmlFor="name-item">Tiêu đề:</label>
 								<div className="col-sm-10">
 										<input type="text" className="form-control" id="name-item" placeholder=""
-											ref="tieude"/>
+											ref="tieude" required />
 								</div>
 							</div>
 
 						<div className='form-group '>
 									<label className='col-sm-2'>Nội dung:</label>
 										<div  className ='col-sm-10'>
-											<textarea id ='ckedit'  rows="10" cols="100" ref ='noidung' ></textarea>
+											<textarea id ='ckedit'  rows="10" cols="100" ref ='noidung' required ></textarea>
 									</div>
 								</div>
 						<div className='form-group'>
 							<div  className ='col-sm-offset-2'>
-								<button className="btn btn-success btn-large" type="submit">Thêm Câu Hỏi Mới</button>
+								<button className="btn btn-success btn-large" type="submit" >Thêm Câu Hỏi Mới</button>
 							</div>
 						</div>
 				</form>
@@ -59,7 +63,7 @@ class Ticket extends React.Component {
 	constructor(props)
   {
     super(props);
-		this.state = ManageTicketStore.getState();
+		this.state = {state1: ManageTicketStore.getState(), state2: ManageUserStore.getState()};
     this.onChange = this.onChange.bind(this);
 		this.state.addModalShow = false;
   }
@@ -69,23 +73,32 @@ class Ticket extends React.Component {
       window.location.href="/login";
     }
 		ManageTicketStore.listen(this.onChange);
+    ManageUserStore.listen(this.onChange);
 		ManageTicketAction.getTicket();
+    ManageUserAction.getUserByEmail(userEmail);
   }
+
+  componentDidUpdate() {
+    ManageTicketAction.getTicket();
+  }
+
   componentWillUnmount() {
 		ManageTicketStore.unlisten(this.onChange);
+    ManageUserStore.unlisten(this.onChange);
   }
   onChange(state) {
-    this.setState(state);
+    this.setState({state1: ManageTicketStore.getState(), state2: ManageUserStore.getState()});
   }
   render(){
 
-		let listTickets = this.state.tickets.map(function(ticket, index){
+		let listTickets = this.state.state1.tickets.map(function(ticket, index){
       let classBtn;
+      let ticketOpenDate = (moment(ticket.thoigiantao).format("DD/MM/YYYY"));
       if(ticket.trangthai === 'Đang Chờ') {
         classBtn = 'btn btn-warning';
-      } else if(ticket.trangthai === 'Đang giải quyết') {
+      } else if(ticket.trangthai === 'Đang Giải Quyết') {
         classBtn = 'btn btn-primary';
-      } else if(ticket.trangthai === 'Đã đóng') {
+      } else if(ticket.trangthai === 'Đóng') {
         classBtn = 'btn btn-danger';
       }
       return (
@@ -93,13 +106,14 @@ class Ticket extends React.Component {
         <th scope="row">{index + 1}</th>
         <td>{ticket.tieude}</td>
         <td><button className={classBtn}>{ticket.trangthai}</button></td>
-				<td>{ticket.thoigiantao}</td>
+				<td>{ticketOpenDate}</td>
         <td><Link to={'/cau-hoi/'+ticket._id}  title={ticket.tieude} className="btn btn-primary">Xem chi tiết</Link></td>
         </tr>
       )
     });
 
 		let addModalClose = () => this.setState({ addModalShow: false });
+    const props = this.state.state2.user;
 
 		return(
 			<div className="container info-page">
@@ -107,14 +121,13 @@ class Ticket extends React.Component {
 						<li><Link to="/">Trang chủ</Link></li>
 						<li className="active">Báo hỏng vật dụng</li>
 				</ol>
-				<div className="row nM white-bg">
+				<div className="row nM white-bg answer-admin">
 				<Button bsStyle="primary" onClick={()=>this.setState({ addModalShow: true })}>
 					Thêm Câu Hỏi Mới
 				</Button>
-				<AddTangModal show={this.state.addModalShow} onHide={addModalClose} />
-				<h2>Danh sách các câu hỏi của bạn</h2>
+				<AddTangModal {...props} show={this.state.addModalShow} onHide={addModalClose} />
 				<div className="table-responsive">
-					<table className="table white-bg table-striped table-hover table-success">
+					<table className="table white-bg table-success">
 						<thead>
 						 <tr>
 							 <th>STT</th>

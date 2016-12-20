@@ -175,13 +175,6 @@ module.exports = function(app, importStudent) {
     });
   })
 
-  app.get('/getstudent/test', function(req, res){
-    Student.findOne({ma_sinh_vien: '51203104'}, function(err, student){
-      if(err) throw err;
-      res.json(student);
-    });
-  })
-
   // Get Students By Hoc Vu
 
   app.get('/xetduyet/getstudenthocvu', function(req, res){
@@ -326,6 +319,16 @@ module.exports = function(app, importStudent) {
     Student
     .findOne({_id: req.params.stuId})
     .populate('_phong_id')
+    .exec(function(err, student){
+      if(err) throw err;
+      res.json(student);
+    });
+  })
+
+  app.get('/getstudentbyemail/:email', function(req, res){
+    Student
+    .findOne({email: req.params.email})
+    .populate('_phongchitiet_id')
     .exec(function(err, student){
       if(err) throw err;
       res.json(student);

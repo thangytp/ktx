@@ -7,6 +7,7 @@ class ManageTicketAction {
       'getTicketByIdSuccess',
       'addTicketSuccess',
       'answerTicketSuccess',
+      'changeStatusSuccess',
       'delTicketSuccess'
     );
   }
@@ -49,6 +50,17 @@ class ManageTicketAction {
     })
     .done((data) => {
       this.actions.answerTicketSuccess(payload.ticketId);
+    })
+  }
+
+  changeStatus(payload) {
+    $.ajax({
+      url: '/changestatus/' + payload.ticketId,
+      type: 'PUT',
+      data: {trangthai: payload.trangthai}
+    })
+    .done((data) => {
+      this.actions.changeStatusSuccess(payload.ticketId);
     })
   }
 

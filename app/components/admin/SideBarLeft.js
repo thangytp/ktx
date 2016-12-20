@@ -187,6 +187,12 @@ class SideBarLeft extends React.Component {
                               </li>
                           </ul>
                       </li>
+                      <li className="">
+                        <Link to="/quanly@ktx/quan-ly-cau-hoi">
+                            <span className="icon"><i className="fa fa-file-image-o"></i></span>
+                            <span className="text">Quản lý câu hỏi</span>
+                        </Link>
+                      </li>
                       {/* <li className="submenu">
                           <a href="javascript:void(0);">
                               <span className="icon"><i className="fa fa-cog"></i></span>

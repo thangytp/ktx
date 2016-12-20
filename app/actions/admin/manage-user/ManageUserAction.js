@@ -222,6 +222,16 @@ class ManageUserAction {
     })
   }
 
+  getUserByEmail(payload) {
+    $.ajax({
+      url: '/getstudentbyemail/' + payload,
+      type: 'GET'
+    })
+    .done((data) => {
+      this.actions.getUserSuccess(data);
+    })
+  }
+
   addUser(payload) {
     $.ajax({
       url: '/addstudent',
