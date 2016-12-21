@@ -33,13 +33,13 @@ class LastItemMobile extends React.Component {
 		let menuChau = this.props.listChau.map((chau, index) =>{
 			return(
 					<li key = {index}>
-						<Link to={'/' + chau.slug} tabIndex="-1"><span>{chau.title}</span></Link>
+						<Link to={'/' + chau.slug} ><span>{chau.title}</span></Link>
 					</li>
 				);
 		});
 
 		return(
-				<ul className="">
+				<ul >
 					{menuChau}
 				</ul>
 			);
