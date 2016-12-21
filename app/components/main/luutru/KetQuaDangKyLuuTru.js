@@ -31,7 +31,7 @@ export default class KetQuaDangKyLuuTru extends React.Component {
 
 
   render() {
-    let showinfo;
+    let showinfo = 'Chưa có kết quả. Vui lòng truy cập sau !';
     console.log(this.state.user);
     if(this.state.user) {
       var user = this.state.user;
