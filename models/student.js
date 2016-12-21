@@ -58,6 +58,7 @@ var studentSchema = new mongoose.Schema({
     ve_sinh: {type: 'Number'}
   }],
   tien_ktx : 'Number',
+  da_dong_tien : {type: 'Boolean', default: false},
   _phongchitiet_id: {type: mongoose.Schema.Types.ObjectId, ref: 'Phongchitiet'},
   _tang_id: {type: mongoose.Schema.Types.ObjectId, ref: 'Tang'},
   _phong_id: {type: mongoose.Schema.Types.ObjectId, ref: 'Phong'},
