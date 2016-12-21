@@ -72,11 +72,11 @@ module.exports = function(app, importStudent) {
               Admin.findOne({access_token: access_token}, function(err, adminRes){
                 res.json(adminRes);
               });
-              
+
             }
-            
+
         });
-        
+
       }
     });
   });
@@ -329,6 +329,8 @@ module.exports = function(app, importStudent) {
     Student
     .findOne({email: req.params.email})
     .populate('_phongchitiet_id')
+    .populate('_phong_id')
+    .populate('_tang_id')
     .exec(function(err, student){
       if(err) throw err;
       res.json(student);
@@ -354,7 +356,7 @@ module.exports = function(app, importStudent) {
     Admin.findOne({access_token: access_token}, function(err, admin){
       if(err) return next(err);
       if(admin){
-        Student.findByIdAndUpdate(req.params.stuId, { ho_lot: req.body.holot, ten: req.body.ten, ngay_sinh: req.body.ngaySinh, 
+        Student.findByIdAndUpdate(req.params.stuId, { ho_lot: req.body.holot, ten: req.body.ten, ngay_sinh: req.body.ngaySinh,
           phai: req.body.gioitinh, _khoa_id: req.body.svkhoa, _he_dao_tao_id: req.body.svhedaotao, nam_vao_truong: req.body.namvaotruong,
           _khu_vuc_id: req.body.svkhuvuc, _tinh_id: req.body.svtinh, _doi_tuong_id: req.body.svdoituong, tongiao: req.body.svtongiao, ten_doan_the: req.body.svdoanthe,
           so_cmnd: req.body.socmnd, dia_chi_gia_dinh: req.body.hokhau, sdt_sinhvien: req.body.svdienthoai, sdt_giadinh: req.body.giadinhdienthoai,
@@ -380,7 +382,7 @@ module.exports = function(app, importStudent) {
     else if(cMonth >= 5 && cMonth <= 7) {
       cSemester = 3;
     }
-    Student.findByIdAndUpdate(req.params.stuId, {_tang_id: req.body.tang, ma_ktx : req.body.maktx, ma_giuong: req.body.giuong, _phongchitiet_id : req.body.phongchitiet, role: parseInt(req.body.vaitro), dang_o_ktx: true} , { new: true }, function (err, student) {
+    Student.findByIdAndUpdate(req.params.stuId, {_tang_id: req.body.tang, ma_ktx : req.body.maktx, ma_giuong: req.body.giuong, _phongchitiet_id : req.body.phongchitiet, role: parseInt(req.body.vaitro), dang_o_ktx: true, da_dong_tien: true} , { new: true }, function (err, student) {
       if (err) throw err;
       Tienktx.findOneAndUpdate({_sinhvien_id : req.params.stuId, nam: cYear, ki: cSemester}, {da_dong_tien: true}, {new : true}, function(err){
         if(err) throw err;
@@ -1190,7 +1192,7 @@ module.exports = function(app, importStudent) {
       app.get('/api/getphongchitietbyid/:id', function(req, res){
         Phongchitiet
         .findOne({_id: req.params.id})
-        
+
         .exec(function(err, phong){
           if(err) throw err;
           res.json(phong);
