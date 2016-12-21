@@ -34,9 +34,9 @@ class SubItemMobile extends React.Component {
 		let menuCon = this.props.listCon.map((con, index) =>{
 			if(con.subChild.length != 0){
 				return(
-						<li key = {index} className='dropdown-submenu'>
-							<Link to='' className="test" tabIndex="-1"><span>{con.title}</span> <span className="caret"></span></Link>
-							<LastItemMobile listChau = {con.subChild} num={index}/>
+						<li key = {index} className=''>
+							<Link to='' ><span>{con.title}</span> <span className="caret"></span></Link>
+							<LastItemMobile listChau = {con.subChild} num={index} chaNum={this.props.num}/>
 						</li>
 					);
 			}

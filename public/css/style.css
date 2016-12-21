@@ -23,6 +23,27 @@ a {
 .main-body a:hover {
   color: #3E7CF7; }
 
+.answer-admin {
+  padding: 20px; }
+  .answer-admin .answer-odd, .answer-admin .answer-even {
+    min-height: 100px;
+    border: 1px solid grey;
+    border-radius: 10px;
+    margin-bottom: 20px; }
+    .answer-admin .answer-odd label, .answer-admin .answer-even label {
+      color: #fff;
+      border-radius: 10px 10px 0 0;
+      padding: 5px 20px 0px 20px;
+      display: block; }
+    .answer-admin .answer-odd p, .answer-admin .answer-even p {
+      padding: 5px 20px 0 20px;
+      margin: 0; }
+  .answer-admin .answer-even {
+    text-align: right; }
+  .answer-admin .ckedit-answer {
+    width: 100%;
+    height: 250px; }
+
 ul {
   list-style: none; }
 
@@ -933,6 +954,10 @@ ul.msg_list li a .message {
   background-color: #3E7CF7;
   border-color: #3E7CF7;
   color: white; }
+  .btn-fb a {
+    color: #ffffff; }
+    .btn-fb a:hover {
+      color: #333333; }
 
 .btn-success {
   background-color: #8CC152;
@@ -1696,18 +1721,24 @@ footer#footer a:hover {
 @media (max-width: 768px) {
   body.page-sidebar-left-show #page-content {
     margin-left: 220px !important; } }
-@media (max-width: 768px) {
+@media (min-width: 768px) {
+  .ktx-nav-mobile {
+    display: none; } }
+@media (max-width: 767px) {
   body.page-sidebar-left-show .navbar-minimize-mobile, body.page-sidebar-right-show .navbar-minimize-mobile {
-    background-color: #628a14; } }
-@media (max-width: 768px) {
+    background-color: #628a14; }
+
   body.page-sidebar-left-show #header {
-    left: 220px; } }
-@media (max-width: 768px) {
+    left: 220px; }
+
   body.page-sidebar-left-show #sidebar-left:after {
-    left: 0px; } }
-@media (max-width: 768px) {
+    left: 0px; }
+
   .ktx-nav-desktop {
     display: none; }
+
+  .navbar-nav {
+    margin: 0 !important; }
 
   #sidebar-left:after {
     left: -220px; }
