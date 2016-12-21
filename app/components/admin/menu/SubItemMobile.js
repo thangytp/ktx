@@ -6,9 +6,7 @@ import {Link} from 'react-router';
 import HomeMenuAction from '../../../actions/admin/menu/HomeMenuAction';
 import HomeMenuStore from '../../../stores/admin/menu/HomeMenuStore';
 
-import ListItemMenu from './ListItemMenu';
-
-import LastItem from './LastItem';
+import LastItemMobile from './LastItemMobile';
 
 class SubItemMobile extends React.Component {
 
@@ -36,9 +34,9 @@ class SubItemMobile extends React.Component {
 		let menuCon = this.props.listCon.map((con, index) =>{
 			if(con.subChild.length != 0){
 				return(
-						<li key = {index} className='menu-item-has-children'>
-							<Link to='#'><span>{con.title} <i className="fa fa-plus pull-right" aria-hidden="true"></i></span></Link>
-							<LastItem listChau = {con.subChild} num={index}/>
+						<li key = {index} className='dropdown-submenu'>
+							<Link to='' className="test" tabIndex="-1"><span>{con.title}</span> <span className="caret"></span></Link>
+							<LastItemMobile listChau = {con.subChild} num={index}/>
 						</li>
 					);
 			}
@@ -52,7 +50,7 @@ class SubItemMobile extends React.Component {
 		});
 
 		return(
-				<ul>
+				<ul className="dropdown-menu">
 					{menuCon}
 				</ul>
 			);
