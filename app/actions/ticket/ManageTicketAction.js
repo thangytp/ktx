@@ -65,6 +65,7 @@ class ManageTicketAction {
   }
 
   addTicket(payload) {
+    console.log('aaa');
     $.ajax({
       url: '/addticket',
       type: 'POST',

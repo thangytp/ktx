@@ -19,6 +19,7 @@ const AddTangModal = React.createClass({
 				nguoitao: localStorage.getItem('email'),
         phong: this.props._phongchitiet_id.ma
     };
+    console.log(data);
     ManageTicketAction.addTicket(data);
   },
 
