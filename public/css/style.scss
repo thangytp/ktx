@@ -1405,6 +1405,7 @@ a {
     left: 100%;
     margin-top: -1px;
 }
+
 /*======================css home page==============*/
 .cs-user{
     li{
@@ -1962,24 +1963,27 @@ footer#footer a:hover{
       margin-left: 220px !important;
   }
 }
-@media (max-width: 768px){
-  body.page-sidebar-left-show .navbar-minimize-mobile, body.page-sidebar-right-show .navbar-minimize-mobile {
-      background-color: #628a14;
-  }
+
+@media (min-width: 768px){
+    .ktx-nav-mobile{
+        display: none;
+    }
 }
-@media (max-width: 768px){
-  body.page-sidebar-left-show #header {
-      left: 220px;
-  }
-}
-@media (max-width: 768px){
-  body.page-sidebar-left-show #sidebar-left:after {
-      left: 0px;
-  }
-}
-@media (max-width: 768px){
+@media (max-width: 767px){
+    body.page-sidebar-left-show .navbar-minimize-mobile, body.page-sidebar-right-show .navbar-minimize-mobile {
+        background-color: #628a14;
+    }
+    body.page-sidebar-left-show #header {
+        left: 220px;
+    }
+    body.page-sidebar-left-show #sidebar-left:after {
+        left: 0px;
+    }
     .ktx-nav-desktop{
         display: none;
+    }
+    .navbar-nav {
+        margin: 0 !important;
     }
     #sidebar-left:after {
         left: -220px;
