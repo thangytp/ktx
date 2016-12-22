@@ -25,8 +25,6 @@ var xml2js = require('xml2js');
 
 var mongoose = require('mongoose');
 
-// var Transition = require('./models/Transition');
-// var User = require('./models/User');
 var image = require('./models/Image');
 
 var config = require('./config');
@@ -40,12 +38,6 @@ mongoose.connection.on('error', function() {
 });
 
 //=================SRC-SERVER===================
-// var Postserver = require('./src-server/admin/post/Postserver');
-// var CategoryServer = require('./src-server/admin/category/CategoryServer');
-// var DocumenttypeServer = require('./src-server/admin/documenttype/DocumenttypeServer');
-// var Userserver = require('./src-server/admin/user/Userserver');
-// var BookServer = require('./src-server/admin/book/BookServer');
-// var TransitionServer = require('./src-server/admin/transition/TransitionServer');
 var ImageServer = require('./src-server/image/ImageServer');
 var HomeMenuServer = require('./src-server/menu/HomeMenuServer');
 var PageServer = require('./src-server/page/PageServer');
@@ -140,26 +132,6 @@ KhoaServer(app);
 CaiDatLuuTruServer(app);
 TicketServer(app);
 Adminserver(app, importStudent);
-
-/*
-Category
-*/
-// CategoryServer(app);
-
-/*
-Documenttype Server
-*/
-// DocumenttypeServer(app);
-
-/*
-Book Server
-*/
-// BookServer(app);
-/*
-TransitionServer
-*/
-// TransitionServer(app,io);
-
 
 app.use(function(req, res) {
   match({ routes: routes.default, location: req.url }, function(err, redirectLocation, renderProps) {
