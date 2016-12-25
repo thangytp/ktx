@@ -109,11 +109,11 @@ class XetDuyetMoi extends Component {
         return (
           <tr>
            <th scope="row">{index + 1}</th>
-           <td>{user.ho_lot}' '{user.ten}</td>
+           <td>{user.ho_lot + ' ' + user.ten}</td>
            <td>{user.email}</td>
            <td>{user.ma_sinh_vien}</td>
            <td>{user.so_cmnd}</td>
-           <td>{user.dien_thoai}</td>
+           <td>{'0'+user.sdt_sinhvien}</td>
           </tr>
         )
     });
@@ -122,11 +122,11 @@ class XetDuyetMoi extends Component {
         return (
           <tr>
            <th scope="row">{index + 1}</th>
-           <td>{user.ho_lot}' '{user.ten}</td>
+           <td>{user.ho_lot + ' ' + user.ten}</td>
            <td>{user.email}</td>
            <td>{user.ma_sinh_vien}</td>
            <td>{user.so_cmnd}</td>
-           <td>{user.dien_thoai}</td>
+           <td>{'0'+user.sdt_sinhvien}</td>
           </tr>
         )
     });
@@ -135,11 +135,11 @@ class XetDuyetMoi extends Component {
         return (
           <tr>
            <th scope="row">{index + 1}</th>
-           <td>{user.ho_lot}' '{user.ten}</td>
+           <td>{user.ho_lot + ' ' + user.ten}</td>
            <td>{user.email}</td>
            <td>{user.ma_sinh_vien}</td>
            <td>{user.so_cmnd}</td>
-           <td>{user.dien_thoai}</td>
+           <td>{'0'+user.sdt_sinhvien}</td>
           </tr>
         )
     });
@@ -148,11 +148,11 @@ class XetDuyetMoi extends Component {
         return (
           <tr>
            <th scope="row">{index + 1}</th>
-           <td>{user.ho_lot}' '{user.ten}</td>
+           <td>{user.ho_lot + ' ' + user.ten}</td>
            <td>{user.email}</td>
            <td>{user.ma_sinh_vien}</td>
            <td>{user.so_cmnd}</td>
-           <td>{user.dien_thoai}</td>
+           <td>{'0'+user.sdt_sinhvien}</td>
           </tr>
         )
     });
@@ -160,11 +160,11 @@ class XetDuyetMoi extends Component {
         return (
           <tr>
            <th scope="row">{index + 1}</th>
-           <td>{user.ho_lot}' '{user.ten}</td>
+           <td>{user.ho_lot + ' ' + user.ten}</td>
            <td>{user.email}</td>
            <td>{user.ma_sinh_vien}</td>
            <td>{user.so_cmnd}</td>
-           <td>{user.dien_thoai}</td>
+           <td>{'0'+user.sdt_sinhvien}</td>
           </tr>
         )
     });
@@ -173,11 +173,11 @@ class XetDuyetMoi extends Component {
         return (
           <tr>
            <th scope="row">{index + 1}</th>
-           <td>{user.ho_lot}' '{user.ten}</td>
+           <td>{user.ho_lot + ' ' + user.ten}</td>
            <td>{user.email}</td>
            <td>{user.ma_sinh_vien}</td>
            <td>{user.so_cmnd}</td>
-           <td>{user.dien_thoai}</td>
+           <td>{'0'+user.sdt_sinhvien}</td>
           </tr>
         )
     });
@@ -186,11 +186,11 @@ class XetDuyetMoi extends Component {
         return (
           <tr>
            <th scope="row">{index + 1}</th>
-           <td>{user.ho_lot}' '{user.ten}</td>
+           <td>{user.ho_lot + ' ' + user.ten}</td>
            <td>{user.email}</td>
            <td>{user.ma_sinh_vien}</td>
            <td>{user.so_cmnd}</td>
-           <td>{user.dien_thoai}</td>
+           <td>{'0'+user.sdt_sinhvien}</td>
           </tr>
         )
     });
@@ -198,11 +198,11 @@ class XetDuyetMoi extends Component {
         return (
           <tr>
            <th scope="row">{index + 1}</th>
-           <td>{user.ho_lot}' '{user.ten}</td>
+           <td>{user.ho_lot + ' ' + user.ten}</td>
            <td>{user.email}</td>
            <td>{user.ma_sinh_vien}</td>
            <td>{user.so_cmnd}</td>
-           <td>{user.dien_thoai}</td>
+           <td>{'0'+user.sdt_sinhvien}</td>
           </tr>
         )
     });
