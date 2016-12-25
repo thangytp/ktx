@@ -1,19 +1,19 @@
 import React from 'react';
 import {Link} from 'react-router';
-import {animateScroll}  from  'react-scroll'; 
+import {animateScroll}  from  'react-scroll';
 
 
 class Footer extends React.Component {
    constructor(props) {
     super(props);
-    
+
   }
-  componentDidMount() { 
-    
+  componentDidMount() {
+
 
   }
    componentWillUnmount() {
-    
+
   }
 
   onChange(state) {
@@ -27,15 +27,15 @@ class Footer extends React.Component {
         <div className="cs-copyright">
             <div className="container">
                 <div className="row">
-                    
+
                     <div className="col-lg-4 col-md-4 col-sm-12 col-xs-12">
                       <div className="col-footer " id="">
                           <h4 className="footer-title">Ký túc xá Bách Khoa</h4>
                           <p className="text-intro">Trường Đại học Bách khoa đã vay được 60 tỷ đồng vốn kích cầu của Tp HCM để xây dựng KTX hiện đại ở Quận 10,
-                           có sức chứa hơn 2.500 Sinh viên, với trang thiết bị hoàn chỉnh, quản lý theo phương thức hiện đại và có thể 
+                           có sức chứa hơn 2.500 Sinh viên, với trang thiết bị hoàn chỉnh, quản lý theo phương thức hiện đại và có thể
                            so sánh với các KTX của các trường đại học quốc tế.</p>
                           <p>(trích báo cáo hội nghị thường niên năm 2010 của Đại học Quốc gia Tp.HCM)</p>
-                          
+
                       </div>
                     </div>
 
@@ -47,7 +47,7 @@ class Footer extends React.Component {
                                 <li><Link to="/"><i className="fa fa-hand-o-right" aria-hidden="true"></i> Xem điểm rèn luyện</Link></li>
                                 <li><Link to="/"><i className="fa fa-hand-o-right" aria-hidden="true"></i> Xem điểm vệ sinh</Link></li>
                                 <li><Link to="/"><i className="fa fa-hand-o-right" aria-hidden="true"></i> Xem chỉ số điện nước</Link></li>
-                                
+                                <li><Link to="/tra-cuu-luu-tru"><i className="fa fa-hand-o-right" aria-hidden="true"></i> Tra cứu sinh viên đang lưu trú</Link></li>
                             </ul>
                         </div>
                     </div>
