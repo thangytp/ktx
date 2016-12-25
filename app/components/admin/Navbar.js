@@ -26,14 +26,20 @@ class Navbar extends React.Component {
     LogInAdminStore.listen(this.onChange);
     ManageTicketStore.listen(this.onChange);
     var email = localStorage.getItem('adminEmail');
+    ManageTicketAction.getTicket();
+
   }
 
-  componentDidUpdate() {
+  componentDidUpdate(nextProps, nextState) {
     if(this.state.state1.logout) {
       this.context.router.push('/');
     }
-    ManageTicketAction.getTicket();
   }
+
+//   shouldComponentUpdate(nextProps, nextState) {
+//     console.log(nextState, this.state);
+//     return nextState !== this.nextState;
+// }
 
   componentWillUnmount() {
     LogInAdminStore.unlisten(this.onChange);
@@ -46,7 +52,6 @@ class Navbar extends React.Component {
 
   render() {
     // let style={'text-align':'center'};
-    console.log(localStorage.getItem('adminEmail'));
     let ten = localStorage.getItem('adminEmail');
     let adminname =localStorage.getItem('adminusername');
     if (adminname)

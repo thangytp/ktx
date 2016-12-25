@@ -35,6 +35,7 @@ class ManageUserStore {
     this.deactiveStep2 = true;
     this.deactiveStep3 = true;
     this.user = {};
+    this.luutru = {};
     this.inputdrl = null;
     this.inputdrlktx = null;
     this.inputdvs = null;
@@ -242,7 +243,6 @@ class ManageUserStore {
 
   onGetUserSuccess(response) {
     this.user = response;
-
     // set state
     this.editModalShow = true;
     this.idEdit = response._id;
@@ -294,6 +294,19 @@ class ManageUserStore {
       ManageUserAction.getUsersByXetDuyetThanhCong();
     }
   }
+
+  onAddLuutruSuccess() {
+
+  }
+
+  onUpdateLuutruSuccess() {
+
+  }
+
+  onGetLuutruSuccess(response) {
+    this.luutru = response;
+  }
+
 
   onImportUserSuccess() {
     ManageUserAction.getUsers();
@@ -480,7 +493,7 @@ class ManageUserStore {
         this.validateDienThoaiSV = '';
         this.validateDienThoaiGiaDinh = '';
         this.validateEmailThuongDung = '';
-        
+
         this.validateHocLuc = '';
         this.validateHoanCanh = '';
         this.validateLoaiPhong = '';
@@ -503,7 +516,7 @@ class ManageUserStore {
         this.validateDienThoaiSV = '';
         this.validateDienThoaiGiaDinh = '';
         this.validateEmailThuongDung = '';
-        
+
         this.validateHocLuc = '';
         this.validateHoanCanh = '';
         this.validateLoaiPhong = '';
@@ -512,7 +525,7 @@ class ManageUserStore {
         this.validateKhuVuc = 'Vui lòng chọn khu vực';
         this.validateHoLot = '';
         this.validateTen = '';
-        
+
         this.validateGioiTinh = '';
         this.validateNgaySinh = '';
         this.validateTinh = '';
@@ -527,7 +540,7 @@ class ManageUserStore {
         this.validateDienThoaiSV = '';
         this.validateDienThoaiGiaDinh = '';
         this.validateEmailThuongDung = '';
-        
+
         this.validateHocLuc = '';
         this.validateHoanCanh = '';
         this.validateLoaiPhong = '';
@@ -537,7 +550,7 @@ class ManageUserStore {
         this.validateHoLot = '';
         this.validateTen = '';
         this.validateKhuVuc = '';
-        
+
         this.validateNgaySinh = '';
         this.validateTinh = '';
         this.validateKhoa = '';
@@ -551,7 +564,7 @@ class ManageUserStore {
         this.validateDienThoaiSV = '';
         this.validateDienThoaiGiaDinh = '';
         this.validateEmailThuongDung = '';
-        
+
         this.validateHocLuc = '';
         this.validateHoanCanh = '';
         this.validateLoaiPhong = '';
@@ -574,7 +587,7 @@ class ManageUserStore {
         this.validateDienThoaiSV = '';
         this.validateDienThoaiGiaDinh = '';
         this.validateEmailThuongDung = '';
-        
+
         this.validateHocLuc = '';
         this.validateHoanCanh = '';
         this.validateLoaiPhong = '';
@@ -586,7 +599,7 @@ class ManageUserStore {
         this.validateKhuVuc = '';
         this.validateGioiTinh = '';
         this.validateNgaySinh = '';
-        
+
         this.validateKhoa = '';
         this.validateNam = '';
         this.validateHeDaoTao = '';
@@ -598,7 +611,7 @@ class ManageUserStore {
         this.validateDienThoaiSV = '';
         this.validateDienThoaiGiaDinh = '';
         this.validateEmailThuongDung = '';
-        
+
         this.validateHocLuc = '';
         this.validateHoanCanh = '';
         this.validateLoaiPhong = '';
@@ -621,7 +634,7 @@ class ManageUserStore {
         this.validateDienThoaiSV = '';
         this.validateDienThoaiGiaDinh = '';
         this.validateEmailThuongDung = '';
-        
+
         this.validateHocLuc = '';
         this.validateHoanCanh = '';
         this.validateLoaiPhong = '';
@@ -636,7 +649,7 @@ class ManageUserStore {
         this.validateNgaySinh = '';
         this.validateTinh = '';
         this.validateKhoa = '';
-        
+
         this.validateHeDaoTao = '';
         this.validateDoiTuong = '';
         this.validateTonGiao = '';
@@ -646,7 +659,7 @@ class ManageUserStore {
         this.validateDienThoaiSV = '';
         this.validateDienThoaiGiaDinh = '';
         this.validateEmailThuongDung = '';
-        
+
         this.validateHocLuc = '';
         this.validateHoanCanh = '';
         this.validateLoaiPhong = '';
@@ -669,7 +682,7 @@ class ManageUserStore {
         this.validateDienThoaiSV = '';
         this.validateDienThoaiGiaDinh = '';
         this.validateEmailThuongDung = '';
-        
+
         this.validateHocLuc = '';
         this.validateHoanCanh = '';
         this.validateLoaiPhong = '';
@@ -686,7 +699,7 @@ class ManageUserStore {
         this.validateKhoa = '';
         this.validateNam = '';
         this.validateHeDaoTao = '';
-        
+
         this.validateTonGiao = '';
         this.validateDoanThe = '';
         this.validateSoCMND = '';
@@ -694,7 +707,7 @@ class ManageUserStore {
         this.validateDienThoaiSV = '';
         this.validateDienThoaiGiaDinh = '';
         this.validateEmailThuongDung = '';
-        
+
         this.validateHocLuc = '';
         this.validateHoanCanh = '';
         this.validateLoaiPhong = '';
@@ -717,7 +730,7 @@ class ManageUserStore {
         this.validateDienThoaiSV = '';
         this.validateDienThoaiGiaDinh = '';
         this.validateEmailThuongDung = '';
-        
+
         this.validateHocLuc = '';
         this.validateHoanCanh = '';
         this.validateLoaiPhong = '';
@@ -740,7 +753,7 @@ class ManageUserStore {
         this.validateDienThoaiSV = '';
         this.validateDienThoaiGiaDinh = '';
         this.validateEmailThuongDung = '';
-        
+
         this.validateHocLuc = '';
         this.validateHoanCanh = '';
         this.validateLoaiPhong = '';
@@ -763,7 +776,7 @@ class ManageUserStore {
         this.validateDienThoaiSV = '';
         this.validateDienThoaiGiaDinh = '';
         this.validateEmailThuongDung = '';
-        
+
         this.validateHocLuc = '';
         this.validateHoanCanh = '';
         this.validateLoaiPhong = '';
@@ -786,7 +799,7 @@ class ManageUserStore {
         this.validateDienThoaiSV = '';
         this.validateDienThoaiGiaDinh = '';
         this.validateEmailThuongDung = '';
-        
+
         this.validateHocLuc = '';
         this.validateHoanCanh = '';
         this.validateLoaiPhong = '';
@@ -810,7 +823,7 @@ class ManageUserStore {
         this.validateDienThoaiGiaDinh = '';
         this.validateEmailThuongDung = '';
         this.validateDongY = '';
-        
+
         this.validateHocLuc = '';
         this.validateHoanCanh = '';
         this.validateLoaiPhong = '';
@@ -834,7 +847,7 @@ class ManageUserStore {
         this.validateDienThoaiGiaDinh = 'Nhập số điện thoại của gia đình';
         this.validateEmailThuongDung = '';
         this.validateDongY = '';
-        
+
         this.validateHocLuc = '';
         this.validateHoanCanh = '';
         this.validateLoaiPhong = '';

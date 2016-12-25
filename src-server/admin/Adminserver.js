@@ -14,6 +14,8 @@ var Dichvu = require('../../models/dichvu');
 var Hedaotao = require('../../models/hedaotao');
 
 var Tienktx = require('../../models/tienktx');
+var Daluutru = require('../../models/daluutru');
+
 
 
 var xlstojson = require("xls-to-json-lc");
@@ -325,9 +327,34 @@ module.exports = function(app, importStudent) {
     });
   })
 
+  app.get('/getluutru/:stuId', function(req, res){
+    Daluutru
+    .findOne({_sinhvien_id: req.params.stuId})
+    .populate('luutru._loaiphong')
+    .populate('luutru._phong')
+    .populate('luutru._tang')
+    .exec(function(err, luutru){
+      console.log(luutru);
+      if(err) throw err;
+      res.json(luutru);
+    });
+  })
+
   app.get('/getstudentbyemail/:email', function(req, res){
     Student
     .findOne({email: req.params.email})
+    .populate('_phongchitiet_id')
+    .populate('_phong_id')
+    .populate('_tang_id')
+    .exec(function(err, student){
+      if(err) throw err;
+      res.json(student);
+    });
+  })
+
+  app.get('/getstudentbymssv/:mssv', function(req, res){
+    Student
+    .findOne({ma_sinh_vien: req.params.mssv})
     .populate('_phongchitiet_id')
     .populate('_phong_id')
     .populate('_tang_id')
@@ -387,10 +414,62 @@ module.exports = function(app, importStudent) {
       Tienktx.findOneAndUpdate({_sinhvien_id : req.params.stuId, nam: cYear, ki: cSemester}, {da_dong_tien: true}, {new : true}, function(err){
         if(err) throw err;
       });
+      if(parseInt(req.body.vaitro) === 1) {
+        Phongchitiet.findOneAndUpdate({_id : req.body.phongchitiet}, {truong_phong: req.params.stuId}, {new : true}, function(err){
+          if(err) throw err;
+        });
+      } else {
+        Phongchitiet.findOneAndUpdate({_id : req.body.phongchitiet}, {truong_phong: null}, {new : true}, function(err){
+          if(err) throw err;
+        });
+      }
       res.send(student);
     });
   })
 
+  app.post('/addluutru/:stuId', function(req, res){
+    var cYear = new Date().getFullYear(),
+        cMonth = new Date().getMonth() + 1,
+        cSemester = 1;
+    if(cMonth >= 8 && cMonth <= 10) {
+      cSemester = 1;
+    }
+    else if(cMonth === 12 && cMonth === 1) {
+      cSemester = 2;
+    }
+    else if(cMonth >= 5 && cMonth <= 7) {
+      cSemester = 3;
+    }
+    var nDaluutru = new Daluutru();
+    nDaluutru._sinhvien_id = req.params.stuId;
+    nDaluutru.luutru.push({ki : cSemester, nam: cYear, _tang: req.body.tang,  _loaiphong: req.body.loaiphong, _phong: req.body.phongchitiet, giuong: req.body.giuong});
+    nDaluutru.save(function(err){
+      if( err) throw err;
+    });
+    // daluutru.update({_sinhvien_id : req.params.stuId}, {$push: {luutru : {ki : cSemester, _tang : req.body.tang, _loaiphong : req.body.loaiphong, _phong : req.body.phongchitiet, giuong : req.body.giuong}}}, {new : true}, function(err){
+    //   if( err) throw err;
+    //   console.log('b');
+    // });
+  })
+
+  app.put('/updateluutru/:stuId', function(req, res){
+    var cYear = new Date().getFullYear(),
+        cMonth = new Date().getMonth() + 1,
+        cSemester = 1;
+    if(cMonth >= 8 && cMonth <= 10) {
+      cSemester = 1;
+    }
+    else if(cMonth === 12 && cMonth === 1) {
+      cSemester = 2;
+    }
+    else if(cMonth >= 5 && cMonth <= 7) {
+      cSemester = 3;
+    }
+    Daluutru.findOneAndUpdate({_sinhvien_id : req.params.stuId}, {$push: {luutru : {ki : cSemester, nam: cYear, _tang : req.body.tang, _loaiphong : req.body.loaiphong, _phong : req.body.phongchitiet, giuong : req.body.giuong}}}, {new : true}, function(err){
+      if( err) throw err;
+      res.send(true);
+    });
+  })
   // Update Xy Ky Hoc Vu
 
   app.post('/upload/xetduyet/xulyhocvu', function(req, res) {
@@ -874,7 +953,7 @@ module.exports = function(app, importStudent) {
       });
     })
 
-    
+
     // Delete Student
 
     app.delete('/deletechitieu/:chitieuId', function(req, res){

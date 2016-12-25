@@ -79,7 +79,7 @@ class Ticket extends React.Component {
     ManageUserAction.getUserByEmail(userEmail);
   }
 
-  componentDidUpdate() {
+  componentWillReceiveProps() {
     ManageTicketAction.getTicket();
   }
 

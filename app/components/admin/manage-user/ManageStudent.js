@@ -83,6 +83,61 @@ const AddUserModal = React.createClass({
   }
 });
 
+const HistoryModal = React.createClass({
+
+  render() {
+    let listLuutru
+    var luutru = this.props.luutru.luutru;
+    if(luutru !== undefined) {
+      listLuutru = luutru.map(function(luutru, index){
+        return (
+          <tr>
+            <td>{luutru.nam}</td>
+            <td>{luutru.ki}</td>
+            <td>{luutru._tang.ten}</td>
+            <td>{luutru._loaiphong.ten}</td>
+            <td>{luutru._phong.ma}</td>
+            <td>{luutru.giuong}</td>
+          </tr>
+        );
+      });
+    } else {
+      listLuutru = '';
+    }
+
+
+    return (
+      <Modal {...this.props} bsSize="large" aria-labelledby="contained-modal-title-lg">
+        <Modal.Header closeButton>
+          <Modal.Title id="contained-modal-title-lg">Lịch Sử Lưu Trú</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <div className="table">
+            <table className="table">
+              <thead>
+               <tr>
+                 <th>Năm</th>
+                 <th>Kì</th>
+                 <th>Tầng</th>
+                 <th>Loại Phòng</th>
+                 <th>Phòng</th>
+                 <th>Giường</th>
+                 </tr>
+               </thead>
+               <tbody>
+                {listLuutru}
+               </tbody>
+            </table>
+          </div>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button onClick={this.props.onHide}>Hủy</Button>
+        </Modal.Footer>
+      </Modal>
+    );
+  }
+});
+
 const EditUserModal = React.createClass({
   getInitialState: function() {
     return {state: ManageUserStore.getState()};
@@ -199,14 +254,14 @@ const EditUserModal = React.createClass({
             <div className="form-group">
               <label htmlFor="exampleInputHoLot1" className="col-md-3 control-label">Họ lót</label>
               <div className="col-md-7">
-                <input type="text" className="form-control" ref="holot" value={this.state.holot} 
+                <input type="text" className="form-control" ref="holot" value={this.state.holot}
                   onChange={ManageUserAction.updateHoLot} />
               </div>
             </div>
             <div className="form-group">
               <label htmlFor="exampleInputTen1" className="col-md-3 control-label">Tên</label>
               <div className="col-md-7">
-                <input type="text" className="form-control" ref="ten" value={this.state.ten} 
+                <input type="text" className="form-control" ref="ten" value={this.state.ten}
                     onChange={ManageUserAction.updateTen} />
               </div>
             </div>
@@ -359,10 +414,10 @@ const EditUserModal = React.createClass({
             <div className={'form-group  ' }>
               <label htmlFor="phong-luu-tru" className="col-md-3 control-label">Nguyện vọng lưu trú<span className="text-danger">(*)</span></label>
               <div className="col-md-7">
-                  <select className="form-control" id="phong-luu-tru" onChange={ManageUserAction.updateTen} 
+                  <select className="form-control" id="phong-luu-tru" onChange={ManageUserAction.updateTen}
                       value={this.state.svloaiphong} ref='loaiphong'>
                     <option value=''>-- Chọn loại phòng --</option>
-                    
+
                   </select>
                   <div className=''><span className="control-label text-danger">{}</span></div>
               </div>
@@ -371,8 +426,8 @@ const EditUserModal = React.createClass({
               <label htmlFor="dich-vu-phong-thuong" className="col-md-3 control-label">Dịch vụ<span className="text-danger">(*)</span></label>
               <div className="col-md-7">
 
-                 
-                  
+
+
                   <div className=''><span className="control-label text-danger"></span></div>
               </div>
             </div>
@@ -425,6 +480,8 @@ class ManageStudent extends React.Component {
 		this.onChange = this.onChange.bind(this);
     this.state.addModalShow = false;
     this.state.editModalShow = false;
+    this.state.historyModalShow = false;
+
 
   }
 
@@ -453,6 +510,12 @@ class ManageStudent extends React.Component {
   openMoDDeleteStudent(id){
     ManageUserAction.openMoDDeleteStudent(id);
   }
+
+  handleGetDaluutru(id) {
+    this.setState({ historyModalShow: true });
+    ManageUserAction.getLuutru(id);
+  }
+
   handleDelStudent() {
     var userId = this.state.state1.idDel;
     ManageUserAction.deleteUser(userId);
@@ -574,7 +637,7 @@ class ManageStudent extends React.Component {
         ManageUserAction.invalidLoaiPhong();
         this.refs.LoaiPhongTextField.focus();
     }
-    
+
     else{
       ManageUserAction.editUser({access_token: access_token, id: idEdit, holot: holot, ten: ten, ngaySinh: ngaySinh, gioitinh: gioitinh, svkhoa: svkhoa,
         svhedaotao: svhedaotao, namvaotruong: namvaotruong, svkhuvuc: svkhuvuc, svtinh: svtinh, svdoituong: svdoituong, svtongiao: svtongiao,
@@ -600,7 +663,7 @@ class ManageStudent extends React.Component {
   }
 
   onChange(state) {
-    this.setState({state1 : ManageUserStore.getState(), state2 : ManageUuTienStore.getState(),  
+    this.setState({state1 : ManageUserStore.getState(), state2 : ManageUuTienStore.getState(),
         state3: KhoaAdminStore.getState(), state4: HeDaoTaoStore.getState(), state5: ManagePhongStore.getState()});
   }
 
@@ -611,6 +674,11 @@ class ManageStudent extends React.Component {
   buttonFormatter(data, cell) {
       return <button className="btn btn-primary" onClick={this.handleGetStudent.bind(this, cell)}><i className="fa fa-pencil-square-o" aria-hidden="true"></i></button>;
   }
+
+  buttonFormatterHistory(data, cell) {
+      return <button className="btn btn-success" onClick={this.handleGetDaluutru.bind(this, cell)}>Xem lịch sử lưu trú</button>;
+  }
+
   buttonFormatterDel(data, cell) {
       return <button className="btn btn-danger" onClick={this.openMoDDeleteStudent.bind(this, cell)}><i className="fa fa-trash-o" aria-hidden="true"></i></button>;
   }
@@ -715,10 +783,12 @@ class ManageStudent extends React.Component {
 
     let addModalClose = () => this.setState({ addModalShow: false });
     let editModalClose = () => this.setState({ editModalShow: false });
+    let historyModalClose = () => this.setState({ historyModalShow: false });
 
+    console.log(this.state.state1);
     const props = {user : this.state.state1.user, khuvuc : this.state.state2.khuvuc, doituong : this.state.state2.doituong,
                    tinh : this.state.state2.tinh, hocluc : this.state.state2.hocluc, hoancanh : this.state.state2.hoancanh,
-                    khoa: this.state.state3.listKhoa, hedaotao: this.state.state4.listHeDaoTao };
+                    khoa: this.state.state3.listKhoa, hedaotao: this.state.state4.listHeDaoTao, luutru: this.state.state1.luutru};
     const options = {
       clearSearch: true,
       searchField: (props) => (<MySearchField { ...props }/>),
@@ -734,15 +804,16 @@ class ManageStudent extends React.Component {
               <li><Link to="/quanly@ktx"><i className="fa fa-home" aria-hidden="true"></i> Trang quản trị</Link></li>
               <li>Danh sách sinh viên</li>
             </ol>
-            
+
             <BootstrapTable data={this.state.state1.users} striped={true} hover={true} options={ options } search pagination exportCSV>
                 <TableHeaderColumn dataField="ma_sinh_vien" isKey={true} dataAlign="center" dataSort={true}>Mã Sinh Viên</TableHeaderColumn>
                 <TableHeaderColumn dataField="ten" dataSort={true}>Họ Tên</TableHeaderColumn>
                 <TableHeaderColumn dataField="email">Email</TableHeaderColumn>
                 <TableHeaderColumn dataField="ma_ktx">Mã KTX</TableHeaderColumn>
-                
+
                 <TableHeaderColumn dataField="so_cmnd">CMND</TableHeaderColumn>
                 <TableHeaderColumn dataField="sdt_sinhvien">SĐT</TableHeaderColumn>
+                <TableHeaderColumn dataField="_id" dataFormat={this.buttonFormatterHistory.bind(this, '_id')}>Xem lịch sữ lưu trú</TableHeaderColumn>
                 <TableHeaderColumn dataField="_id" dataFormat={this.buttonFormatter.bind(this, '_id')}  width='60'>Sửa</TableHeaderColumn>
                 <TableHeaderColumn dataField="_id" dataFormat={this.buttonFormatterDel.bind(this, '_id')} width='60'>Xóa</TableHeaderColumn>
             </BootstrapTable>
@@ -752,6 +823,7 @@ class ManageStudent extends React.Component {
             </Button>
             <AddUserModal show={this.state.addModalShow} onHide={addModalClose} />
             <FormUpload />
+            <HistoryModal {...props} show={this.state.historyModalShow} onHide={historyModalClose} />
 
 
 
@@ -776,7 +848,7 @@ class ManageStudent extends React.Component {
                     <div className="form-group">
                       <label htmlFor="exampleInputHoLot1" className="col-md-3 control-label">Họ lót<span className="text-danger">(*)</span></label>
                       <div className="col-md-7">
-                        <input type="text" className="form-control" ref="HoLotTextField" value={this.state.state1.holot} 
+                        <input type="text" className="form-control" ref="HoLotTextField" value={this.state.state1.holot}
                           onChange={ManageUserAction.updateHoLot} />
                         <div className=''><span className="control-label text-danger">{this.state.state1.validateHoLot}</span></div>
 
@@ -786,7 +858,7 @@ class ManageStudent extends React.Component {
                     <div className="form-group">
                       <label htmlFor="exampleInputTen1" className="col-md-3 control-label">Tên<span className="text-danger">(*)</span></label>
                       <div className="col-md-7">
-                        <input type="text" className="form-control" ref="TenTextField" value={this.state.state1.ten} 
+                        <input type="text" className="form-control" ref="TenTextField" value={this.state.state1.ten}
                             onChange={ManageUserAction.updateTen} />
                         <div className=''><span className="control-label text-danger">{this.state.state1.validateTen}</span></div>
 
@@ -822,9 +894,9 @@ class ManageStudent extends React.Component {
                             dateFormat="YYYY-MM-DD"
                             selected={this.state.state1.ngaySinh}
                             onChange={this.handleChangeNgaySinh}
-                            peekNextMonth 
-                            showMonthDropdown 
-                            showYearDropdown 
+                            peekNextMonth
+                            showMonthDropdown
+                            showYearDropdown
                             scrollableYearDropdown
                                 dropdownMode="select" />
                         <div className=''><span className="control-label text-danger">{this.state.state1.validateNgaySinh}</span></div>
@@ -941,7 +1013,7 @@ class ManageStudent extends React.Component {
                           <input type='tel' className="form-control" id='dien-thoai-gia-dinh' value={this.state.state1.giadinhdienthoai}
                             onChange={ManageUserAction.updateDienThoaiGiaDinh} ref='DienThoaiGiaDinhTextField'/>
                           <div className=''><span className="control-label text-danger">{this.state.state1.validateDienThoaiGiaDinh}</span></div>
-                          
+
                       </div>
                     </div>
                   {/*dien thoai gia dinh*/}
@@ -978,7 +1050,7 @@ class ManageStudent extends React.Component {
                     <div className={'form-group  ' }>
                       <label htmlFor="phong-luu-tru" className="col-md-3 control-label">Loại phòng<span className="text-danger">(*)</span></label>
                       <div className="col-md-7">
-                          <select className="form-control" id="phong-luu-tru" onChange={ManageUserAction.updateLoaiPhong} 
+                          <select className="form-control" id="phong-luu-tru" onChange={ManageUserAction.updateLoaiPhong}
                               value={this.state.state1.svloaiphong} ref='LoaiPhongTextField'>
                             <option value=''>-- Chọn loại phòng --</option>
                             {loaiPhong}
@@ -990,8 +1062,8 @@ class ManageStudent extends React.Component {
                       <label htmlFor="dich-vu-phong-thuong" className="col-md-3 control-label">Dịch vụ<span className="text-danger">(*)</span></label>
                       <div className="col-md-7">
 
-                         
-                          
+
+
                           <div className=''><span className="control-label text-danger"></span></div>
                       </div>
                     </div>
@@ -1035,14 +1107,14 @@ class ManageStudent extends React.Component {
                     </Modal.Header>
                     <Modal.Body>
                       <p>Bạn có chắc muốn xóa?</p>
-                    </Modal.Body>      
+                    </Modal.Body>
                     <Modal.Footer>
                         <button
                             className="btn btn-warning"
-                          onClick={ManageUserAction.closeModalDelete}><i className="fa fa-times"> Hủy bỏ</i> </button>          
+                          onClick={ManageUserAction.closeModalDelete}><i className="fa fa-times"> Hủy bỏ</i> </button>
                         <button
                             className="btn btn-success"
-                          onClick={this.handleDelStudent.bind(this)}><i className="fa fa-check"> Xóa</i> </button>          
+                          onClick={this.handleDelStudent.bind(this)}><i className="fa fa-check"> Xóa</i> </button>
                     </Modal.Footer>
                 </Modal>
             </div>

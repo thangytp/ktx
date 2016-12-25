@@ -11,7 +11,7 @@ class ManageTicketStore {
   }
 
   onGetTicketSuccess(response) {
-    this.tickets = response;
+    this.setState({tickets: response});
   }
 
   onGetTicketByIdSuccess(response) {
