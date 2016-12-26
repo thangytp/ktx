@@ -89,8 +89,8 @@ export default (
             <Route path="/quanly@ktx/quan-ly-khoa" component={KhoaAdmin} onEnter={requireAuth}/>
             <Route path="/quanly@ktx/quan-ly-he-dao-tao" component={HeDaoTao} onEnter={requireAuth}/>
             <Route path="/quanly@ktx/cai-dat-dang-ky-luu-tru" component={CaiDatDangKyLuuTru} onEnter={requireAuth}/>
-            <Route path="/quanly@ktx/quan-ly-cau-hoi" component={Quanlycauhoi}/>
-            <Route path="/quanly@ktx/quan-ly-cau-hoi/:id" component={Xemchitietcauhoi}/>
+            <Route path="/quanly@ktx/quan-ly-cau-hoi" component={Quanlycauhoi} onEnter={requireAuth}/>
+            <Route path="/quanly@ktx/quan-ly-cau-hoi/:id" component={Xemchitietcauhoi} onEnter={requireAuth}/>
 
         </Route>
 

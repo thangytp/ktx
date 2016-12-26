@@ -44,7 +44,7 @@
 
    $(document).ready(function(){
         $('[data-toggle="tooltip"]').tooltip();
-        $('#slick-menu').slicknav();
+
     });
    $(document).ready(function(){
         $('#sidebar-left .sidebar-menu li').click(function(){
