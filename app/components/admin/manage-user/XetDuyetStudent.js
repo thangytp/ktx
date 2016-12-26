@@ -13,7 +13,7 @@ import ManagePhongChitietStore from '../../../stores/admin/manage-phong/ManagePh
 const UpdateUserModal = React.createClass({
 
   getInitialState: function() {
-    return {loai: '', tang: '', listPhongChitiet: [], listGiuongChitiet: []};
+    return {loai: '', tang: '', listPhongChitiet: [], listGiuongChitiet: [], istruongphong : false};
   },
 
   handleUpdateKtx(e) {
@@ -26,9 +26,22 @@ const UpdateUserModal = React.createClass({
         maktx: this.refs.maktx.value,
         giuong: this.state.giuong,
         vaitro: this.state.vaitro,
+        loaiphong: this.props.user._phong_id._id,
         xetduyet: true
     };
     ManageUserAction.updateInfoKtx(data);
+    const data2 = {
+        userId: this.props.user._id,
+        phongchitiet: this.state.loai,
+        tang: this.state.tang,
+        giuong: this.state.giuong,
+        loaiphong: this.props.user._phong_id._id
+    };
+    if(this.props.user.dang_o_ktx === true) {
+      ManageUserAction.updateLuutru(data2);
+    } else {
+      ManageUserAction.addLuutru(data2);
+    }
     const data1 = {
       userId: this.props.user._id,
       tengiuongcu: this.props.user.ma_giuong,
@@ -47,7 +60,6 @@ const UpdateUserModal = React.createClass({
 
   handleChangePhong(e) {
     this.state.loai = e.target.value;
-    console.log(giuongByPhong);
     var giuongByPhong = this.props.phongchitiet.filter(function(obj) {
         return obj._id == e.target.value;
     });
@@ -55,13 +67,20 @@ const UpdateUserModal = React.createClass({
           return obj.da_dang_ky == false;
       });
     this.setState({listGiuongChitiet : giuongByPhong[0].giuong});
+
+    if(giuongByPhong[0].truong_phong !== null) {
+      this.setState({istruongphong : true});
+    } else {
+      this.setState({istruongphong : false});
+    }
+
   },
 
   handleChangeTang(e) {
     this.state.tang = e.target.value;
     var phongchitiet = this.props.phongchitiet;
     var loaiphong = this.props.user._phong_id;
-
+    console.log(loaiphong);
     var phongByLoai = phongchitiet.filter(function(obj) {
         return obj._loai._id == loaiphong._id;
     });
@@ -80,6 +99,24 @@ const UpdateUserModal = React.createClass({
         </option>
       );
     });
+
+    let listVaitro;
+    if(this.state.istruongphong === true){
+      listVaitro = (
+        <select className="form-control" onChange={this.handleChangeVaitro.bind(this)}>
+            <option value='2' selected >--Chọn--</option>
+            <option value='0'>Sinh Viên</option>
+        </select>
+      );
+    } else {
+      listVaitro = (
+        <select className="form-control" onChange={this.handleChangeVaitro.bind(this)}>
+            <option value='2' selected >--Chọn--</option>
+            <option value='0'>Sinh Viên</option>
+            <option value='1'>Trưởng Phòng</option>
+        </select>
+      );
+    }
 
     // let listPhong;
     // console.log(this.state.listPhongChitiet);
@@ -143,10 +180,7 @@ const UpdateUserModal = React.createClass({
           </div>
           <div className="form-group">
             <label for="exampleInputEmail1">Vai Trò</label>
-            <select className="form-control" onChange={this.handleChangeVaitro.bind(this)}>
-                <option value='0' selected >Sinh Viên</option>
-                <option value='1'>Trưởng Phòng</option>
-            </select>
+            {listVaitro}
           </div>
           <button className="btn btn-success btn-large" type="submit">Cập Nhật</button>
         </form>
