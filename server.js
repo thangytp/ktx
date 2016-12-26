@@ -117,9 +117,6 @@ app.post('/api/uploadanhtintuc', upload.single('file'), function (req, res, next
 var server = require('http').createServer(app);
 var io = require('socket.io')(server);
 
-// Postserver(app);
-// Userserver(app);
-// Adminserver(app);
 ImageServer(app);
 HomeMenuServer(app);
 PageServer(app);
