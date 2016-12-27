@@ -41,38 +41,38 @@ export default class KetQuaDangKyLuuTru extends React.Component {
         if(user.xet_duyet_thanh_cong && user.da_dong_tien) {
           showinfo = (
             <div>
-              <h3>Thông Tin Lưu Trú Của Bạn</h3>
+              <h4 className="mL10">Chào {user.ten}, thông tin lưu trú của bạn</h4>
               <div className="col-md-6 ">
-                <label>Họ Tên:</label>
-                {user.ho_lot + ' ' + user.ten}
+                <label>Họ Tên: </label>
+                {' '+user.ho_lot + ' ' + user.ten}
               </div>
               <div className="col-md-6 ">
-                <label>Mã số sinh viên</label>
-                {user.ma_sinh_vien}
+                <label>Mã số sinh viên: </label>
+                {' '+user.ma_sinh_vien}
               </div>
               <div className="col-md-4 ">
-                <label>Mã ký túc xá:</label>
-                {user.ma_ktx}
+                <label>Mã ký túc xá: </label>
+                {' '+user.ma_ktx}
               </div>
               <div className="col-md-4 ">
-                <label>Mã sinh viên:</label>
-                {user.ma_sinh_vien}
+                <label>Mã sinh viên: </label>
+                {' '+user.ma_sinh_vien}
               </div>
               <div className="col-md-4 ">
-                <label>Tầng:</label>
-                {user._tang_id.ten}
+                <label>Tầng: </label>
+                {' '+user._tang_id.ten}
               </div>
               <div className="col-md-4 ">
-                <label>Loại phòng:</label>
-                {user._phong_id.ten}
+                <label>Loại phòng: </label>
+                {' '+user._phong_id.ten}
               </div>
               <div className="col-md-4 ">
-                <label>Phòng:</label>
-                {user._phongchitiet_id.ma}
+                <label>Phòng: </label>
+                {' '+user._phongchitiet_id.ma}
               </div>
               <div className="col-md-4 ">
-                <label>Giường:</label>
-                {user.ma_giuong}
+                <label>Giường: </label>
+                {' '+user.ma_giuong}
               </div>
             </div>
           )
@@ -83,38 +83,38 @@ export default class KetQuaDangKyLuuTru extends React.Component {
         if(user.gia_han_thanh_cong && user.da_dong_tien) {
           showinfo = (
             <div>
-              <h3>Thông Tin Lưu Trú Của Bạn</h3>
+              <h4 className="mL10">Chào {user.ten}, thông tin lưu trú của bạn</h4>
               <div className="col-md-6 ">
                 <label>Họ Tên:</label>
-                {user.ho_lot + ' ' + user.ten}
+                {' '+user.ho_lot + ' ' + user.ten}
               </div>
               <div className="col-md-6 ">
                 <label>Mã số sinh viên</label>
-                {user.ma_sinh_vien}
+                {' '+user.ma_sinh_vien}
               </div>
               <div className="col-md-4 ">
                 <label>Mã ký túc xá:</label>
-                {user.ma_ktx}
+                {' '+user.ma_ktx}
               </div>
               <div className="col-md-4 ">
                 <label>Mã sinh viên:</label>
-                {user.ma_sinh_vien}
+                {' '+user.ma_sinh_vien}
               </div>
               <div className="col-md-4 ">
                 <label>Tầng:</label>
-                {user._tang_id.ten}
+                {' '+user._tang_id.ten}
               </div>
               <div className="col-md-4 ">
                 <label>Loại phòng:</label>
-                {user._phong_id.ten}
+                {' '+user._phong_id.ten}
               </div>
               <div className="col-md-4 ">
                 <label>Phòng:</label>
-                {user._phongchitiet_id.ma}
+                {' '+user._phongchitiet_id.ma}
               </div>
               <div className="col-md-4 ">
                 <label>Giường:</label>
-                {user.ma_giuong}
+                {' '+user.ma_giuong}
               </div>
             </div>
           )
