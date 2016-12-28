@@ -54,7 +54,7 @@ export default class InfoPage extends React.Component {
     				      	<img src={this.state.stu.avatar? this.state.stu.avatar : "/uploads/LogoBK.png"} className="img-responsive avatar"/>
     				      	<p className="text-center bold">{this.state.stu.ho_lot + " " + this.state.stu.ten}</p>
     				      	<p className="text-center bold">{this.state.stu.ma_sinh_vien}</p>
-                    <div className="col-sm-12 text-center"><button className="btn btn-fb"><Link to="/cau-hoi">Báo Hỏng Vật Dụng</Link></button></div>
+                    {this.state.stu.role === 1 ? <div className="col-sm-12 text-center"><button className="btn btn-fb"><Link to="/cau-hoi">Báo Hỏng Vật Dụng</Link></button></div> : ''}
     				    </div>
       				</div>
       				<div className="col-md-9 col-sm-12 mT20">
@@ -78,7 +78,7 @@ export default class InfoPage extends React.Component {
       					<h4 className="head4 mT20"><i className="fa fa-bed" aria-hidden="true"></i> Thông tin lưu trú</h4>
       					<div className="info3">
       						<p>Phòng: {this.state.stu._phongchitiet_id ? this.state.stu._phongchitiet_id.ma : ''}</p>
-      						<p>Vị trí giường: TT101{this.state.stu._phongchitiet_id ? this.state.stu._phongchitiet_id.giuong.ten : ''}</p>
+      						<p>Vị trí giường: TT1-1{this.state.stu._phongchitiet_id ? this.state.stu._phongchitiet_id.giuong.ten : ''}</p>
 
       					</div>
       				</div>

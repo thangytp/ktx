@@ -19,6 +19,7 @@ const AddTangModal = React.createClass({
 				nguoitao: localStorage.getItem('email'),
         phong: this.props._phongchitiet_id.ma
     };
+    console.log(data);
     ManageTicketAction.addTicket(data);
   },
 
@@ -78,7 +79,7 @@ class Ticket extends React.Component {
     ManageUserAction.getUserByEmail(userEmail);
   }
 
-  componentDidUpdate() {
+  componentWillReceiveProps() {
     ManageTicketAction.getTicket();
   }
 

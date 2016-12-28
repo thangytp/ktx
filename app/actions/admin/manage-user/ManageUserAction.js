@@ -77,7 +77,11 @@ class ManageUserAction {
         'closeModalEdit',
 
         'closeModalDelete',
-        'openMoDDeleteStudent'
+        'openMoDDeleteStudent',
+
+        'addLuutruSuccess',
+        'updateLuutruSuccess',
+        'getLuutruSuccess'
 
     );
   }
@@ -119,6 +123,16 @@ class ManageUserAction {
     })
     .done((data) => {
       this.actions.getUsersSuccess(data);
+    })
+  }
+
+  getLuutru(payload) {
+    $.ajax({
+      url: '/getluutru/' + payload,
+      type: 'GET'
+    })
+    .done((data) => {
+      this.actions.getLuutruSuccess(data);
     })
   }
 
@@ -225,6 +239,16 @@ class ManageUserAction {
   getUserByEmail(payload) {
     $.ajax({
       url: '/getstudentbyemail/' + payload,
+      type: 'GET'
+    })
+    .done((data) => {
+      this.actions.getUserSuccess(data);
+    })
+  }
+
+  getUserByMssv(payload) {
+    $.ajax({
+      url: '/getstudentbymssv/' + payload,
       type: 'GET'
     })
     .done((data) => {
@@ -358,10 +382,32 @@ class ManageUserAction {
     $.ajax({
       url: '/updatethongtinktx/' + payload.userId,
       type: 'PUT',
-      data: {phongchitiet : payload.phongchitiet, tang : payload.tang, maktx : payload.maktx, giuong : payload.giuong, vaitro: payload.vaitro}
+      data: {phongchitiet : payload.phongchitiet, tang : payload.tang, maktx : payload.maktx, giuong : payload.giuong, vaitro: payload.vaitro, loaiphong: payload.loaiphong}
     })
     .done((data) => {
       this.actions.updateInfoKtxSuccess(payload.xetduyet);
+    })
+  }
+
+  updateLuutru(payload) {
+    $.ajax({
+      url: '/updateluutru/' + payload.userId,
+      type: 'PUT',
+      data: {phongchitiet : payload.phongchitiet, tang : payload.tang, giuong : payload.giuong, loaiphong: payload.loaiphong}
+    })
+    .done((data) => {
+      this.actions.updateLuutruSuccess();
+    })
+  }
+
+  addLuutru(payload) {
+    $.ajax({
+      url: '/addluutru/' + payload.userId,
+      type: 'POST',
+      data: {phongchitiet : payload.phongchitiet, tang : payload.tang, giuong : payload.giuong, loaiphong: payload.loaiphong}
+    })
+    .done((data) => {
+      this.actions.addLuutruSuccess();
     })
   }
 

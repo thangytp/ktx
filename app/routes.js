@@ -47,6 +47,8 @@ import Search from './components/main/tintuc/Search';
 
 import Quanlycauhoi from './components/admin/ticket/Quanlycauhoi';
 import Xemchitietcauhoi from './components/admin/ticket/Xemchitietcauhoi';
+import TraCuu from './components/main/luutru/TraCuu';
+
 
 
 import localStorage from 'localStorage';
@@ -89,8 +91,8 @@ export default (
             <Route path="/quanly@ktx/quan-ly-khoa" component={KhoaAdmin} onEnter={requireAuth}/>
             <Route path="/quanly@ktx/quan-ly-he-dao-tao" component={HeDaoTao} onEnter={requireAuth}/>
             <Route path="/quanly@ktx/cai-dat-dang-ky-luu-tru" component={CaiDatDangKyLuuTru} onEnter={requireAuth}/>
-            <Route path="/quanly@ktx/quan-ly-cau-hoi" component={Quanlycauhoi}/>
-            <Route path="/quanly@ktx/quan-ly-cau-hoi/:id" component={Xemchitietcauhoi}/>
+            <Route path="/quanly@ktx/quan-ly-cau-hoi" component={Quanlycauhoi} onEnter={requireAuth}/>
+            <Route path="/quanly@ktx/quan-ly-cau-hoi/:id" component={Xemchitietcauhoi} onEnter={requireAuth}/>
 
         </Route>
 
@@ -103,6 +105,7 @@ export default (
             <Route path='/xem-ket-qua-luu-tru' component={KetQuaDangKyLuuTru}/>
             <Route path='/login' component={LogIn}/>
             <Route path='/thong-tin-ca-nhan' component={InfoPage}/>
+            <Route path='/tra-cuu-luu-tru' component={TraCuu}/>
             <Route path='/cau-hoi' component={Ticket}/>
             <Route path='/cau-hoi/:id' component={ViewDetailTicket}/>
             <Route path='/tin-tuc/:link' component={ViewDetailTinTuc} />

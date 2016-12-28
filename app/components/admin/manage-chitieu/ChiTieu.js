@@ -729,7 +729,6 @@ class ChiTieu extends Component {
             </div>
           )
         })}
-        <button className="btn btn-large btn-primary" onClick={this.openMoDDeleteChitieu.bind(this, chitieu._id)}>Sửa</button>
         <button className="btn btn-large btn-danger" onClick={this.openMoDDeleteChitieu.bind(this, chitieu._id)}>Xóa</button>
 
         </Tab>
@@ -753,7 +752,7 @@ class ChiTieu extends Component {
               Thêm Chỉ Tiêu Năm Mới
             </Button>
             <AddChitieuModal {...props} show={this.state.addModalShow} onHide={addModalClose} />
-            <Button bsStyle="primary" onClick={()=>this.setState({ updateModalShow: true })}>
+            <Button bsStyle="success" onClick={()=>this.setState({ updateModalShow: true })}>
               Thêm Chỉ Tiêu Theo Loại Phòng
             </Button>
             <UpdateChitieuModal {...props} show={this.state.updateModalShow} onHide={updateModalClose} />
@@ -771,14 +770,14 @@ class ChiTieu extends Component {
                 </Modal.Header>
                 <Modal.Body>
                   <p>Bạn có chắc muốn xóa?</p>
-                </Modal.Body>      
+                </Modal.Body>
                 <Modal.Footer>
                     <button
                         className="btn btn-warning"
-                      onClick={ManageChiTieuAction.closeModalDelete}><i className="fa fa-times"> Hủy bỏ</i> </button>          
+                      onClick={ManageChiTieuAction.closeModalDelete}><i className="fa fa-times"> Hủy bỏ</i> </button>
                     <button
                         className="btn btn-success"
-                      onClick={this.handleDelChitieu.bind(this)}><i className="fa fa-check"> Xóa</i> </button>          
+                      onClick={this.handleDelChitieu.bind(this)}><i className="fa fa-check"> Xóa</i> </button>
                 </Modal.Footer>
             </Modal>
           </div>

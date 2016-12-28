@@ -18,7 +18,7 @@ class Quanlycauhoi extends Component {
     ManageTicketAction.getTicket();
   }
 
-  componentDidUpdate() {
+  componentWillReceiveProps() {
     ManageTicketAction.getTicket();
   }
 

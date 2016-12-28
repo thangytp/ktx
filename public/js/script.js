@@ -44,6 +44,7 @@
 
    $(document).ready(function(){
         $('[data-toggle="tooltip"]').tooltip();
+
     });
    $(document).ready(function(){
         $('#sidebar-left .sidebar-menu li').click(function(){
@@ -51,19 +52,23 @@
             $(this).addClass("active");
         });
     });
-$(document).ready(function(){
-  $('.dropdown-submenu a.test').on("click", function(e){
-    $(this).next('ul').css('display','block');
-    var dcss = $(this).next('ul').css('display');
-
-    if(dcss == 'none'){
+    $(document).ready(function(){
+      $('.dropdown-submenu a.test').on("click", function(e){
         $(this).next('ul').css('display','block');
-    }
-    else $(this).next('ul').css('display','none');
-    
-    e.stopPropagation();
-    e.preventDefault();
-  });
-});
+        var dcss = $(this).next('ul').css('display');
 
+        if(dcss == 'none'){
+            $(this).next('ul').css('display','block');
+        }
+        else $(this).next('ul').css('display','none');
+        
+        e.stopPropagation();
+        e.preventDefault();
+      });
+    });
+
+    $('#mobileNavbar a > a > a').click(function(event) {
+        
+        $('.navbar-toggle').click();
+    });
     

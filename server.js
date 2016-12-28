@@ -25,8 +25,6 @@ var xml2js = require('xml2js');
 
 var mongoose = require('mongoose');
 
-// var Transition = require('./models/Transition');
-// var User = require('./models/User');
 var image = require('./models/Image');
 
 var config = require('./config');
@@ -40,12 +38,6 @@ mongoose.connection.on('error', function() {
 });
 
 //=================SRC-SERVER===================
-// var Postserver = require('./src-server/admin/post/Postserver');
-// var CategoryServer = require('./src-server/admin/category/CategoryServer');
-// var DocumenttypeServer = require('./src-server/admin/documenttype/DocumenttypeServer');
-// var Userserver = require('./src-server/admin/user/Userserver');
-// var BookServer = require('./src-server/admin/book/BookServer');
-// var TransitionServer = require('./src-server/admin/transition/TransitionServer');
 var ImageServer = require('./src-server/image/ImageServer');
 var HomeMenuServer = require('./src-server/menu/HomeMenuServer');
 var PageServer = require('./src-server/page/PageServer');
@@ -56,7 +48,7 @@ var QuanLyTinTucServer = require('./src-server/quanlytintuc/QuanLyTinTucServer')
 var TinTucHomeServer = require('./src-server/tintuchome/TinTucHomeServer');
 var KhoaServer = require('./src-server/khoa/KhoaServer');
 var CaiDatLuuTruServer = require('./src-server/caidatluutru/CaiDatLuuTruServer');
-//var TicketServer = require('./src-server/ticket/TicketServer');
+var TicketServer = require('./src-server/ticket/TicketServer');
 //==============================================
 
 var Adminserver = require('./src-server/admin/Adminserver');
@@ -125,9 +117,6 @@ app.post('/api/uploadanhtintuc', upload.single('file'), function (req, res, next
 var server = require('http').createServer(app);
 var io = require('socket.io')(server);
 
-// Postserver(app);
-// Userserver(app);
-// Adminserver(app);
 ImageServer(app);
 HomeMenuServer(app);
 PageServer(app);
@@ -138,28 +127,8 @@ QuanLyTinTucServer(app);
 TinTucHomeServer(app);
 KhoaServer(app);
 CaiDatLuuTruServer(app);
-//TicketServer(app);
+TicketServer(app);
 Adminserver(app, importStudent);
-
-/*
-Category
-*/
-// CategoryServer(app);
-
-/*
-Documenttype Server
-*/
-// DocumenttypeServer(app);
-
-/*
-Book Server
-*/
-// BookServer(app);
-/*
-TransitionServer
-*/
-// TransitionServer(app,io);
-
 
 app.use(function(req, res) {
   match({ routes: routes.default, location: req.url }, function(err, redirectLocation, renderProps) {

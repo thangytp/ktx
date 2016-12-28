@@ -113,12 +113,13 @@ class Header extends React.Component {
                                                 <ul>
                                                     <li><Link to="/dang-ky-luu-tru">Đăng ký lưu trú</Link></li>
                                                     <li><Link to="/xem-ket-qua-luu-tru">Xem kết quả đăng ký lưu trú</Link></li>
+                                                    <li><Link to="/tra-cuu-luu-tru">TRA CỨU SINH VIÊN ĐANG LƯU TRÚ</Link></li>
                                                 </ul>
                                             </li>
                                             <li className="nML">
                                                 <form className="navbar-form" role="search" onSubmit={this.handleFind.bind(this)}>
                                                     <div className="input-group">
-                                                        <input type="text" className="form-control search" placeholder="Search" value={this.state.textFind} onChange={HomeMenuAction.updateTextFind}/>
+                                                        <input type="text" className="form-control search" placeholder="Tìm kiếm" value={this.state.textFind} onChange={HomeMenuAction.updateTextFind}/>
                                                         <div className="input-group-btn">
                                                             <button className="btn btn-default btn-search"><i className="fa fa-search" aria-hidden="true"></i></button>
                                                         </div>
@@ -139,45 +140,31 @@ class Header extends React.Component {
                                             <span className="icon-bar"></span>
                                             <span className="icon-bar"></span> 
                                         </button>
-                                        <Link className="navbar-brand" to="/">KTX Bách Khoa</Link>
+                                        <Link className="navbar-brand buttonClick" to="/">KTX Bách Khoa</Link>
                                     </div>
                                     <div className="collapse navbar-collapse " id="mobileNavbar">
                                         <ul className="nav navbar-nav">
                                             
                                             {menuMobile}
                                             
-                                            <li className=''><a><span>Tiện ích sinh viên</span></a>
-                                                <ul>
+                                            <li className='dropdown'><a className="dropdown-toggle" type="button" data-toggle="dropdown"><span>Tiện ích sinh viên</span><span className="caret"></span></a>
+                                                <ul className="dropdown-menu">
                                                     <li><Link to="/dang-ky-luu-tru">Đăng ký lưu trú</Link></li>
                                                     <li><Link to="/xem-ket-qua-luu-tru">Xem kết quả đăng ký lưu trú</Link></li>
+                                                    <li><Link to="/tra-cuu-luu-tru">TRA CỨU SINH VIÊN ĐANG LƯU TRÚ</Link></li>
                                                 </ul>
                                             </li>
                                             <li className="nML">
                                                 <form className="navbar-form" role="search" onSubmit={this.handleFind.bind(this)}>
                                                     <div className="input-group">
-                                                        <input type="text" className="form-control search" placeholder="Search" value={this.state.textFind} onChange={HomeMenuAction.updateTextFind}/>
+                                                        <input type="text" className="form-control search" placeholder="Tìm kiếm" value={this.state.textFind} onChange={HomeMenuAction.updateTextFind}/>
                                                         <div className="input-group-btn">
                                                             <button className="btn btn-default btn-search"><i className="fa fa-search" aria-hidden="true"></i></button>
                                                         </div>
                                                     </div>
                                                 </form>
                                             </li>
-                                            <li className="dropdown">
-                                                <button className="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Tutorials
-                                                <span className="caret"></span></button>
-                                                <ul className="dropdown-menu">
-                                                  <li><a tabindex="-1" href="#">HTML</a></li>
-                                                  <li><a tabindex="-1" href="#">CSS</a></li>
-                                                  <li className="dropdown-submenu">
-                                                    <a className="test" tabindex="-1" href="#">New dropdown <span className="caret"></span></a>
-                                                    <ul className="dropdown-menu">
-                                                      <li>2nd level dropdown</li>
-                                                      <li><a tabindex="-1" href="#">2nd level dropdown</a></li>
-                                                      
-                                                    </ul>
-                                                  </li>
-                                                </ul>
-                                              </li>
+                                            
                                         </ul>
                                         
                                     </div>

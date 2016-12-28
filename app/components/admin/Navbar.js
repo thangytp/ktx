@@ -5,6 +5,8 @@ import {Link} from 'react-router';
 // import AdminloginActions from '../../actions/admin/login/AdminloginActions';
 import LogInAdminAction from '../../actions/admin/login/LogInAdminAction';
 import LogInAdminStore from '../../stores/admin/login/LogInAdminStore';
+import ManageTicketAction from '../../actions/ticket/ManageTicketAction';
+import ManageTicketStore from '../../stores/ticket/ManageTicketStore';
 
 import {Modal} from 'react-bootstrap';
 import localStorage from 'localStorage';
@@ -17,31 +19,40 @@ class Navbar extends React.Component {
   constructor(props)
   {
     super(props);
-    this.state = LogInAdminStore.getState();
+    this.state = {state1: LogInAdminStore.getState(), state2: ManageTicketStore.getState()};
     this.onChange = this.onChange.bind(this);
   }
   componentDidMount() {
     LogInAdminStore.listen(this.onChange);
+    ManageTicketStore.listen(this.onChange);
     var email = localStorage.getItem('adminEmail');
+    ManageTicketAction.getTicket();
+
   }
 
-  componentDidUpdate() {
-    if(this.state.logout) {
+  componentDidUpdate(nextProps, nextState) {
+    if(this.state.state1.logout) {
       this.context.router.push('/');
     }
   }
 
+//   shouldComponentUpdate(nextProps, nextState) {
+//     console.log(nextState, this.state);
+//     return nextState !== this.nextState;
+// }
+
   componentWillUnmount() {
     LogInAdminStore.unlisten(this.onChange);
+    ManageTicketStore.unlisten(this.onChange);
   }
 
   onChange(state) {
-    this.setState(state);
+    this.setState({state1: LogInAdminStore.getState(), state2: ManageTicketStore.getState()});
   }
 
   render() {
     // let style={'text-align':'center'};
-    let ten =localStorage.getItem('adminTen')? localStorage.getItem('adminTen') : localStorage.getItem('adminEmail');
+    let ten = localStorage.getItem('adminEmail');
     let adminname =localStorage.getItem('adminusername');
     if (adminname)
     {
@@ -59,7 +70,7 @@ class Navbar extends React.Component {
                   <Link className="navbar-brand text-center" to="/quanly@ktx">
                       <span className="text-white"><i className="fa fa-home" aria-hidden="true"></i>Trang quản trị</span>
                   </Link>
-                  
+
               </div>
               <div className="navbar-minimize-mobile right">
                   <i className="fa fa-cog"></i>
@@ -67,18 +78,18 @@ class Navbar extends React.Component {
               <div className="clearfix"></div>
           </div>
           <div className="header-right">
-            
+
               <div className="navbar navbar-toolbar navbar-light">
                   <ul className="nav navbar-nav navbar-left">
 
-                      
+
                       <li className="navbar-minimize">
                           <a href="javascript:void(0);" title="Minimize sidebar">
                               <i className="fa fa-bars"></i>
                           </a>
                       </li>
-                      
-                      
+
+
                   </ul>
 
                   <ul className="nav navbar-nav navbar-right">
@@ -100,10 +111,11 @@ class Navbar extends React.Component {
                     </li>
 
                     <li role="presentation" className="message-wrap">
-                      <a href="javascript:;" className="info-number">
+                      <Link to='/quanly@ktx/quan-ly-cau-hoi' className="info-number">
+                        <span className="count-ticket">{this.state.state2.tickets.length}</span>
                         <i className="fa fa-envelope-o"></i>
                         <span className="badge bg-green"></span>
-                      </a>
+                      </Link>
                       {/*<ul id="menu1" className="dropdown-menu list-unstyled msg_list" role="menu">
                         <li>
                           <a>
@@ -164,9 +176,9 @@ class Navbar extends React.Component {
                       </ul>*/}
                     </li>
                   </ul>
-                
+
               </div>
-            
+
           </div>
         </header>
 

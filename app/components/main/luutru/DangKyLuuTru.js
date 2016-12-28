@@ -130,20 +130,14 @@ export default class SignUp extends React.Component {
         DangKyLuuTruAction.invalidTen();
         this.refs.TenTextField.focus();
     }
-    else if(!svkhuvuc){
-        DangKyLuuTruAction.invalidKhuVuc();
-        this.refs.KhuVucTextField.focus();
-    }
+    
     else if(gioitinh == ''){
         DangKyLuuTruAction.invalidGioiTinh();
     }
     else if(!ngaySinh || (presentYear - ngaySinh._d.getFullYear()) < 18 ){
         DangKyLuuTruAction.invalidNgaySinh();
     }
-    else if(!svtinh){
-        DangKyLuuTruAction.invalidTinh();
-        this.refs.TinhTextField.focus();
-    }
+    
     else if(!khoa){
         DangKyLuuTruAction.invalidKhoa();
         this.refs.KhoaTextField.focus();
@@ -156,10 +150,7 @@ export default class SignUp extends React.Component {
         DangKyLuuTruAction.invalidHeDaoTao();
         this.refs.HeDaoTaoTextField.focus();
     }
-    else if(!svdoituong){
-        DangKyLuuTruAction.invalidDoiTuong();
-        this.refs.DoiTuongTextField.focus();
-    }
+    
     else if(!svtongiao){
         DangKyLuuTruAction.invalidTonGiao();
         this.refs.TonGiaoTextField.focus();
@@ -227,8 +218,19 @@ export default class SignUp extends React.Component {
     var svloaiphong = this.state.state2.svloaiphong;
     var dichvu = this.state.state2.dichvu;
     // console.log(dichvu);
-    
-    if(!svhocluc){
+    if(!svkhuvuc){
+        DangKyLuuTruAction.invalidKhuVuc();
+        this.refs.KhuVucTextField.focus();
+    }
+    else if(!svtinh){
+        DangKyLuuTruAction.invalidTinh();
+        this.refs.TinhTextField.focus();
+    }
+    else if(!svdoituong){
+        DangKyLuuTruAction.invalidDoiTuong();
+        this.refs.DoiTuongTextField.focus();
+    }
+    else if(!svhocluc){
         DangKyLuuTruAction.invalidHocluc();
         this.refs.HocLucTextField.focus();
     }
@@ -459,72 +461,123 @@ export default class SignUp extends React.Component {
                 // neu chua gia han -> hien form gia han
                 else{
                     return(
-                        
-                        <div className="panel rounded shadow no-overflow" >
-                          <div className="panel-heading">
-                              <div className="pull-left"><h3 className="panel-title">{this.state.state2.titleForm}</h3></div>
-                              <div className="clearfix"></div>
-                          </div>
-                          <div className="panel-body no-padding">
-                            
-                            <form className="form-horizontal" role="form" onSubmit ={this.dangKyLuuTru.bind(this)}>
-                              <div className="form-body">
-                                
-                                <div className={'form-group  ' }>
-                                  <label htmlFor="sinh-vien" className="col-md-3 control-label">Học lực<span className="text-danger">(*)</span></label>
-                                  <div className="col-md-7">
-                                      <select className="form-control" id="sinh-vien" value={this.state.state2.svhocluc}
-                                          onChange={DangKyLuuTruAction.updateHocLuc} ref='HocLucTextField'>
-                                        <option value =''>-- Chọn học lực --</option>
-                                        {sinhvien}
-                                      </select>
-                                      <div className=''><span className="control-label text-danger">{this.state.state2.validateHocLuc}</span></div>
-                                  </div>
-                                </div>
-                                <div className={'form-group ' }>
-                                  <label htmlFor="hoan-canh" className="col-md-3 control-label">Hoàn cảnh gia đình<span className="text-danger">(*)</span></label>
-                                  <div className="col-md-7">
-                                      <select className="form-control" id="hoan-canh" value={this.state.state2.svhoancanh}
-                                          onChange={DangKyLuuTruAction.updateHoanCanh} ref='HoanCanhTextField'>
-                                        <option value =''>-- Chọn hoàn cảnh --</option>
-                                        {hoanCanh}
-                                      </select>
-                                      <div className=''><span className="control-label text-danger">{this.state.state2.validateHoanCanh}</span></div>
-                                  </div>
-                                </div>
-                                <div className={'form-group  ' }>
-                                  <label htmlFor="phong-luu-tru" className="col-md-3 control-label">Nguyện vọng lưu trú<span className="text-danger">(*)</span></label>
-                                  <div className="col-md-7">
-                                      <select className="form-control" id="phong-luu-tru" onChange={DangKyLuuTruAction.updateLoaiPhong}
-                                          value={this.state.state2.svloaiphong} ref='LoaiPhongTextField'>
-                                        <option value=''>-- Chọn loại phòng --</option>
-                                        {loaiPhong}
-                                      </select>
-                                      <div className=''><span className="control-label text-danger">{this.state.state2.validateLoaiPhong}</span></div>
-                                  </div>
-                                </div>
-                                <div className={'form-group  ' } style={{'display':this.state.state2.styleDichVu}}>
-                                  <label htmlFor="dich-vu-phong-thuong" className="col-md-3 control-label">Dịch vụ<span className="text-danger">(*)</span></label>
-                                  <div className="col-md-7">
+                        <div className="container luu-tru">
 
-                                      {dichVu}
-                                      
-                                      <div className=''><span className="control-label text-danger"></span></div>
+                            <div className="row">
+                              <div className="col-md-9" >
+                                <ol className="breadcrumb no-overflow">
+                                    <li><Link to="/"><i className="fa fa-home" aria-hidden="true"></i> Trang chủ</Link></li>
+                                    <li>{this.state.state2.titleForm}</li>
+                                </ol>
+                                <div className="panel rounded shadow no-overflow" >
+                                  <div className="panel-heading">
+                                      <div className="pull-left"><h3 className="panel-title">{this.state.state2.titleForm}</h3></div>
+                                      <div className="clearfix"></div>
+                                  </div>
+                                  <div className="panel-body no-padding">
+                                    
+                                    <form className="form-horizontal" role="form" onSubmit ={this.dangKyLuuTru.bind(this)}>
+                                      <div className="form-body">
+                                        {/*khu vuc uu tien*/}
+                                        <div className={'form-group ' } >
+                                          <label htmlFor="khu-vuc-uu-tien" className="col-md-3 control-label">Khu vực ưu tiên<span className="text-danger">(*)</span></label>
+                                          <div className="col-md-7">
+                                              <select className="form-control" id="khu-vuc-uu-tien" value={this.state.state2.svkhuvuc}
+                                                  onChange={DangKyLuuTruAction.updateKhuVuc} ref='KhuVucTextField'>
+                                                <option value =''>-- Chọn khu vực ưu tiên --</option>
+                                                {khuVucUuTien}
+                                              </select>
+                                              <div className=''><span className="control-label text-danger">{this.state.state2.validateKhuVuc}</span></div>
+                                          </div>
+                                        </div>
+                                        {/*tinh*/}
+                                        <div className={'form-group ' } >
+                                          <label htmlFor="tinh" className="col-md-3 control-label">Tỉnh<span className="text-danger">(*)</span></label>
+                                          <div className="col-md-7">
+                                              <select className="form-control" id="tinh" value={this.state.state2.svtinh}
+                                                  onChange={DangKyLuuTruAction.updateTinh} ref='TinhTextField'>
+                                                <option value =''>-- Chọn tỉnh --</option>
+                                                {tinh}
+
+                                              </select>
+                                              <div className=''><span className="control-label text-danger">{this.state.state2.validateTinh}</span></div>
+                                          </div>
+                                        </div>
+                                        {/*Dan toc*/}
+                                        <div className={'form-group  ' } >
+                                          <label htmlFor="dan-toc" className="col-md-3 control-label">Dân tộc<span className="text-danger">(*)</span></label>
+                                          <div className="col-md-7">
+                                              <select className="form-control" id="dan-toc" value={this.state.state2.svdoituong}
+                                                  onChange={DangKyLuuTruAction.updateDoiTuong} ref='DoiTuongTextField'>
+                                                <option value =''>-- Chọn dân tộc --</option>
+                                                {doiTuongUuTien}
+                                              </select>
+                                              <div className=''><span className="control-label text-danger">{this.state.state2.validateDoiTuong}</span></div>
+                                          </div>
+                                        </div>
+                                        <div className={'form-group  ' }>
+                                          <label htmlFor="sinh-vien" className="col-md-3 control-label">Học lực<span className="text-danger">(*)</span></label>
+                                          <div className="col-md-7">
+                                              <select className="form-control" id="sinh-vien" value={this.state.state2.svhocluc}
+                                                  onChange={DangKyLuuTruAction.updateHocLuc} ref='HocLucTextField'>
+                                                <option value =''>-- Chọn học lực --</option>
+                                                {sinhvien}
+                                              </select>
+                                              <div className=''><span className="control-label text-danger">{this.state.state2.validateHocLuc}</span></div>
+                                          </div>
+                                        </div>
+                                        <div className={'form-group ' }>
+                                          <label htmlFor="hoan-canh" className="col-md-3 control-label">Hoàn cảnh gia đình<span className="text-danger">(*)</span></label>
+                                          <div className="col-md-7">
+                                              <select className="form-control" id="hoan-canh" value={this.state.state2.svhoancanh}
+                                                  onChange={DangKyLuuTruAction.updateHoanCanh} ref='HoanCanhTextField'>
+                                                <option value =''>-- Chọn hoàn cảnh --</option>
+                                                {hoanCanh}
+                                              </select>
+                                              <div className=''><span className="control-label text-danger">{this.state.state2.validateHoanCanh}</span></div>
+                                          </div>
+                                        </div>
+                                        <div className={'form-group  ' }>
+                                          <label htmlFor="phong-luu-tru" className="col-md-3 control-label">Nguyện vọng lưu trú<span className="text-danger">(*)</span></label>
+                                          <div className="col-md-7">
+                                              <select className="form-control" id="phong-luu-tru" onChange={DangKyLuuTruAction.updateLoaiPhong}
+                                                  value={this.state.state2.svloaiphong} ref='LoaiPhongTextField'>
+                                                <option value=''>-- Chọn loại phòng --</option>
+                                                {loaiPhong}
+                                              </select>
+                                              <div className=''><span className="control-label text-danger">{this.state.state2.validateLoaiPhong}</span></div>
+                                          </div>
+                                        </div>
+                                        <div className={'form-group  ' } style={{'display':this.state.state2.styleDichVu}}>
+                                          <label htmlFor="dich-vu-phong-thuong" className="col-md-3 control-label">Dịch vụ<span className="text-danger">(*)</span></label>
+                                          <div className="col-md-7">
+
+                                              {dichVu}
+                                              
+                                              <div className=''><span className="control-label text-danger"></span></div>
+                                          </div>
+                                        </div>
+
+                                      </div>
+
+                                      <div className="form-footer">
+                                          <div className="form-group">
+                                            <div className="col-sm-offset-3">
+                                              <button type="button" className="btn btn-warning" onClick={DangKyLuuTruAction.quayLai} style={{'display':this.state.state2.displayQuayLaiBtn}}>Quay lại</button>
+                                              <button type="submit" className="btn btn-success" disabled={this.state.state2.disableDK}><span><i className="fa fa-refresh fa-spin" style={{'display': this.state.state2.loading}}></i> <span>{this.state.state2.textButtonDangKy}</span></span></button>
+                                              <span className="text-success">{this.state.state2.messDK}</span>
+                                            </div>
+                                          </div>
+                                      </div>
+                                    </form>
                                   </div>
                                 </div>
-
                               </div>
 
-                              <div className="form-footer">
-                                  <div className="form-group">
-                                    <div className="col-sm-offset-3">
-                                      <button type="button" className="btn btn-warning" onClick={DangKyLuuTruAction.quayLai} style={{'display':this.state.state2.displayQuayLaiBtn}}>Quay lại</button>
-                                      <button type="submit" className="btn btn-success" disabled={this.state.state2.disableDK}><span><i className="fa fa-refresh fa-spin" style={{'display': this.state.state2.loading}}></i> <span>{this.state.state2.textButtonDangKy}</span></span></button>
-                                      <span className="text-success">{this.state.state2.messDK}</span>
-                                    </div>
-                                  </div>
-                              </div>
-                            </form>
+                            <div className="col-md-3 col-sm-12">
+                                <CotPhaiHome />
+                            </div>
+
                           </div>
                         </div>
                     );
@@ -670,18 +723,7 @@ export default class SignUp extends React.Component {
                                           <div className=''><span className="control-label text-danger">{this.state.state2.validateTen}</span></div>
                                       </div>
                                     </div>
-                                    {/*khu vuc uu tien*/}
-                                    <div className={'form-group ' } >
-                                      <label htmlFor="khu-vuc-uu-tien" className="col-md-3 control-label">Khu vực ưu tiên<span className="text-danger">(*)</span></label>
-                                      <div className="col-md-7">
-                                          <select className="form-control" id="khu-vuc-uu-tien" value={this.state.state2.svkhuvuc}
-                                              onChange={DangKyLuuTruAction.updateKhuVuc} ref='KhuVucTextField'>
-                                            <option value =''>-- Chọn khu vực ưu tiên --</option>
-                                            {khuVucUuTien}
-                                          </select>
-                                          <div className=''><span className="control-label text-danger">{this.state.state2.validateKhuVuc}</span></div>
-                                      </div>
-                                    </div>
+                                    
                                   {/*gioi tinh*/}
                                     <div className="form-group"  >
                                         <label className="control-label col-md-3 col-sm-3" htmlFor="">Giới tính<span className="text-danger">(*)</span></label>
@@ -708,19 +750,7 @@ export default class SignUp extends React.Component {
                                           <div className=''><span className="control-label text-danger">{this.state.state2.validateNgaySinh}</span></div>
                                         </div>
                                     </div>
-                                    {/*tinh*/}
-                                    <div className={'form-group ' } >
-                                      <label htmlFor="tinh" className="col-md-3 control-label">Tỉnh<span className="text-danger">(*)</span></label>
-                                      <div className="col-md-7">
-                                          <select className="form-control" id="tinh" value={this.state.state2.svtinh}
-                                              onChange={DangKyLuuTruAction.updateTinh} ref='TinhTextField'>
-                                            <option value =''>-- Chọn tỉnh --</option>
-                                            {tinh}
-
-                                          </select>
-                                          <div className=''><span className="control-label text-danger">{this.state.state2.validateTinh}</span></div>
-                                      </div>
-                                    </div>
+                                    
                                   {/*Khoa*/}
                                     <div className={'form-group ' } >
                                       <label htmlFor="khoa" className="col-md-3 control-label">Khoa<span className="text-danger">(*)</span></label>
@@ -757,18 +787,7 @@ export default class SignUp extends React.Component {
                                           <div className=''><span className="control-label text-danger">{this.state.state2.validateHeDaoTao}</span></div>
                                       </div>
                                     </div>
-                                  {/*Dan toc*/}
-                                    <div className={'form-group  ' } >
-                                      <label htmlFor="dan-toc" className="col-md-3 control-label">Dân tộc<span className="text-danger">(*)</span></label>
-                                      <div className="col-md-7">
-                                          <select className="form-control" id="dan-toc" value={this.state.state2.svdoituong}
-                                              onChange={DangKyLuuTruAction.updateDoiTuong} ref='DoiTuongTextField'>
-                                            <option value =''>-- Chọn dân tộc --</option>
-                                            {doiTuongUuTien}
-                                          </select>
-                                          <div className=''><span className="control-label text-danger">{this.state.state2.validateDoiTuong}</span></div>
-                                      </div>
-                                    </div>
+                                  
                                   {/*Ton giao*/}
                                     <div className={'form-group  ' } >
                                       <label htmlFor="ton-giao" className="col-md-3 control-label">Tôn giáo<span className="text-danger">(*)</span></label>
@@ -887,7 +906,43 @@ export default class SignUp extends React.Component {
                               
                               
                               
-                              
+                              {/*khu vuc uu tien*/}
+                              <div className={'form-group ' } >
+                                <label htmlFor="khu-vuc-uu-tien" className="col-md-3 control-label">Khu vực ưu tiên<span className="text-danger">(*)</span></label>
+                                <div className="col-md-7">
+                                    <select className="form-control" id="khu-vuc-uu-tien" value={this.state.state2.svkhuvuc}
+                                        onChange={DangKyLuuTruAction.updateKhuVuc} ref='KhuVucTextField'>
+                                      <option value =''>-- Chọn khu vực ưu tiên --</option>
+                                      {khuVucUuTien}
+                                    </select>
+                                    <div className=''><span className="control-label text-danger">{this.state.state2.validateKhuVuc}</span></div>
+                                </div>
+                              </div>
+                              {/*tinh*/}
+                              <div className={'form-group ' } >
+                                <label htmlFor="tinh" className="col-md-3 control-label">Tỉnh<span className="text-danger">(*)</span></label>
+                                <div className="col-md-7">
+                                    <select className="form-control" id="tinh" value={this.state.state2.svtinh}
+                                        onChange={DangKyLuuTruAction.updateTinh} ref='TinhTextField'>
+                                      <option value =''>-- Chọn tỉnh --</option>
+                                      {tinh}
+
+                                    </select>
+                                    <div className=''><span className="control-label text-danger">{this.state.state2.validateTinh}</span></div>
+                                </div>
+                              </div>
+                              {/*Dan toc*/}
+                              <div className={'form-group  ' } >
+                                <label htmlFor="dan-toc" className="col-md-3 control-label">Dân tộc<span className="text-danger">(*)</span></label>
+                                <div className="col-md-7">
+                                    <select className="form-control" id="dan-toc" value={this.state.state2.svdoituong}
+                                        onChange={DangKyLuuTruAction.updateDoiTuong} ref='DoiTuongTextField'>
+                                      <option value =''>-- Chọn dân tộc --</option>
+                                      {doiTuongUuTien}
+                                    </select>
+                                    <div className=''><span className="control-label text-danger">{this.state.state2.validateDoiTuong}</span></div>
+                                </div>
+                              </div>
                               <div className={'form-group  ' }>
                                 <label htmlFor="sinh-vien" className="col-md-3 control-label">Học lực<span className="text-danger">(*)</span></label>
                                 <div className="col-md-7">

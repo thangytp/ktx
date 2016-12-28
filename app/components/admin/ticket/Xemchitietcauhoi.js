@@ -22,10 +22,6 @@ class Xemchitietcauhoi extends Component {
     ManageTicketAction.getTicketById(this.props.params.id);
   }
 
-  componentDidUpdate() {
-    ManageTicketAction.getTicketById(this.props.params.id);
-  }
-
   componentWillUnmount() {
     ManageTicketStore.unlisten(this.onChange);
   }

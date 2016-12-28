@@ -27,10 +27,10 @@ class LogInAdminStore {
     
     this.access_token = response.access_token;
     this.loginSuccessMess = 'Dang Nhap Thanh Cong';
-    //window.location.reload();
-    setTimeout(function() {
-      history.go(-1);
-    }, 500);
+    window.location.reload();
+    // setTimeout(function() {
+    //   history.go(-1);
+    // }, 500);
   }
 
   onLoginFail(message)
