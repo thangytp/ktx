@@ -113,6 +113,7 @@ class Header extends React.Component {
                                                 <ul>
                                                     <li><Link to="/dang-ky-luu-tru">Đăng ký lưu trú</Link></li>
                                                     <li><Link to="/xem-ket-qua-luu-tru">Xem kết quả đăng ký lưu trú</Link></li>
+                                                    <li><Link to="/tra-cuu-luu-tru">TRA CỨU SINH VIÊN ĐANG LƯU TRÚ</Link></li>
                                                 </ul>
                                             </li>
                                             <li className="nML">
@@ -150,6 +151,7 @@ class Header extends React.Component {
                                                 <ul className="dropdown-menu">
                                                     <li><Link to="/dang-ky-luu-tru">Đăng ký lưu trú</Link></li>
                                                     <li><Link to="/xem-ket-qua-luu-tru">Xem kết quả đăng ký lưu trú</Link></li>
+                                                    <li><Link to="/tra-cuu-luu-tru">TRA CỨU SINH VIÊN ĐANG LƯU TRÚ</Link></li>
                                                 </ul>
                                             </li>
                                             <li className="nML">
