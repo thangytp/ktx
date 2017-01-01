@@ -56,7 +56,7 @@ this.activeTarget=b,this.clear();var c=this.selector+'[data-target="'+b+'"],'+th
 
    $(document).ready(function(){
         $('[data-toggle="tooltip"]').tooltip();
-        $('#slick-menu').slicknav();
+
     });
    $(document).ready(function(){
         $('#sidebar-left .sidebar-menu li').click(function(){
