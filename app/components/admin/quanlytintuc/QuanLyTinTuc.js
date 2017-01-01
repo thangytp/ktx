@@ -101,7 +101,6 @@ class QuanLyTinTuc extends React.Component {
 		var hienthi = this.state.state1.hienthi;
 
 		var access_token = localStorage.getItem('access_token');
-		console.log(access_token);
 		if(!title){
 			QuanLyTinTucAction.invalidTitle();
 			this.refs.TitlePageField.focus();
@@ -130,7 +129,6 @@ class QuanLyTinTuc extends React.Component {
 	deleteTinTuc(e){
 		e.preventDefault();
 		var access_token = localStorage.getItem('access_token');
-		console.log(access_token);
 		var id = this.state.state1.idTinTucToDelete;
 		if(id){
 			QuanLyTinTucAction.deleteTinTuc({access_token: access_token, id: id});

@@ -142,7 +142,7 @@ class QuanLyTinTucStore {
     CKEDITOR.instances.ckedit.setData(data.content);
 
     this.description = data.description;
-    this.hienthi = data.hienthi;
+    this.hienthi = data.hienthi ? data.hienthi : 0;
     if(this.hienthi){
       this.checkHienThi = 'checked';
     }
@@ -208,7 +208,7 @@ class QuanLyTinTucStore {
     this.helpBlockContent = '';
     this.helpBlockDescription = '';
 
-    this.helpBlockAddTinTuc = 'Cập nhật trang thành công';
+    this.helpBlockAddTinTuc = data.message;
     this.textButton = 'Thêm';
 
     this.idTinTucToDelete = '';
