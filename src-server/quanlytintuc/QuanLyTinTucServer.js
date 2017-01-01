@@ -127,9 +127,8 @@ function QuanLyTinTucServer(app){
 			if(admin){
 				tintuc.findOne({_id: id}, function(err, tintucRes){
 					if(err) return next(err);
-					
 						tintucRes.update({ $set: {title: title, content: content, description: description, img: img, dateModify: dateModify, slug: slug, hienthi: hienthi } }, function(err, re){
-							res.send({message: 'Cập nhật trang thành công!'});
+							res.send({message: 'Cập nhật tin thành công!'});
 						});
 					
 				});
