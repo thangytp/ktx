@@ -16,10 +16,19 @@ class ManagePhongChitietStore {
     this._loai = '';
     this._tang = '';
     this.messUpdate = '';
-
+    this.diennuoc = [];
     this.modalIsOpenDeletePhongCT = false;
     this.idDel = '';
   }
+
+  onAddDiennuocSuccess() {
+    ManagePhongChitietAction.viewDiennuoc();
+  }
+
+  onViewDiennuocSuccess(response) {
+    this.diennuoc = response;
+  }
+
 
   onGetPhongChitietSuccess(response) {
     this.phongchitiet = response;
@@ -34,6 +43,10 @@ class ManagePhongChitietStore {
   onDelPhongChitietSuccess() {
     ManagePhongChitietAction.getPhong();
     this.modalIsOpenDeletePhongCT = false;
+  }
+
+  onAddGiuongChitietSuccess() {
+    ManagePhongChitietAction.getPhong();
   }
 
   onUpdateGiuongDangkySuccess() {

@@ -18,7 +18,9 @@ class ManagePhongChitietAction {
       'updatePhongChitietSuccess',
 
       'closeModalDeletePhongCT',
-      'openMoDDeletePhongCT'
+      'openMoDDeletePhongCT',
+      'addDiennuocSuccess',
+      'viewDiennuocSuccess'
     );
   }
 
@@ -33,6 +35,16 @@ class ManagePhongChitietAction {
     })
     .done((data) => {
       this.actions.getPhongChitietSuccess(data);
+    })
+  }
+
+  viewDiennuoc(payload) {
+    $.ajax({
+      url: '/viewdiennuoc/' + payload.phong + '/' + payload.nam,
+      type: 'GET'
+    })
+    .done((data) => {
+      this.actions.viewDiennuocSuccess(data);
     })
   }
 
@@ -55,6 +67,17 @@ class ManagePhongChitietAction {
     })
     .done((data) => {
       this.actions.addPhongChitietSuccess();
+    })
+  }
+
+  addDiennuoc(payload) {
+    $.ajax({
+      url: '/adddiennuoc',
+      type: 'POST',
+      data: payload
+    })
+    .done((data) => {
+      this.actions.addDiennuocSuccess();
     })
   }
 

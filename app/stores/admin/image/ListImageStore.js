@@ -15,14 +15,18 @@ class ListImageStore {
     this.copiedMes = 'Sao chép thành công!';
   }
 
+  onDelImageSuccess() {
+    ListImageAction.get();
+  }
+
   onUpdateArrayId(id)
   {
     this.arrayIDtoDel.push(id);
   }
   onRemoveArrayId(id)
   {
-    var index = this.arrayIDtoDel.indexOf(id);   
-    this.arrayIDtoDel.splice(index,1);    
+    var index = this.arrayIDtoDel.indexOf(id);
+    this.arrayIDtoDel.splice(index,1);
   }
  onOpenModal()
   {
