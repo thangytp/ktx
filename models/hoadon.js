@@ -1,21 +1,17 @@
 var mongoose = require('mongoose');
 
-var hoadonSchema = new mongoose.Schema({ 
+var hoadonSchema = new mongoose.Schema({
  	_ma_phong: String,
  	thang: Number,
  	nam: Number,
  	dien: {
- 		socu: Number,
- 		somoi: Number,
+ 		so: Number,
  		tongtien: Number
  	},
  	nuoc: {
- 		socu: Number,
- 		somoi: Number,
+ 		so: Number,
  		tongtien: Number
  	},
- 	
- 	_da_nop_tien: {type : 'Boolean', default: false}
-
+  da_dong_tien: {type: 'Boolean', default: false}
 });
 module.exports = mongoose.model('hoadon', hoadonSchema);

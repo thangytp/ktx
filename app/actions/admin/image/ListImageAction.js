@@ -4,10 +4,11 @@ class ListImageAction {
   constructor() {
     this.generateActions(
       'getListImageSuccess',
-      'getListImageFail', 
+      'getListImageFail',
       'deleteSucess',
       'deleteFail',
       'updateMesCopy',
+      'delImageSuccess',
 
       'updateArrayId',
       'removeArrayId',
@@ -17,24 +18,18 @@ class ListImageAction {
 
     );
   }
-  delete(id){  
+  delImage(payload){
     $.ajax({
-      type: 'POST',
-      url: '/api/deletebook',
-      data: { id: id}
+      type: 'DELETE',
+      url: '/deleteimage/' + payload,
     })
       .done((data) => {
-        this.actions.deleteSucess(data.message);
-        // listTransActions.deleteTranByBookId(temp);
-        // listTransActions.get();
-      })
-      .fail((jqXhr) => {
-        this.actions.deleteFail(jqXhr.responseJSON.message);
+        this.actions.delImageSuccess();
       });
   }
   get() {
-    $.ajax({    
-      url: '/api/listimage'      
+    $.ajax({
+      url: '/api/listimage'
     })
       .done((data) => {
         this.actions.getListImageSuccess(data);

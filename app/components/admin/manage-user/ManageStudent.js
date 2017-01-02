@@ -23,7 +23,7 @@ import ImgUpload from '../../../shared/ImgUpload';
 var FormUpload = React.createClass({
     uploadFile: function (e) {
         var fd = new FormData();
-        fd.append('file', this.refs.file.getDOMNode().files[0]);
+        fd.append('file', this.refs.file.files[0]);
         ManageUserAction.importUser(fd);
         e.preventDefault()
     },

@@ -54,6 +54,8 @@ var studentSchema = new mongoose.Schema({
   xet_duyet_thanh_cong: {type: 'Boolean', default: false},
   gia_han_thanh_cong: {type: 'Boolean', default: false},
   diem_ren_luyen_ktx : [{
+    nam: {type : 'Number'},
+    ki: {type : 'Number'},
     tong: {type : 'Number'},
     ve_sinh: {type: 'Number'}
   }],

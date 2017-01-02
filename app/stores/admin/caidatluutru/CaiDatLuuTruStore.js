@@ -111,8 +111,8 @@ class CaiDatLuuTruStore {
 				this.ngayBatDauGiaHan = moment(data[0].giahan.ngaybatdaugiahan);
 				this.ngayKetThucGiaHan = moment(data[0].giahan.ngayketthucgiahan);
 
-				this.ngayBatDauGiaHanMain = data[0].giahan.ngaybatdaugiahan;
-				this.ngayKetThucGiaHanMain = data[0].giahan.ngayketthucgiahan;
+				this.ngayBatDauGiaHanMain = moment(data[0].giahan.ngaybatdaugiahan);
+				this.ngayKetThucGiaHanMain = moment(data[0].giahan.ngayketthucgiahan);
 			}
 			else {
 				this.ngayBatDauGiaHan = moment();
@@ -133,7 +133,7 @@ class CaiDatLuuTruStore {
 	onGetCaiDatDangKyMoiFail(data){
 		console.log(data);
 	}
-	
+
 }
 
 export default alt.createStore(CaiDatLuuTruStore);

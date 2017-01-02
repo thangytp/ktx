@@ -40,6 +40,7 @@ import LogInAdmin from './components/admin/LogIn';
 import InfoPage from './components/main/user/InfoPage';
 import Ticket from './components/main/user/Ticket';
 import ViewDetailTicket from './components/main/user/ViewDetailTicket';
+import DienNuoc from './components/admin/manage-phong/Diennuoc';
 
 import ViewDetailPage from './components/main/page/ViewDetailPage';
 import ViewDetailTinTuc from './components/main/tintuc/ViewDetailTinTuc';
@@ -48,7 +49,8 @@ import Search from './components/main/tintuc/Search';
 import Quanlycauhoi from './components/admin/ticket/Quanlycauhoi';
 import Xemchitietcauhoi from './components/admin/ticket/Xemchitietcauhoi';
 import TraCuu from './components/main/luutru/TraCuu';
-
+import TraCuuDienNuoc from './components/main/luutru/TraCuuDienNuoc';
+import TraCuuDiemKtx from './components/main/luutru/TraCuuDiemKtx';
 
 
 import localStorage from 'localStorage';
@@ -77,6 +79,7 @@ export default (
             <Route path="/quanly@ktx/gia-han-luu-tru-cu" component={GiaHanCu} onEnter={requireAuth}/>
 
             <Route path="/quanly@ktx/chi-tieu" component={ChiTieu} onEnter={requireAuth}/>
+            <Route path="/quanly@ktx/dien-nuoc" component={DienNuoc} onEnter={requireAuth}/>
             <Route path="/quanly@ktx/uu-tien" component={UuTien} onEnter={requireAuth}/>
             <Route path="/quanly@ktx/tang" component={Tang} onEnter={requireAuth}/>
             <Route path="/quanly@ktx/loaiphong" component={Phong} onEnter={requireAuth}/>
@@ -105,7 +108,9 @@ export default (
             <Route path='/xem-ket-qua-luu-tru' component={KetQuaDangKyLuuTru}/>
             <Route path='/login' component={LogIn}/>
             <Route path='/thong-tin-ca-nhan' component={InfoPage}/>
+            <Route path='/tra-cuu-diemktx' component={TraCuuDiemKtx}/>
             <Route path='/tra-cuu-luu-tru' component={TraCuu}/>
+            <Route path='/tra-cuu-dien-nuoc' component={TraCuuDienNuoc}/>
             <Route path='/cau-hoi' component={Ticket}/>
             <Route path='/cau-hoi/:id' component={ViewDetailTicket}/>
             <Route path='/tin-tuc/:link' component={ViewDetailTinTuc} />
