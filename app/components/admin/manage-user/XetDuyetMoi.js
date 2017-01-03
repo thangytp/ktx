@@ -122,11 +122,7 @@ class XetDuyetMoi extends Component {
         return (
           <tr>
            <th scope="row">{index + 1}</th>
-           <td>{user.ho_lot + ' ' + user.ten}</td>
-           <td>{user.email}</td>
            <td>{user.ma_sinh_vien}</td>
-           <td>{user.so_cmnd}</td>
-           <td>{'0'+user.sdt_sinhvien}</td>
           </tr>
         )
     });
@@ -148,11 +144,8 @@ class XetDuyetMoi extends Component {
         return (
           <tr>
            <th scope="row">{index + 1}</th>
-           <td>{user.ho_lot + ' ' + user.ten}</td>
-           <td>{user.email}</td>
            <td>{user.ma_sinh_vien}</td>
-           <td>{user.so_cmnd}</td>
-           <td>{'0'+user.sdt_sinhvien}</td>
+           <td>{user.diem_ren_luyen}</td>
           </tr>
         )
     });
@@ -216,7 +209,7 @@ class XetDuyetMoi extends Component {
         <Tabs defaultActiveKey={1} id="tienhanhxetduyet">
           {this.state.state2.chitieu[0].chitiet.map(function(chitiet, index){
             return (
-              <Tab eventKey={index + 1} title='Phòng'>
+              <Tab eventKey={index + 1} title={'Phòng ' + chitiet._phong_id.ten}>
                 <div className="dropdown col-md-2 mt-10">
                   <button className="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Năm 1
                   <span className="caret"></span></button>
@@ -400,11 +393,7 @@ class XetDuyetMoi extends Component {
               <thead>
                <tr>
                  <th>#</th>
-                 <th>Họ Tên</th>
-                 <th>Email</th>
                  <th>MSSV</th>
-                 <th>CMND</th>
-                 <th>SDT</th>
                  </tr>
                </thead>
                <tbody>
@@ -491,11 +480,8 @@ class XetDuyetMoi extends Component {
               <thead>
                <tr>
                  <th>#</th>
-                 <th>Họ Tên</th>
-                 <th>Email</th>
                  <th>MSSV</th>
-                 <th>CMND</th>
-                 <th>SDT</th>
+                 <th>Điểm rèn luyện phòng đào tạo</th>
                  </tr>
                </thead>
                <tbody>
