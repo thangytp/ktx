@@ -393,21 +393,31 @@ module.exports = function(app, importStudent) {
     else if(cMonth >= 5 && cMonth <= 7) {
       cSemester = 3;
     }
-    Student.findByIdAndUpdate(req.params.stuId, {_tang_id: req.body.tang, ma_ktx : req.body.maktx, ma_giuong: req.body.giuong, _phongchitiet_id : req.body.phongchitiet, role: parseInt(req.body.vaitro), dang_o_ktx: true, da_dong_tien: true, gia_han_luu_tru: false} , { new: true }, function (err, student) {
-      if (err) throw err;
-      Tienktx.findOneAndUpdate({_sinhvien_id : req.params.stuId, nam: cYear, ki: cSemester}, {da_dong_tien: true}, {new : true}, function(err){
+    Student.findOne({_id : req.params.stuId}, function(err, student){
+      Phongchitiet.findOne({_id : student._phongchitiet_id}, function(err, phong){
         if(err) throw err;
+        if(phong != null) {
+          if(phong.truong_phong != null) {
+            if(phong.truong_phong == req.params.stuId) {
+              phong.update({$set: {truong_phong : null}}, function(err){
+                if(err) throw err;
+              })
+            }
+          }
+        }
       });
-      if(parseInt(req.body.vaitro) === 1) {
-        Phongchitiet.findOneAndUpdate({_id : req.body.phongchitiet}, {truong_phong: req.params.stuId}, {new : true}, function(err){
+      Student.findByIdAndUpdate(req.params.stuId, {_tang_id: req.body.tang, ma_ktx : req.body.maktx, ma_giuong: req.body.giuong, _phongchitiet_id : req.body.phongchitiet, role: parseInt(req.body.vaitro), dang_o_ktx: true, da_dong_tien: true, gia_han_luu_tru: false} , { new: true }, function (err, student) {
+        if (err) throw err;
+        Tienktx.findOneAndUpdate({_sinhvien_id : req.params.stuId, nam: cYear, ki: cSemester}, {da_dong_tien: true}, {new : true}, function(err){
           if(err) throw err;
         });
-      } else {
-        Phongchitiet.findOneAndUpdate({_id : student._phongchitiet_id}, {truong_phong: null}, {new : true}, function(err){
-          if(err) throw err;
-        });
-      }
-      res.send(student);
+        if(parseInt(req.body.vaitro) === 1) {
+          Phongchitiet.findOneAndUpdate({_id : req.body.phongchitiet}, {truong_phong: req.params.stuId}, {new : true}, function(err){
+            if(err) throw err;
+          });
+        }
+        res.send(student);
+      });
     });
   })
 
