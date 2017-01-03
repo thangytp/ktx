@@ -69,7 +69,7 @@ export default class InfoPage extends React.Component {
       						<p>Số CMND: {this.state.stu.so_cmnd}</p>
       						<p>Hộ khẩu thường trú: {this.state.stu.dia_chi_gia_dinh}</p>
       					</div>
-      					<h4 className="head4 mT20"><i className="fa fa-info-circle" aria-hidden="true"></i> Thông tin liên lạc <Link to="" className="pull-right normal-text">Cập nhật <i className="fa fa-angle-double-right" aria-hidden="true"></i></Link></h4>
+      					<h4 className="head4 mT20"><i className="fa fa-info-circle" aria-hidden="true"></i> Thông tin liên lạc </h4>
       					<div className="info2">
       						<p>Di động: {this.state.stu.sdt_sinhvien}</p>
       						<p>Số điện thoại gia đình: {this.state.stu.sdt_giadinh}</p>
