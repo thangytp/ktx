@@ -75,7 +75,7 @@ class Ticket extends React.Component {
     }
 		ManageTicketStore.listen(this.onChange);
     ManageUserStore.listen(this.onChange);
-		ManageTicketAction.getTicket();
+		ManageTicketAction.getTicketByEmail(userEmail);
     ManageUserAction.getUserByEmail(userEmail);
   }
 

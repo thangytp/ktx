@@ -403,7 +403,7 @@ module.exports = function(app, importStudent) {
           if(err) throw err;
         });
       } else {
-        Phongchitiet.findOneAndUpdate({_id : req.body.phongchitiet}, {truong_phong: null}, {new : true}, function(err){
+        Phongchitiet.findOneAndUpdate({_id : student._phongchitiet_id}, {truong_phong: null}, {new : true}, function(err){
           if(err) throw err;
         });
       }

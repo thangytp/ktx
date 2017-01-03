@@ -22,6 +22,16 @@ class ManageTicketAction {
     })
   }
 
+  getTicketByEmail(payload) {
+    $.ajax({
+      url: '/getticket/' + payload,
+      type: 'GET'
+    })
+    .done((data) => {
+      this.actions.getTicketSuccess(data);
+    })
+  }
+
   getTicketById(payload) {
     $.ajax({
       url: '/getticket/' + payload,

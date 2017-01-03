@@ -138,14 +138,14 @@ class Diennuoc extends Component {
     let listphongchitiet = this.state.phongchitiet.map(function(phongchitiet, index){
 
       return(
-        <button className="btn btn-large btn-success" onClick={this.handeAddModal.bind(this, phongchitiet.ma)}>{phongchitiet.ma}</button>
+        <button className="btn btn-large btn-diennuoc btn-success" onClick={this.handeAddModal.bind(this, phongchitiet.ma)}>{phongchitiet.ma}</button>
       );
     },this);
     return (
       <div className="body-content animated fadeIn no-overflow">
           <div className="row">
                 <div className="col-md-12">
-                  <ol className="breadcrumb no-overflow">
+                  <ol className="breadcrumb">
                       <li><Link to="/quanly@ktx"><i className="fa fa-home" aria-hidden="true"></i> Trang quản trị</Link></li>
                       <li>Quản lý điện nước</li>
                   </ol>
@@ -153,7 +153,7 @@ class Diennuoc extends Component {
                     {/* <Button bsStyle="primary" onClick={()=>this.setState({ addModalShow: true })}>
                       Thêm Dịch Vụ
                     </Button> */}
-                    <Tabs defaultActiveKey={1} id="dienuoc">
+                    <Tabs defaultActiveKey={1} id="diennuoc">
                       <Tab eventKey={1} title="Thêm điện nước">
                         {listphongchitiet}
                         <AddDiennuocModal phong={this.state.phong} show={this.state.addModalShow} onHide={addModalClose} />
