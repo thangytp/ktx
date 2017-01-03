@@ -52,8 +52,8 @@ class TraCuu extends React.Component {
             {' '+user.ma_ktx}
           </div>
           <div className="col-md-4 ">
-            <label>Mã sinh viên:</label>
-            {' '+user.ma_sinh_vien}
+            <label>Hộ khẩu:</label>
+            {' '+user.dia_chi_gia_dinh}
           </div>
           <div className="col-md-4 ">
             <label>Tầng:</label>
