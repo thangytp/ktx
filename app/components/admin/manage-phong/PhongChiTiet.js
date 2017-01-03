@@ -180,7 +180,7 @@ class Phong extends Component {
         <td scope="row">{index + 1}</td>
         <td>{phongchitiet._loai.loai}</td>
         <td>{phongchitiet.ma}</td>
-        <td>{phongchitiet._tang.ten}</td>
+        {/* <td>{phongchitiet._tang.ten}</td> */}
         {/* <td><button className="btn btn-primary" onClick={this.handleGetStudent.bind(this, user._id)}>Edit</button></td> */}
         <td><button className="btn btn-danger" onClick={this.handleDelPhongChitiet.bind(this, phongchitiet._id)}>Delete</button></td>
         </tr>
@@ -202,7 +202,7 @@ class Phong extends Component {
 
         phongchitiet['loaiphong'] = phongchitiet._loai ? phongchitiet._loai.loai : '';
         phongchitiet['tentang'] = phongchitiet._tang ? phongchitiet._tang.ten : '';
-        
+
         return phongchitiet;
 
     });
@@ -231,16 +231,16 @@ class Phong extends Component {
               <li><Link to="/quanly@ktx"><i className="fa fa-home" aria-hidden="true"></i> Trang quản trị</Link></li>
               <li>Phòng</li>
             </ol>
-            
+
               <Button bsStyle="primary" onClick={()=>this.setState({ addModalShow: true })}>
                 Thêm Phòng
               </Button>
               <AddPhongChitietModal {...props} show={this.state.addModalShow} onHide={addModalClose} />
-              
+
               <div className="table-responsive">
-                
+
                 <BootstrapTable data={this.state.state2.phongchitiet} striped={true} hover={true} options={ options } search pagination exportCSV>
-                    
+
                     <TableHeaderColumn dataField="tentang" dataSort={true}>Tầng</TableHeaderColumn>
                     <TableHeaderColumn dataField="loaiphong" isKey={true} dataAlign="" dataSort={true}>Loại phòng</TableHeaderColumn>
                     <TableHeaderColumn dataField="ma" >Mã phòng</TableHeaderColumn>
@@ -248,7 +248,7 @@ class Phong extends Component {
                     <TableHeaderColumn dataField="_id" dataFormat={this.buttonFormatter.bind(this, '_id')} width='60'>Xóa</TableHeaderColumn>
                 </BootstrapTable>
               </div>
-            
+
           </div>
         </div>
 
@@ -257,7 +257,7 @@ class Phong extends Component {
               <Modal.Title id="contained-modal-title-lg">Sửa</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-              
+
                 <div className="form-group">
                   <label htmlFor="exampleInputPassword1">Loại Phòng</label>
                   <select className="form-control" onChange={ManagePhongChitietAction.updateLoaiPhong} value = {this.state.state2._loai}>
@@ -267,7 +267,7 @@ class Phong extends Component {
                 </div>
                 <div className="form-group">
                   <label htmlFor="exampleInputEmail1">Mã</label>
-                  <input type="text" className="form-control" ref="ma" placeholder="Mã Phòng" 
+                  <input type="text" className="form-control" ref="ma" placeholder="Mã Phòng"
                     value = {this.state.state2.maphong} onChange={ManagePhongChitietAction.updateMa}/>
                 </div>
                 <div className="form-group">
@@ -277,15 +277,15 @@ class Phong extends Component {
                       {listTang}
                   </select>
                 </div>
-              
+
             </Modal.Body>
             <Modal.Footer>
               <button
                   className="btn btn-warning"
-                onClick={ManagePhongChitietAction.closeModalEdit}><i className="fa fa-times"> Hủy bỏ</i> </button>          
+                onClick={ManagePhongChitietAction.closeModalEdit}><i className="fa fa-times"> Hủy bỏ</i> </button>
               <button
                   className="btn btn-success"
-                onClick={this.updatePhongChiTiet.bind(this)}><i className="fa fa-check"> Lưu</i> </button> 
+                onClick={this.updatePhongChiTiet.bind(this)}><i className="fa fa-check"> Lưu</i> </button>
                 <div className="" >{this.state.state2.messUpdate}</div>
             </Modal.Footer>
           </Modal>
@@ -298,14 +298,14 @@ class Phong extends Component {
               </Modal.Header>
               <Modal.Body>
                 <p>Bạn có chắc muốn xóa tin này?</p>
-              </Modal.Body>      
+              </Modal.Body>
               <Modal.Footer>
                   <button
                       className="btn btn-warning"
-                    onClick={ManagePhongChitietAction.closeModalDeletePhongCT}><i className="fa fa-times"> Hủy bỏ</i> </button>          
+                    onClick={ManagePhongChitietAction.closeModalDeletePhongCT}><i className="fa fa-times"> Hủy bỏ</i> </button>
                   <button
                       className="btn btn-success"
-                    onClick={this.handleDelPhongChitiet.bind(this)}><i className="fa fa-check"> Xóa</i> </button>          
+                    onClick={this.handleDelPhongChitiet.bind(this)}><i className="fa fa-check"> Xóa</i> </button>
               </Modal.Footer>
           </Modal>
 

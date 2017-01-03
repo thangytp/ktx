@@ -28,9 +28,13 @@ class ListImage extends React.Component {
 	}
 
 	onChange(state) {
-		this.setState(state);  
+		this.setState(state);
 	}
-    addAlert () {  
+
+  handleDelImage(id) {
+    ListImageAction.delImage(id);
+  }
+    addAlert () {
         this.refs.container.success(
           "",
           "Sao chép liên kết thành công!", {
@@ -53,11 +57,11 @@ class ListImage extends React.Component {
                                   onCopy={() => this.setState({copied: true})}>
                                   <button className="btn btn-success" onClick={this.addAlert.bind(this)}><i className="fa fa-clipboard" aria-hidden="true"></i></button>
                                 </CopyToClipboard>&nbsp;
-                                <button className="btn btn-danger"><i className="fa fa-trash" aria-hidden="true"></i></button>
-                                
+                                <button className="btn btn-danger" onClick={this.handleDelImage.bind(this, image._id)}><i className="fa fa-trash" aria-hidden="true"></i></button>
+
                             </div>
                         </div>
-                        
+
                     </div>
                 );
         });

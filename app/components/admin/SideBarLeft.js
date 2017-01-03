@@ -164,6 +164,9 @@ class SideBarLeft extends React.Component {
                             <li>
                               <Link to="/quanly@ktx/cai-dat-dang-ky-luu-tru">Đăng ký lưu trú</Link>
                             </li>
+                            <li>
+                              <Link to="/quanly@ktx/dien-nuoc">Quản lý điện nước</Link>
+                            </li>
                           </ul>
                       </li>
                       <li className="submenu">
@@ -215,7 +218,7 @@ class SideBarLeft extends React.Component {
     }
     else if(adminType==="Super Mod"){
       return(
-    
+
             <aside id="sidebar-left" className="sidebar-circle sidebar-dark">
                 <ul className="sidebar-menu">
                       <li className="submenu">
@@ -295,7 +298,7 @@ class SideBarLeft extends React.Component {
     }
     else if(adminType==="Manager"){
       return(
-    
+
             <aside id="sidebar-left" className="sidebar-circle sidebar-dark">
                 <ul className="sidebar-menu">
                       <li className="submenu">

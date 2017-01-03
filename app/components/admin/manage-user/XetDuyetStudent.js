@@ -303,8 +303,6 @@ class XetDuyetStudent extends React.Component {
         return user;
     });
 
-    console.log(listUsers);
-
 
     let updateModalClose = () => this.setState({ updateModalShow: false });
     const props = {user: this.state.state1.user, tang: this.state.state2.tang, phongchitiet: this.state.state3.phongchitiet};

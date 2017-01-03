@@ -9,6 +9,13 @@ function TicketServer(app){
     });
   })
 
+  app.get('/getticket/:email', function(req, res){
+    Ticket.find({nguoitao: req.params.email}, function(err, ticket){
+      if(err) throw err;
+      res.json(ticket);
+    });
+  })
+
   app.get('/getticket/:id', function(req, res){
     Ticket.findOne({_id : req.params.id}, function(err, ticket){
       if(err) throw err;

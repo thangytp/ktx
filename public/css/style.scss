@@ -29,6 +29,20 @@ a{
 a {
     color: #81b71a;
 }
+#diennuoc {
+    .tab-content {
+      max-width: 900px;
+      margin: 50px auto;
+      padding-bottom: 40px;
+      .btn-diennuoc {
+        max-width: 100px;
+        width: 100%;
+        padding: 20px 0;
+        margin: 0 10px 10px 10px;
+        border-radius: 15%;
+      }
+    }
+}
 .main-body{
     a:hover{
         color: #3E7CF7;

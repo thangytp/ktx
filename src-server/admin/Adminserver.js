@@ -12,6 +12,8 @@ var Phong = require('../../models/phong');
 var Phongchitiet = require('../../models/phongchitiet');
 var Dichvu = require('../../models/dichvu');
 var Hedaotao = require('../../models/hedaotao');
+var Hoadon = require('../../models/hoadon');
+
 
 var Tienktx = require('../../models/tienktx');
 var Daluutru = require('../../models/daluutru');
@@ -87,6 +89,7 @@ module.exports = function(app, importStudent) {
 
   app.post('/upload', function(req, res) {
       var exceltojson;
+      console.log(req.file);
 
       importStudent(req,res,function(err){
           if(err){
@@ -118,43 +121,24 @@ module.exports = function(app, importStudent) {
                       return res.json({error_code:1,err_desc:err, data: null});
                   }
                   for(var i=0; i<result.length; i++){
+                      if(result[i].ma_sinh_vien === '' ) {
+                        break;
+                      }
                       var StudentN = new Student({
-                        fk_doan_the:result[i].fk_doan_the,
-                        ma_ktx:result[i].ma_ktx,
-                        hoc_ky_nop_hs:result[i].hoc_ky_nop_hs,
-                        nam_hoc_nop_hs:result[i].nam_hoc_nop_hs,
-                        nam_hoc:result[i].nam_hoc,
-                        hoc_ky:result[i].hoc_ky,
                         ma_sinh_vien:result[i].ma_sinh_vien,
                         ho_lot:result[i].ho_lot,
                         ten:result[i].ten,
-                        ten_dan_toc:result[i].ten_dan_toc,
-                        fk_dien_uu_tien:result[i].fk_dien_uu_tien,
-                        uu_tien_khac:result[i].uu_tien_khac,
                         so_cmnd:result[i].so_cmnd,
-                        ma_giuong:result[i].ma_giuong,
-                        ten_phong:result[i].ten_phong,
-                        ten_giuong:result[i].ten_giuong,
                         nam_vao_truong:result[i].nam_vao_truong,
                         phai:result[i].phai,
-                        ngay_vao_ktx:result[i].ngay_vao_ktx,
-                        ngay_ra_ktx:result[i].ngay_ra_ktx,
-                        ghi_chu:result[i].ghi_chu,
-                        ngay_lam_thu_tuc:result[i].ngay_lam_thu_tuc,
-                        dk_hoc_ky_moi:result[i].dk_hoc_ky_moi,
-                        dk_hoc_ky_he:result[i].dk_hoc_ky_he,
-                        tang:result[i].tang,
-                        ngay:result[i].ngay,
-                        thang:result[i].thang,
-                        ly_do_ra:result[i].ly_do_ra,
                         ngay_sinh:result[i].ngay_sinh,
                         dia_chi_gia_dinh:result[i].dia_chi_gia_dinh,
-                        ten_tinh_tp:result[i].ten_tinh_tp,
-                        dtqt:result[i].dtqt,
-                        bk:result[i].bk,
-                        dien_thoai:result[i].dien_thoai,
                         email:result[i].email,
+                        email_khac:result[i].email_khac,
                         ten_doan_the:result[i].ten_doan_the,
+                        ton_giao:result[i].ton_giao,
+                        sdt_giadinh:result[i].sdt_giadinh,
+                        sdt_sinhvien:result[i].sdt_sinhvien,
                         dang_o_ktx: true
                       });
                       StudentN.save(function (err){if(err)console.log("can't save to db");});
@@ -409,21 +393,31 @@ module.exports = function(app, importStudent) {
     else if(cMonth >= 5 && cMonth <= 7) {
       cSemester = 3;
     }
-    Student.findByIdAndUpdate(req.params.stuId, {_tang_id: req.body.tang, ma_ktx : req.body.maktx, ma_giuong: req.body.giuong, _phongchitiet_id : req.body.phongchitiet, role: parseInt(req.body.vaitro), dang_o_ktx: true, da_dong_tien: true} , { new: true }, function (err, student) {
-      if (err) throw err;
-      Tienktx.findOneAndUpdate({_sinhvien_id : req.params.stuId, nam: cYear, ki: cSemester}, {da_dong_tien: true}, {new : true}, function(err){
+    Student.findOne({_id : req.params.stuId}, function(err, student){
+      Phongchitiet.findOne({_id : student._phongchitiet_id}, function(err, phong){
         if(err) throw err;
+        if(phong != null) {
+          if(phong.truong_phong != null) {
+            if(phong.truong_phong == req.params.stuId) {
+              phong.update({$set: {truong_phong : null}}, function(err){
+                if(err) throw err;
+              })
+            }
+          }
+        }
       });
-      if(parseInt(req.body.vaitro) === 1) {
-        Phongchitiet.findOneAndUpdate({_id : req.body.phongchitiet}, {truong_phong: req.params.stuId}, {new : true}, function(err){
+      Student.findByIdAndUpdate(req.params.stuId, {_tang_id: req.body.tang, ma_ktx : req.body.maktx, ma_giuong: req.body.giuong, _phongchitiet_id : req.body.phongchitiet, role: parseInt(req.body.vaitro), dang_o_ktx: true, da_dong_tien: true, gia_han_luu_tru: false} , { new: true }, function (err, student) {
+        if (err) throw err;
+        Tienktx.findOneAndUpdate({_sinhvien_id : req.params.stuId, nam: cYear, ki: cSemester}, {da_dong_tien: true}, {new : true}, function(err){
           if(err) throw err;
         });
-      } else {
-        Phongchitiet.findOneAndUpdate({_id : req.body.phongchitiet}, {truong_phong: null}, {new : true}, function(err){
-          if(err) throw err;
-        });
-      }
-      res.send(student);
+        if(parseInt(req.body.vaitro) === 1) {
+          Phongchitiet.findOneAndUpdate({_id : req.body.phongchitiet}, {truong_phong: req.params.stuId}, {new : true}, function(err){
+            if(err) throw err;
+          });
+        }
+        res.send(student);
+      });
     });
   })
 
@@ -663,6 +657,18 @@ module.exports = function(app, importStudent) {
   //Update Diem Ren Luyen
   app.post('/upload/giahan/diemrenluyenktx', function(req, res) {
       var exceltojson;
+      var cYear = new Date().getFullYear(),
+          cMonth = new Date().getMonth() + 1,
+          cSemester = 1;
+      if(cMonth >= 8 && cMonth <= 10) {
+        cSemester = 1;
+      }
+      else if(cMonth === 12 && cMonth === 1) {
+        cSemester = 2;
+      }
+      else if(cMonth >= 5 && cMonth <= 7) {
+        cSemester = 3;
+      }
 
       importStudent(req,res,function(err){
           if(err){
@@ -694,7 +700,7 @@ module.exports = function(app, importStudent) {
                       return res.json({error_code:1,err_desc:err, data: null});
                   }
                   for(var i=0; i<result.length; i++){
-                    Student.findOneAndUpdate({ma_sinh_vien : result[i].ma_sinh_vien, gia_han_luu_tru : true}, {$push : { diem_ren_luyen_ktx : { tong : result[i].diem_ren_luyen_ktx, ve_sinh: result[i].diem_ve_sinh_ktx}}} , { new: true }, function (err, student) {
+                    Student.findOneAndUpdate({ma_sinh_vien : result[i].ma_sinh_vien, gia_han_luu_tru : true}, {$push : { diem_ren_luyen_ktx : { tong : result[i].diem_ren_luyen_ktx, ve_sinh: result[i].diem_ve_sinh_ktx, nam: cYear, ki: cSemester}}} , { new: true }, function (err, student) {
                       if (err) throw err;
                     });
                   }
@@ -1296,6 +1302,28 @@ module.exports = function(app, importStudent) {
           nPhongchitiet.ma = req.body.ma;
           nPhongchitiet._tang = req.body.tang;
           nPhongchitiet.save(function(err){
+            if(err) throw err;
+            res.send(true);
+          });
+        })
+
+        app.get('/viewdiennuoc/:phong/:nam', function(req, res){
+          Hoadon.find({_ma_phong: req.params.phong, nam: req.params.nam}, function(err, phong){
+            if(err) throw err;
+            res.json(phong);
+          });
+        })
+
+        app.post('/adddiennuoc', function(req, res){
+          var nHoadon = new Hoadon();
+          nHoadon._ma_phong = req.body.phong;
+          nHoadon.nam = req.body.nam;
+          nHoadon.thang = req.body.thang;
+          nHoadon.dien.so = req.body.dien;
+          nHoadon.dien.tongtien = req.body.tiendien;
+          nHoadon.nuoc.so = req.body.nuoc;
+          nHoadon.nuoc.tongtien = req.body.tiennuoc;
+          nHoadon.save(function(err){
             if(err) throw err;
             res.send(true);
           });

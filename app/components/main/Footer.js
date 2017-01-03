@@ -44,9 +44,8 @@ class Footer extends React.Component {
                         <div className="col-footer " id="footer-tien-ich">
                             <h4 className="footer-title">Tiện ích sinh viên</h4>
                             <ul className="nPL">
-                                <li><Link to="/"><i className="fa fa-hand-o-right" aria-hidden="true"></i> Xem điểm rèn luyện</Link></li>
-                                <li><Link to="/"><i className="fa fa-hand-o-right" aria-hidden="true"></i> Xem điểm vệ sinh</Link></li>
-                                <li><Link to="/"><i className="fa fa-hand-o-right" aria-hidden="true"></i> Xem chỉ số điện nước</Link></li>
+                                <li><Link to="/tra-cuu-diemktx"><i className="fa fa-hand-o-right" aria-hidden="true"></i> Xem điểm rèn luyện ký túc xá</Link></li>
+                                <li><Link to="/tra-cuu-dien-nuoc"><i className="fa fa-hand-o-right" aria-hidden="true"></i> Xem chỉ số điện nước</Link></li>
                                 <li><Link to="/tra-cuu-luu-tru"><i className="fa fa-hand-o-right" aria-hidden="true"></i> Tra cứu sinh viên đang lưu trú</Link></li>
                             </ul>
                         </div>

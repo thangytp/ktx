@@ -33,18 +33,18 @@ export default class SignUp extends React.Component {
   constructor(props)
   {
     super(props);
-    this.state = {state1: ManageUuTienStore.getState(), state2: DangKyLuuTruStore.getState(), 
+    this.state = {state1: ManageUuTienStore.getState(), state2: DangKyLuuTruStore.getState(),
       state3: ManagePhongStore.getState(), state4: ManageDichvuStore.getState(), state5: KhoaAdminStore.getState(),
       state6: HeDaoTaoStore.getState(), state7: CaiDatLuuTruStore.getState() };
     this.onChange = this.onChange.bind(this);
   }
    componentDidMount() {
-    document.title = "Đăng ký lưu trú | Ký túc xá Bách Khoa"; 
+    document.title = "Đăng ký lưu trú | Ký túc xá Bách Khoa";
     var userEmail = localStorage.getItem('email');
     if(!userEmail){
       window.location.href="/login";
     }
-    else { 
+    else {
       var mssv = userEmail.split('@');
       var svmssv = mssv[0];
       DangKyLuuTruAction.getStudent(svmssv);
@@ -84,7 +84,7 @@ export default class SignUp extends React.Component {
 
   }
   onChange(state) {
-    this.setState({state1: ManageUuTienStore.getState(), state2: DangKyLuuTruStore.getState(), 
+    this.setState({state1: ManageUuTienStore.getState(), state2: DangKyLuuTruStore.getState(),
       state3: ManagePhongStore.getState(), state4: ManageDichvuStore.getState(), state5: KhoaAdminStore.getState(),
       state6: HeDaoTaoStore.getState(), state7: CaiDatLuuTruStore.getState() });
   }
@@ -103,7 +103,7 @@ export default class SignUp extends React.Component {
     var holot = this.state.state2.holot;
     var ten = this.state.state2.ten;
     var svkhuvuc = this.state.state2.svkhuvuc;
-    var gioitinh = this.state.state2.gioitinh;    
+    var gioitinh = this.state.state2.gioitinh;
     var ngaySinh = this.state.state2.ngaySinh;
     console.log(ngaySinh._d.getFullYear());
     var svtinh = this.state.state2.svtinh;
@@ -130,14 +130,14 @@ export default class SignUp extends React.Component {
         DangKyLuuTruAction.invalidTen();
         this.refs.TenTextField.focus();
     }
-    
+
     else if(gioitinh == ''){
         DangKyLuuTruAction.invalidGioiTinh();
     }
     else if(!ngaySinh || (presentYear - ngaySinh._d.getFullYear()) < 18 ){
         DangKyLuuTruAction.invalidNgaySinh();
     }
-    
+
     else if(!khoa){
         DangKyLuuTruAction.invalidKhoa();
         this.refs.KhoaTextField.focus();
@@ -150,7 +150,7 @@ export default class SignUp extends React.Component {
         DangKyLuuTruAction.invalidHeDaoTao();
         this.refs.HeDaoTaoTextField.focus();
     }
-    
+
     else if(!svtongiao){
         DangKyLuuTruAction.invalidTonGiao();
         this.refs.TonGiaoTextField.focus();
@@ -192,11 +192,11 @@ export default class SignUp extends React.Component {
     var userName = localStorage.getItem('name');
     var mssv = userEmail.split('@');
     var svmssv = mssv[0];
-    
+
     var holot = this.state.state2.holot;
     var ten = this.state.state2.ten;
     var svkhuvuc = this.state.state2.svkhuvuc;
-    var gioitinh = this.state.state2.gioitinh;    
+    var gioitinh = this.state.state2.gioitinh;
     var ngaySinh = this.state.state2.ngaySinh._d;
     console.log(ngaySinh);
     var svtinh = this.state.state2.svtinh;
@@ -212,7 +212,7 @@ export default class SignUp extends React.Component {
     var giadinhdienthoai = this.state.state2.giadinhdienthoai;
     var emailThuongDung = this.state.state2.emailThuongDung;
     var dongY = this.state.state2.dongY;
-    
+
     var svhocluc = this.state.state2.svhocluc;
     var svhoancanh = this.state.state2.svhoancanh;
     var svloaiphong = this.state.state2.svloaiphong;
@@ -247,10 +247,10 @@ export default class SignUp extends React.Component {
       if(userEmail){
         if(!idStu){
           DangKyLuuTruAction.showLoading();
-          DangKyLuuTruAction.dangKyLuuTru({ userEmail: userEmail, svmssv: svmssv, holot: holot, ten: ten, svkhuvuc: svkhuvuc, 
-            gioitinh: gioitinh, ngaySinh: ngaySinh, svtinh: svtinh, svkhoa: svkhoa, namvaotruong: namvaotruong,  
-              svhedaotao: svhedaotao, svdoituong: svdoituong, svtongiao: svtongiao, svdoanthe: svdoanthe, socmnd: socmnd, 
-              hokhau: hokhau, svdienthoai: svdienthoai, giadinhdienthoai: giadinhdienthoai, emailThuongDung: emailThuongDung, 
+          DangKyLuuTruAction.dangKyLuuTru({ userEmail: userEmail, svmssv: svmssv, holot: holot, ten: ten, svkhuvuc: svkhuvuc,
+            gioitinh: gioitinh, ngaySinh: ngaySinh, svtinh: svtinh, svkhoa: svkhoa, namvaotruong: namvaotruong,
+              svhedaotao: svhedaotao, svdoituong: svdoituong, svtongiao: svtongiao, svdoanthe: svdoanthe, socmnd: socmnd,
+              hokhau: hokhau, svdienthoai: svdienthoai, giadinhdienthoai: giadinhdienthoai, emailThuongDung: emailThuongDung,
               svhocluc: svhocluc, svhoancanh: svhoancanh, svloaiphong: svloaiphong, dichvu: dichvu});
         }
         else {
@@ -275,7 +275,7 @@ export default class SignUp extends React.Component {
         return (
               <option value={hdt._id} key={index}>{hdt.ten}</option>
           );
-    });    
+    });
 
     let khuVucUuTien = this.state.state1.khuvuc.map((kv, index)=>{
       //if(kv._id === this.state.state2.svkhuvuc){
@@ -327,7 +327,7 @@ export default class SignUp extends React.Component {
     let daGiaHan = this.state.state2.daGiaHan;
 
     let presentDate = moment();
-    // if(presentDate < this.state.state7.ngayBatDauDangKyMain || presentDate > this.state.state7.ngayKetThucDangKyMain || 
+    // if(presentDate < this.state.state7.ngayBatDauDangKyMain || presentDate > this.state.state7.ngayKetThucDangKyMain ||
     //   !this.state.state7.ngayBatDauDangKyMain || !this.state.state7.ngayKetThucDangKyMain ){
     //     return (
     //           <div className="container luu-tru">
@@ -358,7 +358,7 @@ export default class SignUp extends React.Component {
     //       );
     // }
 
-    // else if( presentDate < this.state.state7.ngayBatDauGiaHanMain || presentDate > this.state.state7.ngayKetThucGiaHanMain || 
+    // else if( presentDate < this.state.state7.ngayBatDauGiaHanMain || presentDate > this.state.state7.ngayKetThucGiaHanMain ||
     //   !this.state.state7.ngayBatDauGiaHanMain || !this.state.state7.ngayKetThucGiaHanMain ){
     //     return (
     //           <div className="container luu-tru">
@@ -396,7 +396,9 @@ export default class SignUp extends React.Component {
         //neu dang o ktx true
         if(this.state.state2.daDangKyLuuTru.dang_o_ktx){
             //neu khong trong thoi gian gia han
-            if( presentDate < this.state.state7.ngayBatDauGiaHanMain || presentDate > this.state.state7.ngayKetThucGiaHanMain || 
+            console.log(presentDate._d);
+            console.log(this.state.state7.ngayKetThucGiaHanMain);
+            if( presentDate._d < this.state.state7.ngayBatDauGiaHanMain || presentDate._d > this.state.state7.ngayKetThucGiaHanMain ||
               !this.state.state7.ngayBatDauGiaHanMain || !this.state.state7.ngayKetThucGiaHanMain ){
                 return (
                       <div className="container luu-tru">
@@ -413,7 +415,7 @@ export default class SignUp extends React.Component {
                                   <div className="clearfix"></div>
                               </div>
                               <div className="panel-body no-padding">
-                                  <h3 className='text-center'>Đã tắt chức năng đăng ký lưu trú!</h3>
+                                  <h3 className='text-center'>Đã tắt chức năng gia hạn lưu trú!</h3>
                               </div>
                             </div>
                           </div>
@@ -475,7 +477,7 @@ export default class SignUp extends React.Component {
                                       <div className="clearfix"></div>
                                   </div>
                                   <div className="panel-body no-padding">
-                                    
+
                                     <form className="form-horizontal" role="form" onSubmit ={this.dangKyLuuTru.bind(this)}>
                                       <div className="form-body">
                                         {/*khu vuc uu tien*/}
@@ -553,7 +555,7 @@ export default class SignUp extends React.Component {
                                           <div className="col-md-7">
 
                                               {dichVu}
-                                              
+
                                               <div className=''><span className="control-label text-danger"></span></div>
                                           </div>
                                         </div>
@@ -589,7 +591,7 @@ export default class SignUp extends React.Component {
             //neu khong trong thoi gian dang ky
             console.log(presentDate);
             console.log(this.state.state7.ngayKetThucDangKyMain);
-            if(presentDate < this.state.state7.ngayBatDauDangKyMain._d || presentDate > this.state.state7.ngayKetThucDangKyMain._d || 
+            if(presentDate < this.state.state7.ngayBatDauDangKyMain._d || presentDate > this.state.state7.ngayKetThucDangKyMain._d ||
               !this.state.state7.ngayBatDauDangKyMain || !this.state.state7.ngayKetThucDangKyMain ){
                 return (
                       <div className="container luu-tru">
@@ -654,7 +656,7 @@ export default class SignUp extends React.Component {
     // neu chua co thong tin trong ktx -> dang ky moi
     else{
         //neu khong trong thoi gian dang ky
-        if(presentDate < this.state.state7.ngayBatDauDangKyMain || presentDate > this.state.state7.ngayKetThucDangKyMain || 
+        if(presentDate < this.state.state7.ngayBatDauDangKyMain || presentDate > this.state.state7.ngayKetThucDangKyMain ||
           !this.state.state7.ngayBatDauDangKyMain || !this.state.state7.ngayKetThucDangKyMain ){
             return (
                   <div className="container luu-tru">
@@ -723,11 +725,11 @@ export default class SignUp extends React.Component {
                                           <div className=''><span className="control-label text-danger">{this.state.state2.validateTen}</span></div>
                                       </div>
                                     </div>
-                                    
+
                                   {/*gioi tinh*/}
                                     <div className="form-group"  >
                                         <label className="control-label col-md-3 col-sm-3" htmlFor="">Giới tính<span className="text-danger">(*)</span></label>
-                                        <div className="col-md-7 col-sm-7"> 
+                                        <div className="col-md-7 col-sm-7">
                                             <label className="radio-inline"><input type="radio" name="gender" value="m" onClick={DangKyLuuTruAction.updateGioiTinhNam} checked={this.state.state2.checkNam}/>Nam</label>
                                             <label className="radio-inline"><input type="radio" name="gender" value="f" onClick={DangKyLuuTruAction.updateGioiTinhNu} checked={this.state.state2.checkNu}/>Nữ</label>
                                             <div className=''><span className="control-label text-danger">{this.state.state2.validateGioiTinh}</span></div>
@@ -736,21 +738,21 @@ export default class SignUp extends React.Component {
                                     {/*ngay sinh*/}
                                     <div className="form-group"  >
                                         <label className="control-label col-md-3 col-sm-3" htmlFor="">Ngày sinh<span className="text-danger">(*)</span></label>
-                                        <div className="col-md-7 col-sm-7"> 
+                                        <div className="col-md-7 col-sm-7">
                                           <DatePicker
                                               openToDate={moment("1994-09-28")}
                                               dateFormat="YYYY-MM-DD"
                                               selected={this.state.state2.ngaySinh}
                                               onChange={this.handleChangeNgaySinh}
-                                              peekNextMonth 
-                                              showMonthDropdown 
-                                              showYearDropdown 
+                                              peekNextMonth
+                                              showMonthDropdown
+                                              showYearDropdown
                                               scrollableYearDropdown
                                                   dropdownMode="select" />
                                           <div className=''><span className="control-label text-danger">{this.state.state2.validateNgaySinh}</span></div>
                                         </div>
                                     </div>
-                                    
+
                                   {/*Khoa*/}
                                     <div className={'form-group ' } >
                                       <label htmlFor="khoa" className="col-md-3 control-label">Khoa<span className="text-danger">(*)</span></label>
@@ -758,7 +760,7 @@ export default class SignUp extends React.Component {
                                           <select className="form-control" id="khoa" value={this.state.state2.svkhoa}
                                               onChange={DangKyLuuTruAction.updateKhoa} ref='KhoaTextField'>
                                             <option value =''>-- Chọn khoa --</option>
-                                            
+
                                             {listKhoa}
 
                                           </select>
@@ -787,7 +789,7 @@ export default class SignUp extends React.Component {
                                           <div className=''><span className="control-label text-danger">{this.state.state2.validateHeDaoTao}</span></div>
                                       </div>
                                     </div>
-                                  
+
                                   {/*Ton giao*/}
                                     <div className={'form-group  ' } >
                                       <label htmlFor="ton-giao" className="col-md-3 control-label">Tôn giáo<span className="text-danger">(*)</span></label>
@@ -857,8 +859,8 @@ export default class SignUp extends React.Component {
                                           <div className=''><span className="control-label text-danger">{this.state.state2.validateEmailThuongDung}</span></div>
                                       </div>
                                     </div>
-                                    
-                                    
+
+
                                 </div>
                                 <div className="form-footer">
                                     <div className="panel-body quy-dinh-dang-ky">
@@ -884,7 +886,7 @@ export default class SignUp extends React.Component {
                                           <div className=''><span className="control-label text-danger">{this.state.state2.validateDongY}</span></div>
                                         </div>
                                         <button type="submit" className="btn btn-success" onClick={this.nhapThongTin.bind(this)}><span>Đăng ký</span></button>
-                                        
+
                                       </div>
                                     </div>
                                 </div>
@@ -899,13 +901,13 @@ export default class SignUp extends React.Component {
                             <div className="clearfix"></div>
                         </div>
                         <div className="panel-body no-padding">
-                          
+
                           <form className="form-horizontal" role="form" onSubmit ={this.dangKyLuuTru.bind(this)}>
                             <div className="form-body">
-                              
-                              
-                              
-                              
+
+
+
+
                               {/*khu vuc uu tien*/}
                               <div className={'form-group ' } >
                                 <label htmlFor="khu-vuc-uu-tien" className="col-md-3 control-label">Khu vực ưu tiên<span className="text-danger">(*)</span></label>
@@ -981,7 +983,7 @@ export default class SignUp extends React.Component {
                                 <div className="col-md-7">
 
                                     {dichVu}
-                                    
+
                                     <div className=''><span className="control-label text-danger"></span></div>
                                 </div>
                               </div>
@@ -1038,7 +1040,7 @@ export default class SignUp extends React.Component {
                     <div className="panel-body no-padding">
                         <form className="form-horizontal" role="form" >
                             <div className="form-body">
-                                
+
                                 <div className={'form-group ' } >
                                   <label htmlFor="ho-lot" className="col-md-3 control-label">Họ Lót<span className="text-danger">(*)</span></label>
                                   <div className="col-md-7">
@@ -1047,7 +1049,7 @@ export default class SignUp extends React.Component {
                                       <div className=''><span className="control-label text-danger">{this.state.state2.validateHoLot}</span></div>
                                   </div>
                                 </div>
-                                
+
                                 <div className={'form-group  ' } >
                                   <label htmlFor="ten" className="col-md-3 control-label">Tên<span className="text-danger">(*)</span></label>
                                   <div className="col-md-7">
@@ -1056,7 +1058,7 @@ export default class SignUp extends React.Component {
                                       <div className=''><span className="control-label text-danger">{this.state.state2.validateTen}</span></div>
                                   </div>
                                 </div>
-                                
+
                                 <div className={'form-group ' } >
                                   <label htmlFor="khu-vuc-uu-tien" className="col-md-3 control-label">Khu vực ưu tiên<span className="text-danger">(*)</span></label>
                                   <div className="col-md-7">
@@ -1068,33 +1070,33 @@ export default class SignUp extends React.Component {
                                       <div className=''><span className="control-label text-danger">{this.state.state2.validateKhuVuc}</span></div>
                                   </div>
                                 </div>
-                              
+
                                 <div className="form-group"  >
                                     <label className="control-label col-md-3 col-sm-3" htmlFor="">Giới tính<span className="text-danger">(*)</span></label>
-                                    <div className="col-md-7 col-sm-7"> 
+                                    <div className="col-md-7 col-sm-7">
                                         <label className="radio-inline"><input type="radio" name="gender" value="m" onClick={DangKyLuuTruAction.updateGioiTinhNam} checked={this.state.state2.checkNam}/>Nam</label>
                                         <label className="radio-inline"><input type="radio" name="gender" value="f" onClick={DangKyLuuTruAction.updateGioiTinhNu} checked={this.state.state2.checkNu}/>Nữ</label>
                                         <div className=''><span className="control-label text-danger">{this.state.state2.validateGioiTinh}</span></div>
                                     </div>
                                 </div>
-                                
+
                                 <div className="form-group"  >
                                     <label className="control-label col-md-3 col-sm-3" htmlFor="">Ngày sinh<span className="text-danger">(*)</span></label>
-                                    <div className="col-md-7 col-sm-7"> 
+                                    <div className="col-md-7 col-sm-7">
                                       <DatePicker
                                           openToDate={moment("1994-09-28")}
                                           dateFormat="YYYY-MM-DD"
                                           selected={this.state.state2.ngaySinh}
                                           onChange={this.handleChangeNgaySinh}
-                                          peekNextMonth 
-                                          showMonthDropdown 
-                                          showYearDropdown 
+                                          peekNextMonth
+                                          showMonthDropdown
+                                          showYearDropdown
                                           scrollableYearDropdown
                                               dropdownMode="select" />
                                       <div className=''><span className="control-label text-danger">{this.state.state2.validateNgaySinh}</span></div>
                                     </div>
                                 </div>
-                                
+
                                 <div className={'form-group ' } >
                                   <label htmlFor="tinh" className="col-md-3 control-label">Tỉnh<span className="text-danger">(*)</span></label>
                                   <div className="col-md-7">
@@ -1107,21 +1109,21 @@ export default class SignUp extends React.Component {
                                       <div className=''><span className="control-label text-danger">{this.state.state2.validateTinh}</span></div>
                                   </div>
                                 </div>
-                              
+
                                 <div className={'form-group ' } >
                                   <label htmlFor="khoa" className="col-md-3 control-label">Khoa<span className="text-danger">(*)</span></label>
                                   <div className="col-md-7">
                                       <select className="form-control" id="khoa" value={this.state.state2.svkhoa}
                                           onChange={DangKyLuuTruAction.updateKhoa} ref='KhoaTextField'>
                                         <option value =''>-- Chọn khoa --</option>
-                                        
+
                                         {listKhoa}
 
                                       </select>
                                       <div className=''><span className="control-label text-danger">{this.state.state2.validateKhoa}</span></div>
                                   </div>
                                 </div>
-                              
+
                                 <div className={'form-group  ' }>
                                   <label htmlFor="nam-vao-truong" className="col-md-3 control-label">Năm vào trường<span className="text-danger">(*)</span></label>
                                   <div className="col-md-7">
@@ -1130,7 +1132,7 @@ export default class SignUp extends React.Component {
                                       <div className=''><span className="control-label text-danger">{this.state.state2.validateNam}</span></div>
                                   </div>
                                 </div>
-                              
+
                                 <div className={'form-group  ' } >
                                   <label htmlFor="he-dao-tao" className="col-md-3 control-label">Hệ đào tạo<span className="text-danger">(*)</span></label>
                                   <div className="col-md-7">
@@ -1143,7 +1145,7 @@ export default class SignUp extends React.Component {
                                       <div className=''><span className="control-label text-danger">{this.state.state2.validateHeDaoTao}</span></div>
                                   </div>
                                 </div>
-                              
+
                                 <div className={'form-group  ' } >
                                   <label htmlFor="dan-toc" className="col-md-3 control-label">Dân tộc<span className="text-danger">(*)</span></label>
                                   <div className="col-md-7">
@@ -1155,7 +1157,7 @@ export default class SignUp extends React.Component {
                                       <div className=''><span className="control-label text-danger">{this.state.state2.validateDoiTuong}</span></div>
                                   </div>
                                 </div>
-                              
+
                                 <div className={'form-group  ' } >
                                   <label htmlFor="ton-giao" className="col-md-3 control-label">Tôn giáo<span className="text-danger">(*)</span></label>
                                   <div className="col-md-7">
@@ -1164,7 +1166,7 @@ export default class SignUp extends React.Component {
                                       <div className=''><span className="control-label text-danger">{this.state.state2.validateTonGiao}</span></div>
                                   </div>
                                 </div>
-                             
+
                                 <div className={'form-group ' } >
                                   <label htmlFor="doan-the" className="col-md-3 control-label">Đoàn thể<span className="text-danger">(*)</span></label>
                                   <div className="col-md-7">
@@ -1179,7 +1181,7 @@ export default class SignUp extends React.Component {
                                       <div className=''><span className="control-label text-danger">{this.state.state2.validateDoanThe}</span></div>
                                   </div>
                                 </div>
-                                
+
                                 <div className={'form-group  ' } >
                                   <label htmlFor="cmnd" className="col-md-3 control-label">Số CMND<span className="text-danger">(*)</span></label>
                                   <div className="col-md-7">
@@ -1188,7 +1190,7 @@ export default class SignUp extends React.Component {
                                       <div className=''><span className="control-label text-danger">{this.state.state2.validateSoCMND}</span></div>
                                   </div>
                                 </div>
-                              
+
                                 <div className={'form-group ' } >
                                   <label htmlFor="ho-khau" className="col-md-3 control-label">Hộ khẩu thường trú<span className="text-danger">(*)</span></label>
                                   <div className="col-md-7">
@@ -1197,7 +1199,7 @@ export default class SignUp extends React.Component {
                                       <div className=''><span className="control-label text-danger">{this.state.state2.validateHoKhau}</span></div>
                                   </div>
                                 </div>
-                              
+
                                 <div className={'form-group ' } >
                                   <label htmlFor="dien-thoai-sv" className="col-md-3 control-label">Điện thoại sinh viên<span className="text-danger">(*)</span></label>
                                   <div className="col-md-7">
@@ -1206,7 +1208,7 @@ export default class SignUp extends React.Component {
                                       <div className=''><span className="control-label text-danger">{this.state.state2.validateDienThoaiSV}</span></div>
                                   </div>
                                 </div>
-                              
+
                                 <div className={'form-group ' } >
                                   <label htmlFor="dien-thoai-gia-dinh" className="col-md-3 control-label">Điện thoại gia đình<span className="text-danger">(*)</span></label>
                                   <div className="col-md-7">
@@ -1215,7 +1217,7 @@ export default class SignUp extends React.Component {
                                       <div className=''><span className="control-label text-danger">{this.state.state2.validateDienThoaiGiaDinh}</span></div>
                                   </div>
                                 </div>
-                              
+
                                 <div className={'form-group ' } >
                                   <label htmlFor="email-thuong-dung" className="col-md-3 control-label">Email thường dùng</label>
                                   <div className="col-md-7">
@@ -1224,8 +1226,8 @@ export default class SignUp extends React.Component {
                                       <div className=''><span className="control-label text-danger">{this.state.state2.validateEmailThuongDung}</span></div>
                                   </div>
                                 </div>
-                                
-                                
+
+
                             </div>
                             <div className="form-footer">
                                 <div className="panel-body quy-dinh-dang-ky">
@@ -1251,7 +1253,7 @@ export default class SignUp extends React.Component {
                                       <div className=''><span className="control-label text-danger">{this.state.state2.validateDongY}</span></div>
                                     </div>
                                     <button type="submit" className="btn btn-success" onClick={this.nhapThongTin.bind(this)}><span>Đăng ký</span></button>
-                                    
+
                                   </div>
                                 </div>
                             </div>
@@ -1259,21 +1261,21 @@ export default class SignUp extends React.Component {
                     </div>
                   </div>
 
-                  
+
                   <div className="panel rounded shadow no-overflow" style={{'display': this.state.state2.styleFormDangKyLuuTru}}>
                     <div className="panel-heading">
                         <div className="pull-left"><h3 className="panel-title">{this.state.state2.titleForm}</h3></div>
                         <div className="clearfix"></div>
                     </div>
                     <div className="panel-body no-padding">
-                      
+
                       <form className="form-horizontal" role="form" onSubmit ={this.dangKyLuuTru.bind(this)}>
                         <div className="form-body">
-                          
-                          
-                          
-                          
-                          
+
+
+
+
+
                           <div className={'form-group  ' }>
                             <label htmlFor="sinh-vien" className="col-md-3 control-label">Học lực<span className="text-danger">(*)</span></label>
                             <div className="col-md-7">
@@ -1312,14 +1314,14 @@ export default class SignUp extends React.Component {
                             <div className="col-md-7">
 
                                 {dichVu}
-                                
+
                                 <div className=''><span className="control-label text-danger"></span></div>
                             </div>
                           </div>
 
                         </div>
 
-                         
+
                         <div className="form-footer">
                             <div className="form-group">
                               <div className="col-sm-offset-3">
@@ -1341,6 +1343,6 @@ export default class SignUp extends React.Component {
               </div>
             </div>*/}
     //);
-  
+
   }
 }
