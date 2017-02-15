@@ -348,6 +348,18 @@ module.exports = function(app, importStudent) {
     });
   })
 
+  app.get('/api/getstudentbyphong/:tenphong', function(req, res){
+    Phongchitiet
+    .findOne({ma: req.params.tenphong})
+    .exec(function(err, phong){
+      if(err) throw err;
+      Student.find({_phongchitiet_id: phong._id}, function(err, students){
+        if(err) throw err;
+        res.json(students);
+      });
+    });
+  })
+
   // Add Student
 
   app.post('/addstudent', function(req, res){
