@@ -6,7 +6,7 @@ import moment from 'moment';
 import ManageTicketAction from '../../../actions/ticket/ManageTicketAction';
 import ManageTicketStore from '../../../stores/ticket/ManageTicketStore';
 
-class Ticket extends React.Component {
+class ViewDetailTicket extends React.Component {
 	constructor(props)
   {
     super(props);
@@ -32,7 +32,6 @@ class Ticket extends React.Component {
   }
 
   handleAnswerTicket(e) {
-
     e.preventDefault()
 
     const data = {
@@ -119,4 +118,4 @@ class Ticket extends React.Component {
 			);
 		}
 }
-export default Ticket;
+export default ViewDetailTicket;
