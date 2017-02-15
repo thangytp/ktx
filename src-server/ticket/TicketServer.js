@@ -16,9 +16,10 @@ function TicketServer(app){
     });
   })
 
-  app.get('/getticket/:id', function(req, res){
+  app.get('/getticketbyid/:id', function(req, res){
     Ticket.findOne({_id : req.params.id}, function(err, ticket){
       if(err) throw err;
+      console.log(ticket);
       res.json(ticket);
     });
   })

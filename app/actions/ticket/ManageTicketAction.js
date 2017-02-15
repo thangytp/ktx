@@ -33,8 +33,9 @@ class ManageTicketAction {
   }
 
   getTicketById(payload) {
+    console.log(payload);
     $.ajax({
-      url: '/getticket/' + payload,
+      url: '/getticketbyid/' + payload,
       type: 'GET'
     })
     .done((data) => {
