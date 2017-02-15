@@ -55,6 +55,7 @@ class Xemchitietcauhoi extends Component {
     let ticketOpenDate;
     let ticketCloseDate;
     let lastAnswer;
+    console.log(this.state.ticket);
     if(this.state.ticket.tinnhan) {
       var length = this.state.ticket.tinnhan.length;
       lastAnswer = this.state.ticket.tinnhan[length - 1].nguoipost;

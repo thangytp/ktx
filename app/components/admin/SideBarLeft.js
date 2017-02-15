@@ -162,7 +162,7 @@ class SideBarLeft extends React.Component {
                               <Link to="/quanly@ktx/quan-ly-he-dao-tao">Hệ Đào Tạo</Link>
                             </li>
                             <li>
-                              <Link to="/quanly@ktx/cai-dat-dang-ky-luu-tru">Đăng ký lưu trú</Link>
+                              <Link to="/quanly@ktx/cai-dat-dang-ky-luu-tru">Cài đặt lưu trú</Link>
                             </li>
                             <li>
                               <Link to="/quanly@ktx/dien-nuoc">Quản lý điện nước</Link>
@@ -368,7 +368,10 @@ class SideBarLeft extends React.Component {
                               <Link to="/quanly@ktx/quan-ly-he-dao-tao">Hệ Đào Tạo</Link>
                             </li>
                             <li>
-                              <Link to="/quanly@ktx/cai-dat-dang-ky-luu-tru">Đăng ký lưu trú</Link>
+                              <Link to="/quanly@ktx/cai-dat-dang-ky-luu-tru">Cài đặt lưu trú</Link>
+                            </li>
+                            <li>
+                              <Link to="/quanly@ktx/dien-nuoc">Quản lý điện nước</Link>
                             </li>
                           </ul>
                       </li>
