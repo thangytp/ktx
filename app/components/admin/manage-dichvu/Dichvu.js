@@ -101,8 +101,8 @@ class Dichvu extends Component {
         <td>{dichvu.ten}</td>
         <td>{dichvu.gia}</td>
         <td>
-            <button className="btn btn-primary" onClick={this.showEditDichvu.bind(this, dichvu)}>Sửa</button>
-            <button className="btn btn-danger" onClick={this.openMoDDeleteDichvu.bind(this, dichvu._id)}>Xóa</button>
+            <button className="btn btn-primary" onClick={this.showEditDichvu.bind(this, dichvu)}><i className="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+            <button className="btn btn-danger" onClick={this.openMoDDeleteDichvu.bind(this, dichvu._id)}><i className="fa fa-trash-o" aria-hidden="true"></i></button>
         </td>
         </tr>
       )
@@ -132,7 +132,7 @@ class Dichvu extends Component {
                            <th>Tên Dịch Vụ</th>
                            <th>Giá</th>
                            <th>Hành động</th>
-                           
+
                            </tr>
                          </thead>
                          <tbody>
@@ -149,7 +149,7 @@ class Dichvu extends Component {
               <Modal.Title id="contained-modal-title-lg">Sửa dịch vụ</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-              
+
                 <div className="form-group">
                   <label htmlFor="exampleInputEmail1">Tên Dịch Vụ</label>
                   <input type="text" className="form-control" ref="ten" value={this.state.tendv} onChange={ManageDichvuAction.updateTenDV}/>
@@ -158,15 +158,15 @@ class Dichvu extends Component {
                   <label htmlFor="exampleInputEmail1">Giá</label>
                   <input type="number" className="form-control" ref="gia" value={this.state.giadv} onChange={ManageDichvuAction.updateGiaDV}/>
                 </div>
-              
+
             </Modal.Body>
             <Modal.Footer>
               <button
                   className="btn btn-warning"
-                onClick={ManageDichvuAction.closeModalEdit}><i className="fa fa-times"> Hủy bỏ</i> </button>          
+                onClick={ManageDichvuAction.closeModalEdit}><i className="fa fa-times"> Hủy bỏ</i> </button>
               <button
                   className="btn btn-success"
-                onClick={this.handleEditDichvu.bind(this)}><i className="fa fa-check"> Lưu</i> </button> 
+                onClick={this.handleEditDichvu.bind(this)}><i className="fa fa-check"> Lưu</i> </button>
                 <div className="" >{this.state.messUpdate}</div>
             </Modal.Footer>
           </Modal>
@@ -179,14 +179,14 @@ class Dichvu extends Component {
               </Modal.Header>
               <Modal.Body>
                 <p>Bạn có chắc muốn xóa tin này?</p>
-              </Modal.Body>      
+              </Modal.Body>
               <Modal.Footer>
                   <button
                       className="btn btn-warning"
-                    onClick={ManageDichvuAction.closeModalDeleteDichvu}><i className="fa fa-times"> Hủy bỏ</i> </button>          
+                    onClick={ManageDichvuAction.closeModalDeleteDichvu}><i className="fa fa-times"> Hủy bỏ</i> </button>
                   <button
                       className="btn btn-success"
-                    onClick={this.handleDelDichvu.bind(this)}><i className="fa fa-check"> Xóa</i> </button>          
+                    onClick={this.handleDelDichvu.bind(this)}><i className="fa fa-check"> Xóa</i> </button>
               </Modal.Footer>
           </Modal>
 

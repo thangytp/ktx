@@ -23,7 +23,7 @@ class ListPage extends React.Component {
 	}
 
 	onChange(state) {
-		this.setState(state);  
+		this.setState(state);
 	}
 	editPage(id){
 		AddPageAction.getPage(id);
@@ -32,40 +32,61 @@ class ListPage extends React.Component {
 		AddPageAction.openMoDDeletePage(id);
 	}
 
-	render() {  
+	buttonFormatter(data, cell) {
+      	return <a className="btn btn-primary btn-xs" onClick={this.editPage.bind(this, cell)}><i className="fa fa-pencil-square-o" aria-hidden="true"></i></a>;
+	}
+	buttonFormatterDel(data, cell) {
+      	return <a className="btn btn-danger btn-xs" onClick={this.openMoDDeletePage.bind(this, cell)}><i className="fa fa-trash-o" aria-hidden="true"></i></a>;
+	}
 
-		let listPage = this.state.listPage.map((page, index) => {
+	createCustomExportCSVButton(onClick){
+		return (
+		  <button style={ { color: 'red' } } onClick={ onClick }>Custom Export CSV Btn</button>
+		);
+	}
 
-			return(
-					<tr key={index}>
-						<td className="text-center border-right">{index+1}</td>
-						<td>{page.title}</td>
-						<td colSpan="2">
-							<a className="btn btn-primary btn-xs" onClick={this.editPage.bind(this, page._id)}><i className="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-							<a className="btn btn-danger btn-xs" onClick={this.openMoDDeletePage.bind(this, page._id)}><i className="fa fa-trash-o" aria-hidden="true"></i></a>
-						</td>
-					</tr>
-				);
-		});
+	render() {
+
+		const options = {
+	      	clearSearch: true,
+	      	searchField: (props) => (<MySearchField { ...props }/>),
+	      	sizePerPageDropDown: this.renderSizePerPageDropDown,
+	      	exportCSVBtn: this.createCustomExportCSVButton
+	    };
 
 		return(
 			<div className="col-md-12 table-responsive">
-				<table className="table white-bg table-striped table-hover table-success">
-                  <thead>
-                    <tr>
-                      <th className="text-center" width='1%'>STT</th>
-                      <th>Tên</th>
-                      <th>Hành động</th>  
-                    </tr>
-                  </thead>
-                  <tbody>                       
-                    {listPage}
-                  </tbody>
-                       
-                </table>       
+            <BootstrapTable data={this.state.listPage} striped={true} hover={true} options={ options } search pagination exportCSV>
+		            <TableHeaderColumn dataField="title" isKey={true} dataAlign="center" dataSort={true}>Tên</TableHeaderColumn>
+		            <TableHeaderColumn dataField="_id" dataFormat={this.buttonFormatter.bind(this, '_id')} width="60">Sửa</TableHeaderColumn>
+		            <TableHeaderColumn dataField="_id" dataFormat={this.buttonFormatterDel.bind(this, '_id')} width="60">Xóa</TableHeaderColumn>
+		        </BootstrapTable>
 			</div>
 		);
 	}
+}
+
+class MySearchField extends React.Component {
+  // It's necessary to implement getValue
+  getValue() {
+    return ReactDOM.findDOMNode(this).value;
+  }
+
+  // It's necessary to implement setValue
+  setValue(value) {
+    ReactDOM.findDOMNode(this).value = value;
+  }
+
+  render() {
+    return (
+      <input
+        className={ `form-control` }
+        type='text'
+        defaultValue={ this.props.defaultValue }
+        placeholder={ this.props.placeholder }
+        onKeyUp={ this.props.search }/>
+    );
+  }
 }
 
 export default ListPage;

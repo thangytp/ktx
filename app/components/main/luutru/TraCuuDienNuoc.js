@@ -75,7 +75,7 @@ class TraCuuDienNuoc extends React.Component {
               <input type="text" className="form-control" ref="phong"/>
             </div>
           </div>
-          <button className="btn btn-fb btn-large" type="submit">Thêm chỉ số điện nước</button>
+          <button className="btn btn-fb btn-large" type="submit">Xem chỉ số điện nước</button>
         </form>
         <div className="table">
           <table className="table">

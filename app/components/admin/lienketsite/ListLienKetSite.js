@@ -24,7 +24,7 @@ class ListLienKetSite extends React.Component {
 	}
 
 	onChange(state) {
-		this.setState(state);  
+		this.setState(state);
 	}
 	editSite(id){
 		LienKetSiteAction.getSite(id);
@@ -42,7 +42,6 @@ class ListLienKetSite extends React.Component {
 
 	onToggleDropDown(onToggleDropDown){
 		// do your stuff here
-		console.log('toggle dropdown');
 		onToggleDropDown();
 	}
 
@@ -62,19 +61,7 @@ class ListLienKetSite extends React.Component {
 		);
 	}
 
-	render() {  
-		let listSite = this.state.listSite.map((site, index) =>{
-			return(
-					<tr key={index}>
-						<td className="text-center border-right">{index+1}</td>
-						<td>{site.name}</td>
-						<td colSpan="2">
-							<a className="btn btn-primary btn-xs" onClick={this.editSite.bind(this, site._id)}><i className="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-							<a className="btn btn-danger btn-xs" onClick={this.openMoDDelete.bind(this, site._id)}><i className="fa fa-trash-o" aria-hidden="true"></i></a>
-						</td>
-					</tr>
-				);
-		});
+	render() {
 
 		const options = {
 	      	clearSearch: true,
@@ -85,26 +72,12 @@ class ListLienKetSite extends React.Component {
 
 		return(
 			<div className="col-md-12 table-responsive">
-				{/*<table className="table white-bg table-striped table-hover table-success">
-                  <thead>
-                    <tr>
-                      <th className="text-center" width='1%'>STT</th>
-                      <th>Tên</th>
-                      <th>Hành động</th>  
-                    </tr>
-                  </thead>
-                  <tbody>                       
-                    {listSite}
-                  </tbody>
-                       
-                </table>*/}     
-                <BootstrapTable data={this.state.listSite} striped={true} hover={true} options={ options } search pagination exportCSV>
+            <BootstrapTable data={this.state.listSite} striped={true} hover={true} options={ options } search pagination exportCSV>
 		            <TableHeaderColumn dataField="name" isKey={true} dataAlign="center" dataSort={true}>Tên</TableHeaderColumn>
-		            
+
 		            <TableHeaderColumn dataField="_id" dataFormat={this.buttonFormatter.bind(this, '_id')} width="60">Sửa</TableHeaderColumn>
 		            <TableHeaderColumn dataField="_id" dataFormat={this.buttonFormatterDel.bind(this, '_id')} width="60">Xóa</TableHeaderColumn>
-
-		        </BootstrapTable>  
+		        </BootstrapTable>
 			</div>
 		);
 	}

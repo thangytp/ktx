@@ -22,7 +22,7 @@ class Home extends React.Component {
 		this.onChange = this.onChange.bind(this);
 	}
 	componentDidMount() {
-		document.title = "Trang chủ | Ký túc xá Bách Khoa"; 
+		document.title = "Trang chủ | Ký túc xá Bách Khoa";
 		TinTucHomeStore.listen(this.onChange);
 		TinTucHomeAction.getListTinTucToDisplayHome();
 	}
@@ -32,12 +32,12 @@ class Home extends React.Component {
 	}
 
 	onChange(state) {
-		this.setState(state);  
+		this.setState(state);
 		console.log(state);
 	}
   	render() {
 
-  		 
+
 
   		let listTinTucToDisplayHome;
 		// console.log(this.state.state2.listTinTucToDisplayHome);
@@ -71,7 +71,7 @@ class Home extends React.Component {
 	    						</div>
 	    					</div>
 	    				</div>
-						
+
 
 					);
 			});
@@ -123,12 +123,12 @@ class Home extends React.Component {
 		// 			)
 		// 	}
 		// });
-		
-		
 
-	    return (  
+
+
+	    return (
 	    	<div>
-			    <div className="container">   
+			    <div className="container">
 			    	<section id="tin-tuc-moi">
 			    		<div className="col-md-9 col-sm-12">
 			    			<div className="thongbaomoi white-bg">
@@ -144,18 +144,18 @@ class Home extends React.Component {
 					                <ListTinTucMain />
 					            </div>
 			    			</div>
-			    			
-				    		
+
+
 				    	</div>
 				    	<div className="col-md-3 col-sm-12 cotphaihome">
 				    		<CotPhaiHome />
 				    	</div>
 			    	</section>
-			    	
-			    </div>  
+
+			    </div>
 			    <section id="gg-maps" className="mT20 hidden-xs">
-		            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.6773286000303!2d106.66229871594932!3d10.759332357202917!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752eefca0e6fb9%3A0xec3f3a1620c01884!2zS8O9IHTDumMgeMOhIMSQ4bqhaSBo4buNYyBCw6FjaCBLaG9h!5e0!3m2!1sen!2s!4v1481119477834" width="100%" height="300" frameborder="0" style={{"border":"0"}} allowfullscreen></iframe>
-		        </section> 
+								<a href="https://www.google.com/maps?ll=10.760102,106.662106&z=16&t=m&hl=en-US&gl=US&mapclient=embed&cid=17023388983196915844" target="_blank"><img src="/img/bachkhoa-map.png"></img></a>
+		        </section>
 		    </div>
 	    );
   	}

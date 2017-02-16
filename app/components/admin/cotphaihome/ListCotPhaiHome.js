@@ -23,7 +23,7 @@ class ListCotPhaiHome extends React.Component {
 	}
 
 	onChange(state) {
-		this.setState(state);  
+		this.setState(state);
 	}
 	editSite(id, type){
 		CotPhaiHomeAction.getItem({id, type});
@@ -32,7 +32,7 @@ class ListCotPhaiHome extends React.Component {
 		CotPhaiHomeAction.openMoDDelete(id);
 	}
 
-	render() {  
+	render() {
 		let listItem = this.state.listItem.map((item, index) =>{
 			return(
 					<tr key={index}>
@@ -55,14 +55,14 @@ class ListCotPhaiHome extends React.Component {
                       <th className="text-center" width='1%'>STT</th>
                       <th>Tên</th>
                       <th>Loại</th>
-                      <th>Hành động</th>  
+                      <th>Hành động</th>
                     </tr>
                   </thead>
-                  <tbody>                       
+                  <tbody>
                     {listItem}
                   </tbody>
-                       
-                </table>       
+
+                </table>
 			</div>
 		);
 	}

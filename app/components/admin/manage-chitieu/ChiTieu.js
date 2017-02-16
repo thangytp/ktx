@@ -729,7 +729,7 @@ class ChiTieu extends Component {
             </div>
           )
         })}
-        <button className="btn btn-large btn-danger" onClick={this.openMoDDeleteChitieu.bind(this, chitieu._id)}>Xóa</button>
+        <button className="btn btn-large btn-danger" onClick={this.openMoDDeleteChitieu.bind(this, chitieu._id)}><i className="fa fa-trash-o" aria-hidden="true"></i></button>
 
         </Tab>
       )

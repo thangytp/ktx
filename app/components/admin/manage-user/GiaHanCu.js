@@ -763,10 +763,10 @@ class XetDuyetMoi extends Component {
                 <Tab eventKey={1} title="Bước 1">
                   {contentHocvu}
                 </Tab>
-                <Tab eventKey={2} title="Bước 2">
+                <Tab eventKey={2} disabled={this.state.state1.deactiveStep2} title="Bước 2">
                   {contentDiemrenluyen}
                 </Tab>
-                <Tab eventKey={3} title="Bước 3">
+                <Tab eventKey={3} disabled={this.state.state1.deactiveStep3} title="Bước 3">
                   {contentDiemrenluyenKtx}
                 </Tab>
                 <Tab eventKey={4} title="Bước 4">

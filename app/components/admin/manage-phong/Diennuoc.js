@@ -172,7 +172,7 @@ class Diennuoc extends Component {
                               <input type="text" className="form-control" ref="phong"/>
                             </div>
                           </div>
-                          <button className="btn btn-success btn-large" type="submit">Thêm chỉ số điện nước</button>
+                          <button className="btn btn-success btn-large" type="submit">Xem chỉ số điện nước</button>
                         </form>
                         <div className="table">
                           <table className="table">
