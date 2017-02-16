@@ -85,8 +85,8 @@ class Tang extends Component {
         <td>{tang.ten}</td>
         {/* <td><button className="btn btn-primary" onClick={this.handleGetStudent.bind(this, user._id)}>Edit</button></td> */}
         <td>
-          <button className="btn btn-primary" onClick={this.handleGetTang.bind(this, tang)}>Sửa</button>
-          <button className="btn btn-danger" onClick={this.openMoDDeleteTang.bind(this, tang._id)}>Xóa</button>
+          <button className="btn btn-primary" onClick={this.handleGetTang.bind(this, tang)}><i className="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+          <button className="btn btn-danger" onClick={this.openMoDDeleteTang.bind(this, tang._id)}><i className="fa fa-trash-o" aria-hidden="true"></i></button>
         </td>
         </tr>
       )
@@ -114,7 +114,7 @@ class Tang extends Component {
                    <th>STT</th>
                    <th>Tầng</th>
                    <th>Hành động</th>
-                   
+
                    </tr>
                  </thead>
                  <tbody>
@@ -133,15 +133,15 @@ class Tang extends Component {
                     <label htmlFor="exampleInputEmail1" >Tầng</label>
                     <input type="number" className="form-control" ref="ten" value={this.state.tenEdit}/>
                   </div>
-                  
-                </Modal.Body>      
+
+                </Modal.Body>
                 <Modal.Footer>
                     <button
                         className="btn btn-warning"
-                      onClick={ManageTangAction.closeModal}><i className="fa fa-times"> Hủy bỏ</i> </button>          
+                      onClick={ManageTangAction.closeModal}><i className="fa fa-times"> Hủy bỏ</i> </button>
                     <button
                         className="btn btn-success"
-                      onClick={this.updateTang.bind(this)}><i className="fa fa-check"> Lưu</i> </button>          
+                      onClick={this.updateTang.bind(this)}><i className="fa fa-check"> Lưu</i> </button>
                 </Modal.Footer>
             </Modal>
             {/* modal xoa item va con cua no */}
@@ -153,14 +153,14 @@ class Tang extends Component {
                   </Modal.Header>
                   <Modal.Body>
                     <p>Bạn có chắc muốn xóa?</p>
-                  </Modal.Body>      
+                  </Modal.Body>
                   <Modal.Footer>
                       <button
                           className="btn btn-warning"
-                        onClick={ManageTangAction.closeModalDelete}><i className="fa fa-times"> Hủy bỏ</i> </button>          
+                        onClick={ManageTangAction.closeModalDelete}><i className="fa fa-times"> Hủy bỏ</i> </button>
                       <button
                           className="btn btn-success"
-                        onClick={this.handleDelTang.bind(this)}><i className="fa fa-check"> Xóa</i> </button>          
+                        onClick={this.handleDelTang.bind(this)}><i className="fa fa-check"> Xóa</i> </button>
                   </Modal.Footer>
               </Modal>
           </div>

@@ -555,8 +555,8 @@ class UuTien extends Component {
          <td>{khuvuc.ten}</td>
          <td>{khuvuc.diem}</td>
          <td>{khuvuc.ma}</td>
-         <td><button className="btn btn-primary" onClick={this.handleGetKhuvuc.bind(this, khuvuc._id)}>Edit</button>
-         <button className="btn btn-danger" onClick={this.handleDelKhuvuc.bind(this, khuvuc._id)}>Delete</button></td>
+         <td><button className="btn btn-primary" onClick={this.handleGetKhuvuc.bind(this, khuvuc._id)}><i className="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+         <button className="btn btn-danger" onClick={this.handleDelKhuvuc.bind(this, khuvuc._id)}><i className="fa fa-trash-o" aria-hidden="true"></i></button></td>
         </tr>
       )
     }, this);
@@ -568,8 +568,8 @@ class UuTien extends Component {
          <td>{tinh.ten}</td>
          <td>{tinh.diem}</td>
          <td>{tinh.ma}</td>
-         <td><button className="btn btn-primary" onClick={this.handleGetTinh.bind(this, tinh._id)}>Edit</button>
-         <button className="btn btn-danger" onClick={this.handleDelTinh.bind(this, tinh._id)}>Delete</button></td>
+         <td><button className="btn btn-primary" onClick={this.handleGetTinh.bind(this, tinh._id)}><i className="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+         <button className="btn btn-danger" onClick={this.handleDelTinh.bind(this, tinh._id)}><i className="fa fa-trash-o" aria-hidden="true"></i></button></td>
         </tr>
       )
     }, this);
@@ -581,8 +581,8 @@ class UuTien extends Component {
          <td>{doituong.ten}</td>
          <td>{doituong.diem}</td>
          <td>{doituong.ma}</td>
-         <td><button className="btn btn-primary" onClick={this.handleGetDoituong.bind(this, doituong._id)}>Edit</button>
-         <button className="btn btn-danger" onClick={this.handleDelDoituong.bind(this, doituong._id)}>Delete</button></td>
+         <td><button className="btn btn-primary" onClick={this.handleGetDoituong.bind(this, doituong._id)}><i className="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+         <button className="btn btn-danger" onClick={this.handleDelDoituong.bind(this, doituong._id)}><i className="fa fa-trash-o" aria-hidden="true"></i></button></td>
         </tr>
       )
     }, this);
@@ -594,8 +594,8 @@ class UuTien extends Component {
          <td>{hocluc.ten}</td>
          <td>{hocluc.diem}</td>
          <td>{hocluc.ma}</td>
-         <td><button className="btn btn-primary" onClick={this.handleGetHocluc.bind(this, hocluc._id)}>Edit</button>
-         <button className="btn btn-danger" onClick={this.handleDelHocluc.bind(this, hocluc._id)}>Delete</button></td>
+         <td><button className="btn btn-primary" onClick={this.handleGetHocluc.bind(this, hocluc._id)}><i className="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+         <button className="btn btn-danger" onClick={this.handleDelHocluc.bind(this, hocluc._id)}><i className="fa fa-trash-o" aria-hidden="true"></i></button></td>
         </tr>
       )
     }, this);
@@ -607,8 +607,8 @@ class UuTien extends Component {
          <td>{hoancanh.ten}</td>
          <td>{hoancanh.diem}</td>
          <td>{hoancanh.ma}</td>
-         <td><button className="btn btn-primary" onClick={this.handleGetHoancanh.bind(this, hoancanh._id)}>Edit</button>
-          <button className="btn btn-danger" onClick={this.handleDelHoancanh.bind(this, hoancanh._id)}>Delete</button></td>
+         <td><button className="btn btn-primary" onClick={this.handleGetHoancanh.bind(this, hoancanh._id)}><i className="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+          <button className="btn btn-danger" onClick={this.handleDelHoancanh.bind(this, hoancanh._id)}><i className="fa fa-trash-o" aria-hidden="true"></i></button></td>
         </tr>
       )
     }, this);

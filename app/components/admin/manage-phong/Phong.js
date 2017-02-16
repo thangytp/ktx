@@ -123,8 +123,8 @@ class Phong extends Component {
         <td>{phong.kichco + ' người'}</td>
         <td>{phong.soluong + ' phòng'}</td>
         <td>
-            <button className="btn btn-primary" onClick={this.handleGetPhong.bind(this, phong)}>Sửa</button>
-            <button className="btn btn-danger" onClick={this.openMoDDeletePhong.bind(this, phong._id)}>Xóa</button>
+            <button className="btn btn-primary" onClick={this.handleGetPhong.bind(this, phong)}><i className="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+            <button className="btn btn-danger" onClick={this.openMoDDeletePhong.bind(this, phong._id)}><i className="fa fa-trash-o" aria-hidden="true"></i></button>
         </td>
         </tr>
       )
@@ -172,12 +172,12 @@ class Phong extends Component {
                 <Modal.Body>
                   <div className="form-group">
                     <label htmlFor="exampleInputEmail1" >Tên phòng</label>
-                    <input type="text" className="form-control" ref="ten" value={this.state.tenEdit} 
+                    <input type="text" className="form-control" ref="ten" value={this.state.tenEdit}
                         onChange={ManagePhongAction.updateTenLoaiPhong}/>
                   </div>
                   <div className="form-group">
                     <label htmlFor="loai-phong">Loại Phòng</label>
-                    <input type="number" id="loai-phong" className="form-control" ref="loai" placeholder="Loại Phòng" 
+                    <input type="number" id="loai-phong" className="form-control" ref="loai" placeholder="Loại Phòng"
                         onChange={ManagePhongAction.updateLoaiPhong} value={this.state.loaiEdit}/>
                     <div className="">1: Phòng thường, 2: Phòng dịch vụ tầng 10, 3: Phòng tầng 11, 4: Phòng tầng 12</div>
                   </div>
@@ -188,24 +188,24 @@ class Phong extends Component {
                   </div>
                   <div className="form-group">
                     <label htmlFor="so-nguoi">Số người</label>
-                    <input type="Number" id="so-nguoi" className="form-control" ref="songuoi" placeholder="Số người" 
+                    <input type="Number" id="so-nguoi" className="form-control" ref="songuoi" placeholder="Số người"
                         onChange={ManagePhongAction.updateSoNguoi} value={this.state.kichcoEdit}/>
                   </div>
                   <div className="form-group">
                     <label htmlFor="so-luong">Số Lượng</label>
-                    <input type="Number" id="so-luong" className="form-control" ref="soluong" placeholder="Số Lượng" 
+                    <input type="Number" id="so-luong" className="form-control" ref="soluong" placeholder="Số Lượng"
                         onChange={ManagePhongAction.updateSoLuong} value={this.state.soluongEdit}/>
                   </div>
-                  
-                </Modal.Body>      
+
+                </Modal.Body>
                 <Modal.Footer>
                     <button
                         className="btn btn-warning"
-                      onClick={ManagePhongAction.closeModal}><i className="fa fa-times"> Hủy bỏ</i> </button>          
+                      onClick={ManagePhongAction.closeModal}><i className="fa fa-times"> Hủy bỏ</i> </button>
                     <button
                         className="btn btn-success"
-                      onClick={this.updatePhong.bind(this)}><i className="fa fa-check"> Lưu</i> </button>  
-                    <div >{this.state.messUpdate}</div>        
+                      onClick={this.updatePhong.bind(this)}><i className="fa fa-check"> Lưu</i> </button>
+                    <div >{this.state.messUpdate}</div>
                 </Modal.Footer>
             </Modal>
             <Modal show={this.state.modalIsOpenDelete} onHide ={ManagePhongAction.closeModalDelete}>
@@ -216,14 +216,14 @@ class Phong extends Component {
                 </Modal.Header>
                 <Modal.Body>
                   <p>Bạn có chắc muốn xóa?</p>
-                </Modal.Body>      
+                </Modal.Body>
                 <Modal.Footer>
                     <button
                         className="btn btn-warning"
-                      onClick={ManagePhongAction.closeModalDelete}><i className="fa fa-times"> Hủy bỏ</i> </button>          
+                      onClick={ManagePhongAction.closeModalDelete}><i className="fa fa-times"> Hủy bỏ</i> </button>
                     <button
                         className="btn btn-success"
-                      onClick={this.handleDelPhong.bind(this)}><i className="fa fa-check"> Xóa</i> </button>          
+                      onClick={this.handleDelPhong.bind(this)}><i className="fa fa-check"> Xóa</i> </button>
                 </Modal.Footer>
             </Modal>
           </div>

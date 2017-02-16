@@ -97,17 +97,6 @@ class ManageUserStore {
     this.validateHocLuc = '';
     this.validateHoanCanh = '';
     this.validateLoaiPhong = '';
-    // if(localStorage.getItem('deactiveStep2')) {
-    //   this.deactiveStep2 = false;
-    // } else {
-    //   this.deactiveStep2 = true;
-    // }
-    //
-    // if(localStorage.getItem('deactiveStep2')) {
-    //   this.deactiveStep3 = false;
-    // } else {
-    //   this.deactiveStep3 = true;
-    // }
 
   }
 
