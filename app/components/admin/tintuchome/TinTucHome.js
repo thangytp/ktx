@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDom from 'react-dom';
 import {Link} from 'react-router';
-import {Modal} from 'react-bootstrap';
+import {Modal, Tabs, Tab} from 'react-bootstrap';
 
 import TinTucHomeAction from '../../../actions/admin/tintuchome/TinTucHomeAction';
 import TinTucHomeStore from '../../../stores/admin/tintuchome/TinTucHomeStore';
@@ -15,6 +15,7 @@ class TinTucHome extends React.Component {
 		super(props);
 		this.state = TinTucHomeStore.getState();
 		this.onChange = this.onChange.bind(this);
+
 	}
 	componentDidMount() {
 		TinTucHomeStore.listen(this.onChange);
@@ -31,7 +32,7 @@ class TinTucHome extends React.Component {
 	}
 
 	onChange(state) {
-		this.setState(state);  
+		this.setState(state);
 	}
 
 	// them tin tuc
@@ -58,7 +59,7 @@ class TinTucHome extends React.Component {
 			TinTucHomeAction.invalidLinkChitiet();
 			this.refs.LinkTinTucField.focus();
 		}
-		
+
 
 		// goi ham add page
 		if(title && contentLeft && linkChitiet){
@@ -85,8 +86,8 @@ class TinTucHome extends React.Component {
 	}
 
 
-  	render() {  
-  		
+  	render() {
+
   		let listTinTucSearch;
       	if(this.state.listTinTucSearch.length>0){
 	        listTinTucSearch = this.state.listTinTucSearch.map((item, index) =>{
@@ -100,7 +101,7 @@ class TinTucHome extends React.Component {
 	            <span className='err-findpage'>Không tìm thấy trang, vui lòng thử với từ khóa khác</span>
 	        );
 	    }
-  		
+
 
     return (
     	<div className="body-content animated fadeIn no-overflow">
@@ -110,75 +111,83 @@ class TinTucHome extends React.Component {
                       		<li><Link to="/quanly@ktx"><i className="fa fa-home" aria-hidden="true"></i> Trang quản trị</Link></li>
                       		<li>Quản lý tin tức trang chủ</li>
                     	</ol>
-	                    <div className="panel rounded shadow no-overflow">
-	                      	<div className="panel-heading">
-	                        	<div className="pull-left"><h3 className="panel-title">Thêm tin tức</h3></div>
-	                        	<div className="pull-right">
-		                            <button className="btn btn-sm" data-action="collapse" data-container="body" data-toggle="panel-body" data-placement="top" 
-		                                data-title="Collapse" data-original-title="" title=""><i className="fa fa-angle-up"></i></button>
-		                        </div>
-	                        	<div className="clearfix"></div>
-	                      	</div>
-	                      	<div className="panel-body no-padding">
-								<form className="form-horizontal" encType="multipart/form-data" onSubmit={this.handleSubmitTinTucHome.bind(this)}>
-								  	<div className="form-body">
-									  	<div className="form-group">
-										    <label className="control-label col-sm-2" htmlFor="name-item">Tiêu đề:</label>
-										    <div className="col-sm-10">
-									      		<input type="text" className="form-control" id="name-item" placeholder="Nhập tên trang" 
-									      			ref="TitlePageField" value={this.state.titleTinTucHome} onChange={TinTucHomeAction.updateTitleTinTucHome}/>
-									      		<span className='help-block'>{this.state.helpBlockTitle}</span>
-									    	</div>
-									  	</div>
-									  	
-										<div className='form-group '>
-					                    	<label className='col-sm-2 control-label'>Nội dung:</label>
-					                      	<div  className ='col-sm-10'>
-					                      		<textarea id ='ckedit' value ="" ref ='ContentTinTucField' value={this.state.contentPage} ></textarea>
-					                      		<span className='help-block'>{this.state.helpBlockContent}</span>
-					                    	</div>
-					                  	</div>
 
-					                  	<div className="form-group">
-			                                <label className="control-label col-sm-2" htmlFor="link-to-page">Link tin tức:</label>
-			                                <div className="col-sm-10">
-			                                    <input type="text" className="form-control" id="link-to-page" placeholder="VD: /gioi-thieu" 
-			                                      ref="LinkTinTucField" value={this.state.linkChitiet} onChange={TinTucHomeAction.updateLinkChitiet}/>
-			                                    
-			                                    <div className="live-search" style={{'display':this.state.displayListTinTuc}}>
-			                                        {listTinTucSearch}
-			                                    </div>
-
-			                                    <span className='help-block text-danger'>{this.state.helpBlockLinkTinTuc}</span>
-			                                </div>
-			                            </div>
-
-			                            <div className="form-group">
-										   
-										    <div className="col-sm-10 col-sm-offset-2">
-									      		<label>
-										  			<input type="checkbox" value={this.state.hienthi} checked={this.state.checkHienThi} onChange={TinTucHomeAction.updateHienThi}/>
-										  			Hiển thị ở trang chủ?
-										  		</label>
-									    	</div>
-									  	</div>
-
-					                  	
+							<Tabs defaultActiveKey={1} >
+                <Tab eventKey={1} title="Thêm tin tức">
+								<div className="panel rounded shadow no-overflow">
+									<div className="panel-heading">
+										<div className="pull-left"><h3 className="panel-title">Thêm tin tức hiển thị</h3></div>
+										<div className="pull-right">
+												<button className="btn btn-sm" data-action="collapse" data-container="body" data-toggle="panel-body" data-placement="top"
+														data-title="Collapse" data-original-title="" title=""><i className="fa fa-angle-up"></i></button>
+										</div>
+										<div className="clearfix"></div>
 									</div>
-									<div className="form-footer">
-									  	<div className="form-group"> 
-									    	<div className="col-sm-offset-2">
-									      		<button type="submit" className="btn btn-success" disabled={this.state.disableButtonAddPage}>{this.state.textButton}</button><span className='help-block'> {this.state.helpBlockAddTinTuc}</span>
-									    	</div>
-									  	</div>
-									</div>
-								</form>
+								<div className="panel-body no-padding">
+			<form className="form-horizontal" encType="multipart/form-data" onSubmit={this.handleSubmitTinTucHome.bind(this)}>
+					<div className="form-body">
+						<div className="form-group">
+							<label className="control-label col-sm-2" htmlFor="name-item">Tiêu đề:</label>
+							<div className="col-sm-10">
+									<input type="text" className="form-control" id="name-item" placeholder="Nhập tên trang"
+										ref="TitlePageField" value={this.state.titleTinTucHome} onChange={TinTucHomeAction.updateTitleTinTucHome}/>
+									<span className='help-block'>{this.state.helpBlockTitle}</span>
 							</div>
-	                    </div>
+						</div>
+
+					<div className='form-group '>
+											<label className='col-sm-2 control-label'>Nội dung:</label>
+												<div  className ='col-sm-10'>
+													<textarea id ='ckedit' value ="" ref ='ContentTinTucField' value={this.state.contentPage} ></textarea>
+													<span className='help-block'>{this.state.helpBlockContent}</span>
+											</div>
+										</div>
+
+										<div className="form-group">
+														<label className="control-label col-sm-2" htmlFor="link-to-page">Link tin tức:</label>
+														<div className="col-sm-10">
+																<input type="text" className="form-control" id="link-to-page" placeholder="VD: /gioi-thieu"
+																	ref="LinkTinTucField" value={this.state.linkChitiet} onChange={TinTucHomeAction.updateLinkChitiet}/>
+
+																<div className="live-search" style={{'display':this.state.displayListTinTuc}}>
+																		{listTinTucSearch}
+																</div>
+
+																<span className='help-block text-danger'>{this.state.helpBlockLinkTinTuc}</span>
+														</div>
+												</div>
+
+												<div className="form-group">
+
+							<div className="col-sm-10 col-sm-offset-2">
+									<label>
+									<input type="checkbox" value={this.state.hienthi} checked={this.state.checkHienThi} onChange={TinTucHomeAction.updateHienThi}/>
+									Hiển thị ở trang chủ?
+								</label>
+							</div>
+						</div>
+
+
+				</div>
+				<div className="form-footer">
+						<div className="form-group">
+							<div className="col-sm-offset-2">
+									<button type="submit" className="btn btn-success" disabled={this.state.disableButtonAddPage}>{this.state.textButton}</button><span className='help-block'> {this.state.helpBlockAddTinTuc}</span>
+							</div>
+						</div>
+				</div>
+			</form>
+		</div>
+		</div>
+                </Tab>
+                <Tab eventKey={2} title="Danh sách tin tức">
+                  <ListTinTucHome />
+                </Tab>
+              </Tabs>
 
                 </div>
             	{/*display list of tin tuc*/}
-            	<ListTinTucHome />
+
     		</div>
 
 
@@ -191,18 +200,18 @@ class TinTucHome extends React.Component {
                   </Modal.Header>
                   <Modal.Body>
                     <p>Bạn có chắc muốn xóa tin này?</p>
-                  </Modal.Body>      
+                  </Modal.Body>
                   <Modal.Footer>
                       <button
                           className="btn btn-warning"
-                        onClick={TinTucHomeAction.closeModalDeleteTinTuc}><i className="fa fa-times"> Hủy bỏ</i> </button>          
+                        onClick={TinTucHomeAction.closeModalDeleteTinTuc}><i className="fa fa-times"> Hủy bỏ</i> </button>
                       <button
                           className="btn btn-success"
-                        onClick={this.deleteTinTuc.bind(this)}><i className="fa fa-check"> Xóa</i> </button>          
+                        onClick={this.deleteTinTuc.bind(this)}><i className="fa fa-check"> Xóa</i> </button>
                   </Modal.Footer>
               </Modal>
 
-            
+
         </div>
     );
   }
