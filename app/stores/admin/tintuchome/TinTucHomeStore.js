@@ -11,6 +11,8 @@ class TinTucHomeStore {
     this.linkChitiet = '';
     this.hienthi = 1;
     this.checkHienThi = 'checked';
+    this.modalIsOpen = false;
+
 
     this.helpBlockAddTinTuc = '';
     this.helpBlockTitle = '';
@@ -107,7 +109,12 @@ class TinTucHomeStore {
     console.log("khong get dc danh sach page");
   }
 
+  onCloseModal(){
+    this.modalIsOpen = false;
+  }
+  
   onGetTinTucHomeSuccess(data){
+    this.modalIsOpen = true;
     this.idTinTucHome = data._id;
     this.titleTinTucHome = data.title;
     this.contentLeft = data.content;
@@ -155,7 +162,7 @@ class TinTucHomeStore {
     console.log('khong xoa dc sach');
   }
 
-  //update page 
+  //update page
   onUpdateTinTucHomeSuccess(data){
     this.idTinTucHome = '';
     this.titleTinTucHome = '';
@@ -193,7 +200,7 @@ class TinTucHomeStore {
     this.displayListTinTuc = 'none';
     this.disableButtonAddPage = '';
   }
-  
+
   // get list tin tuc to display home
   onGetListTinTucToDisplayHomeSuccess(data){
     this.a = data;

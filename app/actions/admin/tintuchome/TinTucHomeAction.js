@@ -3,12 +3,12 @@ import alt from '../../../alt';
 class TinTucHomeAction {
   constructor() {
     this.generateActions(
-       	
+
 
         'updateTitleTinTucHome',
         'updateLinkChitiet',
         'updateHienThi',
-        
+
         'addTinTucHomeSuccess',
         'addTinTucHomeFail',
         'updateTinTucHomeSuccess',
@@ -28,14 +28,14 @@ class TinTucHomeAction {
         'closeModalDeleteTinTuc',
         'deleteTinTucSucess',
         'deleteTinTucFail',
-
+        'closeModal',
         'searchTinTucSuccess',
 
         'updateTinTucSelect',
 
         'getListTinTucToDisplayHomeSuccess',
         'getListTinTucToDisplayHomeFail'
-    
+
     );
   }
 
@@ -55,7 +55,7 @@ class TinTucHomeAction {
         this.actions.addTinTucHomeFail(jqXhr.responseJSON.message);
         console.log("error");
       });
-      
+
   }
 
   // update page
@@ -73,13 +73,13 @@ class TinTucHomeAction {
         this.actions.updateTinTucHomeFail(jqXhr.responseJSON.message);
         console.log("error");
       });
-      
+
   }
 
   //get list page
   getListTinTuc(){
     $.ajax({
-      type: 'GET', 
+      type: 'GET',
       url: '/api/getListTinTucHome'})
       .done((data) => {
         this.actions.getListTinTucHomeSuccess(data);
@@ -92,7 +92,7 @@ class TinTucHomeAction {
   // get list tin tuc co hienthi=1
   getListTinTucToDisplayHome(){
     $.ajax({
-      type: 'GET', 
+      type: 'GET',
       url: '/api/getListTinTucToDisplayHome'})
       .done((data) => {
         this.actions.getListTinTucToDisplayHomeSuccess(data);
@@ -136,12 +136,12 @@ class TinTucHomeAction {
     $.ajax({
       type:'GET',
       url:'/api/searchtintuchome/' + name,
-      
+
     })
     .done((data) => {
       this.actions.searchTinTucSuccess(data);
     })
-    .fail((jqXhr) =>{      
+    .fail((jqXhr) =>{
      console.log(jqXhr.responseText.message);
       // this.actions.noneExistTitle();
     });

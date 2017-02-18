@@ -42,6 +42,9 @@ class AddPageStore {
     // initial state for list page
     this.listPage = [];
 
+    this.modalIsOpen = false;
+
+
     // initial for delete page
     this.modalIsOpenDeletePage = false;
     this.idPageToDelete = '';
@@ -52,6 +55,10 @@ class AddPageStore {
   onUpdateTitlePage(event){
     this.helpBlockAddPage = '';
     this.titlePage = event.target.value;
+  }
+
+  onCloseModal(){
+    this.modalIsOpen = false;
   }
 
   onShowContentRight(){
@@ -82,7 +89,7 @@ class AddPageStore {
     var videoLink = 'videoLink';
     this.arrVideo.push({videoText : '', videoLink : ''});
   }
-  
+
   onCotphaiHome(){
     if(this.cotphaiHome){
       this.checkCotPhaiHome = '';
@@ -146,7 +153,7 @@ class AddPageStore {
       this.modalIsOpenDelete = false;
       console.log(this.arrVideo);
     }
-    
+
   }
 
 //======================= end =================================//
@@ -218,6 +225,7 @@ class AddPageStore {
   }
 
   onGetPageSuccess(data){
+    this.modalIsOpen = true;
     this.idPage = data._id;
     this.titlePage = data.title;
     this.contentLeft = data.content;
@@ -238,7 +246,7 @@ class AddPageStore {
     // this.styleContentRight = 'none';
     this.numberOfImageItem = data.imgRight.length? data.imgRight.length : 0;
     this.numberOfVideoItem = data.videoRight.length? data.videoRight.length : 0;
-    
+
     this.cotphaiHome = data.cotPhaiHome? data.cotPhaiHome : 0;
     if(this.cotphaiHome==1){
       this.styleCustomContentRight = 'none';
@@ -290,7 +298,7 @@ class AddPageStore {
     console.log('khong xoa dc sach');
   }
 
-  //update page 
+  //update page
   onUpdatePageSuccess(data){
     this.idPage = '';
     this.titlePage = '';

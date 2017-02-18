@@ -17,7 +17,6 @@ const AddAdminModal = React.createClass({
         password: this.refs.password.value,
         type: this.state.type
     };
-    console.log(data);
     ManageAdminAction.addAdmin(data);
   },
 
@@ -177,14 +176,14 @@ class Admin extends Component {
                         <option value='Manager'>Manager</option>
                     </select>
                   </div>
-                </Modal.Body>      
+                </Modal.Body>
                 <Modal.Footer>
                     <button
                         className="btn btn-warning"
-                      onClick={ManageAdminAction.closeModal}><i className="fa fa-times"> Hủy bỏ</i> </button>          
+                      onClick={ManageAdminAction.closeModal}><i className="fa fa-times"> Hủy bỏ</i> </button>
                     <button
                         className="btn btn-success"
-                      onClick={this.updateAdmin.bind(this)}><i className="fa fa-check"> Lưu</i> </button>          
+                      onClick={this.updateAdmin.bind(this)}><i className="fa fa-check"> Lưu</i> </button>
                 </Modal.Footer>
             </Modal>
             {/* modal xoa item va con cua no */}
@@ -196,14 +195,14 @@ class Admin extends Component {
                   </Modal.Header>
                   <Modal.Body>
                     <p>Bạn có chắc muốn xóa?</p>
-                  </Modal.Body>      
+                  </Modal.Body>
                   <Modal.Footer>
                       <button
                           className="btn btn-warning"
-                        onClick={ManageAdminAction.closeModalDelete}><i className="fa fa-times"> Hủy bỏ</i> </button>          
+                        onClick={ManageAdminAction.closeModalDelete}><i className="fa fa-times"> Hủy bỏ</i> </button>
                       <button
                           className="btn btn-success"
-                        onClick={this.handleDelAdmin.bind(this)}><i className="fa fa-check"> Xóa</i> </button>          
+                        onClick={this.handleDelAdmin.bind(this)}><i className="fa fa-check"> Xóa</i> </button>
                   </Modal.Footer>
               </Modal>
             </div>

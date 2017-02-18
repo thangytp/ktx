@@ -9,6 +9,7 @@ class QuanLyTinTucStore {
     this.titleTinTuc = '';
     this.contentLeft = '';
     this.description = '';
+    this.modalIsOpen = false;
 
     this.hienthi = 1;
     this.checkHienThi = 'checked';
@@ -56,6 +57,9 @@ class QuanLyTinTucStore {
         this.hienthi = 1;
         this.checkHienThi = 'checked';
     }
+  }
+  onCloseModal(){
+    this.modalIsOpen = false;
   }
 
   onUpdateImagepreview(imgURL)
@@ -136,6 +140,7 @@ class QuanLyTinTucStore {
   }
 
   onGetTinTucSuccess(data){
+    this.modalIsOpen = true;
     this.idTinTuc = data._id;
     this.titleTinTuc = data.title;
     this.contentLeft = data.content;
@@ -188,7 +193,7 @@ class QuanLyTinTucStore {
     console.log('khong xoa dc sach');
   }
 
-  //update page 
+  //update page
   onUpdateTinTucSuccess(data){
     this.idTinTuc = '';
     this.titleTinTuc = '';
