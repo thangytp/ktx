@@ -229,7 +229,7 @@ class QuanLyTinTuc extends React.Component {
 												</div>
 				                </Tab>
 				                <Tab eventKey={2} title="Danh sách tin tức">
-													<ListQuanLyTinTuc />   
+													<ListQuanLyTinTuc />
 				                </Tab>
 				              </Tabs>
 
@@ -237,7 +237,82 @@ class QuanLyTinTuc extends React.Component {
             	{/*display list of tin tuc*/}
     		</div>
 
+				<Modal show={this.state.state1.modalIsOpen} bsSize="large" onHide ={QuanLyTinTucAction.closeModal}>
+						<Modal.Header>
+							<Modal.Title>
+								Sửa
+							</Modal.Title>
+						</Modal.Header>
+						<Modal.Body>
+						<form className="form-horizontal" encType="multipart/form-data" onSubmit={this.handleSubmitTinTuc.bind(this)}>
+								<div className="form-body">
+									<div className="form-group">
+										<label className="control-label col-sm-2" htmlFor="name-item">Tiêu đề:</label>
+										<div className="col-sm-10">
+												<input type="text" className="form-control" id="name-item" placeholder="Nhập tiêu đề"
+													ref="TitlePageField" value={this.state.state1.titleTinTuc} onChange={QuanLyTinTucAction.updateTitleTinTuc}/>
+												<span className='help-block'>{this.state.state1.helpBlockTitle}</span>
+										</div>
+									</div>
 
+								<div className='form-group '>
+														<label className='col-sm-2 control-label'>Nội dung:</label>
+															<div  className ='col-sm-10'>
+																<textarea ref ='ContentTinTucField' cols="50" rows="10">{this.state.state1.contentLeft}</textarea>
+																<span className='help-block'>{this.state.state1.helpBlockContent}</span>
+														</div>
+													</div>
+													<div className='form-group '>
+														<label className='col-sm-2 control-label'>Nội dung rút gọn:</label>
+															<div  className ='col-sm-10'>
+																<textarea className="form-control" rows="5" ref ='Description' value={this.state.state1.description} onChange={QuanLyTinTucAction.updateDescription}></textarea>
+																<span className='help-block'>{this.state.state1.helpBlockDescription}</span>
+														</div>
+													</div>
+
+													<div className='form-group'>
+														<label className='col-sm-2 control-label'>Chọn ảnh đại diện</label>
+														<div className ="clear-both"></div>
+														<div  className ='col-sm-10'>
+															<div className="avatar-photo">
+																	<ImgUpload actions ={QuanLyTinTucAction} />
+																	<div className="avatar-edit">
+																		<i className="fa fa-camera"></i>
+																</div>
+															<img src ={this.state.state1.imagePreviewUrl} height ="200px" width="200px" alt = "avatar"/>
+														</div>
+														<div>
+																<button type='button' className = 'btn btn-success'onClick = {this.upload.bind(this)} ><i className="fa fa-check"></i></button>
+																<button type='button' className = 'btn btn-danger' onClick = {this.detele.bind(this)} ><i className="fa fa-times"></i></button>
+																<span className='help-block'>{this.state.state1.helpBlockUpload}</span>
+														</div>
+													</div>
+												</div>
+												<div className ="clear-both"></div>
+												<div className="form-group">
+
+										<div className="col-sm-10 col-sm-offset-2">
+												<label>
+												<input type="checkbox" value={this.state.state1.hienthi} checked={this.state.state1.checkHienThi} onChange={QuanLyTinTucAction.updateHienThi}/>
+												Hiển thị là thông báo mới?
+											</label>
+										</div>
+									</div>
+
+							</div>
+									<div className="form-group">
+										<div className="col-sm-offset-2">
+												<button type="submit" className="btn btn-success">{this.state.state1.textButton}</button><span className='help-block'> {this.state.state1.helpBlockAddTinTuc}</span>
+										</div>
+									</div>
+						</form>
+						</Modal.Body>
+						<Modal.Footer>
+								<button
+										className="btn btn-warning"
+									onClick={QuanLyTinTucAction.closeModal}><i className="fa fa-times"> Hủy bỏ</i> </button>
+						</Modal.Footer>
+				</Modal>
             {/* modal xoa item */}
               <Modal show={this.state.state1.modalIsOpenDeleteTinTuc} onHide ={QuanLyTinTucAction.closeModalDeleteTinTuc}>
                   <Modal.Header>

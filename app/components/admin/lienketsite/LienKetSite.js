@@ -125,6 +125,53 @@ class LienKetSite extends React.Component {
                       </Tab>
                     </Tabs>
                   </div>
+                  <Modal show={this.state.modalIsOpen} onHide ={LienKetSiteAction.closeModal}>
+                      <Modal.Header>
+                        <Modal.Title>
+                          Sửa
+                        </Modal.Title>
+                      </Modal.Header>
+                      <Modal.Body>
+                      <form className="form-horizontal mt-10" encType="multipart/form-data" onSubmit={this.handleSubmitSite.bind(this)}>
+                        <div className="form-body">
+                          <div className="form-group">
+                            <label className="control-label col-sm-3" htmlFor="name-item">Tên site:</label>
+                            <div className="col-sm-7">
+                                <input type="text" className="form-control" id="name-item" placeholder="VD: ĐH Bách Khoa"
+                                  ref="NameField" value={this.state.name} onChange={LienKetSiteAction.updateName}/>
+                                <span className='help-block text-danger'>{this.state.helpBlockName}</span>
+                            </div>
+                          </div>
+                          <div className="form-group">
+                            <label className="control-label col-sm-3" htmlFor="name-item">Link site:</label>
+                            <div className="col-sm-7">
+                                <input type="text" className="form-control" id="name-item" placeholder="VD: http://hcmut.edu.vn"
+                                  ref="LinkField" value={this.state.link} onChange={LienKetSiteAction.updateLink}/>
+                                <span className='help-block text-danger'>{this.state.helpBlockLink}</span>
+                            </div>
+                          </div>
+                          <div className="form-group">
+                            <label className="control-label col-sm-3" htmlFor="name-item">Logo site:</label>
+                            <div className="col-sm-7">
+                                <input type="text" className="form-control" id="name-item" placeholder="http://www.aao.hcmut.edu.vn/catalog/view/theme/default/images/logo.png"
+                                  ref="LogoField" value={this.state.image} onChange={LienKetSiteAction.updateLogo}/>
+                                <span className='help-block text-danger'>{this.state.helpBlockLogo}</span>
+                            </div>
+                          </div>
+                        </div>
+                          <div className="form-group">
+                            <div className="col-sm-offset-3">
+                                <button type="submit" className="btn btn-success">Luu</button>
+                            </div>
+                          </div>
+                      </form>
+                      </Modal.Body>
+                      <Modal.Footer>
+                          <button
+                              className="btn btn-warning"
+                            onClick={LienKetSiteAction.closeModal}><i className="fa fa-times"> Hủy bỏ</i> </button>
+                      </Modal.Footer>
+                  </Modal>
                   {/* modal xoa item */}
                   <Modal show={this.state.modalIsOpenDelete} onHide ={LienKetSiteAction.closeModalDelete}>
                       <Modal.Header>

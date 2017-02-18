@@ -102,7 +102,6 @@ class TinTucHome extends React.Component {
 	        );
 	    }
 
-
     return (
     	<div className="body-content animated fadeIn no-overflow">
               <div className="row">
@@ -130,7 +129,7 @@ class TinTucHome extends React.Component {
 							<label className="control-label col-sm-2" htmlFor="name-item">Tiêu đề:</label>
 							<div className="col-sm-10">
 									<input type="text" className="form-control" id="name-item" placeholder="Nhập tên trang"
-										ref="TitlePageField" value={this.state.titleTinTucHome} onChange={TinTucHomeAction.updateTitleTinTucHome}/>
+										ref="TitlePageField" onChange={TinTucHomeAction.updateTitleTinTucHome}/>
 									<span className='help-block'>{this.state.helpBlockTitle}</span>
 							</div>
 						</div>
@@ -138,7 +137,7 @@ class TinTucHome extends React.Component {
 					<div className='form-group '>
 											<label className='col-sm-2 control-label'>Nội dung:</label>
 												<div  className ='col-sm-10'>
-													<textarea id ='ckedit' value ="" ref ='ContentTinTucField' value={this.state.contentPage} ></textarea>
+													<textarea id ='ckedit'  ref ='ContentTinTucField'></textarea>
 													<span className='help-block'>{this.state.helpBlockContent}</span>
 											</div>
 										</div>
@@ -147,7 +146,7 @@ class TinTucHome extends React.Component {
 														<label className="control-label col-sm-2" htmlFor="link-to-page">Link tin tức:</label>
 														<div className="col-sm-10">
 																<input type="text" className="form-control" id="link-to-page" placeholder="VD: /gioi-thieu"
-																	ref="LinkTinTucField" value={this.state.linkChitiet} onChange={TinTucHomeAction.updateLinkChitiet}/>
+																	ref="LinkTinTucField" onChange={TinTucHomeAction.updateLinkChitiet}/>
 
 																<div className="live-search" style={{'display':this.state.displayListTinTuc}}>
 																		{listTinTucSearch}
@@ -161,7 +160,7 @@ class TinTucHome extends React.Component {
 
 							<div className="col-sm-10 col-sm-offset-2">
 									<label>
-									<input type="checkbox" value={this.state.hienthi} checked={this.state.checkHienThi} onChange={TinTucHomeAction.updateHienThi}/>
+									<input type="checkbox" onChange={TinTucHomeAction.updateHienThi}/>
 									Hiển thị ở trang chủ?
 								</label>
 							</div>
@@ -190,7 +189,71 @@ class TinTucHome extends React.Component {
 
     		</div>
 
+				<Modal show={this.state.modalIsOpen} bsSize="large" onHide ={TinTucHomeAction.closeModal}>
+						<Modal.Header>
+							<Modal.Title>
+								Sửa
+							</Modal.Title>
+						</Modal.Header>
+						<Modal.Body>
+						<form className="form-horizontal" encType="multipart/form-data" onSubmit={this.handleSubmitTinTucHome.bind(this)}>
+								<div className="form-body">
+									<div className="form-group">
+										<label className="control-label col-sm-2" htmlFor="name-item">Tiêu đề:</label>
+										<div className="col-sm-10">
+												<input type="text" className="form-control" id="name-item" placeholder="Nhập tên trang"
+													ref="TitlePageField" value={this.state.titleTinTucHome} onChange={TinTucHomeAction.updateTitleTinTucHome}/>
+												<span className='help-block'>{this.state.helpBlockTitle}</span>
+										</div>
+									</div>
 
+								<div className='form-group '>
+														<label className='col-sm-2 control-label'>Nội dung:</label>
+															<div  className ='col-sm-10'>
+																<textarea ref='ContentTinTucField' cols="50" rows="10">{this.state.contentLeft}</textarea>
+																<span className='help-block'>{this.state.helpBlockContent}</span>
+														</div>
+													</div>
+
+													<div className="form-group">
+																	<label className="control-label col-sm-2" htmlFor="link-to-page">Link tin tức:</label>
+																	<div className="col-sm-10">
+																			<input type="text" className="form-control" id="link-to-page" placeholder="VD: /gioi-thieu"
+																				ref="LinkTinTucField" value={this.state.linkChitiet} onChange={TinTucHomeAction.updateLinkChitiet}/>
+
+																			<div className="live-search" style={{'display':this.state.displayListTinTuc}}>
+																					{listTinTucSearch}
+																			</div>
+
+																			<span className='help-block text-danger'>{this.state.helpBlockLinkTinTuc}</span>
+																	</div>
+															</div>
+
+															<div className="form-group">
+
+										<div className="col-sm-10 col-sm-offset-2">
+												<label>
+												<input type="checkbox" value={this.state.hienthi} checked={this.state.checkHienThi} onChange={TinTucHomeAction.updateHienThi}/>
+												Hiển thị ở trang chủ?
+											</label>
+										</div>
+									</div>
+
+
+							</div>
+									<div className="form-group">
+										<div className="col-sm-offset-2">
+												<button type="submit" className="btn btn-success" disabled={this.state.disableButtonAddPage}>{this.state.textButton}</button><span className='help-block'> {this.state.helpBlockAddTinTuc}</span>
+										</div>
+									</div>
+						</form>
+						</Modal.Body>
+						<Modal.Footer>
+								<button
+										className="btn btn-warning"
+									onClick={TinTucHomeAction.closeModal}><i className="fa fa-times"> Hủy bỏ</i> </button>
+						</Modal.Footer>
+				</Modal>
             {/* modal xoa item */}
               <Modal show={this.state.modalIsOpenDeleteTinTuc} onHide ={TinTucHomeAction.closeModalDeleteTinTuc}>
                   <Modal.Header>

@@ -122,6 +122,7 @@ class AddPage extends React.Component {
 
 
   	render() {
+			console.log(this.state);
   		let styleContentRight = {'display' : this.state.styleContentRight};
   		let numberOfImageItem = this.state.numberOfImageItem;
   		let numberOfVideoItem = this.state.numberOfVideoItem;
@@ -233,6 +234,83 @@ class AddPage extends React.Component {
     		</div>
 
     		{/* modal xoa item*/}
+				<Modal show={this.state.modalIsOpen} bsSize="large" onHide ={AddPageAction.closeModal}>
+						<Modal.Header>
+							<Modal.Title>
+								Sửa
+							</Modal.Title>
+						</Modal.Header>
+						<Modal.Body>
+						<form className="form-horizontal" encType="multipart/form-data" onSubmit={this.handleSubmitPage.bind(this)}>
+								<div className="form-body">
+									<div className="form-group">
+										<label className="control-label col-sm-2" htmlFor="name-item">Tên trang:</label>
+										<div className="col-sm-10">
+												<input type="text" className="form-control" id="name-item" placeholder="Nhập tên trang"
+													ref="TitlePageField" value={this.state.titlePage} onChange={AddPageAction.updateTitlePage}/>
+												<span className='help-block'>{this.state.helpBlockTitle}</span>
+										</div>
+									</div>
+
+								<div className="form-group">
+										<label className="control-label col-sm-2" htmlFor="">Dạng giao diện:</label>
+										<div className="col-sm-10">
+											<label className="radio-inline"><input type="radio" name="dang-layout" value="1" onClick={AddPageAction.hideContentRight} checked={this.state.checkedLayoutOne} />Giao diện 1 cột</label>
+											<label className="radio-inline"><input type="radio" name="dang-layout" value="2" onClick={AddPageAction.showContentRight} checked={this.state.checkedLayoutTwo} />Giao diện 2 cột</label>
+										</div>
+								</div>
+
+								<div className='form-group '>
+														<label className='col-sm-2 control-label'>Nội dung:</label>
+															<div  className ='col-sm-10'>
+																<textarea ref ='ContentPageField' cols="50" rows="10">{this.state.contentLeft}</textarea>
+																<span className='help-block'>{this.state.helpBlockContent}</span>
+														</div>
+													</div>
+
+													<div className="panel panel-default" style={{'display':this.state.styleContentRight}}>
+										<div className="panel-heading">Nội dung cột bên phải</div>
+
+
+
+										<div className="panel-body">
+											<label>
+												<input type="checkbox" value={this.state.cotphaiHome} checked={this.state.checkCotPhaiHome} onChange={AddPageAction.cotphaiHome}/>
+												Dùng nội dung cột bên phải trang Home cho trang này?
+											</label>
+											<div style={{'display': this.state.styleCustomContentRight}}>
+												<div className=" col-sm-10 col-sm-offset-2 form-group">
+													<button type="button" className="btn btn-default" onClick={AddPageAction.addImg}>Thêm hình ảnh</button>
+													<button type="button" className="btn btn-primary" onClick={AddPageAction.addVideo}>Thêm video</button>
+												</div>
+												<div><span className='help-block'>{this.state.helpBlockContentRight}</span></div>
+												<div><span className='help-block'>{this.state.helpBlockImage}</span></div>
+												<div className="col-sm-12 image-wrap form-horizontal">
+													<input type="hidden" value="image"/>
+													{listImageItem}
+												</div>
+												<div><span className='help-block'>{this.state.helpBlockVideo}</span></div>
+												<div className="col-sm-12 video-wrap form-horizontal">
+													<input type="hidden" value="video"/>
+													{listVideoItem}
+												</div>
+											</div>
+										</div>
+								</div>
+							</div>
+									<div className="form-group">
+										<div className="col-sm-offset-2">
+												<button type="submit" className="btn btn-success">{this.state.textButton}</button><span className='help-block'> {this.state.helpBlockAddPage}</span>
+										</div>
+									</div>
+						</form>
+						</Modal.Body>
+						<Modal.Footer>
+								<button
+										className="btn btn-warning"
+									onClick={AddPageAction.closeModal}><i className="fa fa-times"> Hủy bỏ</i> </button>
+						</Modal.Footer>
+				</Modal>
         	<Modal show={this.state.modalIsOpenDelete} onHide ={AddPageAction.closeModalDelete}>
               	<Modal.Header>
 	                <Modal.Title>
