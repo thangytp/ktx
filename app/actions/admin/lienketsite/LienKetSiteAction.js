@@ -19,7 +19,7 @@ class LienKetSiteAction {
     		'invalidName',
     		'invalidLink',
     		'invalidLogo',
-
+        'closeModal',
     		'openMoDDelete',
     		'closeModalDelete',
 
@@ -44,7 +44,7 @@ class LienKetSiteAction {
   		this.actions.getListSiteFail(jqXhr.responseJSON);
   		console.log("error");
   	});
-  	
+
   }
 
   addSite(payload){

@@ -36,6 +36,7 @@ class AddPageAction {
         'invalidContentRight',
         'invalidImgLink',
         'invalidVideoLink',
+        'closeModal',
 
         'getListPageSuccess',
         'getListPageFail',
@@ -47,7 +48,7 @@ class AddPageAction {
         'closeModalDeletePage',
         'deletePageSucess',
         'deletePageFail'
-    
+
     );
   }
 
@@ -78,7 +79,7 @@ class AddPageAction {
       $.ajax({
         url: '/api/addpage',
         type: 'POST',
-        data: {title: payload.title, layoutType: payload.layoutType, content: payload.contentLeft, 
+        data: {title: payload.title, layoutType: payload.layoutType, content: payload.contentLeft,
           cotphaiHome: payload.cotphaiHome, imgRight: payload.imgRight, videoRight: payload.videoRight,
           numberOfImageItem: payload.numberOfImageItem, numberOfVideoItem: payload.numberOfVideoItem},
       })
@@ -90,7 +91,7 @@ class AddPageAction {
         this.actions.addPageFail(jqXhr.responseJSON.message);
         console.log("error");
       });
-      
+
   }
 
   // update page
@@ -98,8 +99,8 @@ class AddPageAction {
       $.ajax({
         url: '/api/updatepage',
         type: 'PUT',
-        data: {id: payload.id, title: payload.title, layoutType: payload.layoutType, content: payload.contentLeft, 
-          cotphaiHome: payload.cotphaiHome, imgRight: payload.imgRight, videoRight: payload.videoRight, 
+        data: {id: payload.id, title: payload.title, layoutType: payload.layoutType, content: payload.contentLeft,
+          cotphaiHome: payload.cotphaiHome, imgRight: payload.imgRight, videoRight: payload.videoRight,
           numberOfImageItem: payload.numberOfImageItem, numberOfVideoItem: payload.numberOfVideoItem},
       })
       .done((data) =>{
@@ -110,13 +111,13 @@ class AddPageAction {
         this.actions.updatePageFail(jqXhr.responseJSON.message);
         console.log("error");
       });
-      
+
   }
 
   //get list page
   getListPage(){
     $.ajax({
-      type: 'GET', 
+      type: 'GET',
       url: '/api/getListPage'})
       .done((data) => {
         this.actions.getListPageSuccess(data);

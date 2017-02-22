@@ -24,7 +24,7 @@ class ListQuanLyTinTuc extends React.Component {
 	}
 
 	onChange(state) {
-		this.setState(state);  
+		this.setState(state);
 	}
 	editTinTuc(id){
 		QuanLyTinTucAction.getTinTuc(id);
@@ -62,7 +62,7 @@ class ListQuanLyTinTuc extends React.Component {
 		);
 	}
 
-	render() {  
+	render() {
 
 		let listTinTuc = this.state.listTinTuc.map((tintuc, index) => {
 
@@ -92,21 +92,21 @@ class ListQuanLyTinTuc extends React.Component {
                     <tr>
                       <th className="text-center" width='1%'>STT</th>
                       <th>Tên</th>
-                      <th>Hành động</th>  
+                      <th>Hành động</th>
                     </tr>
                   </thead>
-                  <tbody>                       
+                  <tbody>
                     {listTinTuc}
                   </tbody>
-                       
-                </table>*/}       
+
+                </table>*/}
                 <BootstrapTable data={this.state.listTinTuc} striped={true} hover={true} options={ options } search pagination exportCSV>
 		            <TableHeaderColumn dataField="title" isKey={true} dataAlign="left" dataSort={true}>Tên</TableHeaderColumn>
-		            
+
 		            <TableHeaderColumn dataField="_id" dataFormat={this.buttonFormatter.bind(this, '_id')} width="60">Sửa</TableHeaderColumn>
 		            <TableHeaderColumn dataField="_id" dataFormat={this.buttonFormatterDel.bind(this, '_id')} width="60">Xóa</TableHeaderColumn>
 
-		        </BootstrapTable>  
+		        </BootstrapTable>
 			</div>
 		);
 	}

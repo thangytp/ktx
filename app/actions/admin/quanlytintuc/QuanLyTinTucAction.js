@@ -3,17 +3,17 @@ import alt from '../../../alt';
 class QuanLyTinTucAction {
   constructor() {
     this.generateActions(
-       	
+
 
         'updateTitleTinTuc',
         'updateDescription',
         'updateHienThi',
-        
+
         'addTinTucSuccess',
         'addTinTucFail',
         'updateTinTucSuccess',
         'updateTinTucFail',
-
+        'closeModal',
         'invalidTitle',
         'invalidContent',
         'invalidDes',
@@ -43,7 +43,7 @@ class QuanLyTinTucAction {
 
         'getTinTucByTitleSuccess',
         'getTinTucByTitleFail'
-    
+
     );
   }
 
@@ -75,7 +75,7 @@ class QuanLyTinTucAction {
       $.ajax({
         url: '/api/addtintuc',
         type: 'POST',
-        data: {access_token: payload.access_token, title: payload.title, content: payload.contentLeft, description: payload.description, img: payload.img, 
+        data: {access_token: payload.access_token, title: payload.title, content: payload.contentLeft, description: payload.description, img: payload.img,
             dateCreate: payload.dateCreate, slug: payload.slug, hienthi: payload.hienthi },
       })
       .done((data) =>{
@@ -86,7 +86,7 @@ class QuanLyTinTucAction {
         this.actions.addTinTucFail(jqXhr.responseJSON.message);
         console.log("error");
       });
-      
+
   }
 
   // update page
@@ -94,7 +94,7 @@ class QuanLyTinTucAction {
       $.ajax({
         url: '/api/updatetintuc',
         type: 'PUT',
-        data: {access_token: payload.access_token, id: payload.id, title: payload.title, content: payload.contentLeft, description: payload.description, img: payload.img, 
+        data: {access_token: payload.access_token, id: payload.id, title: payload.title, content: payload.contentLeft, description: payload.description, img: payload.img,
             dateModify: payload.dateModify, slug: payload.slug, hienthi: payload.hienthi },
       })
       .done((data) =>{
@@ -105,13 +105,13 @@ class QuanLyTinTucAction {
         this.actions.updateTinTucFail(jqXhr.responseJSON.message);
         console.log("error");
       });
-      
+
   }
 
   //get list page
   getListTinTuc(){
     $.ajax({
-      type: 'GET', 
+      type: 'GET',
       url: '/api/getListTinTuc'})
       .done((data) => {
         this.actions.getListTinTucSuccess(data);
@@ -155,7 +155,7 @@ class QuanLyTinTucAction {
   //get list page
   getListTinTucBottom(){
     $.ajax({
-      type: 'GET', 
+      type: 'GET',
       url: '/api/getListTinTucBottom'})
       .done((data) => {
         this.actions.getListTinTucBottomSuccess(data);

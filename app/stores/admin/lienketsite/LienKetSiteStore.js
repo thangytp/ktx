@@ -13,7 +13,7 @@ class LienKetSiteStore {
     	this.helpBlockName = '';
     	this.helpBlockLink = '';
     	this.helpBlockLogo = '';
-
+      this.modalIsOpen = false;
     	this.listSite = [];
 
     	this.idToDelete = '';
@@ -26,6 +26,10 @@ class LienKetSiteStore {
 	onGetListPageFail(data){
 		console.log(data);
 	}
+
+  onCloseModal(){
+    this.modalIsOpen = false;
+  }
 
 	onAddSiteSuccess(data){
 		this.id= '';
@@ -92,6 +96,7 @@ class LienKetSiteStore {
 	}
 
 	onGetSiteSuccess(data){
+    this.modalIsOpen = true;
 		this.id= data._id;
     	this.name = data.name;
     	this.link = data.link;
