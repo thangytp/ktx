@@ -353,7 +353,10 @@ module.exports = function(app, importStudent) {
     .findOne({ma: req.params.tenphong})
     .exec(function(err, phong){
       if(err) throw err;
-      Student.find({_phongchitiet_id: phong._id}, function(err, students){
+      Student
+      .find({_phongchitiet_id: phong._id})
+      .populate('_khoa_id')
+      .exec(function(err, students){
         if(err) throw err;
         res.json(students);
       });
