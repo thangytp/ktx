@@ -1326,6 +1326,7 @@ module.exports = function(app, importStudent) {
           Hoadon.find({_ma_phong: req.params.phong, nam: req.params.nam}, function(err, phong){
             if(err) throw err;
             res.json(phong);
+            console.log(phong);
           });
         })
 
