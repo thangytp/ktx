@@ -26,20 +26,7 @@ class Footer extends React.Component {
       <footer id="footer" className="mt-10">
         <div className="cs-copyright">
             <div className="container">
-                <div className="row">
-
-                    <div className="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-                      <div className="col-footer " id="">
-                          <h4 className="footer-title">Ký túc xá Bách Khoa</h4>
-                          <p className="text-intro">Trường Đại học Bách khoa đã vay được 60 tỷ đồng vốn kích cầu của Tp HCM để xây dựng KTX hiện đại ở Quận 10,
-                           có sức chứa hơn 2.500 Sinh viên, với trang thiết bị hoàn chỉnh, quản lý theo phương thức hiện đại và có thể
-                           so sánh với các KTX của các trường đại học quốc tế.</p>
-                          <p>(trích báo cáo hội nghị thường niên năm 2010 của Đại học Quốc gia Tp.HCM)</p>
-
-                      </div>
-                    </div>
-
-
+                <div className="row">                  
                     <div className="col-lg-4 col-md-4 col-sm-12 col-xs-12">
                         <div className="col-footer " id="footer-tien-ich">
                             <h4 className="footer-title">Tiện ích sinh viên</h4>
@@ -67,6 +54,13 @@ class Footer extends React.Component {
                             </ul>
 
                         </div>
+                    </div>
+                    <div className="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                      <div className="col-footer " id="">
+                        <section id="gg-maps" className="mT20 hidden-xs">
+                          <a href="https://www.google.com/maps?ll=10.760102,106.662106&z=16&t=m&hl=en-US&gl=US&mapclient=embed&cid=17023388983196915844" target="_blank"><img src="/img/bachkhoa-map.png"></img></a>
+                        </section>
+                      </div>
                     </div>
                 </div>
             </div>

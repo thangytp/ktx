@@ -82,7 +82,7 @@ class TinTucHomeStore {
       this.titleTinTucHome = '';
       this.contentLeft = '';
       this.linkChitiet = '';
-      CKEDITOR.instances.ckedit.setData('');
+      CKEDITOR.instances.editor_1.setData('');
 
       this.helpBlockTitle = '';
       this.helpBlockContent = '';
@@ -124,8 +124,7 @@ class TinTucHomeStore {
       this.checkHienThi = 'checked';
     }
     else this.checkHienThi = '';
-    console.log(data);
-    CKEDITOR.instances.ckedit.setData(data.content);
+    // console.log(data);  
 
     this.helpBlockTitle = '';
     this.helpBlockContent = '';
@@ -168,7 +167,7 @@ class TinTucHomeStore {
     this.titleTinTucHome = '';
     this.contentLeft = '';
     this.linkChitiet = '';
-    CKEDITOR.instances.ckedit.setData('');
+    CKEDITOR.instances.editor_1.setData('');
 
     this.helpBlockTitle = '';
     this.helpBlockContent = '';

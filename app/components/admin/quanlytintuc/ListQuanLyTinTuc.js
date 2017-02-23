@@ -101,7 +101,7 @@ class ListQuanLyTinTuc extends React.Component {
 
                 </table>*/}
                 <BootstrapTable data={this.state.listTinTuc} striped={true} hover={true} options={ options } search pagination exportCSV>
-		            <TableHeaderColumn dataField="title" isKey={true} dataAlign="left" dataSort={true}>Tên</TableHeaderColumn>
+		            <TableHeaderColumn dataField="title" isKey={true} dataSort={true}>Tên</TableHeaderColumn>
 
 		            <TableHeaderColumn dataField="_id" dataFormat={this.buttonFormatter.bind(this, '_id')} width="60">Sửa</TableHeaderColumn>
 		            <TableHeaderColumn dataField="_id" dataFormat={this.buttonFormatterDel.bind(this, '_id')} width="60">Xóa</TableHeaderColumn>

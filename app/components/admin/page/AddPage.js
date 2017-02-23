@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDom from 'react-dom';
 import {Link} from 'react-router';
 import {Modal, Tabs, Tab} from 'react-bootstrap';
-
+import CKEditor from '../../../shared/Ckeditor';
 import AddPageAction from '../../../actions/admin/page/AddPageAction';
 import AddPageStore from '../../../stores/admin/page/AddPageStore';
 import AddImgItem from '../../../shared/AddImgItem';
@@ -20,11 +20,6 @@ class AddPage extends React.Component {
 	}
 	componentDidMount() {
 		AddPageStore.listen(this.onChange);
-		CKEDITOR.replace( 'ckedit', {
-		allowedContent : true,
-		pasteFromWordRemoveFontStyles : false,
-		pasteFromWordRemoveStyles : false
-		});
 		// console.log(this.state);
 	}
 
@@ -178,7 +173,7 @@ class AddPage extends React.Component {
 											<div className='form-group '>
 																	<label className='col-sm-2 control-label'>Nội dung:</label>
 																		<div  className ='col-sm-10'>
-																			<textarea id ='ckedit' value ="" ref ='ContentPageField' value={this.state.contentPage} ></textarea>
+																			<CKEditor id={1} value='' ref='ContentTinTucField'/>																			
 																			<span className='help-block'>{this.state.helpBlockContent}</span>
 																	</div>
 																</div>
@@ -263,7 +258,7 @@ class AddPage extends React.Component {
 								<div className='form-group '>
 														<label className='col-sm-2 control-label'>Nội dung:</label>
 															<div  className ='col-sm-10'>
-																<textarea ref ='ContentPageField' cols="50" rows="10">{this.state.contentLeft}</textarea>
+																<CKEditor id={2} ref="ContentTinTucField" value={this.state.contentLeft}/>
 																<span className='help-block'>{this.state.helpBlockContent}</span>
 														</div>
 													</div>

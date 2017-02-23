@@ -81,9 +81,19 @@ class ManageUserAction {
 
         'addLuutruSuccess',
         'updateLuutruSuccess',
-        'getLuutruSuccess'
+        'getLuutruSuccess',
+        'proChangeTabXetDuyet',
+        'proChangeTabGiaHan'
 
     );
+  }
+
+  changeTabXetDuyet(num) {
+    this.actions.proChangeTabXetDuyet(num);
+  }
+
+  changeTabGiaHan(num) {
+    this.actions.proChangeTabGiaHan(num);
   }
 
   openMoDDeleteStudent(id){

@@ -30,15 +30,27 @@ class ManageUserStore {
     this.usersgh = [];
     this.activeHocvu = false;
     this.activeDiemrenluyen = false;
-    this.activeDiemrenluyenKtx = false;
     this.activeDiemxetduyet = false;
+    this.deactiveStep1 = false;
     this.deactiveStep2 = true;
-    this.deactiveStep3 = true;
+    this.deactiveBtnStep2 = true;
+    this.deactiveBtnStep3 = true;
     this.user = {};
     this.luutru = {};
     this.inputdrl = null;
     this.inputdrlktx = null;
     this.inputdvs = null;
+
+    this.activeHocvuGh = false;
+    this.activeDiemrenluyenGh = false;
+    this.activeDiemrenluyenKtx = false;
+    this.activeDiemxetduyetGh = false;
+    this.deactiveStep1Gh = false;
+    this.deactiveStep2Gh = true;
+    this.deactiveStep3 = true;
+    this.deactiveBtnStep3Gh = true;
+    this.deactiveBtnStep2Gh = true;
+    this.deactiveBtnStep4 = true;
 
     this.editModalShow = false;
     this.idEdit = '';
@@ -97,7 +109,17 @@ class ManageUserStore {
     this.validateHocLuc = '';
     this.validateHoanCanh = '';
     this.validateLoaiPhong = '';
+    this.defaultActiveTab = 1;
+    this.defaultActiveTabGh = 1;
+  }
 
+  onProChangeTabXetDuyet(num) {
+    this.defaultActiveTab = num + 1;
+  }
+
+  onProChangeTabGiaHan(num) {
+    this.defaultActiveTabGh = num + 1;
+    console.log(this.defaultActiveTabGh);
   }
 
   onAddUserSuccess() {
@@ -307,7 +329,8 @@ class ManageUserStore {
     // localStorage.setItem('deactiveStep2', false);
     // localStorage.setItem('activeHocvu', true);
     this.activeHocvu = true;
-    this.deactiveStep2 = false;
+    this.deactiveBtnStep2 = false;
+    this.deactiveStep1 = true;
   }
 
   onUpdateHocVuGiaHanSuccess(data) {
@@ -315,8 +338,9 @@ class ManageUserStore {
     ManageUserAction.getUsersByHocVuGiaHan();
     // localStorage.setItem('deactiveStep2', false);
     // localStorage.setItem('activeHocvu', true);
-    this.activeHocvu = true;
-    this.deactiveStep2 = false;
+    this.activeHocvuGh = true;
+    this.deactiveBtnStep2Gh = false;
+    this.deactiveStep1Gh = true;
   }
 
   onUpdateDiemRenLuyenXetDuyetSuccess(data) {
@@ -324,15 +348,17 @@ class ManageUserStore {
     ManageUserAction.getUsersByDiemRenLuyenXetDuyet(data.drl);
     this.inputdrl = data.drl;
     this.activeDiemrenluyen = true;
-    this.deactiveStep3 = false;
+    this.deactiveBtnStep3 = false;
+    this.deactiveStep2 = true;
   }
 
   onUpdateDiemRenLuyenGiaHanSuccess(data) {
     this.usersedrlgh = data.eusers;
     ManageUserAction.getUsersByDiemRenLuyenGiaHan(data.drl);
     this.inputdrl = data.drl;
-    this.activeDiemrenluyen = true;
-    this.deactiveStep3 = false;
+    this.activeDiemrenluyenGh = true;
+    this.deactiveBtnStep3Gh = false;
+    this.deactiveStep2Gh = true;
   }
 
   onUpdateDiemRenLuyenKtxSuccess(data) {
@@ -341,7 +367,7 @@ class ManageUserStore {
     this.inputdrlktx = data.drlktx;
     this.inputdvs = data.dvs;
     this.activeDiemrenluyenKtx = true;
-    this.deactiveStep3 = false;
+    this.deactiveBtnStep4 = false;
   }
 
   onUpdateXetDuyetXetDuyetSuccess(payload) {

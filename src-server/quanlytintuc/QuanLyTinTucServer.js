@@ -19,6 +19,22 @@ function QuanLyTinTucServer(app){
 
 	});
 
+	app.get('/api/getListTinTucLimit/:from/:limit', function(req, res, next){
+		try{
+			tintuc.find()
+			.sort({_id:-1})
+			.limit(parseInt(req.params.limit))
+			.skip(parseInt(req.params.from))
+			.exec(function(err, listTinTuc){
+				if(err) return next(err);
+				res.send(listTinTuc);
+			})
+		} catch(e){
+		    res.status(e).send({ message: 'Error when get list tin'});
+		}
+
+	});
+
 	// get page by id
 	app.get('/api/gettintuc/:id', function(req, res, next){
 		var id = req.params.id;

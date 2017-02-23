@@ -181,7 +181,7 @@ class AddPageStore {
       this.idPage = '';
       this.titlePage = '';
       this.contentLeft = '';
-      CKEDITOR.instances.ckedit.setData('');
+      CKEDITOR.instances.editor_1.setData('');
 
       this.layoutType = 1;
       this.checkedLayoutOne = "checked";
@@ -229,7 +229,6 @@ class AddPageStore {
     this.idPage = data._id;
     this.titlePage = data.title;
     this.contentLeft = data.content;
-    CKEDITOR.instances.ckedit.setData(data.content);
 
     this.layoutType = data.layoutType;
     if(this.layoutType==1){
@@ -303,7 +302,7 @@ class AddPageStore {
     this.idPage = '';
     this.titlePage = '';
     this.contentLeft = '';
-    CKEDITOR.instances.ckedit.setData('');
+    CKEDITOR.instances.editor_1.setData('');
 
     this.layoutType = 1;
     this.checkedLayoutOne = "checked";

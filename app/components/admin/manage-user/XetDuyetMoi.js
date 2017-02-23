@@ -70,9 +70,8 @@ class XetDuyetMoi extends Component {
   constructor(props)
 	{
 		super(props);
-		this.state = {state1 : ManageUserStore.getState(), state2 : ManageChiTieuStore.getState()};
+		this.state = {state1 : ManageUserStore.getState(), state2 : ManageChiTieuStore.getState(), tabState : 1};
 		this.onChange = this.onChange.bind(this);
-    this.state.state1.tabActive = 1;
   }
 
   componentDidMount() {
@@ -97,6 +96,10 @@ class XetDuyetMoi extends Component {
         drl : this.state.state1.inputdrl
     };
     ManageUserAction.updateXetDuyetXetDuyet(data);
+  }
+ 
+  handleChangeTab(num) {
+    ManageUserAction.changeTabXetDuyet(num);
   }
 
   onChange(state) {
@@ -201,7 +204,6 @@ class XetDuyetMoi extends Component {
     });
 
     let contentTab3;
-    console.log(this.state.state2.chitieu[0]);
     if(this.state.state2.chitieu[0] === undefined) {
         contentTab3 = null
     } else {
@@ -367,8 +369,43 @@ class XetDuyetMoi extends Component {
       );
     } else {
       contentHocvu = (
-        <Tabs defaultActiveKey={1} id="xulyhocvu">
-          <Tab eventKey={1} title="Danh sách sinh viên">
+        <div>
+          <Tabs defaultActiveKey={1} id="xulyhocvu">
+            <Tab eventKey={1} title="Danh sách sinh viên">
+              <div className="table">
+                <table className="table">
+                  <thead>
+                   <tr>
+                     <th>#</th>
+                     <th>Họ Tên</th>
+                     <th>Email</th>
+                     <th>MSSV</th>
+                     <th>CMND</th>
+                     <th>SDT</th>
+                     </tr>
+                   </thead>
+                   <tbody>
+                    {listUsers}
+                   </tbody>
+                </table>
+              </div>
+            </Tab>
+            <Tab eventKey={2} title="Danh sách sinh viên tạm dừng học vụ">
+            <div className="table">
+              <table className="table">
+                <thead>
+                 <tr>
+                   <th>#</th>
+                   <th>MSSV</th>
+                   </tr>
+                 </thead>
+                 <tbody>
+                  {listUsersEHocvu}
+                 </tbody>
+              </table>
+            </div>
+            </Tab>
+            <Tab eventKey={3} title="Danh sách sinh viên đạt tiêu chuẩn">
             <div className="table">
               <table className="table">
                 <thead>
@@ -382,65 +419,33 @@ class XetDuyetMoi extends Component {
                    </tr>
                  </thead>
                  <tbody>
-                  {listUsers}
+                  {listUsersHocvu}
                  </tbody>
               </table>
             </div>
-          </Tab>
-          <Tab eventKey={2} title="Danh sách sinh viên tạm dừng học vụ">
-          <div className="table">
-            <table className="table">
-              <thead>
-               <tr>
-                 <th>#</th>
-                 <th>MSSV</th>
-                 </tr>
-               </thead>
-               <tbody>
-                {listUsersEHocvu}
-               </tbody>
-            </table>
-          </div>
-          </Tab>
-          <Tab eventKey={3} title="Danh sách sinh viên đạt tiêu chuẩn">
-          <div className="table">
-            <table className="table">
-              <thead>
-               <tr>
-                 <th>#</th>
-                 <th>Họ Tên</th>
-                 <th>Email</th>
-                 <th>MSSV</th>
-                 <th>CMND</th>
-                 <th>SDT</th>
-                 </tr>
-               </thead>
-               <tbody>
-                {listUsersHocvu}
-               </tbody>
-            </table>
-          </div>
-          </Tab>
-          <Tab eventKey={4} title="Danh sách sinh viên bị loại">
-          <div className="table">
-            <table className="table">
-              <thead>
-               <tr>
-                 <th>#</th>
-                 <th>Họ Tên</th>
-                 <th>Email</th>
-                 <th>MSSV</th>
-                 <th>CMND</th>
-                 <th>SDT</th>
-                 </tr>
-               </thead>
-               <tbody>
-                {listUsersHvLoai}
-               </tbody>
-            </table>
-          </div>
-          </Tab>
-        </Tabs>
+            </Tab>
+            <Tab eventKey={4} title="Danh sách sinh viên bị loại">
+            <div className="table">
+              <table className="table">
+                <thead>
+                 <tr>
+                   <th>#</th>
+                   <th>Họ Tên</th>
+                   <th>Email</th>
+                   <th>MSSV</th>
+                   <th>CMND</th>
+                   <th>SDT</th>
+                   </tr>
+                 </thead>
+                 <tbody>
+                  {listUsersHvLoai}
+                 </tbody>
+              </table>
+            </div>
+            </Tab>
+          </Tabs>
+          <button className="btn btn-large btn-primary" disabled={this.state.state1.deactiveBtnStep2} onClick={this.handleChangeTab.bind(this, 1)}>Next</button>
+        </div>
       )
     }
 
@@ -454,7 +459,8 @@ class XetDuyetMoi extends Component {
       );
     } else {
       contentDiemrenluyen = (
-        <Tabs defaultActiveKey={1} id="xulydiemrenluyen">
+        <div>
+                  <Tabs defaultActiveKey={1} id="xulydiemrenluyen">
           <Tab eventKey={1} title="Danh sách sinh viên">
             <div className="table">
               <table className="table">
@@ -529,6 +535,8 @@ class XetDuyetMoi extends Component {
           </div>
           </Tab>
         </Tabs>
+        <button className="btn btn-large btn-primary" disabled={this.state.state1.deactiveBtnStep3} onClick={this.handleChangeTab.bind(this, 2)}>Next</button>
+        </div>
       )
     }
 
@@ -558,19 +566,6 @@ class XetDuyetMoi extends Component {
     }
 
     return (
-      // <Tabs defaultActiveKey={this.state.state1.tabActive} id="luutrumoi">
-      //   <Tab eventKey={1} title="Bước 1">
-      //     {contentHocvu}
-      //   </Tab>
-      //   <Tab eventKey={2} disabled={this.state.state1.deactiveStep2} title="Bước 2">
-      //     {contentDiemrenluyen}
-      //   </Tab>
-      //   <Tab eventKey={3} disabled={this.state.state1.deactiveStep3} title="Buoc 3">
-      //   <h1>Tiến Hành Xét Duyệt</h1>
-      //     {contentTab3}
-      //     {contentDiemxetduyet}
-      //   </Tab>
-      // </Tabs>
       <div className="body-content animated fadeIn">
           <div className="row">
             <div className="col-md-12">
@@ -579,8 +574,8 @@ class XetDuyetMoi extends Component {
                 <li>Xét duyệt lưu trú mới</li>
               </ol>
 
-              <Tabs defaultActiveKey={1} id="luutrumoi">
-                <Tab eventKey={1} title="Bước 1">
+              <Tabs activeKey={this.state.state1.defaultActiveTab} id="luutrumoi">
+                <Tab eventKey={1} disabled={this.state.state1.deactiveStep1} title="Bước 1">
                   {contentHocvu}
                 </Tab>
                 <Tab eventKey={2} disabled={this.state.state1.deactiveStep2} title="Bước 2">
@@ -591,7 +586,6 @@ class XetDuyetMoi extends Component {
                   {contentDiemxetduyet}
                 </Tab>
               </Tabs>
-
             </div>
           </div>
       </div>

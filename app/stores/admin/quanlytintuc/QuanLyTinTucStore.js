@@ -103,7 +103,7 @@ class QuanLyTinTucStore {
       this.idTinTuc = '';
       this.titleTinTuc = '';
       this.contentLeft = '';
-      CKEDITOR.instances.ckedit.setData('');
+      CKEDITOR.instances.editor_1.setData('');
       this.description = '';
       this.hienthi = 1;
       this.checkHienThi = 'checked';
@@ -144,7 +144,6 @@ class QuanLyTinTucStore {
     this.idTinTuc = data._id;
     this.titleTinTuc = data.title;
     this.contentLeft = data.content;
-    CKEDITOR.instances.ckedit.setData(data.content);
 
     this.description = data.description;
     this.hienthi = data.hienthi ? data.hienthi : 0;
@@ -198,7 +197,7 @@ class QuanLyTinTucStore {
     this.idTinTuc = '';
     this.titleTinTuc = '';
     this.contentLeft = '';
-    CKEDITOR.instances.ckedit.setData('');
+    CKEDITOR.instances.editor_1.setData('');
 
     this.description = '';
     this.hienthi = 1;

@@ -5,6 +5,7 @@ import {Modal, Tabs, Tab} from 'react-bootstrap';
 
 import QuanLyTinTucAction from '../../../actions/admin/quanlytintuc/QuanLyTinTucAction';
 import QuanLyTinTucStore from '../../../stores/admin/quanlytintuc/QuanLyTinTucStore';
+import CKEditor from '../../../shared/Ckeditor';
 
 import LogInAdminStore from '../../../stores/admin/login/LogInAdminStore';
 
@@ -175,7 +176,7 @@ class QuanLyTinTuc extends React.Component {
 											<div className='form-group '>
 																	<label className='col-sm-2 control-label'>Nội dung:</label>
 																		<div  className ='col-sm-10'>
-																			<textarea id ='ckedit' value ="" ref ='ContentTinTucField' value={this.state.state1.contentPage} ></textarea>
+																			<CKEditor id={1} value='' ref='ContentTinTucField'/>
 																			<span className='help-block'>{this.state.state1.helpBlockContent}</span>
 																	</div>
 																</div>
@@ -258,7 +259,7 @@ class QuanLyTinTuc extends React.Component {
 								<div className='form-group '>
 														<label className='col-sm-2 control-label'>Nội dung:</label>
 															<div  className ='col-sm-10'>
-																<textarea ref ='ContentTinTucField' cols="50" rows="10">{this.state.state1.contentLeft}</textarea>
+																<CKEditor id={2} ref="ContentTinTucField" value={this.state.state1.contentLeft}/>
 																<span className='help-block'>{this.state.state1.helpBlockContent}</span>
 														</div>
 													</div>

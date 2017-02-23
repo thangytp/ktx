@@ -73,7 +73,7 @@ class ListLienKetSite extends React.Component {
 		return(
 			<div className="col-md-12 table-responsive">
             <BootstrapTable data={this.state.listSite} striped={true} hover={true} options={ options } search pagination exportCSV>
-		            <TableHeaderColumn dataField="name" isKey={true} dataAlign="center" dataSort={true}>Tên</TableHeaderColumn>
+		            <TableHeaderColumn dataField="name" isKey={true} dataSort={true}>Tên</TableHeaderColumn>
 
 		            <TableHeaderColumn dataField="_id" dataFormat={this.buttonFormatter.bind(this, '_id')} width="60">Sửa</TableHeaderColumn>
 		            <TableHeaderColumn dataField="_id" dataFormat={this.buttonFormatterDel.bind(this, '_id')} width="60">Xóa</TableHeaderColumn>
