@@ -57,7 +57,7 @@ class ListPage extends React.Component {
 		return(
 			<div className="col-md-12 table-responsive">
             <BootstrapTable data={this.state.listPage} striped={true} hover={true} options={ options } search pagination exportCSV>
-		            <TableHeaderColumn dataField="title" isKey={true} dataAlign="center" dataSort={true}>Tên</TableHeaderColumn>
+		            <TableHeaderColumn dataField="title" isKey={true} dataSort={true}>Tên</TableHeaderColumn>
 		            <TableHeaderColumn dataField="_id" dataFormat={this.buttonFormatter.bind(this, '_id')} width="60">Sửa</TableHeaderColumn>
 		            <TableHeaderColumn dataField="_id" dataFormat={this.buttonFormatterDel.bind(this, '_id')} width="60">Xóa</TableHeaderColumn>
 		        </BootstrapTable>

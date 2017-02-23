@@ -153,9 +153,6 @@ class Home extends React.Component {
 			    	</section>
 
 			    </div>
-			    <section id="gg-maps" className="mT20 hidden-xs">
-								<a href="https://www.google.com/maps?ll=10.760102,106.662106&z=16&t=m&hl=en-US&gl=US&mapclient=embed&cid=17023388983196915844" target="_blank"><img src="/img/bachkhoa-map.png"></img></a>
-		        </section>
 		    </div>
 	    );
   	}

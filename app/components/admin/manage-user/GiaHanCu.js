@@ -153,6 +153,10 @@ class XetDuyetMoi extends Component {
     ManageUserAction.updateXetDuyetGiaHan(data);
   }
 
+  handleChangeTab(num) {
+    ManageUserAction.changeTabGiaHan(num);
+  }
+
   onChange(state) {
     this.setState({state1 : ManageUserStore.getState(), state2 : ManageChiTieuStore.getState()});
   }
@@ -448,7 +452,7 @@ class XetDuyetMoi extends Component {
       )
     }
     let contentHocvu;
-    if(this.state.state1.activeHocvu === false) {
+    if(this.state.state1.activeHocvuGh === false) {
       contentHocvu = (
         <div className="uploadLuutru">
           <h3>Vui lòng import file tạm dừng học vụ của phòng đào tạo</h3>
@@ -457,7 +461,8 @@ class XetDuyetMoi extends Component {
       );
     } else {
       contentHocvu = (
-        <Tabs defaultActiveKey={1} id="xulyhocvu">
+        <div>
+          <Tabs defaultActiveKey={1} id="xulyhocvu">
           <Tab eventKey={1} title="Danh sách sinh viên">
             <div className="table">
               <table className="table">
@@ -531,11 +536,13 @@ class XetDuyetMoi extends Component {
           </div>
           </Tab>
         </Tabs>
+          <button className="btn btn-large btn-primary" disabled={this.state.state1.deactiveBtnStep2Gh} onClick={this.handleChangeTab.bind(this, 1)}>Next</button>
+        </div>
       )
     }
 
     let contentDiemrenluyen;
-    if(this.state.state1.activeDiemrenluyen === false) {
+    if(this.state.state1.activeDiemrenluyenGh === false) {
       contentDiemrenluyen = (
         <div className="uploadLuutru">
           <h3>Vui lòng import file điểm rèn luyện của phòng đào tạo</h3>
@@ -544,7 +551,8 @@ class XetDuyetMoi extends Component {
       );
     } else {
       contentDiemrenluyen = (
-        <Tabs defaultActiveKey={1} id="xulydiemrenluyen">
+        <div>
+          <Tabs defaultActiveKey={1} id="xulydiemrenluyen">
           <Tab eventKey={1} title="Danh sách sinh viên">
             <div className="table">
               <table className="table">
@@ -618,7 +626,9 @@ class XetDuyetMoi extends Component {
             </table>
           </div>
           </Tab>
-        </Tabs>
+          </Tabs>
+          <button className="btn btn-large btn-primary" disabled={this.state.state1.deactiveBtnStep3Gh} onClick={this.handleChangeTab.bind(this, 2)}>Next</button>
+        </div>
       )
     }
 
@@ -633,8 +643,45 @@ class XetDuyetMoi extends Component {
       );
     } else {
       contentDiemrenluyenKtx = (
-        <Tabs defaultActiveKey={1} id="xulydiemrenluyenktx">
-          <Tab eventKey={1} title="Danh sách sinh viên">
+        <div>
+          <Tabs defaultActiveKey={1} id="xulydiemrenluyenktx">
+            <Tab eventKey={1} title="Danh sách sinh viên">
+              <div className="table">
+                <table className="table">
+                  <thead>
+                   <tr>
+                     <th>#</th>
+                     <th>Họ Tên</th>
+                     <th>Email</th>
+                     <th>MSSV</th>
+                     <th>CMND</th>
+                     <th>SDT</th>
+                     </tr>
+                   </thead>
+                   <tbody>
+                    {listUsersDiemrenluyen}
+                   </tbody>
+                </table>
+              </div>
+            </Tab>
+            <Tab eventKey={2} title="Danh sách sinh viên không đủ điểm rèn luyện">
+            <div className="table">
+              <table className="table">
+                <thead>
+                 <tr>
+                   <th>#</th>
+                   <th>MSSV</th>
+                   <th>Điểm rèn luyện ký túc xá</th>
+                   <th>Điểm vệ sinh ký túc xá</th>
+                   </tr>
+                 </thead>
+                 <tbody>
+                  {listUsersEDiemrenluyenKtx}
+                 </tbody>
+              </table>
+            </div>
+            </Tab>
+            <Tab eventKey={3} title="Danh sách sinh viên đạt tiêu chuẩn">
             <div className="table">
               <table className="table">
                 <thead>
@@ -648,72 +695,38 @@ class XetDuyetMoi extends Component {
                    </tr>
                  </thead>
                  <tbody>
-                  {listUsersDiemrenluyen}
+                  {listUsersDiemrenluyenKtx}
                  </tbody>
               </table>
             </div>
-          </Tab>
-          <Tab eventKey={2} title="Danh sách sinh viên không đủ điểm rèn luyện">
-          <div className="table">
-            <table className="table">
-              <thead>
-               <tr>
-                 <th>#</th>
-                 <th>MSSV</th>
-                 <th>Điểm rèn luyện ký túc xá</th>
-                 <th>Điểm vệ sinh ký túc xá</th>
-                 </tr>
-               </thead>
-               <tbody>
-                {listUsersEDiemrenluyenKtx}
-               </tbody>
-            </table>
-          </div>
-          </Tab>
-          <Tab eventKey={3} title="Danh sách sinh viên đạt tiêu chuẩn">
-          <div className="table">
-            <table className="table">
-              <thead>
-               <tr>
-                 <th>#</th>
-                 <th>Họ Tên</th>
-                 <th>Email</th>
-                 <th>MSSV</th>
-                 <th>CMND</th>
-                 <th>SDT</th>
-                 </tr>
-               </thead>
-               <tbody>
-                {listUsersDiemrenluyenKtx}
-               </tbody>
-            </table>
-          </div>
-          </Tab>
-          <Tab eventKey={4} title="Danh sách sinh viên bị loại">
-          <div className="table">
-            <table className="table">
-              <thead>
-               <tr>
-                 <th>#</th>
-                 <th>Họ Tên</th>
-                 <th>Email</th>
-                 <th>MSSV</th>
-                 <th>CMND</th>
-                 <th>SDT</th>
-                 </tr>
-               </thead>
-               <tbody>
-                {listUsersDrlKtxLoai}
-               </tbody>
-            </table>
-          </div>
-          </Tab>
-        </Tabs>
+            </Tab>
+            <Tab eventKey={4} title="Danh sách sinh viên bị loại">
+            <div className="table">
+              <table className="table">
+                <thead>
+                 <tr>
+                   <th>#</th>
+                   <th>Họ Tên</th>
+                   <th>Email</th>
+                   <th>MSSV</th>
+                   <th>CMND</th>
+                   <th>SDT</th>
+                   </tr>
+                 </thead>
+                 <tbody>
+                  {listUsersDrlKtxLoai}
+                 </tbody>
+              </table>
+            </div>
+            </Tab>
+          </Tabs>
+          <button className="btn btn-large btn-primary" disabled={this.state.state1.deactiveBtnStep4} onClick={this.handleChangeTab.bind(this, 3)}>Next</button>
+        </div>
       )
     }
 
     let contentDiemxetduyet;
-    if(this.state.state1.activeDiemxetduyet === false) {
+    if(this.state.state1.activeDiemxetduyetGh === false) {
       contentDiemxetduyet = null;
     } else {
       contentDiemxetduyet = (
@@ -759,14 +772,14 @@ class XetDuyetMoi extends Component {
                 <li>Gia hạn lưu trú cũ</li>
               </ol>
 
-              <Tabs defaultActiveKey={1} id="luutrumoi">
+              <Tabs activeKey={this.state.state1.defaultActiveTabGh} id="luutrumoi">
                 <Tab eventKey={1} title="Bước 1">
                   {contentHocvu}
                 </Tab>
-                <Tab eventKey={2} disabled={this.state.state1.deactiveStep2} title="Bước 2">
+                <Tab eventKey={2} disabled={this.state.state1.deactiveStep2Gh} title="Bước 2">
                   {contentDiemrenluyen}
                 </Tab>
-                <Tab eventKey={3} disabled={this.state.state1.deactiveStep3} title="Bước 3">
+                <Tab eventKey={3} disabled={this.state.state1.deactiveStep3Gh} title="Bước 3">
                   {contentDiemrenluyenKtx}
                 </Tab>
                 <Tab eventKey={4} title="Bước 4">
